@@ -1,0 +1,38 @@
+//  Functional requirements : 
+
+Unregistered Users :
+-   Register(Sign Up)
+-   Browse List Anime by name, tag, year, studio
+-   Access detailed page for Anime, studio
+-   Access "Most popular" page overall, and by tag.
+
+Registered Users : 
+-   Log-in and Log-out
+-   View personal page, with account information, list of liked anime, list of followed Users
+-   do same things as unregister (except new sign-up).
+-   Search other registered Users
+-   Access "Discover" page
+-   Review an anime !!!
+
+Admin : 
+-   Log-in and Log-out
+-   Command updating likes, rankings
+-   update the database (add anime/episodes...)
+-   do all unregistered-users actions
+-   ban registered user .
+
+
+
+// non-functional requirements : 
+-   implement a web application
+-   minimization of single point of failure
+-   high availability (AP), despite possible outdated data
+-   use of object oriented programming languages
+-   tolerance for data loss
+-   encryption of user password
+
+
+
+
+
+
