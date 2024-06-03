@@ -1,0 +1,14 @@
+**/*.zip
+
+
+#   example directories : 
+**/other_example/*
+
+#   unpolished_csv :
+**/000_unpolished_csv/*.csv
+**/000_unpolished_csv/*.zip
+
+#   polisher tests :
+**/000_data-polishers/tmp_dp/*
+
+
