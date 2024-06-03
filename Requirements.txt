@@ -3,14 +3,14 @@
 Unregistered Users :
 -   Register(Sign Up)
 -   Browse List Anime by name, tag, year, studio
--   Access detailed page for Anime, studio
--   Access "Most popular" page overall, and by tag.
+-   Access detailed page for Anime
+-   Access "Most popular" page overall, and by tag, by studio.
 
 Registered Users : 
 -   Log-in and Log-out
--   View personal page, with account information, list of liked anime, list of followed Users
+-   View personal page, with account information, list of watched, etc. anime, (list of followed Users)
 -   do same things as unregister (except new sign-up).
--   Search other registered Users
+-   (Search other registered Users)
 -   Access "Discover" page
 -   Review an anime !!!
 
@@ -18,7 +18,7 @@ Admin :
 -   Log-in and Log-out
 -   Command updating likes, rankings
 -   update the database (add anime/episodes...)
--   do all unregistered-users actions
+-   do all unregistered-users actions except Sign Up
 -   ban registered user .
 
 
@@ -31,8 +31,17 @@ Admin :
 -   tolerance for data loss
 -   encryption of user password
 
+Graph_database : 
+ - anime -> users (at least one episode)
+ - user -> anime (for each type), reviewed(review_vote)
+ - user <-> user : friendship lt3
 
-
+Document_database :
+- anime : [animeID, (count_reviews), avg_reviews ] 
+- anime : details [animeID, episodes, ... ]
+- user : credentials [userID, username, birthdate, mail, reg_date, gender, ]
+- user : anime [userID, animeID, status, number_watched ] 
+- user : reviews [userID, animeID, review_vote, timestamp, text ]
 
 
 
