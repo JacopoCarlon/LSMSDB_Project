@@ -1,5 +1,5 @@
 **/*.zip
-
+**/tmp/*
 
 #   example directories : 
 **/other_example/*
