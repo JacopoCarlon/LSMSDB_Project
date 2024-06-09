@@ -54,7 +54,7 @@ Document_database :
 
 - user : credentials [userID, username, birthdate, mail, reg_date, gender, ]
 
-- user : anime [userID, animeID, status, number_watched, review_vote, timestamp, text ]
+- user : revies [userID, animeID, status, number_watched, review_vote, timestamp, text ]
 
 
 
