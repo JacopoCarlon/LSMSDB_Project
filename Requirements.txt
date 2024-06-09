@@ -31,17 +31,30 @@ Admin :
 -   tolerance for data loss
 -   encryption of user password
 
+
+################################################################
+
 Graph_database : 
  - anime -> users (at least one episode)
  - user -> anime (for each type), reviewed(review_vote)
  - user <-> user : friendship lt3
 
+
+
+
+################################################################
+
 Document_database :
 - anime : [animeID, (count_reviews), avg_reviews ] 
-- anime : details [animeID, episodes, ... ]
+- anime : details [animeID, episodes, ... ]        
+    -> gli anime sono stati uniti nel file " anime_details.csv" 
+    --- trovabile in "000_data-polishers/final_csv/anime_details.csv"
+    --- mediante il notebook : "details_anime_converter.ipynb"
+
+
 - user : credentials [userID, username, birthdate, mail, reg_date, gender, ]
-- user : anime [userID, animeID, status, number_watched ] 
-- user : reviews [userID, animeID, review_vote, timestamp, text ]
+
+- user : anime [userID, animeID, status, number_watched, review_vote, timestamp, text ]
 
 
 
