@@ -53,6 +53,9 @@ Document_database :
 
 
 - user : credentials [userID, username, birthdate, mail, reg_date, gender, ]
+    -> gli anime sono stati uniti nel file " user_details.csv" 
+    --- trovabile in "000_data-polishers/final_csv/user_details.csv"
+    --- mediante il notebook : "users_converter.ipynb"
 
 - user : revies [userID, animeID, status, number_watched, review_vote, timestamp, text ]
 
