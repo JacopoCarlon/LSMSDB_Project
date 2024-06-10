@@ -8,11 +8,14 @@
 **/000_unpolished_csv/*.csv
 **/000_unpolished_csv/*.zip
 
-#   polisher tests :
-**/000_data-polishers/tmp_dp/*
 
-
+#   heavy polished csv_s
 **/000_data-polishers/final_csv/anime_revs.csv
+
+# should upload compressed ? 
 **/000_data-polishers/final_csv/*.zip 
+**/000_data-polishers/final_csv/*.rar
 
 
+#   uploader tests :
+**/tmp_dp/*
