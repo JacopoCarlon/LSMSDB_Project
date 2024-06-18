@@ -1,13 +1,13 @@
-package com.AnimeDB.demo;
+package it.unipi.lsmd.MyAnime;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AnimeApplication {
+public class MyAnimeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AnimeApplication.class, args);
+		SpringApplication.run(MyAnimeApplication.class, args);
 	}
 
 }

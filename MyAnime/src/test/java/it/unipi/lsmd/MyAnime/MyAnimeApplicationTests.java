@@ -1,10 +1,10 @@
-package com.AnimeDB.demo;
+package it.unipi.lsmd.MyAnime;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AnimeApplicationTests {
+class MyAnimeApplicationTests {
 
 	@Test
 	void contextLoads() {

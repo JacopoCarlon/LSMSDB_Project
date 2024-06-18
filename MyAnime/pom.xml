@@ -8,11 +8,24 @@
 		<version>3.3.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.AnimeDB</groupId>
-	<artifactId>demo</artifactId>
+	<groupId>it.unipi.lsmd</groupId>
+	<artifactId>MyAnime</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>anime</name>
-	<description>Demo project for Spring Boot</description>
+	<name>MyAnime</name>
+	<description>Large-Scale and Multi-Structured Databases Project</description>
+	<url/>
+	<licenses>
+		<license/>
+	</licenses>
+	<developers>
+		<developer/>
+	</developers>
+	<scm>
+		<connection/>
+		<developerConnection/>
+		<tag/>
+		<url/>
+	</scm>
 	<properties>
 		<java.version>21</java.version>
 	</properties>
