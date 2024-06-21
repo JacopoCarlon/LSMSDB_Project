@@ -57,10 +57,12 @@ Document_database :
     --- trovabile in "000_data-polishers/final_csv/user_details.csv"
     --- mediante il notebook : "users_converter.ipynb"
 
+
 - user : reviews [userID, animeID, status, number_watched, review_vote, timestamp, text ]
     -> anime per utente, con review time e text " anime_revs.csv" 
     --- trovabile in "000_data-polishers/final_csv/anime_revs.csv"
     --- mediante il notebook : "anime_revs.ipynb"
+
 
 
 
