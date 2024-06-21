@@ -1,0 +1,21 @@
+#   unpolished_csv :
+**/000_unpolished_csv/*.csv
+**/000_unpolished_csv/*.zip
+
+#   additional_data :
+**/010_additional_data/*.json
+
+#   reviews :
+**/020_anime_reviews/*.csv
+
+
+
+#   heavy polished csv_s
+**/final_csv/anime_revs.csv
+
+# should upload compressed ? 
+**/final_csv/*.zip 
+**/final_csv/*.rar
+
+#   uploader tests :
+**/tmp_dp/*

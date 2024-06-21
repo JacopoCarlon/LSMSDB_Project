@@ -14,8 +14,6 @@
 
 # should upload compressed ? 
 **/000_data-polishers/final_csv/*.zip 
-**/000_data-polishers/final_csv/*.rar
 
 
-#   uploader tests :
-**/tmp_dp/*
+
