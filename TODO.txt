@@ -11,8 +11,8 @@ e li metto dentro
 
 in anime_details :
 
--   airing_begin
--   airing_end
+#   #   -   airing_begin
+#   #   -   airing_end
 
 
 generate graph with anime_related archs
