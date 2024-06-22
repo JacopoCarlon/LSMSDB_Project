@@ -20,3 +20,6 @@
 
 #   uploader tests :
 **/tmp_dp/*
+
+**/**.csv
+**/**.json
