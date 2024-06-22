@@ -12,7 +12,11 @@ FATTO :
 
 -   -   -   anime_details with pictures
 
+-   -   -   generate timestamps in anime_revs with range 2024-may : 1->30
 
+-   -   -   expanded_list_anime_revs
+
+-   -   -   graph for uid-aid-status-episode
 
 ################################################################################################################################
 
@@ -22,9 +26,7 @@ FATTO :
 
 DA FARE :
 
--   expanded_list_anime_revs
 
--   generate timestamps in anime_revs with range 2024-may : 1->30
 
 
 
@@ -46,3 +48,7 @@ DA NON FARE :
 #   #   in anime_details :
 #   #   -   airing_begin
 #   #   -   airing_end
+
+
+
+
