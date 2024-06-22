@@ -6,7 +6,9 @@ FATTO :
 
 -   -   -   generate graph with anime-genre archs
 
+-   -   -   generate graph csv :[animename, anime_id]
 
+-   -   -   generate graph csv :[username, user_id]
 
 
 
@@ -26,8 +28,6 @@ DA FARE :
 
 
 
-generate graph csv :[animename, anime_id]
-generate graph csv :[username, user_id]
 
 
 
