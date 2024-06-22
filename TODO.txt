@@ -1,7 +1,22 @@
-dal reviews.csv prendo username, text, vote 
-e li metto dentro 
+FATTO : 
 
--   list_for_graph
+-   -   -   dal reviews.csv prendo username, text, vote e li metto dentro 
+
+-   -   -   generate graph with anime_related archs
+
+-   -   -   generate graph with anime-genre archs
+
+
+
+
+
+################################################################################################################################
+
+
+
+
+
+DA FARE :
 
 -   expanded_list_anime_revs
 
@@ -9,15 +24,23 @@ e li metto dentro
 
 
 
-in anime_details :
 
-#   #   -   airing_begin
-#   #   -   airing_end
-
-
-generate graph with anime_related archs
 
 generate graph csv :[animename, anime_id]
 generate graph csv :[username, user_id]
 
 
+
+
+
+################################################################################################################################
+
+
+
+
+
+DA NON FARE :
+
+#   #   in anime_details :
+#   #   -   airing_begin
+#   #   -   airing_end
