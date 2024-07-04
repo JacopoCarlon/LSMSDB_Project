@@ -1,0 +1,29 @@
+BOOTSTRAP 5.3.3 :
+https://getbootstrap.com/docs/5.3/getting-started/introduction/
+
+bootstrap.css 
+https://www.w3schools.com/bootstrap/bootstrap_get_started.asp
+
+
+
+
+
+jquert ajax 
+https://www.w3schools.com/jquery/jquery_ajax_intro.asp
+
+
+
+meta
+https://www.w3schools.com/tags/tag_meta.asp
+
+carousel
+https://www.w3schools.com/bootstrap/bootstrap_carousel.asp
+
+bootstrap 5.0 carousel
+https://stackoverflow.com/questions/67117035/bootstrap-5-carousel-not-sliding
+
+carousel image height 
+https://www.youtube.com/watch?v=KHF6nysy0-c
+https://raybo.org/posts/2021-03-28-making-sidebar-carousels-with-css-by-hacking-the-bootstrap-5-carousel/
+https://raybo.org/posts/2021-03-29-automating-the-creation-of-carousel-features-with-javascript-by-hacking-the-bootstrap-carousel/ 
+
