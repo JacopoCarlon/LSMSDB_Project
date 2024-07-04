@@ -27,3 +27,9 @@ https://www.youtube.com/watch?v=KHF6nysy0-c
 https://raybo.org/posts/2021-03-28-making-sidebar-carousels-with-css-by-hacking-the-bootstrap-5-carousel/
 https://raybo.org/posts/2021-03-29-automating-the-creation-of-carousel-features-with-javascript-by-hacking-the-bootstrap-carousel/ 
 
+
+
+use google jquery with fallback
+https://stackoverflow.com/questions/1014203/best-way-to-use-googles-hosted-jquery-but-fall-back-to-my-hosted-library-on-go
+
+
