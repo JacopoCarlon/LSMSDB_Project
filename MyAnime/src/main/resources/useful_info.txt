@@ -31,5 +31,7 @@ https://raybo.org/posts/2021-03-29-automating-the-creation-of-carousel-features-
 
 use google jquery with fallback
 https://stackoverflow.com/questions/1014203/best-way-to-use-googles-hosted-jquery-but-fall-back-to-my-hosted-library-on-go
+https://stackoverflow.com/questions/6115132/loading-jquery-from-google-or-locally-if-not-online
+
 
 

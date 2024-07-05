@@ -1,0 +1,16 @@
+header con funzione di ricerca per utenti e anime -> filtro
+pagina con filtri
+
+| MAL | search_anime | your_discovery | search_users | your_page | log_out 
+
+after login 
+-> mostPopularPage
+
+search_anime bar -> filerAnime.html
+
+
+
+top rated = rank di voti , con num_voti > 10k
+most liked = rank di voti
+most liked last week = rank di voti settimana scorsa ?
+

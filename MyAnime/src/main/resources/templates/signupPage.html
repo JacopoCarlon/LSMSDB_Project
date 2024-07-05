@@ -20,6 +20,7 @@
         
         <!-- AJAX jQuery-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="../local/jquery-3.6.1.min.js">\x3C/script>')</script>
         
         <!-- JavaScript-->
         <script src="../static/js/signup_btn.js"></script>
@@ -89,10 +90,12 @@
                                     <label for="email_input" class="form-label">Email</label>
                                     <input id="email_input" class="form-control" type="email" placeholder="Enter your email address">
                                 </div>
-                                <!-- Send the data -->
+                                <!-- Send the data 
                                 <p class="mb-3">To access any content you need to be registered.</p>
+                                -->
+                                <br>
                                 <button id="signup_btn" class="btn btn-primary w-100 mb-3">Signup</button>
-                                </br>
+                                <br>
                                 <!-- Go to the login page -->
                                 <p class="mb-3">If you are already registered, please do log in to the application.</p>
                                 <a id="loginPage_btn" class="btn btn-outline-secondary w-100" href="./loginPage.html">Login</a>
