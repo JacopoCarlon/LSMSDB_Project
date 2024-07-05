@@ -1,4 +1,6 @@
 // used for signupPage.html
+//  TODO : unrelativize paths
+//  needs : controllers/api/...rest.java che abbia @PostMapping("/api/signup") e mi ritorni outcome_code : 0
 $(document).ready(function () {
     $('#signup_btn').click(function (e) {
         e.preventDefault();
@@ -51,7 +53,7 @@ $(document).ready(function () {
                 switch(response.outcome_code) {
                     case 0:
                         alert("Registration successful!\nYou can now proceed with the login.");
-                        window.location.href = "/login";
+                        window.location.href = "./loginPage.html";
                         break;
                     case 1:
                         alert("Username already in use. Please choose another username.");

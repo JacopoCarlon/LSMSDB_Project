@@ -1,4 +1,6 @@
 // used for loginPage.html
+//  TODO : unrelativize paths
+//  needs : controllers/api/...rest.java che abbia @PostMapping("/api/login") e mi ritorni outcome_code : 0
 $(document).ready(function () {
     $("#login_btn").click(function (e) {
         e.preventDefault();
@@ -33,7 +35,7 @@ $(document).ready(function () {
             method: 'POST',
 			success: function (outcome) {
                 if (outcome["outcome_code"] == 0) {
-                    window.location.href = "/homePage";
+                    window.location.href = "../templates/mostPopularPage.html";
                 } else if (outcome["outcome_code"] == 1) {
                     alert("Username not found in the database. Please make sure you have typed the username correctly.");
                     $("#username_input").val("");
