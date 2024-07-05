@@ -29,6 +29,7 @@ $(document).ready(function () {
 
         if (!isValidBirthday(birthday)){
             alert("Please enter your real birthdate.");
+            return;
         }
 
         const formData = {
@@ -90,16 +91,19 @@ function isValidEmail(email) {
 }
 
 //  new Date(year, month, day, hours, minutes, seconds, milliseconds);
+//  birthday = "yyyy-mm-dd"
 function isValidBirthday(birthday){
     var today_date = new Date();
-    var birthdate = birthday.split("/");
-    var thisyearbirthday_date = new Date(today_date.getFullYear(), birthdate[0]-1, birthdate[1]);
-    if (today_date >= birthday) {
-        var cur_age =  today_date.getFullYear() - born.getFullYear();
+    var birthdate = birthday.split("-");
+    var born = new Date(year=birthdate[0], monthIndex=birthdate[1]-1, date=birthdate[2]);
+    var birthday = new Date(year=today_date.getFullYear(), monthIndex=born.getMonth(), date=born.getDate());
+
+    var cur_age =  today_date.getFullYear() - born.getFullYear();
+
+    if (today_date <= birthday) {
+        cur_age =  cur_age - 1;
     }
-    else {
-        var cur_age =  today_date.getFullYear() - born.getFullYear() - 1;
-    }
+
     if (cur_age < 14 || cur_age > 150){
         return false;
     }
