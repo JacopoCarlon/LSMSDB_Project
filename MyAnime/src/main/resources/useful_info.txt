@@ -35,3 +35,18 @@ https://stackoverflow.com/questions/6115132/loading-jquery-from-google-or-locall
 
 
 
+filter and dropdowns :
+https://www.w3schools.com/css/css_form.asp
+https://www.w3schools.com/css/tryit.asp?filename=trycss_forms
+https://www.w3schools.com/howto/howto_js_filter_dropdown.asp
+https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_js_dropdown_filter
+
+
+bootstrap5 dropdown checkbox
+https://getbootstrap.com/docs/5.0/components/dropdowns/
+https://mdbootstrap.com/docs/standard/extended/dropdown-checkbox/
+
+
+change dropdown value upon selection (for sorting choice)
+https://stackoverflow.com/questions/41356256/changing-select-option-displayed-text-after-it-is-selected-but-return-when-chang
+
