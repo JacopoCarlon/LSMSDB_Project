@@ -1,5 +1,5 @@
 #   ignore temporary css
-**/**.css
+#   **/**.css
 
 
 #   ignore all temporary files

@@ -1,0 +1,1217 @@
+html, body {
+    font-family: "Poppins", sans-serif;
+    color: #282828;
+    margin: 0; 
+    height: 100%;
+}
+
+a {
+    color: #a412ff;
+    text-decoration: none;
+}
+  
+a:hover {
+    color: #cc7aff;
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Poppins", sans-serif;
+}
+
+/*-------------------------------------------------------------
+# User style
+--------------------------------------------------------------*/
+.container-white {
+    background-color: #ffffff42;
+    border-radius: 10px;
+}
+
+/*-------------------------------------------------------------
+# Welcome page container
+--------------------------------------------------------------*/
+#welcome_container {
+    padding-top: 8%;
+    padding-bottom: 8%;
+}
+
+#welcome_container h5 {
+    color: #373737;
+}
+
+
+
+
+/* ---------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------- */
+
+/*  CAROUSEL    */
+
+/* ----------------------------------------------------------------
+# Carousel of most popular
+---------------------------------------------------------------- */
+
+.carousel-caption h1 span{
+    color: #a412ff;
+    text-shadow:-1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px  1px 0 #ffffff, 1px  1px 0 #ffffff;
+}
+
+#most_popular_animes, #most_popular_animes, #most_popular_animes {
+    text-align: center;
+}
+
+#most-popular-carousel {
+    overflow: hidden;
+    flex: 1;
+}
+
+.carousel-control-prev, .carousel-control-next {
+    transition: transform 0.2s ease-in-out;
+    transition: background-color 0.2s;
+}
+
+.carousel-control-prev:hover, .carousel-control-next:hover {
+    transform: scale(1.1);
+    background-color: #a412ff91;
+}
+
+.carousel-caption {
+    border-radius: 5px;
+    padding: 10px;
+    transition: all 0.5s;
+    text-decoration: none;
+}
+
+.carousel-caption h5 {
+    color: white;
+    font-size: 1.5em;
+}
+
+.carousel-caption p {
+    color: #f8f9fa;
+    font-size: 1em;
+    display: inline;
+}
+
+.carousel-caption .fa-arrow-right {
+    margin-left: 10px;
+}
+
+.carousel-caption:hover {
+    cursor: pointer;
+    background-color: #a412ff7a;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes arrowAnimation {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(5px);
+    }
+}
+
+.carousel-caption:hover .fa-arrow-right {
+    animation: arrowAnimation 0.5s ease-in-out forwards;
+}
+
+#most-popular-carousel .carousel-item img{
+    object-fit: cover;
+    object-position: center;
+    overflow: hidden;
+    height: 85vh;
+    max-height: 900px;
+}
+
+#most-popular-carousel .carousel-item:before {
+    content: "";
+    background-image:
+      linear-gradient(
+        to bottom,
+        transparent, rgba(0,0,0,0.8)
+      );
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+
+
+
+
+/* ---------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------- */
+
+/*  FILTER  */
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+section#form_section {
+    overflow: visible;
+    /*background-color: gray;*/
+}
+
+section#form_section .title{
+    position: relative;
+    color: white;
+}
+
+div#form_container {
+    position: relative;
+    border-radius: 5px;
+    /*background-color: #f2f2f2;*/
+    padding: 5px;
+    overflow: visible;
+    margin: 10px;
+    border: 1px solid;
+}
+
+
+section .head .title{
+    margin: 0;
+    margin-left: 15px;
+    padding: 0;
+    font-size: 2rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+
+div#form_container form {
+    display: block;
+    unicode-bidi: isolate;
+}
+
+div#form_container form .filter {
+    display: inline-block;
+    width: 16%;
+    float: left;
+    box-sizing: border-box;
+    padding: 0 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+
+div#form_container div.filter button{
+    width: 100%;
+}
+
+
+.filter .form-control{
+    background-color: black;
+}
+
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .9rem;
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #aaa;
+    background-color: #212121;
+    background-clip: padding-box;
+    border: 1px solid #303030;
+    border-radius: 5px;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.filters .filter input[type=text] {
+    color: #aaa;
+}
+
+.filters .filter input[type=text]:focus {
+    background-color: #212121;
+    color: #aaa;
+}
+
+/*
+section#form_section:before {
+    content: "";
+    background-image:
+      linear-gradient(
+        to top,
+        transparent, rgba(0,0,0,0.5)
+      );
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+}
+*/
+
+/*
+.dropdown {
+    position: relative;
+    display: inline-block;
+}*/
+
+
+
+.filters ul.dropdown-menu {
+    margin-top: 10px;
+    min-width: 100%;
+}
+
+/*-----------------------------------------*/
+.filters ul.dropdown-menu.lg {
+    background-color: #6c757d ;
+    color: #fff;
+    width: 600px;
+    list-style: none;
+    margin: 10px;
+    padding: 5px;
+}
+
+.filters .dropdown-menu.lg li {
+    float: left;
+    width: 25%;
+}
+
+/*-----------------------------------------*/
+.filters ul.dropdown-menu.md {
+    background-color: #6c757d ;
+    color: #fff;
+    list-style: none;
+    margin: 10px;
+    padding: 5px;
+}
+
+.filters .dropdown-menu.md li {
+    float: left;
+    width: 50%;
+}
+
+/*-----------------------------------------*/
+.filters ul.dropdown-menu.sm {
+    background-color: #6c757d ;
+    color: #fff;
+    list-style: none;
+    margin: 10px;
+    padding: 5px;
+}
+
+.filters .dropdown-menu.sm li {
+    float: left;
+    width: 100%;
+}
+
+
+
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+    unicode-bidi: isolate;
+}
+
+/*
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}*/
+
+/*
+.dropdown a:hover {
+    background-color: #ddd;
+}
+*/
+.show {
+    display: block;
+}
+
+
+
+
+
+/* ---------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------- */
+
+/*  IMG */
+
+/* Dimensione massima dell'immagine */
+#anime-cover {
+    width: 15%;
+}
+
+#followedUsers_btn:hover {
+    background-color: #057f6a;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0px 0px 20px 3px #2828286b;
+}
+
+#followed_container {
+    max-height: 300px;
+}
+
+#user_reviews {
+    background-color: rgba(40, 40, 40, 0.45);
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 5px;
+    height: 300px;
+}
+
+#user_reviews h1>span {
+    color: #282828;
+    font-weight: bold;
+}
+
+.rev_container {
+    background-color: rgba(250, 250, 250, 0.45);
+    color: #282828;
+    border-radius: 10px;
+}
+
+#show_follower_btn:hover {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#liked_animes_btn:hover {
+    background-color: #057f6a;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 0 20px 3px #2828286b;
+}
+
+#liked_animes_btn i{
+    font-size: 20px;
+}
+
+#liked_animes_container{
+    max-height: 300px;
+}
+
+#liked_animes {
+    background-color: rgba(40, 40, 40, 0.45);
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+#liked_animes_btn i{
+    font-size: 20px;
+}
+
+#liked_animes_btn:hover {
+    background-color: #057f6a;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0px 0px 20px 3px #2828286b;
+}
+
+#liked_animes_container{
+    max-height: 300px;
+}
+
+#user_details {
+    color: white;
+}
+
+#user_details div {
+    background-color: rgba(40, 40, 40, 0.45);
+    border: 1px solid #282828;
+    padding: 5px;
+    text-align: center;
+}
+
+#user_details>#name {
+    border-radius: 5px 0 0 5px;
+}
+
+#user_details>#surname {
+    border-radius: 0;
+}
+
+#user_details>#birthday {
+    border-radius: 0 5px 5px 0;
+}
+
+#followed_main {
+    background-color: rgba(40, 40, 40, 0.45);
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+#followed_main i{
+    font-size: 16px;
+}
+
+.main {
+    min-height: 100%;
+    background: linear-gradient(45deg, #07c9a9ba 0%, #a412ffe5 100%), url("../img/bg.jpg") center center no-repeat;
+    background-size: cover;
+}
+
+.main .tab-content {
+    padding-top: 7%;
+    padding-bottom: 7%;
+}
+
+/*#search-result {
+    background-color: #ffffff8d;
+    border-radius: 10px 10px 10px 10px;
+}*/
+
+.result-container {
+    transition: all 0.5s;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.result-container:hover {
+    border-radius: 10px;
+    background-color: #e8c6fc;
+    border: solid 2px #a412ff;
+    box-shadow: 0px 0px 20px 3px #2828286b;
+}
+
+#discover {
+    background: linear-gradient(45deg, #282828d1 0%, #282828d1 100%), url('../img/discovery-bg.jpg') center center no-repeat;
+    transition: all 1s;
+}
+
+#discover a{
+    text-align: center;
+}
+
+/*
+#discover h1 {
+    font-weight:400;
+}
+*/
+
+#discover span{
+    color: #057f6a;
+    text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px  1px 0 #ffffff, 1px  1px 0 #ffffff;
+}
+
+#discover p{
+    font-size: large;
+    display: inline;
+}
+
+#discover .text-container {
+    text-decoration: none; /* Rimuove la sottolineatura del link */
+    color: white; /* Mantiene il colore del testo ereditato dal parent */
+    padding: 15%;
+    transition: all 1s;
+}
+
+#discover .text-container .fa-arrow-right {
+    margin-left: 10px; /* Aggiunge spazio a sinistra dell'icona */
+}
+
+
+
+
+/* ---------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------- */
+
+/*  LOGIN   */
+
+/*-------------------------------------------------------------
+# Login section
+--------------------------------------------------------------*/
+.main>#login {
+    padding-top: 3%;
+    padding-bottom: 3%;
+    margin-top: 70px;
+    border: solid 2px #282828;
+    border-radius: 10px;
+    background-color: #ffffff42;
+}
+
+.main>#login h1, .main>#login input, .main>#login button {
+    text-align: center;
+}
+
+.main>#register {
+    padding-top: 3%;
+    padding-bottom: 3%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: solid 2px #282828;
+    border-radius: 10px;
+    background-color: #ffffff42;
+}
+
+.main>#register h1, .main>#register input, .main>#register button {
+    text-align: center;
+}
+
+.main>#write_review {
+    padding-top: 3%;
+    padding-bottom: 3%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: solid 2px #282828;
+    border-radius: 10px;
+    background-color: #ffffff42;
+}
+
+#write_review h1 {
+    text-align: center;
+}
+
+#most_popular_container {
+    border-radius: 10px;
+    background-color: #ffffff42;
+}
+
+.chart-container {
+    border-radius: 10px;
+    background-color: rgba(40, 40, 40, 0.71);
+    color: white;
+    max-height: 550px;
+}
+
+.chart-container h1{
+    text-align: center;
+}
+
+.top-container {
+    border-radius: 10px;
+    background-color: #ffffff4e;
+    color: #282828;
+    text-decoration: none;
+}
+
+.top-container:hover {
+    color: #282828;
+    background-color: #07c9a9;
+}
+
+.recom-container {
+    border-radius: 10px;
+    background-color: rgba(40, 40, 40, 0.71);
+    color: white;
+}
+
+
+
+
+/* ---------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------- */
+
+/*  HEADER  */
+
+/*-------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+.header {
+    background-color: #282828;
+    padding: 20px;
+}
+
+#logo a{
+    text-decoration: none;
+    color: #ffffff;
+}
+
+#logo a:hover {
+    text-decoration: none;
+    color: #07c9a9;
+}
+
+#navbar li .nav-link {
+    color: #ffffff;
+}
+
+#navbar li .nav-link.active{
+    color: #07c9a9;
+}
+
+#navbar li .nav-link:hover {
+    color: #07c9a9;
+}
+
+#navbar li .nav-link.btn-explore {
+    color: white;
+    padding-right: 10px;
+    padding-left: 10px;
+    background-color: #057f6a;
+    border-radius: 5px;
+}
+
+#navbar li .nav-link.btn-explore.active {
+    color: white;
+    padding-right: 10px;
+    padding-left: 10px;
+    background-color: #a412ff;
+    border-radius: 5px;
+}
+
+#navbar li .nav-link.btn-explore:hover {
+    background-color: #07c9a9;
+    color: white;
+}
+
+
+
+
+
+/* ---------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------- */
+
+/*  SEARCH  */
+
+/*-------------------------------------------------------------
+# Search box
+--------------------------------------------------------------*/
+#search-container {
+    padding: 10px;
+    border-radius: 20px 20px 20px 20px;
+    margin: 15px auto 20px;
+}
+
+#search-container #search_input {
+    border-radius: 10px 0px 0px 10px;
+    border: none;
+}
+
+#category_input {
+    padding: 8px;
+    font-size: 16px;
+    border: none;
+    border-radius: 0px;
+    background-color: #cc7aff;
+    color: #282828;
+}
+
+
+
+
+
+
+
+
+
+
+/*--------------------------------------------------------------
+# Suggested
+--------------------------------------------------------------*/
+#friend_animes {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px 0px 0px 10px;
+    box-shadow: 0px 0px 15px 2px #28282847;
+    color: #282828;
+}
+
+#common_animes {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 0px 10px 10px 0px;
+    box-shadow: 0px 0px 15px 2px #28282847;
+    color: #282828;
+}
+
+.suggested-anime {
+    gap: 10px;
+    border-radius: 10px;
+    background-color: rgba(55, 55, 55, 0.41);
+}
+
+.anime-cover {
+    max-width: 20%;
+    height: 20%;
+    border-radius: 10px;
+}
+
+#suggested_user_container:hover {
+    background-color: #a412ff;
+}
+
+.anime-details h1, .anime-details p {
+    margin: 0;
+}
+
+.view_details_btn {
+    border-radius: 10px;
+}
+
+.view_details_btn:hover {
+    border-radius: 10px;
+    background-color: #a412ff;
+    box-shadow: 0px 0px 30px 5px rgba(40, 40, 40, 0.15);
+    cursor: pointer;
+    color: white;
+}
+
+#suggested_user_container {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    color: #282828;
+}
+
+.suggested-user {
+    background-color: rgba(55, 55, 55, 0.41);
+    border-radius: 10px;
+}
+
+.suggested-user:hover {
+    border-radius: 10px;
+    background-color: #a412ff;
+    box-shadow: 0px 0px 30px 5px rgba(40, 40, 40, 0.15);
+    cursor: pointer;
+}
+
+/*--------------------------------------------------------------
+# Most popular
+--------------------------------------------------------------*/
+.card {
+    transition: all 0.5s;
+}
+
+.card:hover {
+    background-color: #e8c6fc;
+    border: solid 3px #a412ff;
+}
+
+
+#user_inf {
+    border-radius: 10px;
+    background-color: #2828286e;
+    color: white;
+}
+
+#user_anagr {
+    display: flex;
+    gap: 2px;
+}
+
+#user_anagr>#name, #user_anagr>#surname {
+    flex-grow: 1;
+    background-color: #282828c2;
+    color: white;
+}
+
+#user_anagr>#birthday {
+    flex-grow: 1;
+}
+
+#user_anagr>#name, #user_anagr>#surname, #user_anagr>#follower, #user_anagr>#birthday {
+    border: solid 1px #282828;
+}
+
+#user_anagr>#follower {
+    flex-grow: 2;
+}
+
+#user-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+#action-user {
+    display: flex;
+    flex-grow: 1;
+    gap: 2px;
+}
+
+#liked_animes {
+    background-color: rgba(40, 40, 40, 0.45);
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+#anime_info {
+    border-radius: 10px;
+    background-color: #2828286e;
+    color: white;
+    text-decoration: none;
+}
+
+.anime-cover {
+    width: 20%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.rating_review {
+    border-radius: 10px;
+}
+
+.anime-review {
+    border: solid 2px #282828;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.438);
+}
+
+#latest_reviews {
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.195);
+}
+
+.anime-details {
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    flex: 6;
+    gap: 20px;
+}
+
+.anime-details p{
+    font-size: medium;
+}
+
+.anime-details {
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    flex: 6;
+    gap: 20px;
+}
+
+#write_review {
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.195);
+}
+
+#anime_animes {
+    border-radius: 10px;
+    background-color: #2828286e;
+    color: white;
+}
+
+#anime_anime_animes {
+    border-radius: 10px;
+    background-color: #2828286e;
+    color: white;
+}
+
+#anime_animes {
+    border-radius: 10px;
+    background-color: #2828286e;
+    color: white;
+}
+
+#like_anime_container {
+    border-radius: 5px;
+    background-color: #ffffff6e;
+}
+
+#like_container {
+    border-radius: 5px;
+    background-color: #2828286e;
+}
+
+.anime-container {
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.438);
+    color: #282828;
+}
+
+#like-button {
+    margin-top: auto; /* Posiziona il pulsante "Mi Piace" in basso all'interno del div */
+}
+
+.top-cover {
+    border-radius: 10px;
+    width: 20%;
+    margin-right: 5px;
+}
+
+.top-cover-single {
+    border-radius: 10px;
+    width: 10%;
+    margin-right: 5px;
+}
+
+.anime-cover-sm {
+    border-radius: 10px;
+    width: 10%;
+    height: 10%;
+    margin-left: 15px;
+}
+
+.anime-details-sm {
+    color: #282828;
+    align-content: center;
+    padding: 10px;
+    gap: 5px;
+}
+
+#anime_name {
+    color: #282828;
+    align-content: center;
+    padding: 10px;
+}
+
+.anime-cover-sm {
+    border-radius: 10px;
+    width: 10%;
+    height: 10%;
+    margin-left: 15px;
+}
+
+.anime-details-sm {
+    color: #282828;
+    align-content: center;
+    padding: 10px;
+    gap: 5px;
+}
+
+.anime-img-sm {
+    border-radius: 10px;
+    width: 10%;
+    height: 10%;
+    margin-left: 15px;
+}
+
+#anime_info, #anime_info {
+    border-radius: 10px;
+    background-color: #2828286e;
+    color: white;
+    text-decoration: none;
+}
+
+.modal-body>#anime_info:hover, .modal-body>#anime_info:hover, .modal-body>#anime_info:hover, .modal-body>#user_info:hover {
+    background-color: #cc7aff;
+    cursor: pointer;
+}
+
+.modal-body>#user_info {
+    border-radius: 10px;
+    background-color: #2828286e;
+    color: #282828;
+    text-decoration: none;
+    padding: 5px;
+    align-content: center;
+}
+
+.modal-header {
+    background-color: #282828;
+    color: white;
+}
+
+#average_rating_container {
+    background-color: #ffffa594;
+    border-radius: 5px;
+    color: #282828;
+}
+
+#average_rating_container span{
+    border-radius: 5px 0 0 5px;
+}
+
+#anime_animes_page, #release_date_page, #anime_duration_page {
+    border-bottom: solid 1px white;
+    border-radius: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.anime-img {
+    width: 20%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+#anime_anime_animes>.anime-container:hover {
+    background-color: #07c9a9;
+    cursor: pointer;
+}
+
+.user_foll{
+    border-radius: 10px;
+    background-color: #ffffff6e;
+    color: #282828;
+    text-decoration: none;
+    padding: 5px;
+    align-content: center;
+}
+
+.user_foll:hover {
+    background-color: #07c9a9;
+}
+
+.user_foll h5:hover {
+    cursor: pointer;
+}
+
+.anime_liked, .anime_liked{
+    border-radius: 10px;
+    background-color: #ffffff6e;
+    color: #282828;
+    text-decoration: none;
+    padding: 5px;
+    align-content: center;
+}
+
+.anime_liked:hover, .anime_liked:hover {
+    background-color: #07c9a9;
+}
+
+.anime_inf:hover, .anime_inf:hover {
+    cursor: pointer;
+}
+
+/*--------------------------------------------------------------
+# Buttons
+--------------------------------------------------------------*/
+.btn.btn-primary {
+    border-color: #282828;
+    background-color: #282828;
+}
+
+.btn.btn-primary:hover {
+    border-color: #a412ff;
+    background-color: #a412ff;
+}
+
+.btn.btn-primary:disabled {
+    background-color: #373737; /* Cambia il colore di sfondo */
+    color: #888888; /* Cambia il colore del testo */
+    cursor: not-allowed; /* Cambia il cursore del mouse */
+    border-color: #373737;
+}
+
+.btn.btn-outline-secondary {
+    color: #282828;
+    border-color: #282828;
+}
+
+.btn.btn-outline-secondary:hover {
+    border-color: #cc7aff;
+    background-color: #cc7aff;
+}
+
+.btn.btn-success {
+    background-color: #07c9a9;
+    border-color: #07c9a9;
+    border-radius: 0px 10px 10px 0px;
+    color: #282828;
+}
+
+.btn.btn-success:hover {
+    background-color: #057f6a;
+    border-color: #057f6a;
+    color: #282828;
+}
+
+#logout_btn {
+    border-radius: 10px;
+}
+
+.admin-buttons {
+    text-align: center;
+    color: #282828;
+    background-color: rgba(255,255,255,0.7);
+    border-radius: 10px;
+}
+
+#most-popular-anime {
+    padding: 40px;
+    border: none;
+    color: #ffffff;
+    font-size: xx-large;
+    transition: all 0.5s;
+    margin: 0;
+    font-weight: bolder;
+    background: linear-gradient(45deg, #282828cc 0%, #282828cc 100%), url("../img/best-anime.jpg") center center no-repeat;
+}
+
+#most-popular-anime:hover {
+    border: solid 3px #057f6a;
+    color: #282828;
+    background: linear-gradient(45deg, #07c9a9cc 0%, #07c9a9cc 100%), url("../img/best-anime.jpg") center center no-repeat;
+}
+
+#most-popular-anime {
+    padding: 40px;
+    border: none;
+    color: #ffffff;
+    font-size: xx-large;
+    transition: all 0.5s;
+    margin: 0;
+    background: linear-gradient(45deg, #282828cc 0%, #282828cc 100%), url("../img/best-anime.jpg") center center no-repeat;
+}
+
+#most-popular-anime:hover {
+    border: solid 3px #057f6a;
+    background: linear-gradient(45deg, #07c9a9cc 0%, #07c9a9cc 100%), url("../img/best-anime.jpg") center center no-repeat;
+}
+
+#most-popular-anime {
+    padding: 40px;
+    border: none;
+    color: #ffffff;
+    font-size: xx-large;
+    transition: all 0.5s;
+    border: none;
+    margin: 0;
+    background: linear-gradient(45deg, #282828cc 0%, #282828cc 100%), url("../img/best-anime.jpg") center center no-repeat;
+}
+
+#most-popular-anime:hover {
+    border: solid 3px #057f6a;
+    background: linear-gradient(45deg, #07c9a9cc 0%, #07c9a9cc 100%), url("../img/best-anime.jpg") center center no-repeat;
+}
+
+/*--------------------------------------------------------------
+# Back to top button
+--------------------------------------------------------------*/
+.back-to-top {
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+    z-index: 996;
+    background-color: #a412ffac;
+    width: 40px;
+    height: 30px;
+    border-radius: 200px;
+    transition: all 0.4s;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.back-to-top:hover {
+  background-color: #cc7aff;
+}
+
+.back-to-top .icon {
+    width: 50%;
+}
+
+.nav-item>a>#icon {
+    width: 20%;
+}
