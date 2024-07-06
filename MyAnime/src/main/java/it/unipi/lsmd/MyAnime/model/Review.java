@@ -21,7 +21,7 @@ import java.time.format.DateTimeFormatter;
 public class Review {
     @Id
     private String id;
-    private ObjectId userId;
+    private String username;
     private ObjectId animeId;
     private int score;
     private String text;
@@ -31,8 +31,8 @@ public class Review {
     private String printableDate;
 
 
-    public Review(ObjectId userId, ObjectId animeId, int score, String text, Date timestamp) {
-        this.userId = userId;
+    public Review(String username, ObjectId animeId, int score, String text, Date timestamp) {
+        this.username = username;
         this.animeId = animeId;
         this.score = score;
         this.text = text;
