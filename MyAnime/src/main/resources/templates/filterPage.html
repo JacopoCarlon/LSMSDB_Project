@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>MyAnimeLibrary</title>
+        <meta name="description" content="homePage mostPopularPage template">
+        <meta name="keywords" content="homePage mostPopularPage">
+
+        <!-- Favicon -->
+        <link rel="icon" type="image/x-icon" href="../static/img/mc_bookshelf.png">
+
+        
+        <!-- CSS file -->
+        <link href="../static/css/style.css" rel="stylesheet">
+        
+        <!-- AOS : Animation On Scroll -->
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        
+        <!-- AJAX jQuery-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="../local/jquery-3.6.1.min.js">\x3C/script>')</script>
+        
+        <!-- JavaScript-->
+        <script src="../static/js/searchBar.js" type="text/javascript"></script>
+        <script src="../static/js/logout_btn.js" type="text/javascript"></script>
+        <script src="../static/js/search_btn.js" type="text/javascript"></script>
+        
+        <!-- Include Bootstrap from CDN -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="main">
+             <!-- Values taken with Thymeleaf from the controller to understand if the user is logged and is admin -->
+            <input type="hidden" id="is_logged" th:value="${logged}"/>
+            <input type="hidden" id="is_admin" th:value="${session.role == 'admin'}">
+            
+            <!-- Dynamic header -->
+            <header class="header sticky-top shadow">
+
+            </header>
+            <!-- end of dynamic header-->
+
+            <section id="form_section">
+                <div class="head">
+                    <div class="title">Filter</div>
+                </div>
+                <div class="body">
+                    <div id = form_container>
+                        <form class="filters" action="filter" autocomplete="off">
+                            <div class="filter">
+                                <input type="text" class="form-control" placeholder="Search..." name="keyword" value>
+                            </div>
+                            <div class="filter">
+                                <div class="dropdown responsive">
+                                    <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                                        <span class="value" data-placeholder="Select genre" data-label-placement="true">Select genre</span>
+                                    </button>
+                                    <div class="noclose dropdown-menu lg c4">
+                                        <ul class="genres">
+                                            <li title="Action">
+                                                <input type="checkbox" id="genre-action" name="genre[]" value="1"/>
+                                                <label for="genre-action">Action</label>
+                                            </li>
+                                            <li title="Adventure">
+                                                <input type="checkbox" id="genre-adventure" name="genre[]" value="2"/>
+                                                <label for="genre-adventure">Adventure</label>
+                                            </li>
+                                            <li title="Avant Garde">
+                                                <input type="checkbox" id="genre-avant-garde" name="genre[]" value="2262888"/>
+                                                <label for="genre-avant-garde">Avant Garde</label>
+                                            </li>
+                                            <li title="Boys Love">
+                                                <input type="checkbox" id="genre-boys-love" name="genre[]" value="2262603"/>
+                                                <label for="genre-boys-love">Boys Love</label>
+                                            </li>
+                                            <li title="Comedy">
+                                                <input type="checkbox" id="genre-comedy" name="genre[]" value="4"/>
+                                                <label for="genre-comedy">Comedy</label>
+                                            </li>
+                                            <li title="Demons">
+                                                <input type="checkbox" id="genre-demons" name="genre[]" value="4424081"/>
+                                                <label for="genre-demons">Demons</label>
+                                            </li>
+                                            <li title="Drama">
+                                                <input type="checkbox" id="genre-drama" name="genre[]" value="7"/>
+                                                <label for="genre-drama">Drama</label>
+                                            </li>
+                                            <li title="Ecchi">
+                                                <input type="checkbox" id="genre-ecchi" name="genre[]" value="8"/>
+                                                <label for="genre-ecchi">Ecchi</label>
+                                            </li>
+                                            <li title="Fantasy">
+                                                <input type="checkbox" id="genre-fantasy" name="genre[]" value="9"/>
+                                                <label for="genre-fantasy">Fantasy</label>
+                                            </li>
+                                            <li title="Girls Love">
+                                                <input type="checkbox" id="genre-girls-love" name="genre[]" value="2263743"/>
+                                                <label for="genre-girls-love">Girls Love</label>
+                                            </li>
+                                            <li title="Gourmet">
+                                                <input type="checkbox" id="genre-gourmet" name="genre[]" value="2263289"/>
+                                                <label for="genre-gourmet">Gourmet</label>
+                                            </li>
+                                            <li title="Harem">
+                                                <input type="checkbox" id="genre-harem" name="genre[]" value="11"/>
+                                                <label for="genre-harem">Harem</label>
+                                            </li>
+                                            <li title="Horror">
+                                                <input type="checkbox" id="genre-horror" name="genre[]" value="14"/>
+                                                <label for="genre-horror">Horror</label>
+                                            </li>
+                                            <li title="Isekai">
+                                                <input type="checkbox" id="genre-isekai" name="genre[]" value="3457284"/>
+                                                <label for="genre-isekai">Isekai</label>
+                                            </li>
+                                            <li title="Iyashikei">
+                                                <input type="checkbox" id="genre-iyashikei" name="genre[]" value="4398552"/>
+                                                <label for="genre-iyashikei">Iyashikei</label>
+                                            </li>
+                                            <li title="Josei">
+                                                <input type="checkbox" id="genre-josei" name="genre[]" value="15"/>
+                                                <label for="genre-josei">Josei</label>
+                                            </li>
+                                            <li title="Kids">
+                                                <input type="checkbox" id="genre-kids" name="genre[]" value="16"/>
+                                                <label for="genre-kids">Kids</label>
+                                            </li>
+                                            <li title="Magic">
+                                                <input type="checkbox" id="genre-magic" name="genre[]" value="4424082"/>
+                                                <label for="genre-magic">Magic</label>
+                                            </li>
+                                            <li title="Mahou Shoujo">
+                                                <input type="checkbox" id="genre-mahou-shoujo" name="genre[]" value="3457321"/>
+                                                <label for="genre-mahou-shoujo">Mahou Shoujo</label>
+                                            </li>
+                                            <li title="Martial Arts">
+                                                <input type="checkbox" id="genre-martial-arts" name="genre[]" value="18"/>
+                                                <label for="genre-martial-arts">Martial Arts</label>
+                                            </li>
+                                            <li title="Mecha">
+                                                <input type="checkbox" id="genre-mecha" name="genre[]" value="19"/>
+                                                <label for="genre-mecha">Mecha</label>
+                                            </li>
+                                            <li title="Military">
+                                                <input type="checkbox" id="genre-military" name="genre[]" value="20"/>
+                                                <label for="genre-military">Military</label>
+                                            </li>
+                                            <li title="Music">
+                                                <input type="checkbox" id="genre-music" name="genre[]" value="21"/>
+                                                <label for="genre-music">Music</label>
+                                            </li>
+                                            <li title="Mystery">
+                                                <input type="checkbox" id="genre-mystery" name="genre[]" value="22"/>
+                                                <label for="genre-mystery">Mystery</label>
+                                            </li>
+                                            <li title="Parody">
+                                                <input type="checkbox" id="genre-parody" name="genre[]" value="23"/>
+                                                <label for="genre-parody">Parody</label>
+                                            </li>
+                                            <li title="Psychological">
+                                                <input type="checkbox" id="genre-psychological" name="genre[]" value="25"/>
+                                                <label for="genre-psychological">Psychological</label>
+                                            </li>
+                                            <li title="Reverse Harem">
+                                                <input type="checkbox" id="genre-reverse-harem" name="genre[]" value="4398403"/>
+                                                <label for="genre-reverse-harem">Reverse Harem</label>
+                                            </li>
+                                            <li title="Romance">
+                                                <input type="checkbox" id="genre-romance" name="genre[]" value="26"/>
+                                                <label for="genre-romance">Romance</label>
+                                            </li>
+                                            <li title="School">
+                                                <input type="checkbox" id="genre-school" name="genre[]" value="28"/>
+                                                <label for="genre-school">School</label>
+                                            </li>
+                                            <li title="Sci-Fi">
+                                                <input type="checkbox" id="genre-sci-fi" name="genre[]" value="29"/>
+                                                <label for="genre-sci-fi">Sci-Fi</label>
+                                            </li>
+                                            <li title="Seinen">
+                                                <input type="checkbox" id="genre-seinen" name="genre[]" value="30"/>
+                                                <label for="genre-seinen">Seinen</label>
+                                            </li>
+                                            <li title="Shoujo">
+                                                <input type="checkbox" id="genre-shoujo" name="genre[]" value="31"/>
+                                                <label for="genre-shoujo">Shoujo</label>
+                                            </li>
+                                            <li title="Shounen">
+                                                <input type="checkbox" id="genre-shounen" name="genre[]" value="33"/>
+                                                <label for="genre-shounen">Shounen</label>
+                                            </li>
+                                            <li title="Slice of Life">
+                                                <input type="checkbox" id="genre-slice-of-life" name="genre[]" value="35"/>
+                                                <label for="genre-slice-of-life">Slice of Life</label>
+                                            </li>
+                                            <li title="Space">
+                                                <input type="checkbox" id="genre-space" name="genre[]" value="36"/>
+                                                <label for="genre-space">Space</label>
+                                            </li>
+                                            <li title="Sports">
+                                                <input type="checkbox" id="genre-sports" name="genre[]" value="37"/>
+                                                <label for="genre-sports">Sports</label>
+                                            </li>
+                                            <li title="Super Power">
+                                                <input type="checkbox" id="genre-super-power" name="genre[]" value="38"/>
+                                                <label for="genre-super-power">Super Power</label>
+                                            </li>
+                                            <li title="Supernatural">
+                                                <input type="checkbox" id="genre-supernatural" name="genre[]" value="39"/>
+                                                <label for="genre-supernatural">Supernatural</label>
+                                            </li>
+                                            <li title="Suspense">
+                                                <input type="checkbox" id="genre-suspense" name="genre[]" value="2262590"/>
+                                                <label for="genre-suspense">Suspense</label>
+                                            </li>
+                                            <li title="Thriller">
+                                                <input type="checkbox" id="genre-thriller" name="genre[]" value="40"/>
+                                                <label for="genre-thriller">Thriller</label>
+                                            </li>
+                                            <li title="Vampire">
+                                                <input type="checkbox" id="genre-vampire" name="genre[]" value="41"/>
+                                                <label for="genre-vampire">Vampire</label>
+                                            </li>
+                                        </ul>
+                                        <ul>
+                                            <li class="w-100">
+                                                <input type="checkbox" id="genre_mode" name="genre_mode" value="and"/>
+                                                <label for="genre_mode" class="combine-mode">Must have all selected genres</label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="filter">
+                                <div class="dropdown responsive">
+                                    <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                                        <span class="value" data-placeholder="Select season" data-label-placement="true">Select season</span>
+                                    </button>
+                                    <ul class="noclose dropdown-menu c1">
+                                        <li>
+                                            <input type="checkbox" id="season-fall" name="season[]" value="fall"/>
+                                            <label for="season-fall">Fall</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="season-summer" name="season[]" value="summer"/>
+                                            <label for="season-summer">Summer</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="season-spring" name="season[]" value="spring"/>
+                                            <label for="season-spring">Spring</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="season-winter" name="season[]" value="winter"/>
+                                            <label for="season-winter">Winter</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="season-unknown" name="season[]" value="unknown"/>
+                                            <label for="season-unknown">Unknown</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="filter">
+                                <div class="dropdown responsive">
+                                    <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                                        <span class="value" data-placeholder="Select year" data-label-placement="true">Select year</span>
+                                    </button>
+                                    <ul class="noclose dropdown-menu md c3">
+                                        <li>
+                                            <input type="checkbox" id="year-2024" name="year[]" value="2024"/>
+                                            <label for="year-2024">2024</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-2023" name="year[]" value="2023"/>
+                                            <label for="year-2023">2023</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-2022" name="year[]" value="2022"/>
+                                            <label for="year-2022">2022</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-2021" name="year[]" value="2021"/>
+                                            <label for="year-2021">2021</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-2020" name="year[]" value="2020"/>
+                                            <label for="year-2020">2020</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-2019" name="year[]" value="2019"/>
+                                            <label for="year-2019">2019</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-2018" name="year[]" value="2018"/>
+                                            <label for="year-2018">2018</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-2017" name="year[]" value="2017"/>
+                                            <label for="year-2017">2017</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-2016" name="year[]" value="2016"/>
+                                            <label for="year-2016">2016</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-2015" name="year[]" value="2015"/>
+                                            <label for="year-2015">2015</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-2014" name="year[]" value="2014"/>
+                                            <label for="year-2014">2014</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-2013" name="year[]" value="2013"/>
+                                            <label for="year-2013">2013</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-2012" name="year[]" value="2012"/>
+                                            <label for="year-2012">2012</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-2011" name="year[]" value="2011"/>
+                                            <label for="year-2011">2011</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-2010" name="year[]" value="2010"/>
+                                            <label for="year-2010">2010</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-2009" name="year[]" value="2009"/>
+                                            <label for="year-2009">2009</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-2008" name="year[]" value="2008"/>
+                                            <label for="year-2008">2008</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-2007" name="year[]" value="2007"/>
+                                            <label for="year-2007">2007</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-2006" name="year[]" value="2006"/>
+                                            <label for="year-2006">2006</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-2005" name="year[]" value="2005"/>
+                                            <label for="year-2005">2005</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-2004" name="year[]" value="2004"/>
+                                            <label for="year-2004">2004</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-2000s" name="year[]" value="2000s"/>
+                                            <label for="year-2000s">2000s</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-1990s" name="year[]" value="1990s"/>
+                                            <label for="year-1990s">1990s</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-1980s" name="year[]" value="1980s"/>
+                                            <label for="year-1980s">1980s</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-1970s" name="year[]" value="1970s"/>
+                                            <label for="year-1970s">1970s</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-1960s" name="year[]" value="1960s"/>
+                                            <label for="year-1960s">1960s</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-1950s" name="year[]" value="1950s"/>
+                                            <label for="year-1950s">1950s</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-1940s" name="year[]" value="1940s"/>
+                                            <label for="year-1940s">1940s</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-1930s" name="year[]" value="1930s"/>
+                                            <label for="year-1930s">1930s</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-1920s" name="year[]" value="1920s"/>
+                                            <label for="year-1920s">1920s</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-1910s" name="year[]" value="1910s"/>
+                                            <label for="year-1910s">1910s</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="year-1900s" name="year[]" value="1900s"/>
+                                            <label for="year-1900s">1900s</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="filter">
+                                <div class="dropdown responsive">
+                                    <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                                        <span class="value" data-placeholder="Select type" data-label-placement="true">Select type</span>
+                                    </button>
+                                    <ul class="noclose dropdown-menu c1">
+                                        <li>
+                                            <input type="checkbox" id="type-movie" name="type[]" value="movie"/>
+                                            <label for="type-movie">Movie</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="type-tv" name="type[]" value="tv"/>
+                                            <label for="type-tv">TV</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="type-ova" name="type[]" value="ova"/>
+                                            <label for="type-ova">OVA</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="type-ona" name="type[]" value="ona"/>
+                                            <label for="type-ona">ONA</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="type-special" name="type[]" value="special"/>
+                                            <label for="type-special">Special</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="type-music" name="type[]" value="music"/>
+                                            <label for="type-music">Music</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="filter">
+                                <div class="dropdown responsive">
+                                    <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                                        <span class="value" data-placeholder="Select status" data-label-placement="true">Select status</span>
+                                    </button>
+                                    <ul class="noclose dropdown-menu c1">
+                                        <li>
+                                            <input type="checkbox" id="status-info" name="status[]" value="info"/>
+                                            <label for="status-info">Not Yet Aired</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="status-releasing" name="status[]" value="releasing"/>
+                                            <label for="status-releasing">Releasing</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="status-completed" name="status[]" value="completed"/>
+                                            <label for="status-completed">Completed</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="filter">
+                                <div class="dropdown responsive">
+                                    <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                                        <span class="value" data-placeholder="Select rating" data-label-placement="true">Select rating</span>
+                                    </button>
+                                    <ul class="noclose dropdown-menu c1">
+                                        <li>
+                                            <input type="checkbox" id="rating-g" name="rating[]" value="g"/>
+                                            <label for="rating-g">G - All Ages</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="rating-pg" name="rating[]" value="pg"/>
+                                            <label for="rating-pg">PG - Children</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="rating-pg_13" name="rating[]" value="pg_13"/>
+                                            <label for="rating-pg_13">PG 13 - Teens 13 and Older</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="rating-r" name="rating[]" value="r"/>
+                                            <label for="rating-r">R - 17+, Violence &amp;Profanity</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="rating-r+" name="rating[]" value="r+"/>
+                                            <label for="rating-r+">R+ - Profanity &amp;Mild Nudity</label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="rating-rx" name="rating[]" value="rx"/>
+                                            <label for="rating-rx">Rx - Hentai</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="filter">
+                                <div class="dropdown responsive">
+                                    <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                                        <span class="value" data-placeholder="Sort by" data-label-placement="true">Sort by</span>
+                                    </button>
+                                    <ul class="noclose dropdown-menu c1">
+                                        <li>
+                                            <input type="radio" id="sort-most_relevance" name="sort" value="most_relevance"/>
+                                            <label for="sort-most_relevance">Most relevance</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="sort-recently_updated" name="sort" value="recently_updated" checked="checked"/>
+                                            <label for="sort-recently_updated">Recently updated</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="sort-recently_added" name="sort" value="recently_added"/>
+                                            <label for="sort-recently_added">Recently added</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="sort-release_date" name="sort" value="release_date"/>
+                                            <label for="sort-release_date">Release date</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="sort-trending" name="sort" value="trending"/>
+                                            <label for="sort-trending">Trending</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="sort-title_az" name="sort" value="title_az"/>
+                                            <label for="sort-title_az">Name A-Z</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="sort-scores" name="sort" value="scores"/>
+                                            <label for="sort-scores">Scores</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="sort-mal_scores" name="sort" value="mal_scores"/>
+                                            <label for="sort-mal_scores">MAL scores</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="sort-most_watched" name="sort" value="most_watched"/>
+                                            <label for="sort-most_watched">Most watched</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="sort-most_favourited" name="sort" value="most_favourited"/>
+                                            <label for="sort-most_favourited">Most favourited</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="sort-number_of_episodes" name="sort" value="number_of_episodes"/>
+                                            <label for="sort-number_of_episodes">Number of episodes</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="submit filter w-auto" id="filterdobtn">
+                                <button class="btn btn-primary d-flex align-items-center">
+                                    <!-- 
+                                        <svg class="icon" width="12" height="12">
+                                            <use xlink:href="#icon-tip-filter"></use>
+                                        </svg>
+                                    -->
+                                    <span class="ml-1">Filter</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+                    
+        </div>
+
+        <!-- AOS JavaScript -->
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script>
+            AOS.init();
+        </script>
+
+        <!-- Bootstrap JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    
+    </body>
+</html>
