@@ -27,10 +27,10 @@ $(document).ready(function () {
         const category = $("#category_input").val();    //  anime / user
 
         if (category == "anime"){
-            window.location.href = "../templates/filterPage.html?anime="+searchTerm;
+            window.location.href = "../templates/animeFilterPage.html?keyword="+searchTerm;
         }
         else if (category == "user"){
-            window.location.href = "../templates/filterPage.html?user="+searchTerm;
+            window.location.href = "../templates/userFilterPage.html?user="+searchTerm;
         }                          
     }
 });

@@ -50,3 +50,10 @@ https://mdbootstrap.com/docs/standard/extended/dropdown-checkbox/
 change dropdown value upon selection (for sorting choice)
 https://stackoverflow.com/questions/41356256/changing-select-option-displayed-text-after-it-is-selected-but-return-when-chang
 
+
+add execution onload:
+https://stackoverflow.com/questions/4842590/how-to-run-a-function-when-the-page-is-loaded
+
+populate search fields from url onload :
+https://stackoverflow.com/questions/46977598/how-i-can-populate-my-search-fields-based-on-the-parameters-inside-the-url
+

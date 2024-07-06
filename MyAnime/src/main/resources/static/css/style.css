@@ -159,9 +159,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 section#form_section {
-    overflow: visible;
-    /*background-color: gray;*/
+    min-height: 100px;
+    padding: 5px;
 }
+
 
 section#form_section .title{
     position: relative;
@@ -169,13 +170,16 @@ section#form_section .title{
 }
 
 div#form_container {
-    position: relative;
     border-radius: 5px;
-    /*background-color: #f2f2f2;*/
     padding: 5px;
-    overflow: visible;
     margin: 10px;
     border: 1px solid;
+    min-height: 130px;
+    /*
+    overflow: hidden;
+    background-color: red;
+    position: relative;
+    */
 }
 
 
@@ -260,7 +264,8 @@ section#form_section:before {
 .dropdown {
     position: relative;
     display: inline-block;
-}*/
+}
+*/
 
 
 
