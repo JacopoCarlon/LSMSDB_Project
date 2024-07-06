@@ -57,3 +57,13 @@ https://stackoverflow.com/questions/4842590/how-to-run-a-function-when-the-page-
 populate search fields from url onload :
 https://stackoverflow.com/questions/46977598/how-i-can-populate-my-search-fields-based-on-the-parameters-inside-the-url
 
+
+test current url contains string :
+https://stackoverflow.com/questions/4597050/how-to-check-if-the-url-contains-a-given-string
+
+
+
+edit animeFP_onsearch : add getter of selected values for filters
+https://stackoverflow.com/questions/5866169/how-to-get-all-selected-values-of-a-multiple-select-box
+https://stackoverflow.com/questions/5866169/how-to-get-all-selected-values-of-a-multiple-select-box
+

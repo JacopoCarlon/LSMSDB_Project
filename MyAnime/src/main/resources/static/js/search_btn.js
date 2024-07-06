@@ -14,7 +14,8 @@ $(document).ready(function () {
     })
 
     $("#search_input").on("keydown", function (e) {
-        if (e.keyCode === 13) { // Codice 13 è il tasto "Invio"
+        
+        if (e.keyCode === 13 ) { // Codice 13 è il tasto "Invio"
             e.preventDefault();
             e.stopPropagation();
             search();
@@ -23,6 +24,12 @@ $(document).ready(function () {
     });
 
     function search() {
+        if(window.location.href.indexOf("animeFilterPage") > -1 ){
+            return;
+        }
+        if(window.location.href.indexOf("userFilterPage") > -1 ){
+            return;
+        }
         const searchTerm = $("#search_input").val();    //  field
         const category = $("#category_input").val();    //  anime / user
 

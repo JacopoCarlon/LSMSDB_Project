@@ -163,6 +163,10 @@ section#form_section {
     padding: 5px;
 }
 
+section#form_section.us {
+    min-height: 50px;
+    padding: 5px;
+}
 
 section#form_section .title{
     position: relative;
@@ -175,11 +179,10 @@ div#form_container {
     margin: 10px;
     border: 1px solid;
     min-height: 130px;
-    /*
-    overflow: hidden;
-    background-color: red;
-    position: relative;
-    */
+}
+
+div#form_container.us {
+    min-height: 70px;
 }
 
 
@@ -208,6 +211,9 @@ div#form_container form .filter {
     margin-top: 10px;
 }
 
+div#form_container form .filter.us{
+    width: 25%;
+}
 
 div#form_container div.filter button{
     width: 100%;
@@ -316,6 +322,9 @@ section#form_section:before {
     float: left;
     width: 100%;
 }
+
+
+
 
 
 

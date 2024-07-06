@@ -1,5 +1,5 @@
-function codeAddress() {
-    alert('ok');
+function codeAddress(qstr) {
+    alert('ok'+qstr);
 }
 
 
@@ -42,13 +42,24 @@ function buildFilterFieldMap(parameterMap) {
     return map;
 }
 
-function populateSearchFields(queryString) {
+function populateSearchFields(doc, queryString) {
     // build a map from URL query string parameter -> value
     var parameterMap = buildParameterMap(queryString);
   
     // build a map from search field name -> value
     var filterFieldMap = buildFilterFieldMap(parameterMap);
   
+    //  for (it in filterFieldMap.keys){
+    //      if (it=="keyword"){
+    //          var a = document.getElementById(it);
+    //          $(a).val(filterFieldMap[it]);
+    //      }
+    //  }
+
+    if ("keyword" in filterFieldMap.keys ){
+        doc.getElementById("keyword").value = filterFieldMap["keyword"];
+    }
+
     Object.keys(filterFieldMap).forEach(function(field) {
       $('#' + field).val(filterFieldMap[field]);
     });
