@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.repository.Query;
 import java.util.List;
 import java.util.Optional;
 
-public interface Anime_MongoInterface extends MongoRepository<Anime, String> {
+public interface AnimeMongoInterface extends MongoRepository<Anime, String> {
     boolean existsById(String id);
     boolean existsByTitle(String title);
     Optional<Anime> findById(String id);

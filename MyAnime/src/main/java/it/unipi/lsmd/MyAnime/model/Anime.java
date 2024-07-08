@@ -76,7 +76,7 @@ public class Anime {
         int episodes = doc.getInteger("episodes");
         String status = doc.getString("status");
         boolean airing = doc.getBoolean("airing");
-        Map aired = doc.getMap("aired"); //probabilmente sbagliato
+        Map aired = doc.get("aired", Map.class); //probabilmente sbagliato
         String rated = doc.getString("rated");
         float averageScore = doc.getDouble("averageScore").floatValue();
         int scoredBy = doc.getInteger("scoredBy");
@@ -92,6 +92,6 @@ public class Anime {
 
         Review[] mostRecentReviews = new Review[0];
 
-        return new Anime(objId, title, title_japanese, type, source, episodes, status, airing, aired, rated, avarageScore, scoredBy, watchers, synopsis, broadcast, producer, licensor, studio, genre, EpisodeDuration, imgURL, mostRecentReviews);
+        return new Anime(id, title, title_japanese, type, source, episodes, status, airing, aired, rated, averageScore, scoredBy, watchers, synopsis, broadcast, producer, licensor, studio, genre, episodeDuration, imgURL, mostRecentReviews);
     }
 }

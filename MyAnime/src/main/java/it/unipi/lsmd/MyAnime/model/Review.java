@@ -9,7 +9,6 @@ import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
-import it.unipi.lsmd.BeatBuddy.utilities.Utility;
 
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
@@ -22,7 +21,7 @@ public class Review {
     @Id
     private String id;
     private String username;
-    private ObjectId animeId;
+    private String animeId;
     private int score;
     private String text;
     private Instant timestamp;
@@ -31,7 +30,7 @@ public class Review {
     private String printableDate;
 
 
-    public Review(String username, ObjectId animeId, int score, String text, Date timestamp) {
+    public Review(String username, String animeId, int score, String text, Instant timestamp) {
         this.username = username;
         this.animeId = animeId;
         this.score = score;

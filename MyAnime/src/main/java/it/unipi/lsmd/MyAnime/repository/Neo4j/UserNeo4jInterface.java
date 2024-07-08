@@ -7,7 +7,7 @@ import org.springframework.data.neo4j.repository.query.Query;
 import java.util.List;
 
 
-public interface User_Neo4jInterface extends Neo4jRepository<UserNode, String> {
+public interface UserNeo4jInterface extends Neo4jRepository<UserNode, String> {
 
     @Query("MERGE (u:User {username: $username})")
     void createUser(String username);
