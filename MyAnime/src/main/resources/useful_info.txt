@@ -67,3 +67,14 @@ edit animeFP_onsearch : add getter of selected values for filters
 https://stackoverflow.com/questions/5866169/how-to-get-all-selected-values-of-a-multiple-select-box
 https://stackoverflow.com/questions/5866169/how-to-get-all-selected-values-of-a-multiple-select-box
 
+
+js and jquert get parameters from url :
+https://stackoverflow.com/questions/36712575/get-url-parameter-with-jquery
+https://stackoverflow.com/questions/5073859/jquery-how-to-get-parameters-of-a-url
+https://api.jquery.com/jQuery.param/
+https://gist.github.com/digitup/3523613
+https://stackoverflow.com/questions/7731778/get-query-string-parameters-url-values-with-jquery-javascript-querystring
+
+
+
+

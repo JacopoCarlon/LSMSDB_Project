@@ -63,24 +63,24 @@ $(document).ready(function () {
     }
 });
 
-function displayAlbums(albums) {
+function displayAlbums(anime_lst) {
     const container = $(".modal-body");
     container.empty();
 
-    albums.forEach(function(album) {
-        let albumDiv = $("<div id=\"album_info\" class=\"d-flex mb-1 align-items-center\"></div>");
-        albumDiv.append($("<img id=\"album_cover\" class=\"album-cover-sm mt-1 mb-1\">").attr("src", album.coverURL));
-        let albumInf = $("<div id=\"album_details\" class=\"album-details-sm d-flex flex-column mt-1\"></div>");
-        albumDiv.append(albumInf);
-        albumInf.append($("<h4 id=\"album_title\" style=\"font-weight: bold; margin-bottom: 0;\"></h4>").text(album.title));
+    anime_lst.forEach(function(anime) {
+        let animeDiv = $("<div id=\"anime_info\" class=\"d-flex mb-1 align-items-center\"></div>");
+        animeDiv.append($("<img id=\"anime_cover\" class=\"anime-cover-sm mt-1 mb-1\">").attr("src", anime.coverURL));
+        let animeInf = $("<div id=\"anime_details\" class=\"anime-details-sm d-flex flex-column mt-1\"></div>");
+        animeDiv.append(animeInf);
+        animeInf.append($("<h4 id=\"anime_title\" style=\"font-weight: bold; margin-bottom: 0;\"></h4>").text(anime.title));
         let div1 = $("<div class=\"d-flex m-0\"></div>");
-        albumInf.append(div1);
-        div1.append($("<p style=\"font-size: medium;\" id=\"album_artists\"></p>").text(album.artists.join(", ")));
+        animeInf.append(div1);
+        div1.append($("<p style=\"font-size: medium;\" id=\"anime_artists\"></p>").text(anime.artists.join(", ")));
 
-        albumDiv.click(function() {
-            window.location.href = '/albumDetails?albumId=' + album.id;
+        animeDiv.click(function() {
+            window.location.href = '/animeDetails?animeId=' + anime.id;
         });
 
-        container.append(albumDiv);
+        container.append(animeDiv);
     });
 }
