@@ -10,6 +10,8 @@ import it.unipi.lsmd.MyAnime.repository.MongoDB.UserMongoInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataAccessResourceFailureException;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -17,6 +19,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -25,6 +28,18 @@ public class UserRepoMongoDB {
     private MongoTemplate mongoTemplate;
     @Autowired
     private UserMongoInterface userMongoInterface;
+
+    public List<User> find5User(String term){
+        try {
+            Pageable topFive = PageRequest.of(0, 5);
+            return userMongoInterface.findUsersByUsernameContaining(term, topFive);
+        } catch (DataAccessException dae) {
+            if (dae instanceof DataAccessResourceFailureException)
+                throw dae;
+            dae.printStackTrace();
+            return null;
+        }
+    }
 
     public User getUserByUsername(String username) {
         try {
