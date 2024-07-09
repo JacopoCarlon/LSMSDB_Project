@@ -50,5 +50,4 @@ public class LoginREST {
             return "";         // Error connecting to DB
         }
     }
-    }
 }
