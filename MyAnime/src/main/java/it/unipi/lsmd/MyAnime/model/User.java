@@ -24,4 +24,7 @@ public class User {
     private Instant joinDate;
     private int statsEpisodes;
     private Review[] mostRecentReviews;
+
+    @Field("isAdmin")
+    private boolean admin;
 }

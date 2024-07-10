@@ -27,27 +27,50 @@ public class LoginREST {
             User user = userRepoMongoDB.getUserByUsername(username);
 
             if(user == null){
-                // TODO return not found
-                return "";     // User not found
+                //  //  User not found
+                return "{\"login_code\": 1}";     
             }
 
+            //  TODO : revert salting
             String hashedPassword = Hashing.sha256()
                     .hashString(password, StandardCharsets.UTF_8)
                     .toString();
 
             if(user.getPassword().equals(hashedPassword)){
-                // TODO return success
-                return "";     // Login successful
+                //  //  Login successful
+                //session.setAttribute("logged", true);
+                session.setAttribute("username", username);
+                session.setAttribute("role", user.isAdmin() ? "admin" : "regUser");
+                return "{\"login_code\": 0}";     
             }
             else {
-                // TODO return failure
-                return "";     // Wrong password
+                //  //  Wrong password
+                return "{\"login_code\": 2}";     
             }
 
         } catch (DataAccessResourceFailureException e) {
+            //  //  Error connecting to DB
             e.printStackTrace();
-            // TODO return error
-            return "";         // Error connecting to DB
+            return "{\"login_code\": 3}";         
         }
     }
 }
+
+
+//  TODO (above)
+
+//  HOW WAS PASSWORD AND SALT GENERATED :
+//  (from : users_converter.ipynb)
+
+/*
+def hash_salt(password) :
+    salt = uuid.uuid4().hex
+    concat = str(salt+password)
+    hashed = hashlib.sha256( concat.encode() ).hexdigest() 
+    return [ hashed , salt ]
+*/
+/*
+extracted['password'] = extracted.apply( 
+                lambda row: hash_salt(row['username'])
+                , axis=1 )  
+*/
