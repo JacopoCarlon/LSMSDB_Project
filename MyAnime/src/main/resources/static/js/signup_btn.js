@@ -12,9 +12,10 @@ $(document).ready(function () {
         const repeatPassword    = $('#repeat_password_input').val();
         const birthday          = $('#birthday_input').val();
         const email             = $('#email_input').val();
+        const sex               = $('#sex_input').val();
 
         if (!name || !surname || !username || !password ||
-            !repeatPassword || !birthday || !email) {
+            !repeatPassword || !birthday || !sex || !email) {
             alert("Please fill in all fields.");
             return;
         }
@@ -35,12 +36,13 @@ $(document).ready(function () {
         }
 
         const formData = {
-            name: name,
-            surname: surname,
-            username: username,
-            password: password,
-            birthday: birthday,
-            email: email
+            name        : name,
+            surname     : surname,
+            username    : username,
+            password    : password,
+            birthday    : birthday,
+            sex         : sex,
+            email       : email
         };
 
         $.ajax({

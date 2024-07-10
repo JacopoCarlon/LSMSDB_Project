@@ -1,6 +1,6 @@
 // used for loginPage.html
 //  TODO : unrelativize paths
-//  needs : controllers/api/...rest.java che abbia @PostMapping("/api/login") e mi ritorni outcome_code : 0
+//  needs : controllers/api/...rest.java che abbia @PostMapping("/api/login") e mi ritorni login_code : 0
 $(document).ready(function () {
     $("#login_btn").click(function (e) {
         e.preventDefault();
@@ -34,21 +34,21 @@ $(document).ready(function () {
             dataType : 'json',
             method: 'POST',
 			success: function (outcome) {
-                if (outcome["outcome_code"] == 0) {
+                if (outcome["login_code"] == 0) {
                     window.location.href = "../templates/mostPopularPage.html";
-                } else if (outcome["outcome_code"] == 1) {
+                } else if (outcome["login_code"] == 1) {
                     alert("Username not found in the database. Please make sure you have typed the username correctly.");
                     $("#username_input").val("");
                     $("#password_input").val("");
-                } else if (outcome["outcome_code"] == 2) {
+                } else if (outcome["login_code"] == 2) {
                     alert("Incorrect password");
                     $("#password_input").val("");
                 }
-                else if (outcome["outcome_code"] == 3) {
+                else if (outcome["login_code"] == 3) {
                     alert("Unable to connect to the database :-(\nPlease try again later.");
                 }
                 else {
-                    alert("Error: unknown outcome_code");
+                    alert("Error: unknown login_code");
                 }
             },
             error: function (xhr, status, error) {

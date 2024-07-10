@@ -85,12 +85,22 @@
                                 <!-- Enter the birthdate -->
                                 <div class="mb-3">
                                     <label for="birthday_input" class="form-label">Date of birth</label>
-                                    <input id="birthday_input" class="form-control" type="date">
+                                    <input id="birthday_input" class="form-control" type="date" required>
                                 </div>
                                 <!-- Enter the email -->
                                 <div class="mb-3">
                                     <label for="email_input" class="form-label">Email</label>
-                                    <input id="email_input" class="form-control" type="email" placeholder="Enter your email address">
+                                    <input id="email_input" class="form-control" type="email" placeholder="Enter your email address" required>
+                                </div>
+                                <!-- Enter sex -->
+                                <div class="mb-3">
+                                    <label for="sex_input" class="form-label">Sex</label>
+                                    <select id="sex_input" class="form-control" required>
+                                        <option disabled selected value> -- select an option -- </option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                      </select>
                                 </div>
                                 <!-- Send the data 
                                 <p class="mb-3">To access any content you need to be registered.</p>
