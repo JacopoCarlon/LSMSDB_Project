@@ -32,7 +32,7 @@
     </head>
     <body>
         <div class="main">
-             <!-- Values taken with Thymeleaf from the controller to understand if the user is logged and is admin -->
+            <!-- Values taken with Thymeleaf from the controller to understand if the user is logged and is admin -->
             <input type="hidden" id="is_logged" th:value="${logged}"/>
             <input type="hidden" id="is_admin" th:value="${session.role == 'admin'}">
             

@@ -53,7 +53,7 @@ function loadSearchBar(){
                 "<a class=\"nav-link scrollto\" href=\"./discoverPage.html\">Discover</a>"
             )
             $("#user_controller").append(
-                "<a href=\"/profilePage\" class=\"btn btn-success\" style=\"border-radius: 10px 10px 10px 10px;\"><i class=\"fa fa-user me-1\"></i>Profile page</a>"
+                "<a href=\"./profilePage.html\" class=\"btn btn-success\" style=\"border-radius: 10px 10px 10px 10px;\"><i class=\"fa fa-user me-1\"></i>Profile page</a>"
             )
             
         }else{
