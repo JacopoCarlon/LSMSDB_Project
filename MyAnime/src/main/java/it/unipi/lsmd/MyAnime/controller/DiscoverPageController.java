@@ -4,7 +4,11 @@ import it.unipi.lsmd.MyAnime.model.AnimeNode;
 import it.unipi.lsmd.MyAnime.model.UserNode;
 import it.unipi.lsmd.MyAnime.repository.AnimeRepoNeo4j;
 import it.unipi.lsmd.MyAnime.repository.UserRepoNeo4j;
+import it.unipi.lsmd.MyAnime.utilities.Utility;
 import jakarta.servlet.http.HttpSession;
+
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +23,48 @@ public class DiscoverPageController {
 
     @RequestMapping("/discoverPage")
     public String discoverPage(HttpSession session, Model model) {
-        return "";
+        if(!Utility.isLogged(session))
+            return "redirect:/login";
+        if(Utility.isAdmin(session))
+            return "error/accessDenied";
+
+        String currentUsername = Utility.getUsername(session);
+
+        ArrayList<AnimeRepoNeo4j> suggestedAnimes_ByTaste = animeRepoNeo4j.getSuggestedAnimes_ByTaste(currentUsername);
+        if(suggestedAnimes_ByTaste == null)
+            return "error/genericError";
+        else{
+            if(suggestedAnimes_ByTaste.isEmpty())
+                model.addAttribute("no_s_1", true);
+            else
+                model.addAttribute("suggestedAnimes_ByTaste", suggestedAnimes_ByTaste);
+        }
+
+        ArrayList<AnimeRepoNeo4j> suggestedAnimes_ByFollow = animeRepoNeo4j.getSuggestedAnimes_ByFollowed(currentUsername);
+        if(suggestedAnimes_ByFollow == null)
+            return "error/genericError";
+        else {
+            if (suggestedAnimes_ByFollow.isEmpty())
+                model.addAttribute("no_s_2", true);
+            else
+                model.addAttribute("suggestedAnimes_ByFollow", suggestedAnimes_ByFollow);
+        }
+
+        ArrayList<UserRepoNeo4j> suggestedUsersToFollow = userRepoNeo4j.findSuggestedUserstoFollow(currentUsername);
+        if(suggestedUsersToFollow == null)
+            return "error/genericError";
+        else {
+            if (suggestedAnimes_ByFollow.isEmpty())
+                model.addAttribute("no_s_3", true);
+            else
+                model.addAttribute("suggestedUsersToFollow", suggestedUsersToFollow);
+        }
+
+        model.addAttribute("logged", (Utility.isLogged(session)) ? true : false);
+
+        if(!suggestedAnimes_ByTaste.isEmpty() || !suggestedAnimes_ByFollow.isEmpty() || !suggestedUsersToFollow.isEmpty())
+            return "discoverPage";
+        else
+            return "error/nothingToDiscover";
     }
 }

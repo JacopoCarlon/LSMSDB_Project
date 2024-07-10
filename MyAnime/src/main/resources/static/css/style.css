@@ -755,6 +755,11 @@ li {
     color: #282828;
 }
 
+#suggested_users {
+    border-radius: 0px 10px 10px 0px;
+    box-shadow: 0px 0px 15px 2px #28282847;
+}
+
 .suggested-anime {
     gap: 10px;
     border-radius: 10px;
@@ -791,6 +796,7 @@ li {
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 5px;
     color: #282828;
+    padding: 0px;
 }
 
 .suggested-user {
@@ -907,35 +913,9 @@ li {
     font-size: medium;
 }
 
-.anime-details {
-    padding: 15px;
-    display: flex;
-    flex-direction: row;
-    flex: 6;
-    gap: 20px;
-}
-
 #write_review {
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.195);
-}
-
-#anime_animes {
-    border-radius: 10px;
-    background-color: #2828286e;
-    color: white;
-}
-
-#anime_anime_animes {
-    border-radius: 10px;
-    background-color: #2828286e;
-    color: white;
-}
-
-#anime_animes {
-    border-radius: 10px;
-    background-color: #2828286e;
-    color: white;
 }
 
 #like_anime_container {
@@ -948,11 +928,7 @@ li {
     background-color: #2828286e;
 }
 
-.anime-container {
-    border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.438);
-    color: #282828;
-}
+
 
 #like-button {
     margin-top: auto; /* Posiziona il pulsante "Mi Piace" in basso all'interno del div */
@@ -1047,7 +1023,7 @@ li {
     border-radius: 5px 0 0 5px;
 }
 
-#anime_animes_page, #release_date_page, #anime_duration_page {
+#release_date_page, #anime_duration_page {
     border-bottom: solid 1px white;
     border-radius: 5px;
     padding-left: 20px;
@@ -1060,10 +1036,7 @@ li {
     border-radius: 10px;
 }
 
-#anime_anime_animes>.anime-container:hover {
-    background-color: #07c9a9;
-    cursor: pointer;
-}
+
 
 .user_foll{
     border-radius: 10px;
