@@ -65,7 +65,7 @@ public class UserRepoMongoDB {
 
             // Hashing della password
             String hashedPassword = Hashing.sha256()
-                    .hashString(password + salt, StandardCharsets.UTF_8)
+                    .hashString(salt + password, StandardCharsets.UTF_8)
                     .toString();
 
             // Creazione di un nuovo utente

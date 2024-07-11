@@ -52,14 +52,14 @@ public class LoginREST {
             }
 
            String hashedPassword = Hashing.sha256()
-                    .hashString(password + salt, StandardCharsets.UTF_8)
+                    .hashString(salt + password, StandardCharsets.UTF_8)
                     .toString();
 
             if(hash.equals(hashedPassword)){
                 //  //  Login successful
-                //session.setAttribute("logged", true);
+                session.setAttribute("is_logged", true);
                 session.setAttribute("username", username);
-                session.setAttribute("role", as_admin ? "admin" : "regUser");
+                session.setAttribute("is_admin", as_admin);
                 return "{\"login_code\": 0}";     
             }
             else {
