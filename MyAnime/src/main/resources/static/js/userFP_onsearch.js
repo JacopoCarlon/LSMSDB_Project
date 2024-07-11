@@ -85,6 +85,4 @@ function displayUser(users){
         container.append(usDiv);
     });
 
-
-
 }

@@ -44,6 +44,8 @@ DA FARE :
     +    !! implementare le funzioni di animeMDB e userMDB find5anime/find5user, che servono per le pagine di ricerca !
     -   opzione : passare numero variabile ... ?? (è lavoro in più tho)
 
+-   userPersonalPage :  manage :    friend follow   / friend_request / friend_accepted 
+                                    ban             / refuse_friend_rqst / unfriend / remove_friend_rqst
 
 
 
