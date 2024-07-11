@@ -45,10 +45,21 @@ DA FARE :
     -   opzione : passare numero variabile ... ?? (è lavoro in più tho)
 
 -   userPersonalPage :  manage :    friend follow   / friend_request / friend_accepted 
-                                    ban             / refuse_friend_rqst / unfriend / remove_friend_rqst
-
-
-
+                                    block           / refuse_friend_rqst / unfriend / remove_friend_rqst
+    
+    friendship :                            
+        -   nothing                         
+        -   pending -> cancel_rqst          
+                |-> accept_rqst             
+                |-> refuse_rqst             
+        -   friend -> remove_friend_rqst    
+    
+    following : 
+        -   A-B -> unfollowB 
+            00  nothing
+            01  A->B
+            10  B->A
+            11  A<==>B
 
 ################################################################################################################################
 
