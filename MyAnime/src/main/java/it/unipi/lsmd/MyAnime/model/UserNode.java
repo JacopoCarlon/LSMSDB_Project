@@ -22,15 +22,15 @@ public class UserNode {
     private String username;
 
 
-    public AnimeNode(String username) {
+    public UserNode(String username) {
         this.username = username;
     }
 
-    public static ArrayList<AnimeNode> getAnimeNode(Neo4jClient neo4jClient, String username, String cypherQuery) {
-        return (ArrayList<Anime_Neo4j>) neo4jClient
+    public static ArrayList<UserNode> getUserNode(Neo4jClient neo4jClient, String username, String cypherQuery) {
+        return (ArrayList<UserNode>) neo4jClient
                 .query(cypherQuery)
                 .bind(username).to("username")
-                .fetchAs(Anime_Neo4j.class)
+                .fetchAs(UserNode.class)
                 .mappedBy((typeSystem, record) -> {
                     String usernameNode = record.get("username").asString();
                     return new UserNode(usernameNode);

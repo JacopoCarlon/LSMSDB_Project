@@ -2,6 +2,7 @@ package it.unipi.lsmd.MyAnime.controller;
 
 import it.unipi.lsmd.MyAnime.model.Anime;
 import it.unipi.lsmd.MyAnime.repository.AnimeRepoMongoDB;
+import it.unipi.lsmd.MyAnime.utilities.Utility;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,22 @@ public class AnimeDetailsPageController {
                                @RequestParam(required = false) String title) {
 
         Anime anime;
-        return "";
+
+        if (animeID!= null) {
+            anime = animeRepoMongoDB.getAnimeById(animeID);
+        } else if (title!=null) {
+            anime = animeRepoMongoDB.getAnimeByTitle(title);
+        } else {
+            return "error/animeNotFound";
+        }
+
+        if (anime == null) {
+            return "error/animeNotFound";
+        }
+
+        model.addAttribute("anime", anime);
+        model.addAttribute("is_logged", Utility.isLogged(session));
+
+        return "animeDetailsPage";
     }
 }

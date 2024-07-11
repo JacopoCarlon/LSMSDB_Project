@@ -30,7 +30,7 @@ public class DiscoverPageController {
 
         String currentUsername = Utility.getUsername(session);
 
-        ArrayList<AnimeRepoNeo4j> suggestedAnimes_ByTaste = animeRepoNeo4j.getSuggestedAnimes_ByTaste(currentUsername);
+        ArrayList<AnimeNode> suggestedAnimes_ByTaste = animeRepoNeo4j.getSuggestedAnime_ByTaste(currentUsername);
         if(suggestedAnimes_ByTaste == null)
             return "error/genericError";
         else{

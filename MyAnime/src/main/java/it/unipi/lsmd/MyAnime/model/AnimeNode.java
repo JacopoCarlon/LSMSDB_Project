@@ -27,13 +27,24 @@ public class AnimeNode {
         this.imgURL = imgURL;
     }
 
-    public static ArrayList<AnimeNode> getAnimeNode(Neo4jClient neo4jClient, String username, String cypherQuery) {
+    public static ArrayList<AnimeNode> getAnimeNodeByUsername(Neo4jClient neo4jClient, String cypherQuery, String username) {
         return (ArrayList<AnimeNode>) neo4jClient
                 .query(cypherQuery)
                 .bind(username).to("username")
                 .fetchAs(AnimeNode.class)
                 .mappedBy((typeSystem, record) -> {
                     String title = record.get("title").asString();
+                    String imgURL = record.get("imgURL").asString();
+                    return new AnimeNode(title, imgURL);
+                }).all();
+    }
+
+    public static ArrayList<AnimeNode> getAnimeNodeByTitle(Neo4jClient neo4jClient, String cypherQuery, String title) {
+        return (ArrayList<AnimeNode>) neo4jClient
+                .query(cypherQuery)
+                .bind(title).to("title")
+                .fetchAs(AnimeNode.class)
+                .mappedBy((typeSystem, record) -> {
                     String imgURL = record.get("imgURL").asString();
                     return new AnimeNode(title, imgURL);
                 }).all();
