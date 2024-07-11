@@ -31,7 +31,7 @@ public class AnimeNode {
         return (ArrayList<AnimeNode>) neo4jClient
                 .query(cypherQuery)
                 .bind(username).to("username")
-                .fetchAs(Anime_Neo4j.class)
+                .fetchAs(AnimeNode.class)
                 .mappedBy((typeSystem, record) -> {
                     String title = record.get("title").asString();
                     String imgURL = record.get("imgURL").asString();
