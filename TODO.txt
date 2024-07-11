@@ -40,7 +40,9 @@ DA FARE :
 
 -   verify consistency of Constat directories in java / utilities / constants.java
 
-
+-   in userFP_onsearch.js e animeFP... passare a api/SearchREST.java i parametri in maniera corretta
+    +    !! implementare le funzioni di animeMDB e userMDB find5anime/find5user, che servono per le pagine di ricerca !
+    -   opzione : passare numero variabile ... ?? (è lavoro in più tho)
 
 
 

@@ -33,7 +33,7 @@ $(document).ready(function () {
     function search() {
         const searchTerm = $("#search_input").val();
         const keyword = $("#keyword").val();
-        const category = "anime";
+        const category = "user";
 
         const selected_genre = $(dropdownMenuButton_genre)
 
@@ -46,14 +46,14 @@ $(document).ready(function () {
             method: 'GET',
 
             success: function (arrayResults) {
-                //  window.location.href = "../templates/animeFilterPage.html";
+                //  window.location.href = "../templates/userFilterPage.html";
                 if(arrayResults==null || arrayResults.length == 0) {
                     const container = $(".modal-body");
                     container.empty();
                     container.append($("<p>No results found</p>"));
                 }
                 else {
-                    displayAnime(arrayResults);
+                    displayUser(arrayResults);
                 }
                 
             },
@@ -64,24 +64,27 @@ $(document).ready(function () {
     }
 });
 
-function displayAnimes(anime_lst) {
+
+
+function displayUser(users){
     const container = $(".modal-body");
     container.empty();
 
-    anime_lst.forEach(function(anime) {
-        let animeDiv = $("<div id=\"anime_info\" class=\"d-flex mb-1 align-items-center\"></div>");
-        animeDiv.append($("<img id=\"anime_cover\" class=\"anime-cover-sm mt-1 mb-1\">").attr("src", anime.coverURL));
-        let animeInf = $("<div id=\"anime_details\" class=\"anime-details-sm d-flex flex-column mt-1\"></div>");
-        animeDiv.append(animeInf);
-        animeInf.append($("<h4 id=\"anime_title\" style=\"font-weight: bold; margin-bottom: 0;\"></h4>").text(anime.title));
-        let div1 = $("<div class=\"d-flex m-0\"></div>");
-        animeInf.append(div1);
-        div1.append($("<p style=\"font-size: medium;\" id=\"anime_artists\"></p>").text(anime.artists.join(", ")));
+    users.forEach(function (user){
+        let usDiv = $("<div id=\"user_info\" class=\"d-flex mb-1 align-items-center\"></div>");
+        usDiv.append($("<i class=\"fa fa-user-circle fa-3x me-3\"></i>"))
+        let usInf = $("<div class=\"d-flex flex-column\"></div>");
+        usDiv.append(usInf);
+        usInf.append($("<h3 id=\"user_name\" style=\"font-weight: bold; margin-bottom: 0;\"></h3>").text(user.username));
+        usInf.append($("<p id=\"user_full_name\"></p>").text(user.name + " " + user.surname));
 
-        animeDiv.click(function() {
-            window.location.href = '/animeDetails?animeId=' + anime.id;
+        usDiv.click(function() {
+            window.location.href = '/user?username=' + user.username;
         });
 
-        container.append(animeDiv);
+        container.append(usDiv);
     });
+
+
+
 }

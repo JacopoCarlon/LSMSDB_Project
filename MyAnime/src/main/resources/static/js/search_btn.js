@@ -24,20 +24,20 @@ $(document).ready(function () {
     });
 
     function search() {
-        if(window.location.href.indexOf("animeFilterPage") > -1 ){
+        const category = $("#category_input").val();    //  anime / user
+        if(category=="anime" && window.location.href.indexOf("animeFilterPage") > -1 ){
             return;
         }
-        if(window.location.href.indexOf("userFilterPage") > -1 ){
+        if(category=="user" && window.location.href.indexOf("userFilterPage") > -1 ){
             return;
         }
         const searchTerm = $("#search_input").val();    //  field
-        const category = $("#category_input").val();    //  anime / user
 
         if (category == "anime"){
             window.location.href = "../templates/animeFilterPage.html?keyword="+searchTerm;
         }
         else if (category == "user"){
-            window.location.href = "../templates/userFilterPage.html?user="+searchTerm;
+            window.location.href = "../templates/userFilterPage.html?keyword="+searchTerm;
         }                          
     }
 });
