@@ -28,7 +28,7 @@ public class MostPopularPageController {
     @RequestMapping("/mostPopularPage")
     public String mostPopularPage(HttpSession session,
                                   Model model) {
-        model.addAttribute("logged", (Utility.isLogged(session)) ? true : false);
+        model.addAttribute("is_logged", (Utility.isLogged(session)) ? true : false);
 
         try {
                 //  list of anime

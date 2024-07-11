@@ -22,7 +22,7 @@ public class ProfilePageController {
     public String profilePage(HttpSession session,
                               Model model){
 
-        model.addAttribute("logged", (Utility.isLogged(session)) ? true : false);
+        model.addAttribute("is_logged", (Utility.isLogged(session)) ? true : false);
 
         if(!Utility.isLogged(session))
             return "redirect:/login";

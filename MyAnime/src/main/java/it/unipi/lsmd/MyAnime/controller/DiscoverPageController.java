@@ -60,7 +60,7 @@ public class DiscoverPageController {
                 model.addAttribute("suggestedUsersToFollow", suggestedUsersToFollow);
         }
 
-        model.addAttribute("logged", (Utility.isLogged(session)) ? true : false);
+        model.addAttribute("is_logged", (Utility.isLogged(session)) ? true : false);
 
         if(!suggestedAnimes_ByTaste.isEmpty() || !suggestedAnimes_ByFollow.isEmpty() || !suggestedUsersToFollow.isEmpty())
             return "discoverPage";

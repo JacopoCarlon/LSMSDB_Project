@@ -16,7 +16,7 @@ public class AdminPageController {
             return "error/accessDenied";
 
         try {
-            model.addAttribute("logged", Utility.isLogged(session));
+            model.addAttribute("is_logged", Utility.isLogged(session));
             //  TODO : 
             //   need access to admin data, like :
             //  AdminData adminData = Utility.readAdminData();

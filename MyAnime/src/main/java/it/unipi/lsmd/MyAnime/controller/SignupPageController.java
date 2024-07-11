@@ -12,7 +12,7 @@ public class SignupPageController {
     @RequestMapping("/signup")
     public String signupPage(HttpSession session, Model model) {
         boolean is_logged = (Utility.isLogged(session))? true : false ;
-        model.addAttribute("logged", is_logged );
+        model.addAttribute("is_logged", is_logged );
         
         if(is_logged){
             return "error/alreadyLogged";
