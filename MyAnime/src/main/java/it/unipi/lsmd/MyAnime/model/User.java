@@ -18,13 +18,11 @@ public class User {
     private String name;
     private String surname;
     private String email;
-    private String password;
+    private String passwordSalt;
+    private String passwordHash;
     private String gender;
     private String birthDate;
     private Instant joinDate;
     private int statsEpisodes;
     private Review[] mostRecentReviews;
-
-    @Field("isAdmin")
-    private boolean admin;
 }

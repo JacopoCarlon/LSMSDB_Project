@@ -7,6 +7,7 @@ import java.nio.charset.StandardCharsets;
 import it.unipi.lsmd.MyAnime.model.Review;
 import it.unipi.lsmd.MyAnime.model.User;
 import it.unipi.lsmd.MyAnime.repository.MongoDB.UserMongoInterface;
+import it.unipi.lsmd.MyAnime.utilities.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataAccessResourceFailureException;
@@ -59,13 +60,16 @@ public class UserRepoMongoDB {
                 return 1; // Username già esistente
             }
 
+            // Generazione salt
+            String salt = Utility.generateSalt();
+
             // Hashing della password
             String hashedPassword = Hashing.sha256()
-                    .hashString(password, StandardCharsets.UTF_8)
+                    .hashString(password + salt, StandardCharsets.UTF_8)
                     .toString();
 
             // Creazione di un nuovo utente
-            User newUser = new User(null, username, name, surname, email, hashedPassword, gender, birthDate, joinDate, statsEpisodes, new Review[0]);
+            User newUser = new User(null, username, name, surname, email, salt, hashedPassword, gender, birthDate, joinDate, statsEpisodes, new Review[0]);
 
             // Salvataggio del nuovo utente
             userMongoInterface.save(newUser);

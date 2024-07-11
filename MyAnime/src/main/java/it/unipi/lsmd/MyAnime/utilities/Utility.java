@@ -3,6 +3,9 @@ package it.unipi.lsmd.MyAnime.utilities;
 
 import jakarta.servlet.http.HttpSession;
 
+import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
+
 
 public class Utility {
     public static boolean isLogged(HttpSession session) {
@@ -31,4 +34,10 @@ public class Utility {
             return "";
     }
 
+    public static String generateSalt() {
+        SecureRandom sr = new SecureRandom();
+        byte[] salt = new byte[16];
+        sr.nextBytes(salt);
+        return new String(salt, StandardCharsets.UTF_8);
+    }
 }
