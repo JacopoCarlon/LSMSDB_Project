@@ -21,9 +21,14 @@ public class LoginREST {
     @PostMapping("/api/login")
     public @ResponseBody String login (HttpSession session,
                                        @RequestParam("username") String username,
-                                       @RequestParam("password") String password) {
+                                       @RequestParam("password") String password,
+                                       @RequestParam("option") Boolean as_admin                                       
+                                       ) {
 
         try {
+            if (as_admin){
+                
+            }
             User user = userRepoMongoDB.getUserByUsername(username);
 
             if(user == null){

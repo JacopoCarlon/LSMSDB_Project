@@ -8,6 +8,12 @@ $(document).ready(function () {
 		login();
 	});
 
+    $("#login_admin_btn").click(function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+		login(as_admin);
+	});
+
     $("#password_input").on("keydown", function (e) {
         // Check if the pressed key is the "Enter" key (code 13)
         //  if (e.keyCode === 13) {
@@ -20,7 +26,7 @@ $(document).ready(function () {
         }
     });
 
-	function login() {
+	function login(option_admin) {
         const tmp_usrn = $("#username_input").val();
         const tmp_pwd = $("#password_input").val();
 
@@ -29,7 +35,8 @@ $(document).ready(function () {
 			url: '/api/login',
 			data: {
                 username: tmp_usrn,
-                password: tmp_pwd
+                password: tmp_pwd,
+                option : option_admin
             },
             dataType : 'json',
             method: 'POST',
