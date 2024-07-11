@@ -1,7 +1,9 @@
 package it.unipi.lsmd.MyAnime.controller.api;
 
 import com.google.common.hash.Hashing;
+import it.unipi.lsmd.MyAnime.model.Admin;
 import it.unipi.lsmd.MyAnime.model.User;
+import it.unipi.lsmd.MyAnime.repository.AdminRepoMongoDB;
 import it.unipi.lsmd.MyAnime.repository.UserRepoMongoDB;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ import java.nio.charset.StandardCharsets;
 public class LoginREST {
     @Autowired
     UserRepoMongoDB userRepoMongoDB;
+    @Autowired
+    AdminRepoMongoDB adminRepoMongoDB;
 
     @PostMapping("/api/login")
     public @ResponseBody String login (HttpSession session,
@@ -26,26 +30,36 @@ public class LoginREST {
                                        ) {
 
         try {
+            String salt, hash;
+
             if (as_admin){
-                
+                Admin admin = adminRepoMongoDB.getAdminByUsername(username);
+                if (admin == null) {
+                    // Admin not found
+                    return "{\"login_code\": 1}";
+                }
+                salt = admin.getPasswordSalt();
+                hash = admin.getPasswordHash();
             }
-            User user = userRepoMongoDB.getUserByUsername(username);
-
-            if(user == null){
-                //  //  User not found
-                return "{\"login_code\": 1}";     
+            else {
+                User user = userRepoMongoDB.getUserByUsername(username);
+                if(user == null){
+                    //  //  User not found
+                    return "{\"login_code\": 1}";
+                }
+                salt = user.getPasswordSalt();
+                hash = user.getPasswordHash();
             }
 
-            //  TODO : revert salting
-            String hashedPassword = Hashing.sha256()
-                    .hashString(password, StandardCharsets.UTF_8)
+           String hashedPassword = Hashing.sha256()
+                    .hashString(password + salt, StandardCharsets.UTF_8)
                     .toString();
 
-            if(user.getPassword().equals(hashedPassword)){
+            if(hash.equals(hashedPassword)){
                 //  //  Login successful
                 //session.setAttribute("logged", true);
                 session.setAttribute("username", username);
-                session.setAttribute("role", user.isAdmin() ? "admin" : "regUser");
+                session.setAttribute("role", as_admin ? "admin" : "regUser");
                 return "{\"login_code\": 0}";     
             }
             else {
