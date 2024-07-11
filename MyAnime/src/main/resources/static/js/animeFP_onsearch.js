@@ -63,7 +63,7 @@ $(document).ready(function () {
     }
 });
 
-function displayAlbums(anime_lst) {
+function displayAnimes(anime_lst) {
     const container = $(".modal-body");
     container.empty();
 

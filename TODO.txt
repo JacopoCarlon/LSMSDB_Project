@@ -23,13 +23,22 @@ FATTO :
 
 
 
-
+TO DO : 
 DA FARE :
 
 
+-   update admin data + controller + api + query
+-   + tutte le funzioni di update, delete, add dell'adminPage !!!
 
+-   update discovery + controller + api + query 
 
+-   update login/signup + api + query
 
+-   update session status is_logged , is_admin
+
+-   test search_bar different behaviours for is_admin and !is_admin
+
+-   verify consistency of Constat directories in java / utilities / constants.java
 
 
 

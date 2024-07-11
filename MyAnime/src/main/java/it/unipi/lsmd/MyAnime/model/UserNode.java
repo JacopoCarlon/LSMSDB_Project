@@ -27,10 +27,10 @@ public class UserNode {
     }
 
     public static ArrayList<AnimeNode> getAnimeNode(Neo4jClient neo4jClient, String username, String cypherQuery) {
-        return (ArrayList<Album_Neo4j>) neo4jClient
+        return (ArrayList<Anime_Neo4j>) neo4jClient
                 .query(cypherQuery)
                 .bind(username).to("username")
-                .fetchAs(Album_Neo4j.class)
+                .fetchAs(Anime_Neo4j.class)
                 .mappedBy((typeSystem, record) -> {
                     String usernameNode = record.get("username").asString();
                     return new UserNode(usernameNode);
