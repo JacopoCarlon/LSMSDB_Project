@@ -34,10 +34,17 @@ public class Utility {
             return "";
     }
 
+    private static final char[] HEX_ARRAY = "0123456789abcdef".toCharArray();
     public static String generateSalt() {
         SecureRandom sr = new SecureRandom();
-        byte[] salt = new byte[16];
-        sr.nextBytes(salt);
-        return new String(salt, StandardCharsets.UTF_8);
+        byte[] saltBytes = new byte[16];
+        sr.nextBytes(saltBytes);
+        char[] hexString = new char[32];
+        for (int i = 0; i < 16; i++) {
+            byte v = saltBytes[i];
+            hexString[i * 2] = HEX_ARRAY[v >>> 4];
+            hexString[i * 2 + 1] = HEX_ARRAY[v & 0x0F];
+        }
+        return new String(hexString);
     }
 }
