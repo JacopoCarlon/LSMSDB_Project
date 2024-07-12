@@ -22,7 +22,7 @@ public class AnimeReviewPageController {
     @Autowired
     ReviewRepoMongoDB reviewRepoMongoDB;
 
-    @GetMapping("/animeReviewsPage")
+    @GetMapping(value={"/animeReviews","/animeReviewsPage"})
     public String animeReviews(HttpSession session,
                                  Model model,
                                  @RequestParam("animeId") String animeId) {

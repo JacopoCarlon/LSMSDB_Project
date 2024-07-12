@@ -15,7 +15,7 @@ public class WriteReviewPageController {
     @Autowired
     AnimeRepoMongoDB animeRepoMongoDB;
 
-    @GetMapping("/writeReview")
+    @GetMapping(value={"/writeReview","writeReviewPage"})
     public String writeReview(HttpSession session,
                               Model model,
                               @RequestParam("animeID") String animeID) {

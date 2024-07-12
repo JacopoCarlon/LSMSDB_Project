@@ -9,7 +9,7 @@ import it.unipi.lsmd.MyAnime.utilities.Utility;
 @Controller
 public class LoginPageController {
 
-    @RequestMapping("/login")
+    @RequestMapping(value={"/login.html","/loginPage.html","/login","/loginPage"})
     public String loginPage(HttpSession session) {
         if(!Utility.isLogged(session)){
             return "loginPage";

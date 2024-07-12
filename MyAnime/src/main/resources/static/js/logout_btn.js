@@ -12,7 +12,7 @@ $(document).ready(function () {
             method: 'POST',
             success: function(outcome) {
                 if(outcome["outcome_code"] == 0) {
-                    window.location.href = "../templates/loginPage.html";
+                    window.location.href = "/loginPage";
                 }
                 else {
                     alert("Si è verificato un problema durante il logout");

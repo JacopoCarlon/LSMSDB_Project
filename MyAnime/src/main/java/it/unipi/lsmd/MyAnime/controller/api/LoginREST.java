@@ -29,6 +29,10 @@ public class LoginREST {
                                        @RequestParam("option") Boolean as_admin                                       
                                        ) {
 
+        System.out.println("DBG -> inizio di login con parametri : ");
+        System.out.println(username);
+        System.out.println(password);
+        System.out.println(as_admin);
         try {
             String salt, hash;
 
@@ -36,6 +40,7 @@ public class LoginREST {
                 Admin admin = adminRepoMongoDB.getAdminByUsername(username);
                 if (admin == null) {
                     // Admin not found
+                    System.out.println("user is not admin");
                     return "{\"login_code\": 1}";
                 }
                 salt = admin.getPasswordSalt();
@@ -45,17 +50,19 @@ public class LoginREST {
                 User user = userRepoMongoDB.getUserByUsername(username);
                 if(user == null){
                     //  //  User not found
+                    System.out.println("user not found");
                     return "{\"login_code\": 1}";
                 }
                 salt = user.getPasswordSalt();
                 hash = user.getPasswordHash();
             }
 
-           String hashedPassword = Hashing.sha256()
+            String hashedPassword = Hashing.sha256()
                     .hashString(salt + password, StandardCharsets.UTF_8)
                     .toString();
 
             if(hash.equals(hashedPassword)){
+                System.out.println("login success");
                 //  //  Login successful
                 session.setAttribute("is_logged", true);
                 session.setAttribute("username", username);
@@ -64,6 +71,7 @@ public class LoginREST {
             }
             else {
                 //  //  Wrong password
+                System.out.println("user : wrong pwd");
                 return "{\"login_code\": 2}";     
             }
 

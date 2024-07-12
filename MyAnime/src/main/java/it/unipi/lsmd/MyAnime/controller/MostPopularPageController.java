@@ -25,7 +25,7 @@ public class MostPopularPageController {
 
 
     //  TODO : verify consistency with structure in constants + model + repo + controller
-    @RequestMapping("/mostPopular")
+    @RequestMapping(value={"/mostPopular.html","/mostPopularPage.html","/mostPopular","/mostPopularPage"})
     public String mostPopularPage(HttpSession session,
                                   Model model) {
         model.addAttribute("is_logged", (Utility.isLogged(session)) ? true : false);

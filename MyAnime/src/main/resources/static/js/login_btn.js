@@ -5,13 +5,13 @@ $(document).ready(function () {
     $("#login_btn").click(function (e) {
         e.preventDefault();
         e.stopPropagation();
-		login();
+		login(false);
 	});
 
     $("#login_admin_btn").click(function (e) {
         e.preventDefault();
         e.stopPropagation();
-		login(as_admin);
+		login(true);
 	});
 
     $("#password_input").on("keydown", function (e) {
@@ -22,13 +22,17 @@ $(document).ready(function () {
         //  }
         if (e.key === "Enter") {
             e.preventDefault();
-            login();
+            login(false);
         }
     });
 
 	function login(option_admin) {
         const tmp_usrn = $("#username_input").val();
         const tmp_pwd = $("#password_input").val();
+
+        console.log("uname: " + tmp_usrn);
+        console.log("upwd: " + tmp_pwd);
+        console.log("as_admin: " + option_admin);
 
         // go to login_restctrl.java
 		$.ajax({

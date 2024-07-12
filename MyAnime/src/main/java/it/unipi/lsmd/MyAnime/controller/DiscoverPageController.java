@@ -21,7 +21,7 @@ public class DiscoverPageController {
     @Autowired
     AnimeRepoNeo4j animeRepoNeo4j;
 
-    @RequestMapping("/discover")
+    @RequestMapping(value={"/discover","/discoverPage"})
     public String discoverPage(HttpSession session, Model model) {
         if(!Utility.isLogged(session))
             return "redirect:/login";

@@ -55,7 +55,7 @@ $(document).ready(function () {
                 switch(response.outcome_code) {
                     case 0:
                         alert("Registration successful!\nYou can now proceed with the login.");
-                        window.location.href = "./loginPage.html";
+                        window.location.href = "/loginPage";
                         break;
                     case 1:
                         alert("Username already in use. Please choose another username.");
