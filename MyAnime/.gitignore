@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+#   unused uploaders
+**/010_data-uploaders/*
