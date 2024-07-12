@@ -16,7 +16,7 @@ public class AnimeDetailsPageController {
     @Autowired
     AnimeRepoMongoDB animeRepoMongoDB;
 
-    @GetMapping("/animeDetailsPage")
+    @GetMapping("/animeDetails")
     public String animeDetailsPage(HttpSession session,
                                Model model,
                                @RequestParam(required = false) String animeID,

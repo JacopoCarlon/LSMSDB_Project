@@ -18,7 +18,7 @@ public class ProfilePageController {
     @Autowired
     UserRepoMongoDB userRepoMongoDB;
 
-    @RequestMapping("/profilePage")
+    @RequestMapping("/profile")
     public String profilePage(HttpSession session,
                               Model model){
 
@@ -27,7 +27,7 @@ public class ProfilePageController {
         if(!Utility.isLogged(session))
             return "redirect:/login";
         else if(Utility.isAdmin(session))
-            return "redirect:/adminPage";
+            return "redirect:/admin";
         else{
             User optionalUser = userRepoMongoDB.getUserByUsername(Utility.getUsername(session));
             if(optionalUser==null)

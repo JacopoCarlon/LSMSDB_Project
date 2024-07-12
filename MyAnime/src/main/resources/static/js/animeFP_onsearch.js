@@ -79,7 +79,7 @@ function displayAnimes(anime_lst) {
         div1.append($("<p style=\"font-size: medium;\" id=\"anime_artists\"></p>").text(anime.artists.join(", ")));
 
         animeDiv.click(function() {
-            window.location.href = '/animeDetails?animeId=' + anime.id;
+            window.location.href = '/animeDetails?animeID=' + anime.id;
         });
 
         container.append(animeDiv);

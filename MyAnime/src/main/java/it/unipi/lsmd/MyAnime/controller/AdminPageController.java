@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 
 public class AdminPageController {
-    @RequestMapping("/adminPage")
+    @RequestMapping("/admin")
     public String adminPage(HttpSession session,
                             Model model){
         if (!Utility.isLogged(session))

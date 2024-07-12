@@ -21,7 +21,7 @@ public class Review {
     @Id
     private String id;
     private String username;
-    private String animeId;
+    private String animeID;
     private int score;
     private String text;
     private Instant timestamp;
@@ -30,9 +30,9 @@ public class Review {
     private String printableDate;
 
 
-    public Review(String username, String animeId, int score, String text, Instant timestamp) {
+    public Review(String username, String animeID, int score, String text, Instant timestamp) {
         this.username = username;
-        this.animeId = animeId;
+        this.animeID = animeID;
         this.score = score;
         this.text = text;
         this.timestamp = timestamp;

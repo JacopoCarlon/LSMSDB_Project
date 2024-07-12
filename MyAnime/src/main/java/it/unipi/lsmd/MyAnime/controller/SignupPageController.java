@@ -18,7 +18,7 @@ public class SignupPageController {
             return "error/alreadyLogged";
         }
         else{
-            return "signup";
+            return "signupPage";
         }
     }
 }

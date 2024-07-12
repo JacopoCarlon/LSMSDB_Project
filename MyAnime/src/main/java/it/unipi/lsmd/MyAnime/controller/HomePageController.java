@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomePageController {
 
-    @RequestMapping("/homePage")
+    @RequestMapping("/homepage")
     public String homePage(HttpSession session, Model model) {
 
-        return "";
+        return "homePage";
     }
 }

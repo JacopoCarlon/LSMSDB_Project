@@ -18,10 +18,10 @@ public class WriteReviewPageController {
     @GetMapping("/writeReview")
     public String writeReview(HttpSession session,
                               Model model,
-                              @RequestParam("animeId") String animeID) {
+                              @RequestParam("animeID") String animeID) {
 
         if(!Utility.isLogged(session))
-            return "error/youMustBeLogged";
+            return "error/mustBeLogged";
         if(Utility.isAdmin(session))
             return "error/accessDenied";
 
@@ -37,6 +37,6 @@ public class WriteReviewPageController {
         if(Utility.isLogged(session))
             return "writeReview";
         else
-            return "error/youMustBeLogged";
+            return "error/mustBeLogged";
     }
 }

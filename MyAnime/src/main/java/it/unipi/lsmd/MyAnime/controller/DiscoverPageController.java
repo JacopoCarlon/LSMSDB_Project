@@ -21,7 +21,7 @@ public class DiscoverPageController {
     @Autowired
     AnimeRepoNeo4j animeRepoNeo4j;
 
-    @RequestMapping("/discoverPage")
+    @RequestMapping("/discover")
     public String discoverPage(HttpSession session, Model model) {
         if(!Utility.isLogged(session))
             return "redirect:/login";
@@ -39,7 +39,7 @@ public class DiscoverPageController {
             else
                 model.addAttribute("suggestedAnimes_ByTaste", suggestedAnimes_ByTaste);
         }
-
+/*
         ArrayList<AnimeRepoNeo4j> suggestedAnimes_ByFollow = animeRepoNeo4j.getSuggestedAnimes_ByFollowed(currentUsername);
         if(suggestedAnimes_ByFollow == null)
             return "error/genericError";
@@ -59,12 +59,12 @@ public class DiscoverPageController {
             else
                 model.addAttribute("suggestedUsersToFollow", suggestedUsersToFollow);
         }
-
+*/
         model.addAttribute("is_logged", (Utility.isLogged(session)) ? true : false);
 
-        if(!suggestedAnimes_ByTaste.isEmpty() || !suggestedAnimes_ByFollow.isEmpty() || !suggestedUsersToFollow.isEmpty())
+        if(!suggestedAnimes_ByTaste.isEmpty())// || !suggestedAnimes_ByFollow.isEmpty() || !suggestedUsersToFollow.isEmpty())
             return "discoverPage";
         else
-            return "error/nothingToDiscover";
+            return "error/nothingDiscovered";
     }
 }

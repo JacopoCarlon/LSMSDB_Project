@@ -12,7 +12,7 @@ public class LoginPageController {
     @RequestMapping("/login")
     public String loginPage(HttpSession session) {
         if(!Utility.isLogged(session)){
-            return "login";
+            return "loginPage";
         }
         else{
             return "error/alreadyLogged";

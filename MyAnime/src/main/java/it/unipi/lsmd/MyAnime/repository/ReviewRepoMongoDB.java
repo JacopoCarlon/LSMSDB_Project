@@ -32,9 +32,9 @@ public class ReviewRepoMongoDB {
         }
     }
 
-    public boolean insertReview(int score, String text, String animeId, String username, Instant timestamp) {
+    public boolean insertReview(int score, String text, String animeID, String username, Instant timestamp) {
         try {
-            Review review = new Review(username, animeId, score, text, timestamp);
+            Review review = new Review(username, animeID, score, text, timestamp);
             reviewMongoInterface.save(review);
             return true;
         } catch (DataAccessException dae) {
