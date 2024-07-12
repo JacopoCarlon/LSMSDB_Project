@@ -78,3 +78,10 @@ https://stackoverflow.com/questions/7731778/get-query-string-parameters-url-valu
 
 
 
+load favicon :
+<link rel="icon" type="image/x-icon" href="img/mc_bookshelf.png">
+or
+<link rel="icon" type="image/x-icon" th:href="@{img/mc_bookshelf.png}">
+
+
+
