@@ -18,7 +18,7 @@ public class ProfilePageController {
     @Autowired
     UserRepoMongoDB userRepoMongoDB;
 
-    @RequestMapping(value={"/profile","/profilePage"})
+    @RequestMapping(value={"/profile.html","/profilePage.html","/profile","/profilePage"})
     public String profilePage(HttpSession session,
                               Model model){
 

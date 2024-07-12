@@ -1,4 +1,4 @@
-// used for loginPage.html
+// used for loginPage
 //  TODO : unrelativize paths
 //  needs : controllers/api/...rest.java che abbia @PostMapping("/api/login") e mi ritorni login_code : 0
 $(document).ready(function () {
@@ -33,6 +33,10 @@ $(document).ready(function () {
         console.log("uname: " + tmp_usrn);
         console.log("upwd: " + tmp_pwd);
         console.log("as_admin: " + option_admin);
+        if (tmp_usrn == "" || tmp_usrn == "" ) {
+            alert("Username not found in the database. Please make sure you have typed the username correctly. (In this case the search was not executed)");
+            return;
+        }
 
         // go to login_restctrl.java
 		$.ajax({
@@ -46,7 +50,7 @@ $(document).ready(function () {
             method: 'POST',
 			success: function (outcome) {
                 if (outcome["login_code"] == 0) {
-                    window.location.href = "../templates/mostPopularPage.html";
+                    window.location.href = "/mostPopularPage";
                 } else if (outcome["login_code"] == 1) {
                     alert("Username not found in the database. Please make sure you have typed the username correctly.");
                     $("#username_input").val("");

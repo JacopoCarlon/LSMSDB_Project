@@ -1,7 +1,7 @@
 package it.unipi.lsmd.MyAnime.controller;
 
 import it.unipi.lsmd.MyAnime.model.AnimeNode;
-import it.unipi.lsmd.MyAnime.model.UserNode;
+//  import it.unipi.lsmd.MyAnime.model.UserNode;
 import it.unipi.lsmd.MyAnime.repository.AnimeRepoNeo4j;
 import it.unipi.lsmd.MyAnime.repository.UserRepoNeo4j;
 import it.unipi.lsmd.MyAnime.utilities.Utility;
@@ -21,7 +21,7 @@ public class DiscoverPageController {
     @Autowired
     AnimeRepoNeo4j animeRepoNeo4j;
 
-    @RequestMapping(value={"/discover","/discoverPage"})
+    @RequestMapping(value={"/discover.html","/discoverPage.html","/discover","/discoverPage"})
     public String discoverPage(HttpSession session, Model model) {
         if(!Utility.isLogged(session))
             return "redirect:/login";
@@ -60,7 +60,7 @@ public class DiscoverPageController {
                 model.addAttribute("suggestedUsersToFollow", suggestedUsersToFollow);
         }
 */
-        model.addAttribute("is_logged", (Utility.isLogged(session)) ? true : false);
+        model.addAttribute("is_logged", Utility.isLogged(session) );
 
         if(!suggestedAnimes_ByTaste.isEmpty())// || !suggestedAnimes_ByFollow.isEmpty() || !suggestedUsersToFollow.isEmpty())
             return "discoverPage";

@@ -115,7 +115,7 @@
                     let viewAllReviewBtn = $("#animeReviews_btn");
                     if (viewAllReviewBtn != null) {
                         $(viewAllReviewBtn).click(function (){
-                            window.location.href = './animeReviewsPage.html?animeId=' + animeId;
+                            window.location.href = '/animeReviewsPage?animeId=' + animeId;
                         });
                     } else
                         alert("viewAllReviewBtn not found");
@@ -125,7 +125,7 @@
                         ;
                     else if (writeReviewBtn !== null) {
                         $(writeReviewBtn).click(function (){
-                            window.location.href = './writeReviewPage.html?animeId=' + animeId;
+                            window.location.href = '/writeReviewPage?animeId=' + animeId;
                         });
                     } else
                         alert("writeReviewBtn not found");

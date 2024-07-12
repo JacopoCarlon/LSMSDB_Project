@@ -1,4 +1,4 @@
-// used for signupPage.html
+// used for signupPage
 //  TODO : unrelativize paths
 //  needs : controllers/api/...rest.java che abbia @PostMapping("/api/signup") e mi ritorni outcome_code : 0
 $(document).ready(function () {
@@ -100,11 +100,11 @@ function isValidBirthday(birthday){
     var today_date = new Date();
     var birthdate = birthday.split("-");
     var born = new Date(year=birthdate[0], monthIndex=birthdate[1]-1, date=birthdate[2]);
-    var birthday = new Date(year=today_date.getFullYear(), monthIndex=born.getMonth(), date=born.getDate());
+    var birthdayDate = new Date(year=today_date.getFullYear(), monthIndex=born.getMonth(), date=born.getDate());
 
     var cur_age =  today_date.getFullYear() - born.getFullYear();
 
-    if (today_date <= birthday) {
+    if (today_date <= birthdayDate) {
         cur_age =  cur_age - 1;
     }
 

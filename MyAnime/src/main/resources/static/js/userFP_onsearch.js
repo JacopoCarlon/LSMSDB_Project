@@ -1,4 +1,4 @@
-// used for loginPage.html
+// used for loginPage
 //  TODO : unrelativize paths
 //  needs : controllers/api/...rest.java che abbia @PostMapping("/api/login") e mi ritorni outcome_code : 0
 $(document).ready(function () {
@@ -46,7 +46,7 @@ $(document).ready(function () {
             method: 'GET',
 
             success: function (arrayResults) {
-                //  window.location.href = "../templates/userFilterPage.html";
+                //  window.location.href = "/userFilterPage";
                 if(arrayResults==null || arrayResults.length == 0) {
                     const container = $(".modal-body");
                     container.empty();

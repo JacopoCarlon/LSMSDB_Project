@@ -1,4 +1,4 @@
-// used for loginPage.html
+// used for loginPage
 //  TODO : unrelativize paths
 //  needs : controllers/api/...rest.java che abbia @PostMapping("/api/login") e mi ritorni outcome_code : 0
 $(document).ready(function () {
@@ -34,10 +34,10 @@ $(document).ready(function () {
         const searchTerm = $("#search_input").val();    //  field
 
         if (category == "anime"){
-            window.location.href = "../templates/animeFilterPage.html?keyword="+searchTerm;
+            window.location.href = "/animeFilterPage?keyword="+searchTerm;
         }
         else if (category == "user"){
-            window.location.href = "../templates/userFilterPage.html?keyword="+searchTerm;
+            window.location.href = "/userFilterPage?keyword="+searchTerm;
         }                          
     }
 });

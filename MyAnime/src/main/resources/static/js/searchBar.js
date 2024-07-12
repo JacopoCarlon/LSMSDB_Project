@@ -24,7 +24,7 @@ function loadSearchBar(){
     let admin = 'false'
     $(".header").append(
         "<div class=\"container-fluid d-flex align-items-center justify-content-between\">" +
-        "<h1 id=\"logo\" class=\"g-col-3\"><a href=\"../templates/mostPopularPage.html\">MyAnimeLibrary</a></h1>" +
+        "<h1 id=\"logo\" class=\"g-col-3\"><a href=\"/mostPopularPage\">MyAnimeLibrary</a></h1>" +
         "<section id=\"search-container\" class=\"w-50\">" +
         "<form class=\"d-flex\">" +
         "<input class=\"form-control\" type=\"text\" id=\"search_input\" placeholder=\"What are you looking for?\">" +
@@ -50,10 +50,10 @@ function loadSearchBar(){
     if(value == 'true'){
         if(admin != 'true'){
             $("#discover_controller").append(
-                "<a class=\"nav-link scrollto\" href=\"./discoverPage.html\">Discover</a>"
+                "<a class=\"nav-link scrollto\" href=\"/discoverPage\">Discover</a>"
             )
             $("#user_controller").append(
-                "<a href=\"./profilePage.html\" class=\"btn btn-success\" style=\"border-radius: 10px 10px 10px 10px;\"><i class=\"fa fa-user me-1\"></i>Profile page</a>"
+                "<a href=\"/profilePage\" class=\"btn btn-success\" style=\"border-radius: 10px 10px 10px 10px;\"><i class=\"fa fa-user me-1\"></i>Profile page</a>"
             )
             
         }else{

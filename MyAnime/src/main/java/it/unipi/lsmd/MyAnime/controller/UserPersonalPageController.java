@@ -34,7 +34,7 @@ public class UserPersonalPageController {
                     model.addAttribute("userDetails", user);
                     model.addAttribute("admin", Utility.isAdmin(session) );
 
-                    return "user";
+                    return "userPersonalPage";
                 }else
                     return "error/mustBeLogged";
             }

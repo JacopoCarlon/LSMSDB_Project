@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomePageController {
 
-    @RequestMapping(value={"/homePage","/home"})
+    @RequestMapping(value={"/homePage.html","/home.html","/homePage","/home"})
     public String homePage(HttpSession session, Model model) {
 
         return "homePage";

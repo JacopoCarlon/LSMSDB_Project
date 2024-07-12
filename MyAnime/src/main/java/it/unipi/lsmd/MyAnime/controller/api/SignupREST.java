@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.Instant;
 
 /* 
-Handle sinup using informations required at the signupPage.html:
+Handle sinup using informations required at the signupPage:
 -   name
 -   surname
 -   username
