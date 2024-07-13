@@ -21,9 +21,9 @@ public class ReviewRepoMongoDB {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public boolean existsByAnimeIDAndUsername(String animeID, String username) {
+    public boolean existsByAnimeIDAndUsername(ObjectId animeID, String username) {
         try {
-            return reviewMongoInterface.existsByAnimeIDAndUsername(new ObjectId(animeID) , username);
+            return reviewMongoInterface.existsByAnimeIDAndUsername(animeID , username);
         } catch (DataAccessException dae) {
             if (dae instanceof DataAccessResourceFailureException)
                 throw dae;
@@ -32,9 +32,9 @@ public class ReviewRepoMongoDB {
         }
     }
 
-    public boolean insertReview(int score, String text, String animeID, String username, Instant timestamp) {
+    public boolean insertReview(int score, String text, ObjectId animeID, String username, Instant timestamp, String animeTitle) {
         try {
-            Review review = new Review(username, animeID, score, text, timestamp);
+            Review review = new Review(username, animeID, score, text, timestamp, animeTitle);
             reviewMongoInterface.save(review);
             return true;
         } catch (DataAccessException dae) {
@@ -45,9 +45,9 @@ public class ReviewRepoMongoDB {
         }
     }
 
-    public List<Review> getReviewsByAnimeID(String animeID) {
+    public List<Review> getReviewsByAnimeID(ObjectId animeID) {
         try {
-            ObjectId animeObjectId = new ObjectId(animeID);
+            ObjectId animeObjectId = animeID;
             PageRequest pageable = PageRequest.of(0, 500);
             return reviewMongoInterface.findLimitedReviewsByAnimeID(animeObjectId, pageable).getContent();
         } catch (DataAccessException dae) {

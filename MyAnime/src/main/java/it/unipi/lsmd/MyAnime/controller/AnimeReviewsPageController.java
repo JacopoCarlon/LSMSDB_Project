@@ -3,6 +3,7 @@ package it.unipi.lsmd.MyAnime.controller;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +27,7 @@ public class AnimeReviewsPageController {
     @GetMapping(value={"/animeReviews.html","/animeReviewsPage.html","/animeReviews","/animeReviewsPage"})
     public String animeReviews(HttpSession session,
                                  Model model,
-                                 @RequestParam("animeId") String animeId) {
+                                 @RequestParam("animeId") ObjectId animeId) {
 
         if (!Utility.isLogged(session)) {
             return "error/mustBeLogged";

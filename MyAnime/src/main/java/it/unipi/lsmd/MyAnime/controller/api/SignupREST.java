@@ -39,7 +39,7 @@ public class SignupREST {
             @RequestParam("surname")    String surname,
             @RequestParam("username")   String username,
             @RequestParam("password")   String password,
-            @RequestParam("birthday")   String birthday,
+            @RequestParam("birthday")   Instant birthday,
             @RequestParam("sex")        String sex,
             @RequestParam("email")      String email
     ) {
@@ -55,7 +55,7 @@ public class SignupREST {
         try{
             // can user be inserted ?
             Instant this_instant = Instant.now(); 
-            //  insertUser(String name, String surname, String username, String password, String birthDate, String email, String gender, Instant joinDate, int statsEpisodes)
+            //  insertUser(String name, String surname, String username, String password, Instant birthDate, String email, String gender, Instant joinDate, int statsEpisodes)
             int o_insertMDB = userRepoMongoDB.insertUser(name, surname, username, password, birthday, email, sex, this_instant, 0);
             if (o_insertMDB!=0){
                 // Failed insert in MongoDB

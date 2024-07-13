@@ -3,6 +3,7 @@ package it.unipi.lsmd.MyAnime.controller;
 import it.unipi.lsmd.MyAnime.repository.AnimeRepoMongoDB;
 import it.unipi.lsmd.MyAnime.utilities.Utility;
 import jakarta.servlet.http.HttpSession;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +19,7 @@ public class WriteReviewPageController {
     @GetMapping(value={"/writeReview.html","/writeReviewPage.html","/writeReview","/writeReviewPage"})
     public String writeReview(HttpSession session,
                               Model model,
-                              @RequestParam("animeID") String animeID) {
+                              @RequestParam("animeID") ObjectId animeID) {
 
         if(!Utility.isLogged(session)){
             return "error/mustBeLogged";

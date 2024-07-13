@@ -1,6 +1,7 @@
 package it.unipi.lsmd.MyAnime.repository.MongoDB;
 
 import it.unipi.lsmd.MyAnime.model.Anime;
+import org.bson.types.ObjectId;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
@@ -9,9 +10,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AnimeMongoInterface extends MongoRepository<Anime, String> {
-    boolean existsById(String id);
+    boolean existsById(ObjectId id);
     boolean existsByTitle(String title);
-    Optional<Anime> findById(String id);
+    Optional<Anime> findById(ObjectId id);
 
     @Query(value = "{ 'title': ?0 }")
     List<Anime> findByTitle(String title);

@@ -13,46 +13,49 @@ import java.util.Map;
 import it.unipi.lsmd.MyAnime.model.Review;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "animes")
 public class Anime {
     @Id
-    private String id;
+    private ObjectId id;
     private String title;
-    private String title_japanese;
+    @Field(name = "title_japanese")
+    private String titleJapanese;
     private String type;
     private String source;
     private int episodes;
-    private String status;
     private boolean airing;
     private Map aired;
-    private String rated;
+    private String rating;
+    @Field("score")
     private float averageScore;
+    @Field("scored_by")
     private int scoredBy;
+    @Field("members")
     private int watchers;
+    @Field("background")
     private String synopsis;
     private String broadcast;
-    private String[] producer;
+    private String producer;
     private String licensor;
     private String studio;
     private String[] genre;
+    @Field("duration_min")
     private int episodeDuration;
+    @Field("picture")
     private String imgURL;
-    @Field("most_recent_reviews")
     private Review[] mostRecentReviews;
 
-    public Anime (ObjectId objId, String title, String title_japanese, String type, String source, int episodes, String status, boolean airing, Map aired, String rated, float avarageScore, int scoredBy, int watchers, String synopsis, String broadcast, String[] producer, String licensor, String studio, String[] genre, int EpisodeDuration, String imgURL, Review[] mostRecentReviews) {
-        this.id = objId.toString();
+    public Anime (ObjectId objId, String title, String titleJapanese, String type, String source, int episodes,  boolean airing, Map aired, String rating, float avarageScore, int scoredBy, int watchers, String synopsis, String broadcast, String producer, String licensor, String studio, String[] genre, int EpisodeDuration, String imgURL, Review[] mostRecentReviews) {
+        this.id = objId;
         this.title = title;
-        this.title_japanese = title_japanese;
+        this.titleJapanese = titleJapanese;
         this.type = type;
         this.source = source;
         this.episodes = episodes;
-        this.status = status;
         this.airing = airing;
         this.aired = aired;
-        this.rated = rated;
+        this.rating = rating;
         this.averageScore = avarageScore;
         this.scoredBy = scoredBy;
         this.watchers = watchers;
@@ -67,31 +70,4 @@ public class Anime {
         this.mostRecentReviews = mostRecentReviews;
     }
 
-    public static Anime mapToAnime(org.bson.Document doc) {
-        ObjectId id = doc.getObjectId("id");
-        String title = doc.getString("title");
-        String title_japanese = doc.getString("title_japanese");
-        String type = doc.getString("type");
-        String source = doc.getString("source");
-        int episodes = doc.getInteger("episodes");
-        String status = doc.getString("status");
-        boolean airing = doc.getBoolean("airing");
-        Map aired = doc.get("aired", Map.class); //probabilmente sbagliato
-        String rated = doc.getString("rated");
-        float averageScore = doc.getDouble("averageScore").floatValue();
-        int scoredBy = doc.getInteger("scoredBy");
-        int watchers = doc.getInteger("watchers");
-        String synopsis = doc.getString("synopsis");
-        String broadcast = doc.getString("broadcast");
-        String[] producer = doc.getList("producer", String.class).toArray(new String[0]);
-        String licensor = doc.getString("licensor");
-        String studio = doc.getString("studio");
-        String[] genre = doc.getList("genre", String.class).toArray(new String[0]);
-        int episodeDuration = doc.getInteger("episodeDuration");
-        String imgURL = doc.getString("imgURL");
-
-        Review[] mostRecentReviews = new Review[0];
-
-        return new Anime(id, title, title_japanese, type, source, episodes, status, airing, aired, rated, averageScore, scoredBy, watchers, synopsis, broadcast, producer, licensor, studio, genre, episodeDuration, imgURL, mostRecentReviews);
-    }
 }

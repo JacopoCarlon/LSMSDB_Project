@@ -4,6 +4,7 @@ package it.unipi.lsmd.MyAnime.controller.api;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessResourceFailureException;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,6 +20,7 @@ import java.time.Instant;
 import it.unipi.lsmd.MyAnime.model.Anime;
 import it.unipi.lsmd.MyAnime.model.Review;
 
+@Controller
 public class WriteReviewREST {
     @Autowired
     UserRepoMongoDB userRepoMongoDB;
@@ -32,7 +34,7 @@ public class WriteReviewREST {
     public @ResponseBody String writeReview(HttpSession session,
                                       @RequestParam("rating") int rating,
                                       @RequestParam("text") String text,
-                                      @RequestParam("animeID") String animeID,
+                                      @RequestParam("animeID") ObjectId animeID,
                                       @RequestParam("username") String username) {
 
         try {
@@ -56,13 +58,13 @@ public class WriteReviewREST {
         // public boolean insertReview(int score, String text, String animeId, String username, Instant timestamp)
         //  TODO : verify consinstency inserts !!!
 
-            boolean outcomeInsertIntoReview = reviewRepoMongoDB.insertReview(rating, text, anime.getId(), username, Instant.now());
+            boolean outcomeInsertIntoReview = reviewRepoMongoDB.insertReview(rating, text, anime.getId(), username, Instant.now(), anime.getTitle());
             if(!outcomeInsertIntoReview)
                 return "{\"outcome_code\": 6}";     // Error while writing the review into the collection reviews
 
         // insert della review nella collection users (aggiornamento reviewedAnimes)
         //  public Review(String username, String animeId, int score, String text, Instant timestamp)
-            Review reviewedAnime = new Review(username, anime.getId(), rating, text, Instant.now());
+            Review reviewedAnime = new Review(username, anime.getId(), rating, text, Instant.now(), anime.getTitle());
 
             //  public boolean insertReviewIntoUser(String username, Review review)
             boolean outcomeInsertIntoUser = userRepoMongoDB.insertReviewIntoUser(username, reviewedAnime);

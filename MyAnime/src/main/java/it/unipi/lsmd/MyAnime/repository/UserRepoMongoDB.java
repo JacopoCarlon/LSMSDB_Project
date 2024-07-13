@@ -54,7 +54,7 @@ public class UserRepoMongoDB {
         }
     }
 
-    public int insertUser(String name, String surname, String username, String password, String birthDate, String email, String gender, Instant joinDate, int statsEpisodes) {
+    public int insertUser(String name, String surname, String username, String password, Instant birthDate, String email, String gender, Instant joinDate, int statsEpisodes) {
         try {
             if (userMongoInterface.existsByUsername(username)) {
                 return 1; // Username già esistente

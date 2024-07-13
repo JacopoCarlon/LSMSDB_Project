@@ -3,6 +3,7 @@ package it.unipi.lsmd.MyAnime.repository;
 import it.unipi.lsmd.MyAnime.model.Anime;
 import it.unipi.lsmd.MyAnime.model.Review;
 import it.unipi.lsmd.MyAnime.repository.MongoDB.AnimeMongoInterface;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataAccessResourceFailureException;
@@ -34,7 +35,7 @@ public class AnimeRepoMongoDB {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public boolean existsById(String id){
+    public boolean existsById(ObjectId id){
         try {
             return animeMongoInterface.existsById(id);
         } catch (DataAccessException dae) {
@@ -45,7 +46,7 @@ public class AnimeRepoMongoDB {
         }
     }
 
-    public Anime getAnimeById(String id){
+    public Anime getAnimeById(ObjectId id){
         try {
             Optional<Anime> result = animeMongoInterface.findById(id);
             return result.orElse(null);
@@ -88,7 +89,7 @@ public class AnimeRepoMongoDB {
         }
     }
 
-    public int insertReviewIntoAnime(String animeID, String username, int score, String text, Instant timestamp) {
+    public int insertReviewIntoAnime(ObjectId animeID, String username, int score, String text, Instant timestamp) {
         try {
             Anime anime = getAnimeById(animeID);
             if (anime == null) {
@@ -96,7 +97,7 @@ public class AnimeRepoMongoDB {
             }
 
             LinkedList<Review> mostRecentReviews = new LinkedList<>(Arrays.asList(anime.getMostRecentReviews()));
-            mostRecentReviews.addFirst(new Review(username, animeID,score, text, timestamp));
+            mostRecentReviews.addFirst(new Review(username, animeID, score, text, timestamp, anime.getTitle()));
             while (mostRecentReviews.size() > 5) {
                 mostRecentReviews.removeLast();
             }
