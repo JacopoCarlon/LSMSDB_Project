@@ -20,6 +20,12 @@ $(document).ready(function () {
             return;
         }
 
+        if (!stringPurifier(name) || !stringPurifier(surname) || !stringPurifier(username)
+            || !stringPurifier(password) || !stringPurifier(repeatPassword)  ) {
+            alert("Input uses bad characters.");
+            return;
+        }
+
         if (password !== repeatPassword) {
             alert("Passwords do not match. Please re-enter them.");
             return;
@@ -83,11 +89,20 @@ $(document).ready(function () {
                 }
             },
             error: function (xhr, status, error) {
-                alert("ERROR: " + error);
+                alert("ERROR in ajax: " + error);
             }
         });
     });
 });
+
+function stringPurifier(baseString){
+    let outString = baseString.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>{}\[\]\\\/]/gi, '');
+    //  alert("base string : "+ baseString);
+    //  alert("out string : "+ outString);
+    if (outString === baseString){
+        return true;
+    }
+}
 
 function isValidEmail(email) {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -97,19 +112,25 @@ function isValidEmail(email) {
 //  new Date(year, month, day, hours, minutes, seconds, milliseconds);
 //  birthday = "yyyy-mm-dd"
 function isValidBirthday(birthday){
-    var today_date = new Date();
-    var birthdate = birthday.split("-");
-    var born = new Date(year=birthdate[0], monthIndex=birthdate[1]-1, date=birthdate[2]);
-    var birthdayDate = new Date(year=today_date.getFullYear(), monthIndex=born.getMonth(), date=born.getDate());
+    let today_date = new Date();
+    let birthdate = birthday.split("-");
+    let born = new Date(year=birthdate[0], monthIndex=birthdate[1]-1, date=birthdate[2]);
+    let birthdayDate = new Date(year=today_date.getFullYear(), monthIndex=born.getMonth(), date=born.getDate());
 
-    var cur_age =  today_date.getFullYear() - born.getFullYear();
+    let cur_age =  today_date.getFullYear() - born.getFullYear();
+    //  alert("born : "+ born);
+    //  alert("birthdayDate : "+ birthdayDate);
+    //  alert("cur_age : "+ cur_age);
 
     if (today_date <= birthdayDate) {
         cur_age =  cur_age - 1;
     }
 
     if (cur_age < 14 || cur_age > 150){
+        alert("bad age")
         return false;
+    }else{
+        return true;
     }
 }
 

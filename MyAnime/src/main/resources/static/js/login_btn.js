@@ -38,6 +38,11 @@ $(document).ready(function () {
             return;
         }
 
+        if (!stringPurifier(tmp_usrn) || !stringPurifier(tmp_pwd)) {
+            alert("Input uses bad characters.");
+            return;
+        }
+
         // go to login_restctrl.java
 		$.ajax({
 			url: '/api/login',
@@ -67,8 +72,19 @@ $(document).ready(function () {
                 }
             },
             error: function (xhr, status, error) {
-                console.log("Error: " + error);
+                console.log("Error in ajax: " + error);
             }
         });
 	}
 });
+
+
+function stringPurifier(baseString){
+    let outString = baseString.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>{}\[\]\\\/]/gi, '');
+    //  alert("base string : "+ baseString);
+    //  alert("out string : "+ outString);
+    if (outString === baseString){
+        return true;
+    }
+}
+
