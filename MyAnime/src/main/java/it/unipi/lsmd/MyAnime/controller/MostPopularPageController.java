@@ -23,31 +23,37 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Controller
 public class MostPopularPageController {
 
-
     //  TODO : verify consistency with structure in constants + model + repo + controller
     @RequestMapping(value={"/mostPopular.html","/mostPopularPage.html","/mostPopular","/mostPopularPage"})
     public String mostPopularPage(HttpSession session,
                                   Model model) {
-        model.addAttribute("is_logged", (Utility.isLogged(session)) ? true : false);
 
-        try {
-                //  list of anime
-                List<Anime> rankingAnimeByRating_AllTime = readJsonData(Constants.fileName_RankingAnimeByRating_AllTime, new TypeReference<List<Anime>>() {});
-                model.addAttribute("rankingAnimeByRating_AllTime", rankingAnimeByRating_AllTime);
+        if(!Utility.isLogged(session)){
+            //  System.out.println("entered mostPopularPage, value of isLogged is : " + Utility.isLogged(session) + ", redirecting to login");
+            return "error/mustBeLogged";
+        }
+        else{
+            model.addAttribute("is_logged", Utility.isLogged(session));
 
-                List<Anime> rankingAnimeByLikes_AllTime = readJsonData(Constants.fileName_RankingAnimeByLikes_AllTime, new TypeReference<List<Anime>>() {});
-                model.addAttribute("rankingAnimeByLikes_AllTime", rankingAnimeByLikes_AllTime);
+            try {
+                    //  list of anime
+                    List<Anime> rankingAnimeByRating_AllTime = readJsonData(Constants.fileName_RankingAnimeByRating_AllTime, new TypeReference<List<Anime>>() {});
+                    model.addAttribute("rankingAnimeByRating_AllTime", rankingAnimeByRating_AllTime);
 
-                List<Anime> rankingAnimeByLikes_LastWeek = readJsonData(Constants.fileName_RankingAnimeByLikes_LastWeek, new TypeReference<List<Anime>>() {});
-                model.addAttribute("rankingAnimeByLikes_LastWeek", rankingAnimeByLikes_LastWeek);
-                
+                    List<Anime> rankingAnimeByLikes_AllTime = readJsonData(Constants.fileName_RankingAnimeByLikes_AllTime, new TypeReference<List<Anime>>() {});
+                    model.addAttribute("rankingAnimeByLikes_AllTime", rankingAnimeByLikes_AllTime);
 
-            } catch (IOException e) {
-                e.printStackTrace();
-                return "error/genericError";
-            }
+                    List<Anime> rankingAnimeByLikes_LastWeek = readJsonData(Constants.fileName_RankingAnimeByLikes_LastWeek, new TypeReference<List<Anime>>() {});
+                    model.addAttribute("rankingAnimeByLikes_LastWeek", rankingAnimeByLikes_LastWeek);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return "error/genericError";
+                }
 
             return "mostPopularPage";
+        }
+
     }
 
     private <T> List<T> readJsonData(String jsonFileName, TypeReference<List<T>> typeReference) throws IOException {

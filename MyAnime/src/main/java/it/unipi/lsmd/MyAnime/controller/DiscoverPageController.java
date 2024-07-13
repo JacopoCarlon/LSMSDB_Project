@@ -14,8 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
+// TODO : fix suggestedAnimes_ByTaste and make it work
+
 @Controller
 public class DiscoverPageController {
+
     @Autowired
     UserRepoNeo4j userRepoNeo4j;
     @Autowired
@@ -23,10 +27,13 @@ public class DiscoverPageController {
 
     @RequestMapping(value={"/discover.html","/discoverPage.html","/discover","/discoverPage"})
     public String discoverPage(HttpSession session, Model model) {
-        if(!Utility.isLogged(session))
-            return "redirect:/login";
-        if(Utility.isAdmin(session))
+
+        if (!Utility.isLogged(session)) {
+            return "error/mustBeLogged";
+        }
+        if(Utility.isAdmin(session)){
             return "error/accessDenied";
+        }
 
         String currentUsername = Utility.getUsername(session);
 

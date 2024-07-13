@@ -7,11 +7,17 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 
 public class AdminPageController {
+
     @RequestMapping(value={"/admin.html","/adminPage.html","/admin","/adminPage"})
     public String adminPage(HttpSession session,
                             Model model){
-        if (!Utility.isLogged(session))
-            return "error/youMustBeLogged";
+
+        System.out.println("AdminPageController, is logged : " + Utility.isLogged(session));
+        System.out.println("AdminPageController, is admin : " + Utility.isAdmin(session));
+
+        if(!Utility.isLogged(session)){
+            return "error/mustBeLogged";
+        }
         else if(!Utility.isAdmin(session))
             return "error/accessDenied";
 

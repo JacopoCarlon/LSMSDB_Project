@@ -23,6 +23,10 @@ public class AnimeDetailsPageController {
                                @RequestParam(required = false) String animeID,
                                @RequestParam(required = false) String title) {
 
+        if (!Utility.isLogged(session)) {
+            return "error/mustBeLogged";
+        }
+
         Anime anime;
 
         if (animeID!= null) {

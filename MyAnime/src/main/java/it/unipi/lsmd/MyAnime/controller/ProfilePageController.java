@@ -22,16 +22,19 @@ public class ProfilePageController {
     public String profilePage(HttpSession session,
                               Model model){
 
-        model.addAttribute("is_logged", (Utility.isLogged(session)) ? true : false);
+        model.addAttribute("is_logged", Utility.isLogged(session));
 
-        if(!Utility.isLogged(session))
-            return "redirect:/login";
-        else if(Utility.isAdmin(session))
-            return "redirect:/admin";
+        if(!Utility.isLogged(session)){
+            return "error/mustBeLogged";
+        }
+        else if(Utility.isAdmin(session)){
+            return "admin";
+        }
         else{
             User optionalUser = userRepoMongoDB.getUserByUsername(Utility.getUsername(session));
-            if(optionalUser==null)
+            if(optionalUser==null){
                 return "error/genericError";
+            }
             model.addAttribute("userDetails", optionalUser);
             return "profilePage";
         }

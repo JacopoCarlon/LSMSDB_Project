@@ -20,10 +20,12 @@ public class WriteReviewPageController {
                               Model model,
                               @RequestParam("animeID") String animeID) {
 
-        if(!Utility.isLogged(session))
+        if(!Utility.isLogged(session)){
             return "error/mustBeLogged";
-        if(Utility.isAdmin(session))
+        }
+        if(Utility.isAdmin(session)){
             return "error/accessDenied";
+        }
 
         boolean animeFound = animeRepoMongoDB.existsById(animeID);
         if(animeFound)
@@ -35,7 +37,7 @@ public class WriteReviewPageController {
         model.addAttribute("isAdmin", Utility.isAdmin(session));
 
         if(Utility.isLogged(session))
-            return "writeReview";
+            return "writeReviewPage";
         else
             return "error/mustBeLogged";
     }

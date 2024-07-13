@@ -16,7 +16,8 @@ import org.springframework.ui.Model;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class AnimeReviewPageController {
+public class AnimeReviewsPageController {
+
     @Autowired
     AnimeRepoMongoDB animeRepoMongoDB;
     @Autowired
@@ -26,6 +27,10 @@ public class AnimeReviewPageController {
     public String animeReviews(HttpSession session,
                                  Model model,
                                  @RequestParam("animeId") String animeId) {
+
+        if (!Utility.isLogged(session)) {
+            return "error/mustBeLogged";
+        }
 
         boolean animeFound = animeRepoMongoDB.existsById(animeId);
         if(animeFound){

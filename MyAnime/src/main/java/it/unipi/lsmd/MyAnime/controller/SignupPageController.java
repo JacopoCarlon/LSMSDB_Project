@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class SignupPageController {
+
     @RequestMapping(value={"/signup.html","/signupPage.html","/signup","/signupPage"})
     public String signupPage(HttpSession session, Model model) {
-        boolean is_logged = (Utility.isLogged(session))? true : false ;
+
+        boolean is_logged = Utility.isLogged(session);
         model.addAttribute("is_logged", is_logged );
         
         if(is_logged){

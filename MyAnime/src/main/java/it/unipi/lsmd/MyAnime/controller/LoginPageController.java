@@ -11,6 +11,7 @@ public class LoginPageController {
 
     @RequestMapping(value={"/login.html","/loginPage.html","/login","/loginPage"})
     public String loginPage(HttpSession session) {
+
         if(!Utility.isLogged(session)){
             return "loginPage";
         }

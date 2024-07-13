@@ -15,13 +15,18 @@ import it.unipi.lsmd.MyAnime.model.User;
 
 @Controller
 public class UserPersonalPageController {
+
     @Autowired
     UserRepoMongoDB userRepoMongoDB;
 
-    @RequestMapping(value={"/userPage.html","/userPersonalPage.html","/userPage","/userPersonalPage","/user","/userPersonal"})
+    @RequestMapping(value={"/userPersonal.html","/userPersonalPage.html","/user.html","/userPersonalPage","/userPersonal","/user"})
     public String discoverPage(HttpSession session,
                                Model model,
                                @RequestParam("username") String username){
+
+        if(!Utility.isLogged(session)){
+            return "error/mustBeLogged";
+        }
         User user;
 
         if(username != null){
