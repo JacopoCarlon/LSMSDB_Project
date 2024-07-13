@@ -1,6 +1,6 @@
 $(document).ready(function() {
     let user = $("#username").text();
-    // Button for view the complete list of followed user
+    // Button for view the complete list of follower user
     $("#followedUsers_btn").click(function() {
         $.ajax({
             url: "/api/userFollowedUsers",
@@ -21,6 +21,7 @@ $(document).ready(function() {
             }
         });
     });
+
     // Button for view the complete list of animes liked
     $("#liked_animes_btn").click(function(){
         $.ajax({
@@ -43,14 +44,14 @@ $(document).ready(function() {
     });
 });
 
-function displayFollowed(followed) {
+function displayfollower(follower) {
     let increment = 0;
-    const container = $("#followed_container");
+    const container = $("#follower_container");
     container.empty();
 
     // For each user find with the ajax request, create his container with all his information and append it in the main container
-    // for the followed users
-    followed.forEach(function (user_tmp){
+    // for the follower users
+    follower.forEach(function (user_tmp){
         let userDiv = $("<div class=\"d-flex user_foll p-3 mb-1\"></div>");
         let userInf = $("<h5 class=\"mb-0\"></h5>");
         userDiv.append(userInf);
@@ -69,7 +70,7 @@ function displayFollowed(followed) {
         container.append(userDiv);
         let id="unfollow_btn_" + increment;
         $("#" + id).click(function () {
-            // AJAX call to unfollow a user, for each user followed
+            // AJAX call to unfollow a user, for each user follower
             let username = $("#username").text();
             $.ajax({
                 url: '/api/removeFollow',

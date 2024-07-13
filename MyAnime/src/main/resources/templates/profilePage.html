@@ -71,10 +71,20 @@
         
                                 </div>
                             </div>
+                            <div id="following_main">
+                                <div id="followingUsers_btn">
+                                    <h1 data-bs-toggle="collapse" data-bs-target="#following_container" aria-expanded="false" aria-controls="following_container" class="p-1 pe-3 d-flex align-items-center justify-content-between">
+                                        <span>Following users</span><i class="fa fa-arrow-down ms-auto"></i>
+                                    </h1>
+                                </div>
+                                <div id="following_container" class="collapse overflow-y-auto">
+
+                                </div>
+                            </div>
                             <!-- Section for the reviews of the user -->
                             <div id="user_reviews" class="overflow-y-auto">
                                 <h1>Your reviews</h1>
-                                <div th:each="review : ${userDetails.reviewedAnimes}" class="d-flex gap-1 p-1 align-items-center rev_container">
+                                <div th:each="review : ${userDetails.mostRecentReviews}" class="d-flex gap-1 p-1 align-items-center rev_container">
                                     <img class="anime-cover shadow" th:src="${review.coverUrl}" style="max-width: 100px;" alt="Cover anime">
                                     <div class="d-flex flex-column">
                                         <h5 class="fw-bold mb-0" id="anime-title" th:text="${review.animeTitle}"></h5>
@@ -85,6 +95,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!--
+                                -->
                             </div>
                         </div>
                         <div id="liked" class="container-fluid d-flex flex-column col-6 p-3 container-white">

@@ -33,7 +33,7 @@ public class AnimeDetailsPageController {
         if (animeID!= null) {
             anime = animeRepoMongoDB.getAnimeById(animeID);
         } else if (title!=null) {
-            System.out.println("Anime: "+title);
+            //  System.out.println("Anime: "+title);
             anime = animeRepoMongoDB.getAnimeByTitle(title);
         } else {
             return "error/animeNotFound";

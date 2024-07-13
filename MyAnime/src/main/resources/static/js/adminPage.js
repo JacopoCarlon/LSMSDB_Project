@@ -85,7 +85,7 @@ $(document).ready(function (){
     $("#updateLikesButton").click(function () {
         alert("Start updating likes...");
         $.ajax({
-            url: '/api/admin/updateNewLikes',
+            url: '/api/admin/updateRatings',
             method: 'POST',
             dataType: 'json',
             success: function (data) {

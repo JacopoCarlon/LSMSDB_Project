@@ -5,8 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>MyAnimeLibrary</title>
-        <meta name="description" content="userPersonalPage template">
-        <meta name="keywords" content="userPersonalPage">
+        <meta name="description" content="userPage template">
+        <meta name="keywords" content="userPage">
 
         <!-- Favicon -->
         <link rel="icon" type="image/x-icon" href="img/mc_bookshelf.png">
@@ -50,6 +50,7 @@
                             <div class="d-flex align-items-center justify-content-between">
                                 <h1 class="display-3 fw-bold" id="username" th:text="${userDetails.username}"></h1>
                             </div>
+                            <!--
                             <div id="user_control">
                                 <div id="user_details" class="d-flex">
                                     <div id="name" class="p-1 col-4" th:text="${userDetails.name}"></div>
@@ -57,11 +58,12 @@
                                     <div id="birthday" class="p-1 col-4"><i class="fa fa-calendar me-3"></i><span th:text="${userDetails.birthDate}"></span></div>
                                 </div>
                             </div>
-                            <!-- Button to interact with the user. If you are an admin, you can ban the user (not implemented). 
+                            -->
+                            <!-- Button to interact with the user. If you are an admin, you can block the user (not implemented). 
                                 If you are a regular user, you can follow him. 
                             -->
                             <button id="follow_btn" class="btn btn-primary w-100 mt-1" th:if="${session.role != 'admin'}"><i class="fa fa-user-plus me-1"></i>Follow</button>
-                            <button id="ban_btn" class="btn btn-outline-danger w-100 mt-1" th:if="${session.role == 'admin'}"><i class="fa fa-ban me-1"></i>Ban</button>
+                            <button id="block_btn" class="btn btn-outline-danger w-100 mt-1" th:if="${session.role == 'admin'}"><i class="fa fa-block me-1"></i>Block</button>
                             <!-- Section for the followed user -->
                             <div id="followed_main">
                                 <div id="followedUsers_btn">
@@ -107,12 +109,12 @@
             </section>
         </div>
         
-        <!-- local script for liking, follow, ban ... -->
+        <!-- local script for liking, follow, block ... -->
         <script th:inline="javascript">
             $(document).ready(function (){
                 //  TODO : 
                 //  manage follow, or friend_request / accepted status
-                //  manage ban, or unfriend, or remove_friend_request
+                //  manage block, or unfriend, or remove_friend_request
             })
         </script>
 

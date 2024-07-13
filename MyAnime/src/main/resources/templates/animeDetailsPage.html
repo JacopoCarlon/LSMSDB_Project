@@ -47,6 +47,19 @@
                         <img id="anime_cover" class="anime-cover" th:src="${animeDetails.imgURL}" alt="Copertina Anime"/>
                         <div id="anime_details" class="anime-details d-flex flex-column">
                             <h1 id="anime_title" class="display-5 mb-0 fw-bold" th:text="${animeDetails.title}"></h1>
+                            <h2 id="anime_title_jap" class="display-5 mb-0 fw-bold" th:text="${animeDetails.titleJapanese}"></h2>
+                            <h3 id="anime_type" class="display-5 mb-0 fw-bold" th:text="${animeDetails.type}"></h3>
+                            <h3 id="anime_source" class="display-5 mb-0 fw-bold" th:text="${animeDetails.source}"></h3>
+                            <h3 id="anime_episodes" class="display-5 mb-0 fw-bold" th:text="${animeDetails.episodes}"></h3>
+                            <h3 id="anime_airingst" class="display-5 mb-0 fw-bold" th:text="${animeDetails.airing}"></h3>
+                            <h3 id="anime_aired" class="display-5 mb-0 fw-bold" th:text="${animeDetails.aired}"></h3>
+                            <h3 id="anime_watches" class="display-5 mb-0 fw-bold" th:text="${animeDetails.watches}"></h3>
+                            <p id="anime_synopsis" class="display-5 mb-0 fw-bold" th:text="${animeDetails.synopsis}"></p>
+                            <h3 id="anime_broadcast" class="display-5 mb-0 fw-bold" th:text="${animeDetails.broadcast}"></h3>
+                            <h3 id="anime_producer" class="display-5 mb-0 fw-bold" th:text="${animeDetails.producer}"></h3>
+                            <h3 id="anime_licensor" class="display-5 mb-0 fw-bold" th:text="${animeDetails.licensor}"></h3>
+                            <h3 id="anime_genrelist" class="display-5 mb-0 fw-bold" th:text="${animeDetails.genre}"></h3>
+                            <h3 id="anime_episodeDuration" class="display-5 mb-0 fw-bold" th:text="${animeDetails.episodeDuration}"></h3>
                             <div class="d-flex mt-0 mb-0 gap-3 align-items-center">
                                 <p id="anime_duration_page" th:text="${animeTotalDuration}"></p>
                             </div>

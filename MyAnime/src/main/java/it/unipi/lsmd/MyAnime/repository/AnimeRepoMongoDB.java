@@ -61,11 +61,13 @@ public class AnimeRepoMongoDB {
 
     public Anime getAnimeByTitle(String title){
         try {
-            System.out.println("animeByTitle: "+ title);
-            System.out.println(title.getClass());
-            System.out.println("Monster".getClass());
+            //  System.out.println("animeByTitle: "+title);
+            //  String aaa = title;
+            //  System.out.println(title.getClass());
+            //  System.out.println(aaa.getClass());
+            //  System.out.println("aaa".getClass());
             List<Anime> result = animeMongoInterface.findByTitle(title);
-            System.out.println(result);
+            //  System.out.println(result);
             if (result.isEmpty())
                 return null;
             else if (result.size() < 1){

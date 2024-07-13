@@ -1202,3 +1202,16 @@ li {
 .nav-item>a>#icon {
     width: 20%;
 }
+
+
+textarea#text_review_input {
+    min-height: 80px;
+}
+
+
+
+
+
+
+
+

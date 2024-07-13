@@ -14,12 +14,12 @@ import it.unipi.lsmd.MyAnime.repository.UserRepoMongoDB;
 import it.unipi.lsmd.MyAnime.model.User;
 
 @Controller
-public class UserPersonalPageController {
+public class UserPageController {
 
     @Autowired
     UserRepoMongoDB userRepoMongoDB;
 
-    @RequestMapping(value={"/userPersonal.html","/userPersonalPage.html","/user.html","/userPersonalPage","/userPersonal","/user"})
+    @RequestMapping(value={"/user.html","/userPage.html","/userPage","/user"})
     public String discoverPage(HttpSession session,
                                Model model,
                                @RequestParam("username") String username){
@@ -39,7 +39,7 @@ public class UserPersonalPageController {
                     model.addAttribute("userDetails", user);
                     model.addAttribute("admin", Utility.isAdmin(session) );
 
-                    return "userPersonalPage";
+                    return "userPage";
                 }else
                     return "error/mustBeLogged";
             }
