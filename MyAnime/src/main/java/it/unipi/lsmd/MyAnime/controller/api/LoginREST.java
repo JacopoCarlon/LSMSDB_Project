@@ -33,6 +33,7 @@ public class LoginREST {
         System.out.println(username);
         System.out.println(password);
         System.out.println(as_admin);
+
         try {
             String salt, hash;
 
@@ -84,7 +85,10 @@ public class LoginREST {
 }
 
 
-//  TODO (above)
+
+
+//  Info for password salting and hashing (above),
+//      from 000_data-polishers/users_converter.ipynb
 
 //  HOW WAS PASSWORD AND SALT GENERATED :
 //  (from : users_converter.ipynb)

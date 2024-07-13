@@ -43,6 +43,15 @@ public class SignupREST {
             @RequestParam("sex")        String sex,
             @RequestParam("email")      String email
     ) {
+        System.out.println("DBG -> inizio di signup con parametri : ");
+        System.out.println(name);
+        System.out.println(surname);
+        System.out.println(username);
+        System.out.println(password);
+        System.out.println(birthday);
+        System.out.println(sex);
+        System.out.println(email);
+
         try{
             // can user be inserted ?
             Instant this_instant = Instant.now(); 
@@ -73,25 +82,25 @@ public class SignupREST {
 
 
 
-
+    //  TODO : make this function less stupid wow, it is almost not needed (called only once)
     private String buildOutcomeResponse(int outcomeCode) {
         // Failed insert in MongoDB cases : 
         switch (outcomeCode) {
             case 1:
                 // Username already exists
-                return "{\"outcome_code\": 1}"; 
+                return "{\"outcome_code\": 1}";
             case 2:
                 // Email already exists
-                return "{\"outcome_code\": 2}"; 
+                return "{\"outcome_code\": 2}";
             case 3:
                 // Error while connecting to MongoDB
-                return "{\"outcome_code\": 3}"; 
+                return "{\"outcome_code\": 3}";
             case 4:
                 // Other MongoDB error
-                return "{\"outcome_code\": 4}"; 
+                return "{\"outcome_code\": 4}";
             default:
                 // Unhandled error
-                return "{\"outcome_code\": 5}"; 
+                return "{\"outcome_code\": 5}";
         }
     }
 
