@@ -33,6 +33,7 @@ public class AnimeDetailsPageController {
         if (animeID!= null) {
             anime = animeRepoMongoDB.getAnimeById(animeID);
         } else if (title!=null) {
+            System.out.println("Anime: "+title);
             anime = animeRepoMongoDB.getAnimeByTitle(title);
         } else {
             return "error/animeNotFound";
@@ -42,8 +43,9 @@ public class AnimeDetailsPageController {
             return "error/animeNotFound";
         }
 
-        model.addAttribute("anime", anime);
+        model.addAttribute("animeDetails", anime);
         model.addAttribute("is_logged", Utility.isLogged(session));
+        model.addAttribute("is_admin", Utility.isLogged(session));
 
         return "animeDetailsPage";
     }

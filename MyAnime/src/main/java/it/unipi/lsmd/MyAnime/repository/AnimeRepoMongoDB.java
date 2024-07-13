@@ -19,6 +19,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Type;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -60,10 +61,14 @@ public class AnimeRepoMongoDB {
 
     public Anime getAnimeByTitle(String title){
         try {
+            System.out.println("animeByTitle: "+ title);
+            System.out.println(title.getClass());
+            System.out.println("Monster".getClass());
             List<Anime> result = animeMongoInterface.findByTitle(title);
+            System.out.println(result);
             if (result.isEmpty())
                 return null;
-            else if (result.size() > 1){
+            else if (result.size() < 1){
                 System.err.println("Multiple anime found with the same title");
                 return result.get(0);
             }

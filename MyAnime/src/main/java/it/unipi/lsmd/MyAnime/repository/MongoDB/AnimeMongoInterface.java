@@ -14,7 +14,7 @@ public interface AnimeMongoInterface extends MongoRepository<Anime, String> {
     boolean existsByTitle(String title);
     Optional<Anime> findById(ObjectId id);
 
-    @Query(value = "{ 'title': ?0 }")
+    @Query(value = "{'title' : ?0 }")
     List<Anime> findByTitle(String title);
 
     @Query(value = "{ 'title': { $regex: ?0, $options: 'i' } }")

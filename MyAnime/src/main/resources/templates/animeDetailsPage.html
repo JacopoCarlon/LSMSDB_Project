@@ -44,26 +44,25 @@
             <section id="hero" class="d-flex flex-column align-items-center container-fluid p-3">
                 <div class="gap-1 d-flex flex-column container-fluid justify-content-center" data-aos="zoom-in" data-aos-delay="150">
                     <div id="anime_info" class="d-flex mb-1 align-items-center col-md-12">
-                        <img id="anime_cover" class="anime-cover" th:src="${animeDetails.coverURL}" alt="Copertina Anime"/>
+                        <img id="anime_cover" class="anime-cover" th:src="${animeDetails.imgURL}" alt="Copertina Anime"/>
                         <div id="anime_details" class="anime-details d-flex flex-column">
                             <h1 id="anime_title" class="display-5 mb-0 fw-bold" th:text="${animeDetails.title}"></h1>
                             <div class="d-flex mt-0 mb-0 gap-3 align-items-center">
-                                <p id="release_date_page" th:text="${animeDetails.year}"></p>
                                 <p id="anime_duration_page" th:text="${animeTotalDuration}"></p>
                             </div>
                             <div class="d-flex gap-3">
                                 <div id="like_anime_container" class="d-flex w-25 align-items-center">
-                                    <button id="like_anime_btn" class="btn btn-danger ms-1" type="button" th:disabled="${not logged or session.role == 'admin'}">
+                                    <button id="like_anime_btn" class="btn btn-danger ms-1" type="button" >
                                         <i class="fas fa-heart me-1"></i>Like
                                     </button>
-                                    <div id="number_of_likes_anime" class="ms-3" th:text="${animeDetails.likes}"></div>
+                                    <div id="number_of_likes_anime" class="ms-3" th:text="${animeDetails.scoredBy}"></div>
                                 </div>
                                 <div id="average_rating_container" class="d-flex w-25 align-items-center">
                                     <span class="text-bg-warning p-3">
                                         Average rating
                                     </span>
                                     <i class="fa fa-star me-1 ps-3"></i>
-                                    <div id="average_rating" th:text="${animeDetails.averageRating}"></div>
+                                    <div id="average_rating" th:text="${animeDetails.averageScore}"></div>
                                 </div>
                             </div>
                         </div>
@@ -73,12 +72,12 @@
                             <div id="anime_reviews" class="d-flex flex-column">
                                 <div id="latest_reviews" class="d-flex flex-column row-gap-1 p-1">
                                     <h1 style="text-align: center">Last 5 reviews</h1>
-                                    <div th:each="review : ${animeDetails.lastReviews}" class="anime-review d-flex flex-column p-3">
+                                    <div th:each="review : ${animeDetails.mostRecentReviews}" class="anime-review d-flex flex-column p-3">
                                         <div class="d-flex align-items-center gap-1">
                                             <h4 th:text="${review.username}" class="user_review"></h4>
                                             <h5 class="rating_review text-bg-dark p-1 ps-3 pe-3">
                                                 <i class="fas fa-star me-1"></i>
-                                                <span th:text="${review.rating}"></span>
+                                                <span th:text="${review.score}"></span>
                                             </h5>
                                         </div>
                                         <div th:text="${review.text}" class="text_review"></div>
@@ -86,7 +85,7 @@
                                 </div>
                                 <div class="d-flex gap-1">
                                     <button id="animeReviews_btn" class="btn btn-primary mt-1 col-6" type="button">View all the reviews</button>
-                                    <button id="writeReview_btn" class="btn btn-primary mt-1 col-6" type="button" th:disabled="${not logged or session.role == 'admin'}">Write a review</button>
+                                    <button id="writeReview_btn" class="btn btn-primary mt-1 col-6" type="button">Write a review</button>
                                 </div>
                             </div>
                         </div>
