@@ -86,38 +86,54 @@
                                 </div>
                             </div>
 
+                        </div>
 
+                        <div id="liked" class="container-fluid d-flex flex-column col-6 p-3 container-white">
 
                             <!-- Section for the reviews of the user -->
                             <div id="user_reviews" class="overflow-y-auto">
-                                <h1><span th:text="${userDetails.username}"></span>'s reviews</h1>
-                                <div th:each="review : ${userDetails.mostRecentReviews}" class="d-flex gap-1 p-1 align-items-center mb-1 rev_container">
-                                    <img class="anime-cover shadow" th:src="${review.coverUrl}" style="max-width: 100px;">
-                                    <div class="d-flex flex-column">
-                                        <h5 class="fw-bold mb-0" id="anime-title" th:text="${review.animeTitle}"></h5>
-                                        <p class="mb-0 fs-6" id="anime-artists" th:text="${review.username}"></p>
-                                        <div id="rating-review">
-                                            <i class="fa fa-star"></i>
-                                            <span th:text="${review.score}"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="liked" class="container-fluid d-flex flex-column col-6 p-3 container-white">
-                            <!-- Section for the liked animes of the user -->
-                            <div id="liked_animes">
-                                <div id="liked_animes_btn">
-                                    <h1 data-bs-toggle="collapse" data-bs-target="#liked_animes_container" aria-expanded="false" aria-controls="liked_animes_container" class="display-3 p-1 pe-3 d-flex align-items-center justify-content-between">
-                                        <span>Liked anime</span><i class="fa fa-arrow-down"></i>
+                                <div id="reviews_btn">
+                                    <h1 data-bs-toggle="collapse" data-bs-target="#reviews_container" aria-expanded="false" aria-controls="reviews_container" style="display: flex; align-items: center;" class="display-3 p-1 pe-3 justify-content-between">
+                                        <span>Your Reviews</span><i class="fa fa-arrow-down"></i>
                                     </h1>
                                 </div>
-                                <div class="collapse overflow-y-auto" id="liked_animes_container">
-        
+                                <div id="reviews_container" class="collapse overflow-y-auto">
+                                    <!--
+                                    <div th:each="review : ${userDetails.mostRecentReviews}" class="d-flex gap-1 p-1 align-items-center rev_container">
+                                        <img class="anime-cover shadow" th:src="${review.coverUrl}" style="max-width: 100px;" alt="Cover anime">
+                                        <div class="d-flex flex-column">
+                                            <h5 class="fw-bold mb-0" id="anime-title" th:text="${review.animeTitle}"></h5>
+
+                                            <div id="rating-review">
+                                                <i class="fa fa-star"></i>
+                                                <span th:text="${review.score}"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    -->
+                                </div>
+                                <!--
+                                -->
+                            </div>
+
+
+                            <!-- Section for the liked animes of the user -->
+                            <!--
+                            <div id="liked_animes">
+                                <div id="liked_animes_btn">
+                                    <h1 data-bs-toggle="collapse" data-bs-target="#liked_animes_container" aria-expanded="false" aria-controls="liked_animes_container" style="display: flex; align-items: center;" class="display-3 p-1 pe-3 justify-content-between">
+                                        <span>Liked animes</span><i class="fa fa-arrow-down"></i>
+                                    </h1>
+                                </div>
+                                <div id="liked_animes_container" class="collapse overflow-y-auto">
+
                                 </div>
                             </div>
-                            
+                            -->
+
                         </div>
+
+
                     </div>
                 </div>
             </section>

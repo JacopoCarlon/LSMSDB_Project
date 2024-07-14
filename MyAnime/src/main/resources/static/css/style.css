@@ -454,7 +454,9 @@ li {
     border-radius: 10px;
     padding: 10px;
     margin-top: 5px;
+    /*
     height: 300px;
+    */
 }
 
 #user_reviews h1>span {
@@ -473,6 +475,9 @@ li {
     cursor: pointer;
 }
 
+
+
+/*  --------------------------------------------------- */
 #liked_animes_btn:hover {
     background-color: #057f6a;
     border-radius: 10px;
@@ -496,20 +501,39 @@ li {
     margin-top: 5px;
 }
 
-#liked_animes_btn i{
+/*  --------------------------------------------------- */
+#reviews_btn i{
     font-size: 20px;
 }
 
-#liked_animes_btn:hover {
+#reviews_btn:hover {
     background-color: #057f6a;
     border-radius: 10px;
     cursor: pointer;
     box-shadow: 0px 0px 20px 3px #2828286b;
 }
 
-#liked_animes_container{
+#reviews_container{
     max-height: 300px;
 }
+
+#user_reviews {
+    background-color: rgba(40, 40, 40, 0.45);
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+#user_reviews #reviews_btn h1 span {
+    color: white;
+}
+
+
+/*  --------------------------------------------------- */
+
+
+
 
 
 /* ----------------------------------------------- */

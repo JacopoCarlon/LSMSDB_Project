@@ -46,7 +46,26 @@ $(document).ready(function() {
     });
 
 
-
+    // Button for view the complete list of reviews by the user
+    $("#reviews_btn").click(function(){
+        $.ajax({
+            url: "/api/userReviews",
+            data: {username: user},
+            dataType: 'json',
+            method: "GET",
+            success: function(result_a) {
+                if(result_a.length === 0){
+                    const container = $("#reviews_container");
+                    container.empty();
+                    container.append("<p>No anime liked.</p>");
+                }
+                displayLikedAnimes(result_a);
+            },
+            error: function() {
+                alert("Error on the AJAX request.");
+            }
+        });
+    });
 
 
     // Button for view the complete list of animes liked
