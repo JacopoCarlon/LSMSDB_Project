@@ -511,6 +511,8 @@ li {
     max-height: 300px;
 }
 
+
+/* ----------------------------------------------- */
 #user_details {
     color: white;
 }
@@ -534,6 +536,27 @@ li {
     border-radius: 0 5px 5px 0;
 }
 
+/* ----------------------------------------------- */
+
+
+
+#user_details_email {
+    color: white;
+}
+
+#user_details_email div {
+    background-color: rgba(40, 40, 40, 0.45);
+    border: 1px solid #282828;
+    padding: 5px;
+    text-align: center;
+}
+
+
+#user_details_email>#email {
+    border-radius: 5px 5px 5px 5px;
+}
+
+/* ----------------------------------------------- */
 
 
 .main {

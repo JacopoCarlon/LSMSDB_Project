@@ -27,8 +27,10 @@ Handle sinup using informations required at the signupPage:
 
 @RestController
 public class SignupREST {
+
     @Autowired
     UserRepoMongoDB userRepoMongoDB;
+
     @Autowired
     UserRepoNeo4j userRepoNeo4j;
 

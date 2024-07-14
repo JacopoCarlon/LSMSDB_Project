@@ -16,6 +16,9 @@ public class Neo4jGenericOperationsREST {
 
     // TODO : all the follow / block stuff !!!
     /*
+
+
+    //  user1 follows user2
     @PostMapping("/api/addFollow")
     public @ResponseBody String addFollow(
             @RequestParam("user1") String user1,
@@ -30,6 +33,9 @@ public class Neo4jGenericOperationsREST {
             return "{\"outcome_code\": 2}";
     }
 
+
+
+    //  user1 stops following user2
     @PostMapping("/api/removeFollow")
     public @ResponseBody String removeFollow(
             @RequestParam("user1") String user1,
@@ -40,22 +46,39 @@ public class Neo4jGenericOperationsREST {
         else
             return "{\"outcome_code\": 1}";
     }
+
+
+
+    //  user A blocks user B .
+    @PostMapping("/api/blockUser")
+    public @ResponseBody String blockFollow(
+            @RequestParam("user1") String user1,
+            @RequestParam("user2") String user2) {
+
+        if(userRepoNeo4j.blockFollow(user1, user2))
+            return "{\"outcome_code\": 0}";
+        else
+            return "{\"outcome_code\": 1}";
+    }
+
+
+
+
+    //  user A un-blocks user B .
+    @PostMapping("/api/unblockUser")
+    public @ResponseBody String unblockFollow(
+            @RequestParam("user1") String user1,
+            @RequestParam("user2") String user2) {
+
+        if(userRepoNeo4j.unblockFollow(user1, user2))
+            return "{\"outcome_code\": 0}";
+        else
+            return "{\"outcome_code\": 1}";
+    }
+
+
+
     */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

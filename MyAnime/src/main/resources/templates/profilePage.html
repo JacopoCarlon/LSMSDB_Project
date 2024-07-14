@@ -53,6 +53,11 @@
                             <div class="d-flex align-items-center justify-content-between">
                                 <h1 class="display-3" style="font-weight: bold;" id="username" th:text="${userDetails.username}"></h1>
                             </div>
+
+                            <div>
+                                <h4 class="p-1 col-4 fw-bold" id="statsEpisodes" th:text="'Watched episodes : ' + ${userDetails.statsEpisodes}"></h4>
+                            </div>
+
                             <div id="user_control">
                                 <div id="user_details" class="d-flex">
                                     <div id="name" class="p-1 col-4" th:text="${userDetails.name}"></div>
@@ -60,6 +65,13 @@
                                     <div id="birthday" class="p-1 col-4"><i class="fa fa-calendar me-3"></i><span th:text="${userDetails.birthDate}"></span></div>
                                 </div>
                             </div>
+
+                            <div id="user_email">
+                                <div id="user_details_email" class="d-flex">
+                                    <div id="email" class="p-1 col-12" th:text="${userDetails.email}"></div>
+                                </div>
+                            </div>
+
 
                             <!-- Section for the following user -->
                             <div id="following_main">
