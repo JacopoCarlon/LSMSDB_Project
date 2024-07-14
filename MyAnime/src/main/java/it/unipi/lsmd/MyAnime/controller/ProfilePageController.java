@@ -22,8 +22,6 @@ public class ProfilePageController {
     public String profilePage(HttpSession session,
                               Model model){
 
-        model.addAttribute("is_logged", Utility.isLogged(session));
-
         if(!Utility.isLogged(session)){
             return "error/mustBeLogged";
         }
@@ -31,10 +29,14 @@ public class ProfilePageController {
             return "admin";
         }
         else{
-            User optionalUser = userRepoMongoDB.getUserByUsername(Utility.getUsername(session));
+            String this_username = Utility.getUsername(session);
+            System.out.println("entering private profilePage of user : " + this_username);
+            User optionalUser = userRepoMongoDB.getUserByUsername(this_username);
+
             if(optionalUser==null){
                 return "error/genericError";
             }
+            model.addAttribute("is_logged", Utility.isLogged(session));
             model.addAttribute("userDetails", optionalUser);
             return "profilePage";
         }

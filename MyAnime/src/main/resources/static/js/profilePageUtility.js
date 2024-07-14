@@ -48,10 +48,11 @@ $(document).ready(function() {
 
 
 
+
     // Button for view the complete list of animes liked
     $("#liked_animes_btn").click(function(){
         $.ajax({
-            url: "/api/userLikedAnimes",
+            url: "/api/userLikedAnime",
             data: {username: user},
             dataType: 'json',
             method: "GET",
@@ -69,7 +70,6 @@ $(document).ready(function() {
         });
     });
 });
-
 
 
 function displayFollowing(follower) {
@@ -126,6 +126,9 @@ function displayFollowing(follower) {
         increment++;
     })
 }
+
+
+
 
 
 function displayFollower(follower) {
@@ -186,10 +189,13 @@ function displayFollower(follower) {
 
 
 
+
 function displayLikedAnimes(liked){
     let increment = 0;
     const container = $("#liked_animes_container");
     container.empty();
+
+
 
     // For each anime find with the ajax request, create his container with all his information and append it in the main container
     // for the liked animes

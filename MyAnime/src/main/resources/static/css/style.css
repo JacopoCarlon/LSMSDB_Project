@@ -369,6 +369,7 @@ li {
     width: 15%;
 }
 
+/*  --------------------------------------------------- */
 #followedUsers_btn:hover {
     background-color: #057f6a;
     border-radius: 10px;
@@ -379,6 +380,73 @@ li {
 #followed_container {
     max-height: 300px;
 }
+
+#followed_main {
+    background-color: rgba(40, 40, 40, 0.45);
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+#followed_main i{
+    font-size: 16px;
+}
+
+/*  --------------------------------------------------- */
+
+/*  --------------------------------------------------- */
+#followingUsers_btn:hover {
+    background-color: #057f6a;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0px 0px 20px 3px #2828286b;
+}
+
+#following_container {
+    max-height: 300px;
+}
+
+#following_main {
+    background-color: rgba(40, 40, 40, 0.45);
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+#following_main i{
+    font-size: 16px;
+}
+
+/*  --------------------------------------------------- */
+
+/*  --------------------------------------------------- */
+#followerUsers_btn:hover {
+    background-color: #057f6a;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0px 0px 20px 3px #2828286b;
+}
+
+#follower_container {
+    max-height: 300px;
+}
+
+#follower_main {
+    background-color: rgba(40, 40, 40, 0.45);
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+#follower_main i{
+    font-size: 16px;
+}
+
+/*  --------------------------------------------------- */
+
 
 #user_reviews {
     background-color: rgba(40, 40, 40, 0.45);
@@ -466,17 +534,7 @@ li {
     border-radius: 0 5px 5px 0;
 }
 
-#followed_main {
-    background-color: rgba(40, 40, 40, 0.45);
-    color: white;
-    border-radius: 10px;
-    padding: 10px;
-    margin-top: 5px;
-}
 
-#followed_main i{
-    font-size: 16px;
-}
 
 .main {
     min-height: 100%;

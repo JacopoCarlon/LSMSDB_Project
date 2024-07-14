@@ -86,6 +86,7 @@ DA FARE :
         metter il codice che piglia le cose e le scrive nelle colonne
 
 
+
 -   DONE :
 -   aggiungere : pagina che elenca tutte le review fatte da uno specifico user 
 
