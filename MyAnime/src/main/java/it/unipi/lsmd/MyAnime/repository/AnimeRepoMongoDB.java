@@ -1,8 +1,13 @@
 package it.unipi.lsmd.MyAnime.repository;
 
+import com.mongodb.ConnectionString;
+import com.mongodb.client.*;
 import it.unipi.lsmd.MyAnime.model.Anime;
 import it.unipi.lsmd.MyAnime.model.Review;
 import it.unipi.lsmd.MyAnime.repository.MongoDB.AnimeMongoInterface;
+import it.unipi.lsmd.MyAnime.utilities.Constants;
+import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -25,6 +30,15 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.ArrayList;
+
+import static com.mongodb.client.model.Accumulators.sum;
+import static com.mongodb.client.model.Aggregates.*;
+import static com.mongodb.client.model.Aggregates.limit;
+import static com.mongodb.client.model.Filters.gte;
+import static com.mongodb.client.model.Projections.*;
+import static com.mongodb.client.model.Projections.computed;
+import static com.mongodb.client.model.Sorts.descending;
 
 
 @Repository
@@ -35,6 +49,8 @@ public class AnimeRepoMongoDB {
 
     @Autowired
     private MongoTemplate mongoTemplate;
+
+    private ConnectionString mongoConnection = new ConnectionString(Constants.mongoDBConnectionUri);
 
     public boolean existsById(ObjectId id){
         try {
@@ -151,5 +167,35 @@ public class AnimeRepoMongoDB {
             dae.printStackTrace();
             return false;
         }
+    }
+
+    public List<Anime> getAnimeByScoreAllTime() {
+        MongoClient mongoClient = MongoClients.create(mongoConnection);
+        MongoDatabase database = mongoClient.getDatabase("MyAnimeLibrary");
+        MongoCollection<Document> collection = database.getCollection("reviews");
+        int minReviews = 15;
+
+        Bson group = group("$anime_id", sum("reviewCount", 1)); //conta il numero di recensioni per ogni anime
+        Bson match = match(gte("reviewCount", minReviews));                //seleziona solo gli album con almeno minReviews recensioni
+        Bson lookup = lookup("animes", "_id", "_id", "animeDetails");   //join con la collezione 'animes'
+        Bson project = project(fields(
+                excludeId(),    //altrimenti il campo '_id' viene comunqe incluso
+                computed("id", "$_id"),
+                computed("title", new Document("$arrayElemAt", Arrays.asList("$animeDetails.title", 0))),
+                computed("picture", new Document("$arrayElemAt", Arrays.asList("$animeDetails.picture", 0))),
+                computed("score", new Document("$arrayElemAt", Arrays.asList("$albumDetails.score", 0)))
+        ));
+        Bson sort = sort(descending("score"));                //ordina gli album per averageScore
+        Bson limit = limit(50);                                                  //seleziona i primi 50 anime
+
+        AggregateIterable<Document> result = collection.aggregate(Arrays.asList(
+                group, match, lookup, project, sort, limit
+        ));
+
+        List<Anime> animes = new ArrayList<>();
+        result.forEach(doc ->  System.out.println(doc.toJson()));
+
+        mongoClient.close();
+        return animes;
     }
 }

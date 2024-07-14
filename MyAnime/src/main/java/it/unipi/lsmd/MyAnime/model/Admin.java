@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Data
 @AllArgsConstructor
@@ -15,6 +16,8 @@ public class Admin {
     private String id;
     private String username;
     private String email;
+    @Field("password_salt")
     private String passwordSalt;
+    @Field("password_hash")
     private String passwordHash;
 }

@@ -1,11 +1,13 @@
 package it.unipi.lsmd.MyAnime.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import it.unipi.lsmd.MyAnime.utilities.Utility;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 
+@Controller
 public class AdminPageController {
 
     @RequestMapping(value={"/admin.html","/adminPage.html","/admin","/adminPage"})
@@ -23,6 +25,7 @@ public class AdminPageController {
 
         try {
             model.addAttribute("is_logged", Utility.isLogged(session));
+            model.addAttribute("is_admin", Utility.isAdmin(session));
             //  TODO : 
             //   need access to admin data, like :
             //  AdminData adminData = Utility.readAdminData();

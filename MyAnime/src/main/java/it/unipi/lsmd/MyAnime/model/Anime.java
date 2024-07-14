@@ -70,4 +70,11 @@ public class Anime {
         this.mostRecentReviews = mostRecentReviews;
     }
 
+    public static Anime mapToAlbum(org.bson.Document doc) {
+        Anime anime = new Anime();
+        anime.setTitle(doc.getString("title"));
+        anime.setAverageScore(doc.get("score", float.class));
+        anime.setImgURL(doc.getString("picture"));
+        return anime;
+    }
 }

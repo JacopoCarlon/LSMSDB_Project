@@ -44,7 +44,9 @@ public class UserRepoMongoDB {
 
     public User getUserByUsername(String username) {
         try {
+            System.out.println("user: " + username);
             Optional<User> result = userMongoInterface.findByUsername(username);
+            System.out.println(result);
             return result.orElse(null);
         } catch (DataAccessException dae) {
             if (dae instanceof DataAccessResourceFailureException)

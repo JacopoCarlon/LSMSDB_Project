@@ -1,29 +1,25 @@
 package it.unipi.lsmd.MyAnime.utilities;
 
 
+import it.unipi.lsmd.MyAnime.model.Anime;
 import jakarta.servlet.http.HttpSession;
 
+import java.io.File;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
+import java.util.List;
 
 
 public class Utility {
     public static boolean isLogged(HttpSession session) {
-        Object username = session.getAttribute("username");
-        return username != null;
+        Object logged = session.getAttribute("is_logged");
+        return logged != null && logged.equals(true);
     }
 
     public static boolean isAdmin(HttpSession session) {
-        Object role = session.getAttribute("role");
-        return role != null && role.equals("admin");
-    }
-
-    public static String getRole(HttpSession session){
-        Object role = session.getAttribute("role");
-        if(role != null)
-            return role.toString();
-        else
-            return "guest";
+        Object admin = session.getAttribute("is_admin");
+        return admin != null && admin.equals(true);
     }
 
     public static String getUsername(HttpSession session){
@@ -46,5 +42,26 @@ public class Utility {
             hexString[i * 2 + 1] = HEX_ARRAY[v & 0x0F];
         }
         return new String(hexString);
+    }
+
+    public static void clearRankingsDirectory(String folderName) throws IOException {
+        String currentDir = System.getProperty("user.dir");
+        String subFolderPath = currentDir + File.separator + folderName;
+        File subFolder = new File(subFolderPath);
+
+        if (subFolder.exists() && subFolder.isDirectory()) {
+            File[] files = subFolder.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    if (!file.delete()) {
+                        throw new IOException("Failed to delete " + file.getAbsolutePath());
+                    }
+                }
+            }
+        }
+    }
+
+    public static void writeToFile(Object data, String fileName, String folderName) throws Exception {
+
     }
 }

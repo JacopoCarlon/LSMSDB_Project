@@ -37,14 +37,8 @@ public class MostPopularPageController {
 
             try {
                     //  list of anime
-                    List<Anime> rankingAnimeByRating_AllTime = readJsonData(Constants.fileName_RankingAnimeByRating_AllTime, new TypeReference<List<Anime>>() {});
+                    List<Anime> rankingAnimeByRating_AllTime = readJsonData(Constants.fileName_RankingAnimeByScoreAllTime, new TypeReference<List<Anime>>() {});
                     model.addAttribute("rankingAnimeByRating_AllTime", rankingAnimeByRating_AllTime);
-
-                    List<Anime> rankingAnimeByLikes_AllTime = readJsonData(Constants.fileName_RankingAnimeByLikes_AllTime, new TypeReference<List<Anime>>() {});
-                    model.addAttribute("rankingAnimeByLikes_AllTime", rankingAnimeByLikes_AllTime);
-
-                    List<Anime> rankingAnimeByLikes_LastWeek = readJsonData(Constants.fileName_RankingAnimeByLikes_LastWeek, new TypeReference<List<Anime>>() {});
-                    model.addAttribute("rankingAnimeByLikes_LastWeek", rankingAnimeByLikes_LastWeek);
 
                 } catch (IOException e) {
                     e.printStackTrace();

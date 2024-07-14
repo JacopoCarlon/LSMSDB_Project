@@ -36,7 +36,7 @@
     <body>
         <div class="main">
             <input type="hidden" id="is_logged" th:value="${logged}"/>
-            <input type="hidden" id="is_admin" th:value="${session.role == 'admin'}">
+            <input type="hidden" id="is_admin" th:value="${admin}">
             <!-- Dynamic header -->
             <header class="header sticky-top shadow">
 
@@ -53,10 +53,6 @@
                     <h1>ADMIN STATISTICS</h1>
                     <div class="d-flex gap-1">
                         <button class="btn btn-primary p-3 w-100" id="calculateStatsButton">Calculate Admin Stats</button>
-                    </div>
-                    <div class="d-flex gap-1">
-                        <div id="dailyLikesOnAnimes" class="p-3 w-100">Daily Likes on Animes: <span th:text="${adminStatsFound ? dailyLikesOnAnimes : '0'}"></span></div>
-                        <div id="dailyReviews" class="p-3 w-100">Daily Reviews: <span th:text="${adminStatsFound ? dailyReviews : 0}"></span></div>
                     </div>
                 </div>
                 <div class="m-1 p-3 admin-buttons">

@@ -13,10 +13,13 @@ public final class Constants {
     public static final String fileName_AdminStats = "adminStats.json";
 
     // File names for the query results - Anime
-    public static final String fileName_RankingAnimeByRating_AllTime = "rankingAnimeWithMinReviewsByAvgRating_AllTime.json";
+    public static final String fileName_RankingAnimeByScoreAllTime = "rankingAnimeWithMinReviewsByAvgScoreAllTime.json";
     public static final String fileName_RankingAnimeByLikes_AllTime = "rankingAnimeByLikes_AllTime.json";
     public static final String fileName_RankingAnimeByRating_LastWeek = "rankingAnimeByRating_LastWeek.json";
     public static final String fileName_RankingAnimeByLikes_LastWeek = "rankingAnimeByLikes_LastWeek.json";
+
+    // String for MongoDB connection
+    public static final String mongoDBConnectionUri = "mongodb://localhost:27017";
 
     // Evita la creazione di istanze di questa classe
     private Constants() {

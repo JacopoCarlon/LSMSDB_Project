@@ -16,7 +16,7 @@ public class IndexController {
             //  System.out.println("entered mostPopularPage, value of isLogged is : " + Utility.isLogged(session) + ", redirecting to login");
             return "loginPage";
         }else{
-            return "mostPupularPage";
+            return "mostPopularPage";
         }
 
         //  return "loginPage";
