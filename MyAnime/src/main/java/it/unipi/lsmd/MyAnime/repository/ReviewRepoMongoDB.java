@@ -70,4 +70,17 @@ public class ReviewRepoMongoDB {
             return null;
         }
     }
+
+    //  TODO : make sure this works
+    public List<Review> getReviewsByUsername( String username) {
+        try {
+            PageRequest pageable = PageRequest.of(0, 500);
+            return reviewMongoInterface.findLimitedReviewsByUsername(username, pageable) ;
+        } catch (DataAccessException dae) {
+            if (dae instanceof DataAccessResourceFailureException)
+                throw dae;
+            dae.printStackTrace();
+            return null;
+        }
+    }
 }

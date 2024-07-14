@@ -61,6 +61,43 @@ DA FARE :
             10  B->A
             11  A<==>B
 
+
+
+- in userPage : aggiungi followers / following
+        -- e API,
+        e aggiungere stats 
+        e mettere le colonne di : 
+        -   currently watching
+        -   completed
+        -   on hold
+        -   dropped
+        -   plan to watch
+        usando status_menu : https://myanimelist.net/animelist/AnjuRatty?status=2
+
+
+
+-   in own profilePage :
+    stesse di userPage + nome cognome datadinascita email sex joinDate stats 
+
+
+
+-   in most popular page :
+        -    mettere 5 colonne < completed watching onhold plantowatch dropped >
+        metter il codice che piglia le cose e le scrive nelle colonne
+
+
+-   DONE :
+-   aggiungere : pagina che elenca tutte le review fatte da uno specifico user 
+
+
+
+-   in animeDetails page : aggiungere field "related animes" che si costruisce iterativamente ig
+        +   mettere un bottone che ti da l'opzione di aggiungerlo alla lista tra : completed watching onhold plantowatch dropped 
+
+
+
+-   aggiunger pagina per aggiungere nuovo anime, linkata da adminPage . 
+
 ################################################################################################################################
 
 

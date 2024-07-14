@@ -15,5 +15,5 @@ public interface ReviewMongoInterface extends MongoRepository<Review, String> {
     boolean existsByAnimeIDAndUsername(ObjectId animeObjectID, String username);
     Optional<Review> findByAnimeIDAndUsername(ObjectId animeObjectID, String username);
     Page<Review> findLimitedReviewsByAnimeID(ObjectId animeObjectID, Pageable pageable);
-    List<Review> findReviewsByUsername(String username, Pageable pageable);
+    List<Review> findLimitedReviewsByUsername(String username, Pageable pageable);
 }

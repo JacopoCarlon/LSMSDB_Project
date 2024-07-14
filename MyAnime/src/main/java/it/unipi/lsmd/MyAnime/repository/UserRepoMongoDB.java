@@ -54,6 +54,19 @@ public class UserRepoMongoDB {
         }
     }
 
+    public Boolean existsByUsername(String username) {
+        try {
+            Optional<User> result = userMongoInterface.findByUsername(username);
+            return (result.isPresent());
+            //  return result.orElse(null);
+        } catch (DataAccessException dae) {
+            if (dae instanceof DataAccessResourceFailureException)
+                throw dae;
+            dae.printStackTrace();
+            return null;
+        }
+    }
+
     public int insertUser(String name, String surname, String username, String password, Instant birthDate, String email, String gender, Instant joinDate, int statsEpisodes) {
         try {
             if (userMongoInterface.existsByUsername(username)) {

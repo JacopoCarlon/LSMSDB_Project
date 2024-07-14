@@ -56,6 +56,9 @@ public class AnimeReviewsPageController {
                     review.setPrintableDate();
                 }
                 model.addAttribute("reviews", reviews);
+
+                // TODO : make sure this works
+                model.addAttribute("animeDetails", animeRepoMongoDB.getAnimeById(animeId));
             }
             else {
                 model.addAttribute("animeId", animeId);
@@ -66,8 +69,8 @@ public class AnimeReviewsPageController {
             return "error/animeNotFound";
         }
 
-        model.addAttribute("logged", (Utility.isLogged(session)) ? true : false);
-        model.addAttribute("admin", (Utility.isAdmin(session)) ? true : false);
+        model.addAttribute("logged", Utility.isLogged(session));
+        model.addAttribute("admin", Utility.isAdmin(session));
 
         return "animeReviews";
     }

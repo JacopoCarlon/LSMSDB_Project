@@ -21,7 +21,7 @@ public class AnimeDetailsPageController {
     @RequestMapping(value={"/animeDetails.html","/animeDetailsPage.html","/animeDetails","/animeDetailsPage"})
     public String animeDetailsPage(HttpSession session,
                                Model model,
-                               @RequestParam(required = false) ObjectId animeID,
+                               @RequestParam(required = false) ObjectId animeId,
                                @RequestParam(required = false) String title) {
 
         if (!Utility.isLogged(session)) {
@@ -30,8 +30,8 @@ public class AnimeDetailsPageController {
 
         Anime anime;
 
-        if (animeID!= null) {
-            anime = animeRepoMongoDB.getAnimeById(animeID);
+        if (animeId!= null) {
+            anime = animeRepoMongoDB.getAnimeById(animeId);
         } else if (title!=null) {
             //  System.out.println("Anime: "+title);
             anime = animeRepoMongoDB.getAnimeByTitle(title);
