@@ -55,20 +55,21 @@
                             </div>
 
                             <div>
-                                <h4 class="p-1 col-4 fw-bold" id="statsEpisodes" th:text="'Watched episodes : ' + ${userDetails.statsEpisodes}"></h4>
+                                <h4 class="p-1 col-4 fw-bold" id="statsEpisodes" th:text="'Watched episodes: ' + ${userDetails.statsEpisodes}"></h4>
                             </div>
 
-                            <div id="user_control">
-                                <div id="user_details" class="d-flex">
+                            <div class="user_control">
+                                <div class="d-flex user_details">
                                     <div id="name" class="p-1 col-4" th:text="${userDetails.name}"></div>
                                     <div id="surname" class="p-1 col-4" th:text="${userDetails.surname}"></div>
-                                    <div id="birthday" class="p-1 col-4"><i class="fa fa-calendar me-3"></i><span th:text="${userDetails.birthDate}"></span></div>
+                                    <div id="birthday" class="p-1 col-4"><i class="fa fa-calendar me-3"></i><span th:text="'Birthday: ' + ${userDetails.birthDate}"></span></div>
                                 </div>
                             </div>
-
-                            <div id="user_email">
-                                <div id="user_details_email" class="d-flex">
-                                    <div id="email" class="p-1 col-12" th:text="${userDetails.email}"></div>
+                            <div class="user_control">
+                                <div class="d-flex user_details">
+                                    <div id="sex" class="p-1 col-4" th:text="'Gender: ' + ${userDetails.gender}"></div>
+                                    <div id="email" class="p-1 col-4" th:text="${userDetails.email}"></div>
+                                    <div id="join" class="p-1 col-4" th:text="'Joined: ' + ${userDetails.joinDate}"></div>
                                 </div>
                             </div>
 
@@ -107,10 +108,10 @@
                                     <img class="anime-cover shadow" th:src="${review.coverUrl}" style="max-width: 100px;" alt="Cover anime">
                                     <div class="d-flex flex-column">
                                         <h5 class="fw-bold mb-0" id="anime-title" th:text="${review.animeTitle}"></h5>
-                                        <p class="mb-0 fs-6" id="anime-artists" th:text="${review.artist}"></p>
+
                                         <div id="rating-review">
                                             <i class="fa fa-star"></i>
-                                            <span th:text="${review.rating}"></span>
+                                            <span th:text="${review.score}"></span>
                                         </div>
                                     </div>
                                 </div>

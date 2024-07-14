@@ -513,47 +513,41 @@ li {
 
 
 /* ----------------------------------------------- */
-#user_details {
+.user_details {
     color: white;
 }
 
-#user_details div {
+.user_details div {
     background-color: rgba(40, 40, 40, 0.45);
     border: 1px solid #282828;
     padding: 5px;
     text-align: center;
 }
 
-#user_details>#name {
+.user_details>#name {
     border-radius: 5px 0 0 5px;
 }
 
-#user_details>#surname {
+.user_details>#surname {
     border-radius: 0;
 }
 
-#user_details>#birthday {
+.user_details>#birthday {
     border-radius: 0 5px 5px 0;
 }
 
 /* ----------------------------------------------- */
 
-
-
-#user_details_email {
-    color: white;
+.user_details>#sex {
+    border-radius: 5px 0 0 5px;
 }
 
-#user_details_email div {
-    background-color: rgba(40, 40, 40, 0.45);
-    border: 1px solid #282828;
-    padding: 5px;
-    text-align: center;
+.user_details>#email {
+    border-radius: 0;
 }
 
-
-#user_details_email>#email {
-    border-radius: 5px 5px 5px 5px;
+.user_details>#join {
+    border-radius: 0 5px 5px 0;
 }
 
 /* ----------------------------------------------- */
