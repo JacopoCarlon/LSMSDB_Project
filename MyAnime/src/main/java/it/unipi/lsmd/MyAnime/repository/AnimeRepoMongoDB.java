@@ -172,28 +172,24 @@ public class AnimeRepoMongoDB {
     public List<Anime> getAnimeByScoreAllTime() {
         MongoClient mongoClient = MongoClients.create(mongoConnection);
         MongoDatabase database = mongoClient.getDatabase("MyAnimeLibrary");
-        MongoCollection<Document> collection = database.getCollection("reviews");
-        int minReviews = 15;
+        MongoCollection<Document> collection = database.getCollection("animes");
+        int minReviews = 100;
 
-        Bson group = group("$anime_id", sum("reviewCount", 1)); //conta il numero di recensioni per ogni anime
-        Bson match = match(gte("reviewCount", minReviews));                //seleziona solo gli album con almeno minReviews recensioni
-        Bson lookup = lookup("animes", "_id", "_id", "animeDetails");   //join con la collezione 'animes'
+        Bson match = match(gte("scored_by", minReviews));
         Bson project = project(fields(
-                excludeId(),    //altrimenti il campo '_id' viene comunqe incluso
-                computed("id", "$_id"),
-                computed("title", new Document("$arrayElemAt", Arrays.asList("$animeDetails.title", 0))),
-                computed("picture", new Document("$arrayElemAt", Arrays.asList("$animeDetails.picture", 0))),
-                computed("score", new Document("$arrayElemAt", Arrays.asList("$albumDetails.score", 0)))
+                include("title",
+                        "score",
+                        "picture")
         ));
-        Bson sort = sort(descending("score"));                //ordina gli album per averageScore
-        Bson limit = limit(50);                                                  //seleziona i primi 50 anime
+        Bson sort = sort(descending("score"));
+        Bson limit = limit(50);
 
         AggregateIterable<Document> result = collection.aggregate(Arrays.asList(
-                group, match, lookup, project, sort, limit
+                match, project, sort, limit
         ));
 
         List<Anime> animes = new ArrayList<>();
-        result.forEach(doc ->  System.out.println(doc.toJson()));
+        result.forEach(doc ->  animes.add(Anime.mapToAnime(doc)));
 
         mongoClient.close();
         return animes;

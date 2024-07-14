@@ -28,7 +28,7 @@ public class Anime {
     private Map aired;
     private String rating;
     @Field("score")
-    private float averageScore;
+    private Double averageScore;
     @Field("scored_by")
     private int scoredBy;
     @Field("members")
@@ -46,7 +46,7 @@ public class Anime {
     private String imgURL;
     private Review[] mostRecentReviews;
 
-    public Anime (ObjectId objId, String title, String titleJapanese, String type, String source, int episodes,  boolean airing, Map aired, String rating, float avarageScore, int scoredBy, int watchers, String synopsis, String broadcast, String producer, String licensor, String studio, String[] genre, int EpisodeDuration, String imgURL, Review[] mostRecentReviews) {
+    public Anime (ObjectId objId, String title, String titleJapanese, String type, String source, int episodes,  boolean airing, Map aired, String rating, Double avarageScore, int scoredBy, int watchers, String synopsis, String broadcast, String producer, String licensor, String studio, String[] genre, int EpisodeDuration, String imgURL, Review[] mostRecentReviews) {
         this.id = objId;
         this.title = title;
         this.titleJapanese = titleJapanese;
@@ -70,11 +70,17 @@ public class Anime {
         this.mostRecentReviews = mostRecentReviews;
     }
 
-    public static Anime mapToAlbum(org.bson.Document doc) {
-        Anime anime = new Anime();
-        anime.setTitle(doc.getString("title"));
-        anime.setAverageScore(doc.get("score", float.class));
-        anime.setImgURL(doc.getString("picture"));
-        return anime;
+    public Anime(String title, Double score, String picture){
+        this.title = title;
+        this.averageScore = score;
+        this.imgURL = picture;
+    }
+
+    public static Anime mapToAnime(org.bson.Document doc) {
+        String title = doc.getString("title");
+        Double score = doc.getDouble("score");
+        String imgURL = doc.getString("picture");
+
+        return new Anime(title, score, imgURL);
     }
 }
