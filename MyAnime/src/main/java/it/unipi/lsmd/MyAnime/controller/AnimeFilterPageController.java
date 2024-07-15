@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AnimeFilterPageController {
 
     @RequestMapping(value={"/animeFilter.html","/animeFilterPage.html","/animeFilter","/animeFilterPage"})
-    public String mostPopularPage(HttpSession session,
+    public String animeFilterPage(HttpSession session,
                                   Model model) {
         if (!Utility.isLogged(session)) {
             return "error/mustBeLogged";

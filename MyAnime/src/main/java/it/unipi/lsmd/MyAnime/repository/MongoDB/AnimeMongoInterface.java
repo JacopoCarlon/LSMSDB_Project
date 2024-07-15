@@ -17,10 +17,10 @@ public interface AnimeMongoInterface extends MongoRepository<Anime, String> {
     @Query(value = "{'title' : ?0 }")
     List<Anime> findByTitle(String title);
 
-    @Query(value = "{ 'title': { $regex: ?0, $options: 'i' } }")
+    @Query(value = "{ 'title': { $regex: ?0, $options: 'i' } }", fields = "{ 'title': 1, 'score': 1, 'picture': 1}")
     List<Anime> findAnimeByTitleContaining(String term, Pageable pageable);
 
-    @Query(value = "{}", sort = "{ 'averageScore': -1 }")
+    @Query(value = "{}", sort = "{ 'score': -1 }")
     List<Anime> findAnimeSortedByRating(Pageable pageable);
 
     @Query(value = "{}", sort = "{ 'watchers': -1 }")

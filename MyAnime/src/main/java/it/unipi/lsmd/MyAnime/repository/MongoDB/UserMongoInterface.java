@@ -12,6 +12,6 @@ public interface UserMongoInterface extends MongoRepository<User, String> {
     Optional<User> findByUsername(String username);
     boolean existsByUsername(String username);
 
-    @Query(value = "{ $text: { $search: ?0 } }")
+    @Query(value = "{ 'username': { $regex: ?0 } }" , fields = "{'username': 1}")
     List<User> findUsersByUsernameContaining(String term, Pageable pageable);
 }

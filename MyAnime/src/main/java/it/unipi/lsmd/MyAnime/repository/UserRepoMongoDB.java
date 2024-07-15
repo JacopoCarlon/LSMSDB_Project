@@ -30,10 +30,10 @@ public class UserRepoMongoDB {
     @Autowired
     private UserMongoInterface userMongoInterface;
 
-    public List<User> find5User(String term){
+    public List<User> findUser(String term){
         try {
-            Pageable topFive = PageRequest.of(0, 5);
-            return userMongoInterface.findUsersByUsernameContaining(term, topFive);
+            Pageable topTen = PageRequest.of(0, 10);
+            return userMongoInterface.findUsersByUsernameContaining(term, topTen);
         } catch (DataAccessException dae) {
             if (dae instanceof DataAccessResourceFailureException)
                 throw dae;
@@ -58,7 +58,9 @@ public class UserRepoMongoDB {
 
     public Boolean existsByUsername(String username) {
         try {
+            System.out.println("user: " + username);
             Optional<User> result = userMongoInterface.findByUsername(username);
+            System.out.println(result);
             return (result.isPresent());
             //  return result.orElse(null);
         } catch (DataAccessException dae) {
