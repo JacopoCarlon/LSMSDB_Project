@@ -78,7 +78,7 @@ public class UserAnimeListController {
         }
 
         model.addAttribute("logged", Utility.isLogged(session));
-        model.addAttribute("admin", Utility.isAdmin(session));
+        model.addAttribute("is_admin", Utility.isAdmin(session));
 
         return "userAnimeListPage";
     }

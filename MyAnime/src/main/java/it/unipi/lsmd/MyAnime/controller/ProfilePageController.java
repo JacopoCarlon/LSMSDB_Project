@@ -36,7 +36,7 @@ public class ProfilePageController {
             if(optionalUser==null){
                 return "error/genericError";
             }
-            model.addAttribute("is_logged", Utility.isLogged(session));
+            model.addAttribute("logged", Utility.isLogged(session));
             model.addAttribute("userDetails", optionalUser);
             return "profilePage";
         }

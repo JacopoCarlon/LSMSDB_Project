@@ -33,7 +33,7 @@ public class MostPopularPageController {
             return "error/mustBeLogged";
         }
         else{
-            model.addAttribute("is_logged", Utility.isLogged(session));
+            model.addAttribute("logged", Utility.isLogged(session));
 
             try {
                 //  list of anime

@@ -65,7 +65,7 @@ public class LoginREST {
             if(hash.equals(hashedPassword)){
                 System.out.println("login success");
                 //  //  Login successful
-                session.setAttribute("is_logged", true);
+                session.setAttribute("logged", true);
                 session.setAttribute("username", username);
                 session.setAttribute("is_admin", as_admin);
                 return "{\"login_code\": 0}";     
