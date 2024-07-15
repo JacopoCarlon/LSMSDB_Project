@@ -46,7 +46,7 @@ public class Review {
 
     public void setPrintableDate() {
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-mm-yyyy HH:MM");
             printableDate = formatter.format(timestamp);
         } catch (Exception e) {
             e.printStackTrace();
