@@ -17,6 +17,8 @@ public class AnimeFilterPageController {
             return "error/mustBeLogged";
         }
         else {
+            model.addAttribute("logged", Utility.isLogged(session));
+            model.addAttribute("is_admin", Utility.isAdmin(session));
             return "animeFilterPage";
         }
     }

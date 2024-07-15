@@ -7,6 +7,7 @@ $(document).ready(function(){
     //  else
     //      categories = ['Anime', 'User']
     categories = ['Anime', 'User']
+    alert("loading search bar")
     loadSearchBar()
     for(a in categories) {
         $("#category_input").append(
@@ -16,12 +17,12 @@ $(document).ready(function(){
     setActiveLink();
 })
 function loadSearchBar(){
-    let value = $("#logged").val();
+    let value = $("#is_logged").val();
     let admin = $("#is_admin").val();
     //  TODO : setup login !!!!!!!!!!!!!!!
     //  TODO : unrelative all paths
-    // let value = 'true'
-    // let admin = 'false'
+    //  value = 'true'
+    //  admin = 'false'
     $(".header").append(
         "<div class=\"container-fluid d-flex align-items-center justify-content-between\">" +
         "<h1 id=\"logo\" class=\"g-col-3\"><a href=\"/mostPopularPage\">MyAnimeLibrary</a></h1>" +
@@ -48,7 +49,21 @@ function loadSearchBar(){
         "</div>"
     )
     if(value == 'true'){
-        if(admin != 'true'){
+        //  alert("value : " + value)
+        //  alert("admin : " + admin)
+        //  alert("admin==true : " + (admin==true))
+        //  alert("admin==str.true : " + (admin=='true'))
+        //  js bad sadge
+
+        if (admin == 'true'){
+            alert("doing admin only part")
+            $("#user_controller").empty()
+            let container = $("#home_controller")
+            container.empty()
+            container.append($("<a class=\"nav-link active\" href=\"/adminPage\">Dashboard</a>"))
+        }
+        else{
+            alert("doing user only part")
             $("#discover_controller").append(
                 "<a class=\"nav-link scrollto\" href=\"/discoverPage\">Discover</a>"
             )
@@ -56,12 +71,8 @@ function loadSearchBar(){
                 "<a href=\"/profilePage\" class=\"btn btn-success\" style=\"border-radius: 10px 10px 10px 10px;\"><i class=\"fa fa-user me-1\"></i>Profile page</a>"
             )
             
-        }else{
-            $("#user_controller").empty()
-            let container = $("#home_controller")
-            container.empty()
-            container.append($("<a class=\"nav-link active\" href=\"/adminPage\">Dashboard</a>"))
         }
+
         $("#user_controller").append(
             "<button class=\"btn btn-danger\" id=\"logout_btn\" style=\"border-radius: 10px 10px 10px 10px;\" type=\"button\">Logout</button>"
         )
