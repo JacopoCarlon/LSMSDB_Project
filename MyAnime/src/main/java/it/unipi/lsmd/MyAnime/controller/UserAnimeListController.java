@@ -10,16 +10,26 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import com.fasterxml.jackson.core.type.TypeReference;
+
 import it.unipi.lsmd.MyAnime.model.Review;
 import it.unipi.lsmd.MyAnime.model.User;
+import it.unipi.lsmd.MyAnime.model.Anime;
 import it.unipi.lsmd.MyAnime.repository.UserRepoMongoDB;
 import it.unipi.lsmd.MyAnime.repository.ReviewRepoMongoDB;
+import it.unipi.lsmd.MyAnime.repository.AnimeRepoMongoDB;
+
 import it.unipi.lsmd.MyAnime.utilities.Utility;
 import org.springframework.ui.Model;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class UserFollowPageController {
+public class UserAnimeListController {
 
     @Autowired
     UserRepoMongoDB userRepoMongoDB;
@@ -27,7 +37,10 @@ public class UserFollowPageController {
     @Autowired
     UserRepoNeo4j userRepoNeo4j;
 
-    @GetMapping(value={"userFollow","userFollowPage","userFollow.html","userFollowPage.html"})
+    @Autowired
+    AnimeRepoMongoDB animeRepoMongoDB;
+
+    @GetMapping(value={"userAnimeList","userAnimeListPage","userAnimeList.html","userAnimeListPage.html"})
     public String userFollow(Model model,
                              HttpSession session,
                              @RequestParam("type") String type,
@@ -36,7 +49,13 @@ public class UserFollowPageController {
         System.out.println("type : " + type);
         System.out.println("username : " + username);
 
-        if (type != "following" && type != "follower") {
+        //  0 : curWatch_btn
+        //  1 : complete_btn
+        //  2 : on_hold_btn
+        //  3 : dropped_btn
+        //  4 : planWtc_btn
+
+        if (type != "0" && type != "1" && type != "2" && type != "3" && type != "4" ) {
             return "error/userNotFound";
         }
 
@@ -46,10 +65,10 @@ public class UserFollowPageController {
         boolean userFound = userRepoMongoDB.existsByUsername(username);
         System.out.println("userFound : " + userFound + " username: " + username);
         if(userFound) {
-            //  List<User>followList = userRepoNeo4j.getFollowByUsernameType(username, type);
-            //  boolean followuFound = (followList != null && !followList.isEmpty());
-            //  if(followuFound) {
-            //      model.addAttribute("followus", followList);
+            //  List<Anime>aniList = animeRepoMongoDB.getAnimeByUsernameType(username, type);
+            //  boolean aniListFound = (aniList != null && !aniList.isEmpty());
+            //  if(aniListFound) {
+            //      model.addAttribute("aniList", aniList);
             //      model.addAttribute("username", username);
             //      model.addAttribute("type", type);
             //  }
@@ -61,7 +80,9 @@ public class UserFollowPageController {
         model.addAttribute("logged", Utility.isLogged(session));
         model.addAttribute("admin", Utility.isAdmin(session));
 
-        return "userFollowPage";
+        return "userAnimeListPage";
     }
+
+
 
 }
