@@ -62,14 +62,14 @@
                                 <div class="d-flex user_details">
                                     <div id="name" class="p-1 col-4" th:text="${userDetails.name}"></div>
                                     <div id="surname" class="p-1 col-4" th:text="${userDetails.surname}"></div>
-                                    <div id="birthday" class="p-1 col-4"><i class="fa fa-calendar me-3"></i><span th:text="'Birthday: ' + ${userDetails.birthDate}"></span></div>
+                                    <div id="birthday" class="p-1 col-4"><i class="fa fa-calendar me-3"></i><span th:text="'Birthday: ' + ${#dates.format( userDetails.birthDate , 'yyyy-MM-dd')}"></span></div>
                                 </div>
                             </div>
                             <div class="user_control">
                                 <div class="d-flex user_details">
                                     <div id="sex" class="p-1 col-4" th:text="'Gender: ' + ${userDetails.gender}"></div>
                                     <div id="email" class="p-1 col-4" th:text="${userDetails.email}"></div>
-                                    <div id="join" class="p-1 col-4" th:text="'Joined: ' + ${userDetails.joinDate}"></div>
+                                    <div id="join" class="p-1 col-4" th:text="'Joined: ' + ${#dates.format( userDetails.joinDate , 'yyyy-MM-dd')}"></div>
                                 </div>
                             </div>
 
@@ -106,11 +106,10 @@
                             <div id="user_reviews" class="overflow-y-auto">
                                 <div id="reviews_btn">
                                     <h1 data-bs-toggle="collapse" data-bs-target="#reviews_container" aria-expanded="false" aria-controls="reviews_container" style="display: flex; align-items: center;" class="display-3 p-1 pe-3 justify-content-between">
-                                        <span>Your Reviews</span><i class="fa fa-arrow-down"></i>
+                                        <span th:text="${userDetails.username} + '\' Reviews' "></span><i class="fa fa-arrow-down"></i>
                                     </h1>
                                 </div>
                                 <div id="reviews_container" class="collapse overflow-y-auto">
-                                    <!--
                                     <div th:each="review : ${userDetails.mostRecentReviews}" class="d-flex gap-1 p-1 align-items-center rev_container">
                                         <img class="anime-cover shadow" th:src="${review.coverUrl}" style="max-width: 100px;" alt="Cover anime">
                                         <div class="d-flex flex-column">
@@ -122,72 +121,40 @@
                                             </div>
                                         </div>
                                     </div>
-                                    -->
-                                </div>
-                                <!--
-                                -->
-                            </div>
-
-
-                            <!-- Section for the liked animes of the user -->
-                            <!--
-                            <div id="liked_animes">
-                                <div id="liked_animes_btn">
-                                    <h1 data-bs-toggle="collapse" data-bs-target="#liked_animes_container" aria-expanded="false" aria-controls="liked_animes_container" style="display: flex; align-items: center;" class="display-3 p-1 pe-3 justify-content-between">
-                                        <span>Liked animes</span><i class="fa fa-arrow-down"></i>
-                                    </h1>
-                                </div>
-                                <div id="liked_animes_container" class="collapse overflow-y-auto">
-
                                 </div>
                             </div>
-                            -->
-
                         </div>
-
-
                     </div>
                 </div>
             </section>
-            <div id="most_popular_container" class="d-flex flex-column m-1 p-3">
+
+            <div id="link_buttons" class="d-flex flex-column m-1 p-3">
                 <div class="d-flex gap-1">
-                    <div class="d-flex flex-column chart-container p-1 gap-1 w-100 overflow-y-auto">
+
+                    <div id="curWatch_btn" class="d-flex flex-column chart-container p-1 gap-1 w-100 overflow-y-auto">
                         <h1><i class="fa fa-thumbs-up "></i>Currently Watching</h1>
-
                     </div>
 
-                    <div class="d-flex flex-column chart-container p-1 gap-1 w-100 overflow-y-auto">
+                    <div id="complete_btn" class="d-flex flex-column chart-container p-1 gap-1 w-100 overflow-y-auto">
                         <h1><i class="fa fa-thumbs-up "></i>Completed</h1>
-
                     </div>
 
-                    <div class="d-flex flex-column chart-container p-1 gap-1 w-100 overflow-y-auto">
+                    <div id="on_hold_btn" class="d-flex flex-column chart-container p-1 gap-1 w-100 overflow-y-auto">
                         <h1><i class="fa fa-thumbs-up "></i>On hold</h1>
-
                     </div>
 
-                    <div class="d-flex flex-column chart-container p-1 gap-1 w-100 overflow-y-auto">
+                    <div id="dropped_btn" class="d-flex flex-column chart-container p-1 gap-1 w-100 overflow-y-auto">
                         <h1><i class="fa fa-thumbs-up "></i>Dropped</h1>
-
                     </div>
 
-                    <div class="d-flex flex-column chart-container p-1 gap-1 w-100 overflow-y-auto">
+                    <div id="planWtc_btn" class="d-flex flex-column chart-container p-1 gap-1 w-100 overflow-y-auto">
                         <h1><i class="fa fa-thumbs-up "></i>Plan to watch</h1>
-
                     </div>
 
                 </div>
-
-
             </div>
-            
-            
-            
-            
-            
-            
-            
             <!-- end main container section -->
+
         </div>
 
         <!-- AOS JavaScript -->

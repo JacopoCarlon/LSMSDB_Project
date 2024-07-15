@@ -94,7 +94,7 @@
                             <div id="user_reviews" class="overflow-y-auto">
                                 <div id="reviews_btn">
                                     <h1 data-bs-toggle="collapse" data-bs-target="#reviews_container" aria-expanded="false" aria-controls="reviews_container" style="display: flex; align-items: center;" class="display-3 p-1 pe-3 justify-content-between">
-                                        <span>Your Reviews</span><i class="fa fa-arrow-down"></i>
+                                        <span th:text="${userDetails.username} + '\' Reviews' "></span><i class="fa fa-arrow-down"></i>
                                     </h1>
                                 </div>
                                 <div id="reviews_container" class="collapse overflow-y-auto">
@@ -137,19 +137,46 @@
                     </div>
                 </div>
             </section>
+
+            <div id="link_buttons" class="d-flex flex-column m-1 p-3">
+                <div class="d-flex gap-1">
+
+                    <div id="curWatch_btn" class="d-flex flex-column chart-container p-1 gap-1 w-100 overflow-y-auto">
+                        <h1><i class="fa fa-thumbs-up "></i>Currently Watching</h1>
+                    </div>
+
+                    <div id="complete_btn" class="d-flex flex-column chart-container p-1 gap-1 w-100 overflow-y-auto">
+                        <h1><i class="fa fa-thumbs-up "></i>Completed</h1>
+                    </div>
+
+                    <div id="on_hold_btn" class="d-flex flex-column chart-container p-1 gap-1 w-100 overflow-y-auto">
+                        <h1><i class="fa fa-thumbs-up "></i>On hold</h1>
+                    </div>
+
+                    <div id="dropped_btn" class="d-flex flex-column chart-container p-1 gap-1 w-100 overflow-y-auto">
+                        <h1><i class="fa fa-thumbs-up "></i>Dropped</h1>
+                    </div>
+
+                    <div id="planWtc_btn" class="d-flex flex-column chart-container p-1 gap-1 w-100 overflow-y-auto">
+                        <h1><i class="fa fa-thumbs-up "></i>Plan to watch</h1>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
         
         <!-- local script for liking, follow, block ... -->
         <script th:inline="javascript">
             $(document).ready(function (){
                 let username = /*[[${session.username}]]*/ null;
-                let user_follow = $("#username").text();
+                let user_target = $("#username").text();
 
                 if(user_follow == null){
                     alert("Username to follow is null");
                 }else{
                     $("#follow_btn").click(function (){
-                        if(username == user_follow){
+                        if(username == user_target){
                             alert("You cannot follow yourself.");
                             return;
                         }
@@ -159,7 +186,7 @@
                             type: 'POST',
                             data: {
                                 user1: username,
-                                user2: user_follow
+                                user2: user_target
                             },
                             success: function (response){
                                 if(response.outcome_code === 0){
@@ -176,13 +203,42 @@
                             }
                         })
                     });
+
+                    $("#block_btn").click(function (){
+                        if(username == user_target){
+                            alert("You cannot block yourself.");
+                            return;
+                        }
+                        $.ajax({
+                            url: '/api/addBlock',
+                            dataType: 'json',
+                            type: 'POST',
+                            data: {
+                                user1: username,
+                                user2: user_target
+                            },
+                            success: function (response){
+                                if(response.outcome_code === 0){
+                                    const followBtn = $("#block_btn");
+                                    followBtn.css("background-color", "green");
+                                    followBtn.css("border-color", "green");
+                                }else if(response.outcome_code === 1)
+                                    alert("You already blocked this user.");
+                                else
+                                    alert("Error occured while blocking the user");
+                            },
+                            error: function(xhr, status, error){
+                                console.log("Error: " + error);
+                            }
+                        })
+                    })
+
                 }
+
                 $("#ban_btn").click(function (){
                     alert("BAN Feature yet to be implemented.");
                 })
-                $("#block_btn").click(function (){
-                    alert("BLOCK Feature yet to be implemented.");
-                })
+
             })
         </script>
 

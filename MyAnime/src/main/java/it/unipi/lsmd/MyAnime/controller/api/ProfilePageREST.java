@@ -32,6 +32,8 @@ public class ProfilePageREST {
         }
         return new Gson().toJson(userRepoNeo4j.getLikedAnimeByUsername(username));
     }
+
+
     // TODO : this graph query
     @GetMapping("/api/userFollowingUsers")
     public @ResponseBody String userFollowingUsers( HttpSession session,
@@ -41,6 +43,8 @@ public class ProfilePageREST {
         }
         return new Gson().toJson(userRepoNeo4j.getFollowingUsersByUsername(username));
     }
+
+
     // TODO : this graph query
     @GetMapping("/api/userFollowerUsers")
     public @ResponseBody String userFollowerUsers( HttpSession session,

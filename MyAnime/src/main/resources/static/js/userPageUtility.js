@@ -1,6 +1,61 @@
 $(document).ready(function() {
     let user = $("#username").text();
 
+    // links to own anime lists
+
+    $("#curWatch_btn").click(function (e) {
+        e.preventDefault();
+        gotoUserAnimeListPage(0);
+    });
+
+    $("#complete_btn").click(function (e) {
+        e.preventDefault();
+        gotoUserAnimeListPage(1);
+    });
+
+    $("#on_hold_btn").click(function (e) {
+        e.preventDefault();
+        gotoUserAnimeListPage(2);
+    });
+
+    $("#dropped_btn").click(function (e) {
+        e.preventDefault();
+        gotoUserAnimeListPage(3);
+    });
+
+    $("#planWtc_btn").click(function (e) {
+        e.preventDefault();
+        gotoUserAnimeListPage(4);
+    });
+
+    function gotoUserAnimeListPage(tipo) {
+        window.location.href = "/userAnimeList?type="+tipo + "&?username=" + user;
+    }
+
+    // links to following and followed lists
+
+    //  users followed by <user>
+    $("#followingUsers_btn").click(function (e) {
+        e.preventDefault();
+        window.location.href = "/userFollow?type=following&?username=" + user;
+    });
+
+    // users that follow <user>
+    $("#followerUsers_btn").click(function (e) {
+        e.preventDefault();
+        window.location.href = "/userFollow?type=follower&?username=" + user;
+    });
+
+
+    $("#reviews_btn").click(function(e){
+        e.preventDefault();
+        window.location.href = "/userReviewsPage?username=" + user;
+    });
+
+});
+
+
+/*
     // Button for view the complete list of follower user
     $("#followingUsers_btn").click(function() {
         $.ajax({
@@ -68,7 +123,7 @@ $(document).ready(function() {
             }
         });
     });
-});
+
 
 
 
@@ -252,4 +307,4 @@ function displayLikedAnimes(liked){
         increment++;
     })
 }
-
+*/

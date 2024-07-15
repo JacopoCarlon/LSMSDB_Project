@@ -476,18 +476,19 @@ li {
 }
 
 
-
 /*  --------------------------------------------------- */
-#liked_animes_btn:hover {
+
+#curWatch_btn:hover, #complete_btn:hover, #on_hold_btn:hover, #dropped_btn:hover, #planWtc_btn:hover{
     background-color: #057f6a;
     border-radius: 10px;
     cursor: pointer;
     box-shadow: 0 0 20px 3px #2828286b;
 }
 
-#liked_animes_btn i{
+#curWatch_btn i, #complete_btn i, #on_hold_btn i, #dropped_btn i, #planWtc_btn i {
     font-size: 20px;
 }
+
 
 #liked_animes_container{
     max-height: 300px;
@@ -698,6 +699,11 @@ li {
 }
 
 #most_popular_container {
+    border-radius: 10px;
+    background-color: #ffffff42;
+}
+
+#link_buttons{
     border-radius: 10px;
     background-color: #ffffff42;
 }
