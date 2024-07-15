@@ -26,10 +26,13 @@ public class UserFollowPageController {
     @GetMapping(value={"userFollow","userFollowPage","userFollow.html","userFollowPage.html"})
     public String userFollow(Model model,
                              HttpSession session,
-                             @RequestParam("type") String ftype,
+                             @RequestParam("type") String type,
                              @RequestParam("username") String username) {
 
-        if (ftype != "following" && ftype != "follower") {
+        System.out.println("type : " + type);
+        System.out.println("username : " + username);
+
+        if (type != "following" && type != "follower") {
             return "error/userNotFound";
         }
 
@@ -37,19 +40,15 @@ public class UserFollowPageController {
             return "error/mustBeLogged";
         }
         boolean userFound = userRepoMongoDB.existsByUsername(username);
+        System.out.println("userFound : " + userFound + " username: " + username);
         if(userFound) {
-            List<User>followList = userRepoMongoDB.getFollowByUsernameType(username, ftype);
-
-            boolean followuFound = (followList != null && !followList.isEmpty());
-            if(followuFound) {
-
-                model.addAttribute("followus", followList);
-
-                model.addAttribute("username", username);
-
-                model.addAttribute("type", ftype);
-
-            }
+            //  List<User>followList = userRepoMongoDB.getFollowByUsernameType(username, type);
+            //  boolean followuFound = (followList != null && !followList.isEmpty());
+            //  if(followuFound) {
+            //      model.addAttribute("followus", followList);
+            //      model.addAttribute("username", username);
+            //      model.addAttribute("type", type);
+            //  }
         }
         else{
             return "error/userNotFound";
@@ -58,7 +57,7 @@ public class UserFollowPageController {
         model.addAttribute("logged", Utility.isLogged(session));
         model.addAttribute("admin", Utility.isAdmin(session));
 
-        return "userFollow";
+        return "userFollowPage";
     }
 
 }

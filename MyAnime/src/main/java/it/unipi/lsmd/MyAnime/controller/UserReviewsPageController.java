@@ -45,7 +45,7 @@ public class UserReviewsPageController {
                 model.addAttribute("reviews", reviews);
 
                 // TODO : make sure this works
-                model.addAttribute("username", username);
+                model.addAttribute("username", "pippo");
             }
         }
         else{
@@ -55,7 +55,7 @@ public class UserReviewsPageController {
         model.addAttribute("logged", Utility.isLogged(session));
         model.addAttribute("admin", Utility.isAdmin(session));
 
-        return "userReviews";
+        return "userReviewsPage";
 
     }
 }

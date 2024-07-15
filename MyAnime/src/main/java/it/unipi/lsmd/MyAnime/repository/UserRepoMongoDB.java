@@ -65,7 +65,7 @@ public class UserRepoMongoDB {
             if (dae instanceof DataAccessResourceFailureException)
                 throw dae;
             dae.printStackTrace();
-            return null;
+            return false;
         }
     }
 

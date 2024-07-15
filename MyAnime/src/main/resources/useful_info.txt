@@ -88,3 +88,8 @@ or
 css not refreshing in browser :
 https://stackoverflow.com/questions/2263096/css-file-not-refreshing-in-browser
 
+
+
+thymeleaf url composing with thy parameters :
+https://www.thymeleaf.org/doc/articles/standardurlsyntax.html
+-- > <a th:href="@{'/order/details'(id=${order.id})}">

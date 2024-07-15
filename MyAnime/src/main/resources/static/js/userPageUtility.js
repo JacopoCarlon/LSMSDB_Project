@@ -29,7 +29,7 @@ $(document).ready(function() {
     });
 
     function gotoUserAnimeListPage(tipo) {
-        window.location.href = "/userAnimeList?type="+tipo + "&?username=" + user;
+        window.location.href = "/userAnimeList?type="+tipo + "&username=" + user;
     }
 
     // links to following and followed lists
@@ -37,13 +37,13 @@ $(document).ready(function() {
     //  users followed by <user>
     $("#followingUsers_btn").click(function (e) {
         e.preventDefault();
-        window.location.href = "/userFollow?type=following&?username=" + user;
+        window.location.href = "/userFollow?type=following&username=" + user;
     });
 
     // users that follow <user>
     $("#followerUsers_btn").click(function (e) {
         e.preventDefault();
-        window.location.href = "/userFollow?type=follower&?username=" + user;
+        window.location.href = "/userFollow?type=follower&username=" + user;
     });
 
 

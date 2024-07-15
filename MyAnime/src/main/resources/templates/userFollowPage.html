@@ -44,8 +44,10 @@
 
     <section id="hero" class="d-flex flex-column align-items-center container-fluid p-3">
         <div id="all_followus" class="gap-1 d-flex flex-column container-fluid justify-content-center" data-aos="zoom-in" data-aos-delay="150">
-            <div class="d-flex align-items-center justify-content-between" th:href="@{/userPage?username=${userDetails.username}}">
-                <h1 class="display-3 fw-bold" id="username" th:text="${userDetails.username} + ' \' ' + ${type} + '(s)"></h1>
+            <div class="d-flex align-items-center justify-content-between" >
+                <a th:href="@{'/userPage'(username=${param.username}) }" >
+                    <h1 class="display-3 fw-bold" id="username" th:text="${param.username} + ' \' Reviews : ' "></h1>
+                </a>
             </div>
 
             <div th:each="followu : ${followus}" class="anime-review d-flex flex-column p-3">
