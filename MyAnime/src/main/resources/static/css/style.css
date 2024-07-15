@@ -534,8 +534,13 @@ li {
 /*  --------------------------------------------------- */
 
 
-unamelink{
-    backdrop-filter: ;
+#unamelink{
+    border-radius: 10px;
+    background-color: rgba(40, 40, 40, 0.71);
+    color: white;
+    max-height: 550px;
+    padding: 10px;
+    margin: 5px;
 }
 
 
