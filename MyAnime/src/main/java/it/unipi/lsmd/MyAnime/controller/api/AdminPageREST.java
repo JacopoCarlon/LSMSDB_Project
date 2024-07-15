@@ -77,11 +77,18 @@ public class AdminPageREST {
             System.out.println("LOG --> Start to calculate rankings");
 
             List<Anime> rankingAnimeByScoreAllTime = animeRepoMongoDB.getAnimeByScoreAllTime();
-            System.out.println("LOG --> Found " + rankingAnimeByScoreAllTime.size() + " albums with at least 15 reviews");
+            System.out.println("LOG --> Found " + rankingAnimeByScoreAllTime.size() + " anime with at least 100 reviews");
             if(rankingAnimeByScoreAllTime.isEmpty())
                 return "{\"outcome_code\": 2}";
             Utility.writeToFile(rankingAnimeByScoreAllTime, Constants.fileName_RankingAnimeByScoreAllTime, Constants.folderName_QueryResults);
             System.out.println("LOG --> Success calculation 1: " + Constants.fileName_RankingAnimeByScoreAllTime);
+
+            List<Anime> rankingAnimeByWatchersAllTime = animeRepoMongoDB.getAnimeByWatchersAllTime();
+            System.out.println("LOG --> Found " + rankingAnimeByWatchersAllTime.size() + " anime");
+            if(rankingAnimeByWatchersAllTime.isEmpty())
+                return "{\"outcome_code\": 2}";
+            Utility.writeToFile(rankingAnimeByWatchersAllTime, Constants.fileName_RankingAnimeByWatchersAllTime, Constants.folderName_QueryResults);
+            System.out.println("LOG --> Success calculation 1: " + Constants.fileName_RankingAnimeByWatchersAllTime);
 
             System.out.println("LOG --> End rankings calculation successfully");
             return "{\"outcome_code\": 0}"; // Update successful

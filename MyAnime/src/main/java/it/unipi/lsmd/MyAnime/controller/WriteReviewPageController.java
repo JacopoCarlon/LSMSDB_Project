@@ -35,7 +35,7 @@ public class WriteReviewPageController {
             return "error/animeNotFound";
 
         model.addAttribute("logged", Utility.isLogged(session));
-        model.addAttribute("isAdmin", Utility.isAdmin(session));
+        model.addAttribute("is_admin", Utility.isAdmin(session));
 
         if(Utility.isLogged(session))
             return "writeReviewPage";

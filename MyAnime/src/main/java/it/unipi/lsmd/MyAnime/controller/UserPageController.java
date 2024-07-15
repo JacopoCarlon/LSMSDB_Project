@@ -37,7 +37,7 @@ public class UserPageController {
                 if(Utility.isLogged(session)){
                     model.addAttribute("logged", Utility.isLogged(session) );
                     model.addAttribute("userDetails", user);
-                    model.addAttribute("admin", Utility.isAdmin(session) );
+                    model.addAttribute("is_admin", Utility.isAdmin(session) );
 
                     return "userPage";
                 }else

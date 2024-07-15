@@ -19,7 +19,7 @@ import java.util.List;
 
 public class Utility {
     public static boolean isLogged(HttpSession session) {
-        Object logged = session.getAttribute("is_logged");
+        Object logged = session.getAttribute("logged");
         return logged != null && logged.equals(true);
     }
 
@@ -72,7 +72,6 @@ public class Utility {
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
         String json = objectMapper.writeValueAsString(data);
-        System.out.println(json);
 
         String currentDir = System.getProperty("user.dir");
         String subFolderPath = currentDir + File.separator + folderName;

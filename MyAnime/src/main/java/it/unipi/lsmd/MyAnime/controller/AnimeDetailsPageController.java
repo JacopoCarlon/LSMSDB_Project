@@ -44,8 +44,8 @@ public class AnimeDetailsPageController {
         }
 
         model.addAttribute("animeDetails", anime);
-        model.addAttribute("is_logged", Utility.isLogged(session));
-        model.addAttribute("is_admin", Utility.isLogged(session));
+        model.addAttribute("logged", Utility.isLogged(session));
+        model.addAttribute("is_admin", Utility.isAdmin(session));
 
         return "animeDetailsPage";
     }

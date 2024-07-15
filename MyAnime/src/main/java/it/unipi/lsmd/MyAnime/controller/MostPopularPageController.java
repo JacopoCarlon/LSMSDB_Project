@@ -33,12 +33,15 @@ public class MostPopularPageController {
             return "error/mustBeLogged";
         }
         else{
-            model.addAttribute("is_logged", Utility.isLogged(session));
+            model.addAttribute("logged", Utility.isLogged(session));
 
             try {
-                    //  list of anime
-                    List<Anime> rankingAnimeByRating_AllTime = readJsonData(Constants.fileName_RankingAnimeByScoreAllTime, new TypeReference<List<Anime>>() {});
-                    model.addAttribute("rankingAnimeByRating_AllTime", rankingAnimeByRating_AllTime);
+                //  list of anime
+                List<Anime> rankingAnimeByRating_AllTime = readJsonData(Constants.fileName_RankingAnimeByScoreAllTime, new TypeReference<List<Anime>>() {});
+                model.addAttribute("rankingAnimeByRating_AllTime", rankingAnimeByRating_AllTime);
+
+                List<Anime> rankingAnimeByWatchers_AllTime = readJsonData(Constants.fileName_RankingAnimeByWatchersAllTime, new TypeReference<List<Anime>>() {});
+                model.addAttribute("rankingAnimeByWatchers_AllTime", rankingAnimeByWatchers_AllTime);
 
                 } catch (IOException e) {
                     e.printStackTrace();

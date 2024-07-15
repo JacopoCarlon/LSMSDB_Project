@@ -100,10 +100,10 @@ public class AnimeRepoMongoDB {
         }
     }
 
-    public List<Anime> find5Anime(String term){
+    public List<Anime> findAnime(String term){
         try {
-            Pageable topFive = PageRequest.of(0, 5);
-            return animeMongoInterface.findAnimeByTitleContaining(term, topFive);
+            Pageable topTen = PageRequest.of(0, 10);
+            return animeMongoInterface.findAnimeByTitleContaining(term, topTen);
         } catch (DataAccessException dae) {
             if (dae instanceof DataAccessResourceFailureException)
                 throw dae;
@@ -186,6 +186,30 @@ public class AnimeRepoMongoDB {
 
         AggregateIterable<Document> result = collection.aggregate(Arrays.asList(
                 match, project, sort, limit
+        ));
+
+        List<Anime> animes = new ArrayList<>();
+        result.forEach(doc ->  animes.add(Anime.mapToAnime(doc)));
+
+        mongoClient.close();
+        return animes;
+    }
+
+    public List<Anime> getAnimeByWatchersAllTime() {
+        MongoClient mongoClient = MongoClients.create(mongoConnection);
+        MongoDatabase database = mongoClient.getDatabase("MyAnimeLibrary");
+        MongoCollection<Document> collection = database.getCollection("animes");
+
+        Bson project = project(fields(
+                include("title",
+                        "score",
+                        "picture")
+        ));
+        Bson sort = sort(descending("watchers"));
+        Bson limit = limit(50);
+
+        AggregateIterable<Document> result = collection.aggregate(Arrays.asList(
+                project, sort, limit
         ));
 
         List<Anime> animes = new ArrayList<>();

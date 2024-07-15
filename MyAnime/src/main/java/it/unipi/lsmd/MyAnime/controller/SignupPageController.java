@@ -14,7 +14,7 @@ public class SignupPageController {
     public String signupPage(HttpSession session, Model model) {
 
         boolean is_logged = Utility.isLogged(session);
-        model.addAttribute("is_logged", is_logged );
+        model.addAttribute("logged", is_logged );
         
         if(is_logged){
             return "error/alreadyLogged";
