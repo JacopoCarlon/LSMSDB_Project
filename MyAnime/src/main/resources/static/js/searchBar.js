@@ -16,12 +16,12 @@ $(document).ready(function(){
     setActiveLink();
 })
 function loadSearchBar(){
-    //  let value = $("#is_logged").val();
-    //  let admin = $("#is_admin").val();
+    let value = $("#is_logged").val();
+    let admin = $("#is_admin").val();
     //  TODO : setup login !!!!!!!!!!!!!!!
-    //  TODO : unrelative all paths 
-    let value = 'true'
-    let admin = 'false'
+    //  TODO : unrelative all paths
+    value = 'true'
+    admin = 'false'
     $(".header").append(
         "<div class=\"container-fluid d-flex align-items-center justify-content-between\">" +
         "<h1 id=\"logo\" class=\"g-col-3\"><a href=\"/mostPopularPage\">MyAnimeLibrary</a></h1>" +

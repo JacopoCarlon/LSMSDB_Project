@@ -64,7 +64,7 @@ $(document).ready(function () {
     }
 });
 
-function displayAnimes(anime_lst) {
+function displayAnime(anime_lst) {
     const container = $(".modal-body");
     container.empty();
 
