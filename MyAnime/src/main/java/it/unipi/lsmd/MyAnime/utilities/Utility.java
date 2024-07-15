@@ -19,7 +19,7 @@ import java.util.List;
 
 public class Utility {
     public static boolean isLogged(HttpSession session) {
-        Object logged = session.getAttribute("is_logged");
+        Object logged = session.getAttribute("logged");
         return logged != null && logged.equals(true);
     }
 
