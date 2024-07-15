@@ -5,7 +5,6 @@ $(document).ready(function () {
     $("#search_btn").click(function (e) {
         e.preventDefault();
         search();
-        $('#search_results').modal('show');
     });
 
     $("#close_btn").click(function (e){
@@ -19,7 +18,6 @@ $(document).ready(function () {
             e.preventDefault();
             e.stopPropagation();
             search();
-            $('#search_results').modal('show');
         }
     });
 

@@ -20,13 +20,13 @@ public class SearchREST {
     public @ResponseBody String search(@RequestParam("term") String term,
                                        @RequestParam("category") String category){
 
-        if(category.equals("anime")){
-            return new Gson().toJson(animeRepoMongoDB.find5Anime(term));
-        }
-        else if(category.equals("user")){
-            return new Gson().toJson(userRepoMongoDB.find5User(term));
-        }
-        else
+        //  if(category.equals("anime")){
+        //      return new Gson().toJson(animeRepoMongoDB.find5Anime(term));
+        //  }
+        //  else if(category.equals("user")){
+        //      return new Gson().toJson(userRepoMongoDB.find5User(term));
+        //  }
+        //  else
             return "Invalid category";
     }
 }
