@@ -32,6 +32,8 @@ $(document).ready(function() {
         window.location.href = "/userAnimeList?type="+tipo + "&?username=" + user;
     }
 
+
+
     // links to following and followed lists
 
     //  users followed by <user>
@@ -47,9 +49,12 @@ $(document).ready(function() {
     });
 
 
+
+
+    //  links to all user's reviews
     $("#reviews_btn").click(function(e){
         e.preventDefault();
-        window.location.href = "/userReviewsPage?username=" + user;
+        window.location.href = "/userReviews?username=" + user;
     });
 
 
