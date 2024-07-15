@@ -50,7 +50,7 @@
                     <!-- Top-rated anime -->
                     <div class="d-flex flex-column chart-container p-1 gap-1 w-100 overflow-y-auto">
                         <h1><i class="fa fa-medal me-3"></i>Top-rated</h1>
-                        <a th:each="anime_r : ${rankingAnimeByRating_AllTime}" th:href="'/animeDetails?animeId=' + ${anime_r.id}" class="d-flex flex-column top-container gap-1">
+                        <a th:each="anime_r : ${rankingAnimeByRating_AllTime}" th:href="'/animeDetails?title=' + ${anime_r.title}" class="d-flex flex-column top-container gap-1">
                             <div class="d-flex top-container align-items-center">
                                 <img class="top-cover p-1" th:src="${anime_r.imgURL}" alt="anime_image">
                                 <div class="d-flex flex-column">
