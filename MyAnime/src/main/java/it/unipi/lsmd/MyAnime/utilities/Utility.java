@@ -72,7 +72,6 @@ public class Utility {
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
         String json = objectMapper.writeValueAsString(data);
-        System.out.println(json);
 
         String currentDir = System.getProperty("user.dir");
         String subFolderPath = currentDir + File.separator + folderName;
