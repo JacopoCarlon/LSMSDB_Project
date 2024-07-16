@@ -511,54 +511,57 @@
                             
                             <div class="filter">
                                 <div class="dropdown responsive">
-                                    <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton_sorting" data-bs-toggle="dropdown" aria-expanded="false">
                                         <span class="value" data-placeholder="Sort by" data-label-placement="true">Sort by</span>
                                     </button>
-                                    <ul class="noclose dropdown-menu c1">
-                                        <li>
-                                            <input type="radio" id="sort-most_relevance" name="sort" value="most_relevance"/>
-                                            <label for="sort-most_relevance">Most relevance</label>
-                                        </li>
-                                        <li>
-                                            <input type="radio" id="sort-recently_updated" name="sort" value="recently_updated" checked="checked"/>
-                                            <label for="sort-recently_updated">Recently updated</label>
-                                        </li>
-                                        <li>
-                                            <input type="radio" id="sort-recently_added" name="sort" value="recently_added"/>
-                                            <label for="sort-recently_added">Recently added</label>
-                                        </li>
-                                        <li>
+                                    <ul class="dropdown-menu sm " aria-labelledby="dropdownMenuButton_sorting">
+                                        <li title="relDate">
                                             <input type="radio" id="sort-release_date" name="sort" value="release_date"/>
                                             <label for="sort-release_date">Release date</label>
                                         </li>
-                                        <li>
-                                            <input type="radio" id="sort-trending" name="sort" value="trending"/>
-                                            <label for="sort-trending">Trending</label>
-                                        </li>
-                                        <li>
+                                        <li title="nameAZ">
                                             <input type="radio" id="sort-title_az" name="sort" value="title_az"/>
                                             <label for="sort-title_az">Name A-Z</label>
                                         </li>
-                                        <li>
+                                        <li title="scoresS">
                                             <input type="radio" id="sort-scores" name="sort" value="scores"/>
                                             <label for="sort-scores">Scores</label>
+                                        </li>
+                                        <li title="mostWtch">
+                                            <input type="radio" id="sort-most_watched" name="sort" value="most_watched"/>
+                                            <label for="sort-most_watched">Most watched</label>
+                                        </li>
+                                        <li title="numEpsd">
+                                            <input type="radio" id="sort-number_of_episodes" name="sort" value="number_of_episodes"/>
+                                            <label for="sort-number_of_episodes">Number of episodes</label>
+                                        </li>
+
+                                        <!--
+                                        <li title="mostRel">
+                                            <input type="radio" id="sort-trending" name="sort" value="trending"/>
+                                            <label for="sort-trending">Trending</label>
+                                        </li>
+                                        <li title="mostRel">
+                                            <input type="radio" id="sort-most_relevance" name="sort" value="most_relevance"/>
+                                            <label for="sort-most_relevance">Most relevance</label>
+                                        </li>
+                                        <li title="mostRel">
+                                            <input type="radio" id="sort-recently_updated" name="sort" value="recently_updated" checked="checked"/>
+                                            <label for="sort-recently_updated">Recently updated</label>
+                                        </li>
+                                        <li title="mostRel">
+                                            <input type="radio" id="sort-recently_added" name="sort" value="recently_added"/>
+                                            <label for="sort-recently_added">Recently added</label>
                                         </li>
                                         <li>
                                             <input type="radio" id="sort-mal_scores" name="sort" value="mal_scores"/>
                                             <label for="sort-mal_scores">MAL scores</label>
                                         </li>
                                         <li>
-                                            <input type="radio" id="sort-most_watched" name="sort" value="most_watched"/>
-                                            <label for="sort-most_watched">Most watched</label>
-                                        </li>
-                                        <li>
                                             <input type="radio" id="sort-most_favourited" name="sort" value="most_favourited"/>
                                             <label for="sort-most_favourited">Most favourited</label>
                                         </li>
-                                        <li>
-                                            <input type="radio" id="sort-number_of_episodes" name="sort" value="number_of_episodes"/>
-                                            <label for="sort-number_of_episodes">Number of episodes</label>
-                                        </li>
+                                        -->
                                     </ul>
                                 </div>
                             </div>
