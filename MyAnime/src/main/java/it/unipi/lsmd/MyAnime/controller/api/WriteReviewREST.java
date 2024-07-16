@@ -1,10 +1,8 @@
 package it.unipi.lsmd.MyAnime.controller.api;
 
 
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessResourceFailureException;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,50 +31,58 @@ public class WriteReviewREST {
     @PostMapping("/api/writeReview")
     @Transactional
     public @ResponseBody String writeReview(HttpSession session,
-                                      @RequestParam("rating") int rating,
+                                      @RequestParam("score") int score,
                                       @RequestParam("text") String text,
-                                      @RequestParam("animeID") ObjectId animeID,
+                                      @RequestParam("animeTitle") String animeTitle,
                                       @RequestParam("username") String username) {
 
-        //  TODO : accept String animeTitle instead of animeID
+        // DEBUG
+        System.out.println("text: " + text);
+        System.out.println("animeTitle: " + animeTitle);
+        System.out.println("username: " + username);
+        System.out.println("score: " + score);
 
         try {
             if(!Utility.isLogged(session))
                 return "{\"outcome_code\": 1}";     // User not logged in
             if(!Utility.getUsername(session).equals(username))
                 return "{\"outcome_code\": 2}";     // Usernames don't match
-            if(!animeRepoMongoDB.existsById(animeID))
+
+
+            Anime anime;
+            if(!animeRepoMongoDB.existsByTitle(animeTitle))
                 return "{\"outcome_code\": 3}";     // Anime doesn't exist
-            if(rating < 1 || rating > 5)
-                return "{\"outcome_code\": 4}";     // Rating out of range
-            if(reviewRepoMongoDB.existsByAnimeIDAndUsername(animeID, username))
-                return "{\"outcome_code\": 5}";     // User has already written a review for this anime
+            else
+                anime = animeRepoMongoDB.getAnimeByTitle(animeTitle);
 
-
-            Anime anime = animeRepoMongoDB.getAnimeById(animeID);
             if(anime == null)
                 return "{\"outcome_code\": 3}";     // Anime doesn't exist
 
-        // insert della review nella collection reviews
-        // public boolean insertReview(int score, String text, String animeId, String username, Instant timestamp)
-        //  TODO : verify consinstency inserts !!!
 
-            boolean outcomeInsertIntoReview = reviewRepoMongoDB.insertReview(rating, text, anime.getId(), username, Instant.now(), anime.getTitle());
+            if(score < 1 || score > 5)
+                return "{\"outcome_code\": 4}";     // Score out of range
+            if(reviewRepoMongoDB.existsByAnimeIDAndUsername(anime.getId(), username))
+                return "{\"outcome_code\": 5}";     // User has already written a review for this anime
+
+
+
+            //  TODO : verify consinstency inserts !!!
+            Instant timestamp = Instant.now();
+
+            boolean outcomeInsertIntoReview = reviewRepoMongoDB.insertReview(score, text, anime.getId(), username, timestamp, anime.getTitle());
             if(!outcomeInsertIntoReview)
                 return "{\"outcome_code\": 6}";     // Error while writing the review into the collection reviews
 
-        // insert della review nella collection users (aggiornamento reviewedAnimes)
-        //  public Review(String username, String animeId, int score, String text, Instant timestamp)
-            Review reviewedAnime = new Review(username, anime.getId(), rating, text, Instant.now(), anime.getTitle());
+            // insert della review nella collection users (aggiornamento reviewedAnimes)
+            Review reviewedAnime = new Review(username, anime.getId(), score, text, timestamp, anime.getTitle());
 
-            //  public boolean insertReviewIntoUser(String username, Review review)
+            // public boolean insertReviewIntoUser(String username, Review review)
             boolean outcomeInsertIntoUser = userRepoMongoDB.insertReviewIntoUser(username, reviewedAnime);
             if(!outcomeInsertIntoUser)
                 return "{\"outcome_code\": 7}";     // Error while writing the review into the collection users
 
-        // insert della review nella collection animes (aggiornamento lastReviews)
-        //  public int insertReviewIntoAnime(String animeID, String username, int score, String text, Instant timestamp)
-            int outcomeInsertIntoAnime = animeRepoMongoDB.insertReviewIntoAnime(anime.getId(), username, rating, text, Instant.now());
+            // insert della review nella collection animes (aggiornamento lastReviews)
+            int outcomeInsertIntoAnime = animeRepoMongoDB.insertReviewIntoAnime(anime.getId(), username, score, text, timestamp);
             if (outcomeInsertIntoAnime == 1) {
                 return "{\"outcome_code\": 8}";     // Anime not found
             } else if (outcomeInsertIntoAnime == 2) {
@@ -87,7 +93,7 @@ public class WriteReviewREST {
                 return "{\"outcome_code\": 11}";     // Other exceptions related to data access
             }
 
-        // Se tutto è andato a buon fine, ritorna un json con outcome_code = 0
+            // Se tutto è andato a buon fine, ritorna un json con outcome_code = 0
             return "{\"outcome_code\": 0}";         // Review successfully written
 
         } catch (DataAccessResourceFailureException e) {

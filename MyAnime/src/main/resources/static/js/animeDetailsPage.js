@@ -7,27 +7,11 @@ $(document).ready(function () {
     //  if done, please also change the href... in this page
 
     //  //  TODO : like any one of these would be saner, but none work, they just return "... : [object Object]"
-    //  let animeId = $("#animeDetails.id");
-    //  alert("found this animeID : " + animeId);
-    //  let animeTitle = $("#animeDetails.title");
-    //  alert("found this animeTitle : " + animeTitle);
-    //  let js_animeId = $("#animeId");
-    //  alert("found this js_animeId : " + js_animeId);
-    //  let js_animeTitle = $("#animeTitle");
-    //  alert("found this js_animeTitle : " + js_animeTitle);
 
-
-
-    //  let animeId = /*[[${animeDetails.id}]]*/ null;
-    //  let animeTitle = /*[[${animeDetails.title}]]*/ null;
-    //  let logged = /*[[${logged}]]*/ true;
-    //  let username = /*[[${session.username}]]*/ null;
 
     //  TODO : this is not exactly the most safe way to do this, but it works enough
     let forceAnimeTitle = new URLSearchParams(window.location.search).get("title");
-
-    //  alert("found forceAnimeTitle : " + forceAnimeTitle);
-
+    alert("found forceAnimeTitle : " + forceAnimeTitle);
     if(forceAnimeTitle == null ){
         alert("no anime id nor title");
         return;

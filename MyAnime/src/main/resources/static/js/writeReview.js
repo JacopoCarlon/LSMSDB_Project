@@ -1,16 +1,22 @@
 $(document).ready(function () {
     $('#sendReview_btn').click(function (e) {
         e.preventDefault();
-
+        let animeTitle = new URLSearchParams(window.location.search).get("animeTitle");
         // Take the data from the form
-        const rating = $('#rating_input').val();
+        const score = $('#score_input').val();
         const text = $('#text_review_input').val();
-        const animeID = /*[[${animeId}]]*/ null;            // Id of the anime insert with Thymeleaf, taken from the controller
-        const username = /*[[${session.username}]]*/ null;  // Username of the logged user insert by HttpSession
-        const isAdmin = /*[[${session.isAdmin}]]*/ false;   // Value insert by HttpSession to understand if the logged user is admin
+
+        //  const username = /*[[${username}]]*/ null;  // Username of the logged user insert by HttpSession
+        const isAdmin = /*[[${is_admin}]]*/ false;   // Value insert by HttpSession to understand if the logged user is admin
+
+        alert($('#this_username').text())
+
+        let username = $('#this_username').text()
+        let magictitle = $("#anime_title").text();
+        alert("magictitle : " + magictitle);
 
         // Check if all fields have been filled in
-        if (!rating || !text) {
+        if (!score || !text) {
             alert("Please fill in all fields.");
             return;
         }
@@ -22,28 +28,35 @@ $(document).ready(function () {
             alert("Admins cannot write reviews.");
             return;
         }
-        if(!animeID) {
+        if(!animeTitle) {
             alert("An error occurred while loading the page.");
             return;
         }
 
         // Prepare the data to be sent
         const formData = {
-            rating: rating,
+            score: score,
             text: text,
-            animeID: animeID,
+            animeTitle: animeTitle,
             username: username
         };
 
+        alert("before ajax in writerev")
         // Send the request to the server
         $.ajax({
             url: '/api/writeReview',
-            data: formData,
+            data: {
+                score: score,
+                text: text,
+                animeTitle: animeTitle,
+                username: username
+            },
             dataType: 'json',
             method: 'POST',
 
             success: function(response) {
-                handleOutcome(response.outcome_code);
+                alert("success ajax writerev")
+                handleOutcome(response.outcome_code, animeTitle);
             },
             error: function (xhr, status, error) {
                 alert("ERROR: " + error);
@@ -52,11 +65,12 @@ $(document).ready(function () {
     });
 });
 
-function handleOutcome(outcomeCode) {
+function handleOutcome(outcomeCode, animeTitle) {
+    alert("enter handleoutcome")
     switch(outcomeCode) {
         case 0:
             alert('Review written successfully');
-            window.location.href = '/animeDetails?animeId=' + /*[[${animeId}]]*/ null;
+            window.location.href = '/animeDetails?animeTitle=' + animeTitle;
             break;
         case 1:
             window.location.href = '/youMustBeLogged';
@@ -68,7 +82,7 @@ function handleOutcome(outcomeCode) {
             window.location.href = '/animeNotFound';
             break;
         case 4:
-            alert("Rating out of range.");
+            alert("Score out of range.");
             break;
         case 5:
             alert("User has already written a review for this anime.");
