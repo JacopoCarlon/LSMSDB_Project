@@ -12,7 +12,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.Instant;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 @Data
@@ -48,7 +47,7 @@ public class Review {
     public void setPrintableDate() {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-            printableDate = formatter.format(timestamp.atZone(ZoneId.of("UTC")));
+            printableDate = formatter.format(timestamp);
         } catch (Exception e) {
             e.printStackTrace();
             printableDate = null;
