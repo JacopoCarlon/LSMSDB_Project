@@ -12,6 +12,7 @@ import java.util.Optional;
 public interface AnimeMongoInterface extends MongoRepository<Anime, String> {
     boolean existsById(ObjectId id);
     boolean existsByTitle(String title);
+
     Optional<Anime> findById(ObjectId id);
 
     @Query(value = "{'title' : ?0 }")

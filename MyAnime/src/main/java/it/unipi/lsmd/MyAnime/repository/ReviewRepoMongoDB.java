@@ -45,11 +45,23 @@ public class ReviewRepoMongoDB {
         }
     }
 
-    public List<Review> getReviewsByAnimeID(ObjectId animeID) {
+    public List<Review> getReviewsByAnimeID(ObjectId animeObjectId) {
         try {
-            ObjectId animeObjectId = animeID;
+            String animeId = animeObjectId.toString();
             PageRequest pageable = PageRequest.of(0, 500);
-            return reviewMongoInterface.findLimitedReviewsByAnimeID(animeObjectId, pageable).getContent();
+            return reviewMongoInterface.findLimitedReviewsByAnimeID(animeId, pageable).getContent();
+        } catch (DataAccessException dae) {
+            if (dae instanceof DataAccessResourceFailureException)
+                throw dae;
+            dae.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<Review> getReviewsByAnimeTitle(String animeTitle) {
+        try {
+            PageRequest pageable = PageRequest.of(0, 500);
+            return reviewMongoInterface.findLimitedReviewsByAnimeTitle(animeTitle, pageable).getContent();
         } catch (DataAccessException dae) {
             if (dae instanceof DataAccessResourceFailureException)
                 throw dae;

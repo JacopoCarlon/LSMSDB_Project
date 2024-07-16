@@ -68,6 +68,17 @@ public class AnimeRepoMongoDB {
         }
     }
 
+    public boolean existsByTitle(String title){
+        try {
+            return animeMongoInterface.existsByTitle(title);
+        } catch (DataAccessException dae) {
+            if (dae instanceof DataAccessResourceFailureException)
+                throw dae;
+            dae.printStackTrace();
+            return false;
+        }
+    }
+
     public Anime getAnimeById(ObjectId id){
         try {
             Optional<Anime> result = animeMongoInterface.findById(id);
