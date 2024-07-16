@@ -6,18 +6,19 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.neo4j.core.Neo4jClient;
 
 import java.util.ArrayList;
+import static it.unipi.lsmd.MyAnime.utilities.Utility.*;
+
 @Data
 @NoArgsConstructor
 public class AnimeWatched {
     private String title;
     private String imgURL;
-    private String status;
+    private int statusNumber;
 
-
-    public AnimeWatched(String title, String imgURL, String status) {
+    public AnimeWatched(String title, String imgURL, int statusNumber) {
         this.title = title;
         this.imgURL = imgURL;
-        this.status = status;
+        this.statusNumber = statusNumber;
     }
 
     public static ArrayList<it.unipi.lsmd.MyAnime.model.query.AnimeWatched> getAnimeWatched(Neo4jClient neo4jClient, String cypherQuery, String username) {
@@ -28,8 +29,8 @@ public class AnimeWatched {
                 .mappedBy((typeSystem, record) -> {
                     String title = record.get("title").asString();
                     String imgURL = record.get("imgURL").asString();
-                    String status = record.get("status").asString();
-                    return new it.unipi.lsmd.MyAnime.model.query.AnimeWatched(title, imgURL, status);
+                    int statusNumber = record.get("status").asInt();
+                    return new it.unipi.lsmd.MyAnime.model.query.AnimeWatched(title, imgURL, statusNumber);
                 }).all();
     }
 }

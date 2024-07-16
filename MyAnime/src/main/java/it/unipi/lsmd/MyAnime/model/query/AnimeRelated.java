@@ -20,7 +20,7 @@ public class AnimeRelated {
         this.relationship = relationship;
     }
 
-    public static ArrayList<it.unipi.lsmd.MyAnime.model.query.AnimeRelated> getAnimeWatched(Neo4jClient neo4jClient, String cypherQuery, String title) {
+    public static ArrayList<it.unipi.lsmd.MyAnime.model.query.AnimeRelated> getAnimeRelated(Neo4jClient neo4jClient, String cypherQuery, String title) {
         return (ArrayList<AnimeRelated>) neo4jClient
                 .query(cypherQuery)
                 .bind(title).to("title")
