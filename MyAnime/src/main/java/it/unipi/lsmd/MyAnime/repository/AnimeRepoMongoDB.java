@@ -8,6 +8,7 @@ import it.unipi.lsmd.MyAnime.model.query.AnimeOnlyAvgScore;
 import it.unipi.lsmd.MyAnime.model.query.AnimeWithWatchers;
 import it.unipi.lsmd.MyAnime.repository.MongoDB.AnimeMongoInterface;
 import it.unipi.lsmd.MyAnime.utilities.Constants;
+import it.unipi.lsmd.MyAnime.utilities.Utility;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
@@ -30,19 +31,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Type;
 import java.time.Instant;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ArrayList;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.mongodb.client.model.Accumulators.sum;
 import static com.mongodb.client.model.Aggregates.*;
 import static com.mongodb.client.model.Aggregates.limit;
-import static com.mongodb.client.model.Filters.gte;
+import static com.mongodb.client.model.Filters.*;
 import static com.mongodb.client.model.Projections.*;
 import static com.mongodb.client.model.Projections.computed;
+import static com.mongodb.client.model.Sorts.ascending;
 import static com.mongodb.client.model.Sorts.descending;
 
 
@@ -116,16 +116,92 @@ public class AnimeRepoMongoDB {
         }
     }
 
-    public List<Anime> findAnime(String term){
+    public List<Anime> findAnime(String term, List<String> genre, List<String> year, List<String> type, List<String> status, List<String> rating, String sortBy) {
         try {
             Pageable topTen = PageRequest.of(0, 10);
-            return animeMongoInterface.findAnimeByTitleContaining(term, topTen);
+            return filterAnime(term, genre, year, type, status, rating, sortBy);
+            // return animeMongoInterface.findAnimeByTitleContaining(term, topTen);
         } catch (DataAccessException dae) {
             if (dae instanceof DataAccessResourceFailureException)
                 throw dae;
             dae.printStackTrace();
             return null;
         }
+    }
+
+    public List<Anime> filterAnime(String term, List<String> genre, List<String> years, List<String> type, List<String> status, List<String> rating, String sortBy){
+        MongoClient mongoClient = MongoClients.create(mongoConnection);
+        MongoDatabase database = mongoClient.getDatabase("MyAnimeLibrary");
+        MongoCollection<Document> collection = database.getCollection("animes");
+
+        List<Bson> matches = new ArrayList<>();
+        if (!term.isEmpty()){
+            matches.add(regex("title", term, "i"));
+        }
+        if (!genre.isEmpty()){
+            matches.add(in("genre", genre));
+        }
+        if (!years.isEmpty()){
+            List<Bson> conditions = new ArrayList<>();
+            for (String year: years) {
+                Instant startYear;
+                Instant startOfNextYear;
+                if (year.endsWith("s")){
+                    String substring = year.substring(0, year.length() - 1);
+                    startYear = ZonedDateTime.of(Integer.parseInt(substring), 1, 1, 0, 0, 0, 0, ZoneOffset.UTC).toInstant();
+                    startOfNextYear = ZonedDateTime.of(Integer.parseInt(substring + 10), 1, 1, 0, 0, 0, 0, ZoneOffset.UTC).toInstant();
+
+                } else {
+                    startYear = ZonedDateTime.of(Integer.parseInt(year), 1, 1, 0, 0, 0, 0, ZoneOffset.UTC).toInstant();
+                    startOfNextYear = ZonedDateTime.of(Integer.parseInt(year + 1), 1, 1, 0, 0, 0, 0, ZoneOffset.UTC).toInstant();
+                }
+                conditions.add(and(gte("aired.from",startYear), lt("aired.from", startOfNextYear)));
+            }
+            matches.add(or(conditions));
+        }
+        if (!type.isEmpty()){
+            matches.add(in("type", type));
+        }
+        if (status.size() == 1){
+            boolean is_airing = status.getFirst().equals("Ongoing");
+            matches.add(in("airing", status));
+        }
+        if (!rating.isEmpty()){
+            HashMap<String, String> ratingMapper = Utility.ratingMapper();
+            for(int i = 0; i < rating.size(); i++){
+                rating.set(i, ratingMapper.get(rating.get(i)));
+            }
+            matches.add(in("rating", rating));
+        }
+        Bson sort = sort(descending("score"));
+        if (!sortBy.isEmpty()){
+            sort = switch (sortBy) {
+                case "release_date" -> sort(descending("airing.from"));
+                case "title_az" -> sort(ascending("title"));
+                case "scores" -> sort(descending("score"));
+                case "most_watched" -> sort(descending("members"));
+                case "number_of_episodes" -> sort(ascending("episodes"));
+                default -> sort;
+            };
+        }
+        Bson project = project(fields(
+                include("title",
+                        "score",
+                        "picture")
+        ));
+        Bson limit = limit(50);
+
+        matches.add(project);
+        matches.add(sort);
+        matches.add(limit);
+
+        AggregateIterable<Document> result = collection.aggregate(matches);
+
+        List<Anime> animes = new ArrayList<>();
+        result.forEach(doc ->  animes.add(Anime.mapToAnime(doc)));
+
+        mongoClient.close();
+        return animes;
     }
 
     public int insertReviewIntoAnime(ObjectId animeID, String username, int score, String text, Instant timestamp) {

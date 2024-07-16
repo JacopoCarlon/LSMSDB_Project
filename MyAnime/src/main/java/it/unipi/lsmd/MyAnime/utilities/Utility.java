@@ -14,7 +14,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.security.SecureRandom;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class Utility {
@@ -97,5 +99,16 @@ public class Utility {
             default:
                 return "Plan To Watch";
         }
+    }
+
+    public static HashMap<String,String> ratingMapper() {
+        HashMap<String, String> ratingMapper = new HashMap<>();
+        ratingMapper.put("rating-g", "G - All Ages");
+        ratingMapper.put("rating-pg", "PG - Children");
+        ratingMapper.put("rating-pg_13", "PG 13 - Teens 13 and Older");
+        ratingMapper.put("rating-r", "R - 17+, Violence & Profanity");
+        ratingMapper.put("rating-r+", "R+ - Profanity & Mild Nudity");
+        ratingMapper.put("rating-rx", "Rx - Hentai");
+        return ratingMapper;
     }
 }
