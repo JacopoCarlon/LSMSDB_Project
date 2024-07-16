@@ -111,4 +111,70 @@ public class Utility {
         ratingMapper.put("rating-rx", "Rx - Hentai");
         return ratingMapper;
     }
+
+    public static String yearMapping(String year) {
+        if (year != null && year.startsWith("year-") && year.length() > 5) {
+            return year.substring(5);
+        }
+        return null;
+    }
+
+    public static HashMap<String,String> typeMapper() {
+        HashMap<String, String> ratingMapper = new HashMap<>();
+        ratingMapper.put("type-movie", "Movie");
+        ratingMapper.put("type-music", "Music");
+        ratingMapper.put("type-ona", "ONA");
+        ratingMapper.put("type-ova", "OVA");
+        ratingMapper.put("type-special", "Special");
+        ratingMapper.put("type-tv", "TV");
+        return ratingMapper;
+    }
+
+    public static HashMap<String,String> genreMapper(){
+        HashMap<String, String> genreMapper = new HashMap<>();
+        genreMapper.put("genre-action", "Action");
+        genreMapper.put("genre-adventure", "Adventure");
+        genreMapper.put("genre-cars", "Cars");
+        genreMapper.put("genre-comedy", "Comedy");
+        genreMapper.put("genre-dementia", "Dementia");
+        genreMapper.put("genre-demons", "Demons");
+        genreMapper.put("genre-drama", "Drama");
+        genreMapper.put("genre-ecchi", "Ecchi");
+        genreMapper.put("genre-fantasy", "Fantasy");
+        genreMapper.put("genre-game", "Game");
+        genreMapper.put("genre-harem", "Harem");
+        genreMapper.put("genre-hentai", "Hentai");
+        genreMapper.put("genre-historical", "Historical");
+        genreMapper.put("genre-horror", "Horror");
+        genreMapper.put("genre-josei", "Josei");
+        genreMapper.put("genre-kids", "Kids");
+        genreMapper.put("genre-magic", "Magic");
+        genreMapper.put("genre-martial_arts", "Martial Arts");
+        genreMapper.put("genre-mecha", "Mecha");
+        genreMapper.put("genre-military", "Military");
+        genreMapper.put("genre-music", "Music");
+        genreMapper.put("genre-mystery", "Mystery");
+        genreMapper.put("genre-parody", "Parody");
+        genreMapper.put("genre-police", "Police");
+        genreMapper.put("genre-psychological", "Psychological");
+        genreMapper.put("genre-romance", "Romance");
+        genreMapper.put("genre-samurai", "Samurai");
+        genreMapper.put("genre-school", "School");
+        genreMapper.put("genre-sci-fi", "Sci-Fi");
+        genreMapper.put("genre-seinen", "Seinen");
+        genreMapper.put("genre-shoujo", "Shoujo");
+        genreMapper.put("genre-shoujo_ai", "Shoujo Ai");
+        genreMapper.put("genre-shounen", "Shounen");
+        genreMapper.put("genre-shounen_ai", "Shounen Ai");
+        genreMapper.put("genre-slice_of_life", "Slice of Life");
+        genreMapper.put("genre-space", "Space");
+        genreMapper.put("genre-sports", "Sports");
+        genreMapper.put("genre-super_power", "Super Power");
+        genreMapper.put("genre-supernatural", "Supernatural");
+        genreMapper.put("genre-thriller", "Thriller");
+        genreMapper.put("genre-vampire", "Vampire");
+        genreMapper.put("genre-yaoi", "Yaoi");
+        genreMapper.put("genre-yuri", "Yuri");
+        return genreMapper;
+    }
 }

@@ -139,48 +139,51 @@ public class AnimeRepoMongoDB {
             matches.add(regex("title", term, "i"));
         }
         if (!genre.isEmpty()){
+            HashMap<String, String> genreMapper = Utility.genreMapper();
+            rating.replaceAll(genreMapper::get);
             matches.add(in("genre", genre));
         }
         if (!years.isEmpty()){
             List<Bson> conditions = new ArrayList<>();
             for (String year: years) {
+                String yearStr = Utility.yearMapping(year);
                 Instant startYear;
                 Instant startOfNextYear;
-                if (year.endsWith("s")){
-                    String substring = year.substring(0, year.length() - 1);
+                if (yearStr.endsWith("s")){
+                    String substring = yearStr.substring(0, year.length() - 1);
                     startYear = ZonedDateTime.of(Integer.parseInt(substring), 1, 1, 0, 0, 0, 0, ZoneOffset.UTC).toInstant();
-                    startOfNextYear = ZonedDateTime.of(Integer.parseInt(substring + 10), 1, 1, 0, 0, 0, 0, ZoneOffset.UTC).toInstant();
+                    startOfNextYear = ZonedDateTime.of(Integer.parseInt(substring)+10, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC).toInstant();
 
                 } else {
-                    startYear = ZonedDateTime.of(Integer.parseInt(year), 1, 1, 0, 0, 0, 0, ZoneOffset.UTC).toInstant();
-                    startOfNextYear = ZonedDateTime.of(Integer.parseInt(year + 1), 1, 1, 0, 0, 0, 0, ZoneOffset.UTC).toInstant();
+                    startYear = ZonedDateTime.of(Integer.parseInt(yearStr), 1, 1, 0, 0, 0, 0, ZoneOffset.UTC).toInstant();
+                    startOfNextYear = ZonedDateTime.of(Integer.parseInt(yearStr)+1, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC).toInstant();
                 }
                 conditions.add(and(gte("aired.from",startYear), lt("aired.from", startOfNextYear)));
             }
             matches.add(or(conditions));
         }
         if (!type.isEmpty()){
+            HashMap<String,String> typeMapper = Utility.typeMapper();
+            type.replaceAll(typeMapper::get);
             matches.add(in("type", type));
         }
         if (status.size() == 1){
-            boolean is_airing = status.getFirst().equals("Ongoing");
-            matches.add(in("airing", status));
+            boolean is_airing = status.getFirst().equals("status-on_hold");
+            matches.add(in("airing", is_airing));
         }
         if (!rating.isEmpty()){
             HashMap<String, String> ratingMapper = Utility.ratingMapper();
-            for(int i = 0; i < rating.size(); i++){
-                rating.set(i, ratingMapper.get(rating.get(i)));
-            }
+            rating.replaceAll(ratingMapper::get);
             matches.add(in("rating", rating));
         }
         Bson sort = sort(descending("score"));
         if (!sortBy.isEmpty()){
             sort = switch (sortBy) {
-                case "release_date" -> sort(descending("airing.from"));
-                case "title_az" -> sort(ascending("title"));
-                case "scores" -> sort(descending("score"));
-                case "most_watched" -> sort(descending("members"));
-                case "number_of_episodes" -> sort(ascending("episodes"));
+                case "sort-release_date" -> sort(descending("airing.from"));
+                case "sort-title_az" -> sort(ascending("title"));
+                case "sort-scores" -> sort(descending("score"));
+                case "sort-most_watched" -> sort(descending("members"));
+                case "sort-number_of_episodes" -> sort(ascending("episodes"));
                 default -> sort;
             };
         }
