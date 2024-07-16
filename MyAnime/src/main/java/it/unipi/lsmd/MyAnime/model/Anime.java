@@ -31,6 +31,7 @@ public class Anime {
     private Double averageScore;
     @Field("scored_by")
     private int scoredBy;
+    @Field("members")
     private int watchers;
     private String background;
     private String broadcast;
