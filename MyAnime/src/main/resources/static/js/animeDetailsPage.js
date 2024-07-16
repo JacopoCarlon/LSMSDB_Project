@@ -25,7 +25,9 @@ $(document).ready(function () {
 
     //  TODO : this is not exactly the most safe way to do this, but it works enough
     let forceAnimeTitle = new URLSearchParams(window.location.search).get("title");
-    alert("found forceAnimeTitle : " + forceAnimeTitle);
+
+    //  alert("found forceAnimeTitle : " + forceAnimeTitle);
+
     if(forceAnimeTitle == null ){
         alert("no anime id nor title");
         return;

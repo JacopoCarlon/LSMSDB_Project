@@ -31,7 +31,8 @@ $(document).ready(function () {
         const keyword = $("#keyword").val();
         const category = "user";
 
-        //  const category = $("#category_input").val();
+        //  alert("asking for username : " + keyword);
+        //  alert("asking for category : " + category);
 
         $.ajax({
             url: '/api/search',
@@ -40,6 +41,8 @@ $(document).ready(function () {
             method: 'GET',
 
             success: function (arrayResults) {
+                //  alert("we got something from the search : " + arrayResults);
+                //  alert("we got something from the search : " + JSON.stringify(arrayResults));
                 //  window.location.href = "/userFilterPage";
                 if(arrayResults==null || arrayResults.length == 0) {
                     const container = $(".modal-body");
@@ -61,6 +64,16 @@ $(document).ready(function () {
 
 
 function displayUser(user_lst){
+    alert("begin displaying user");
+    alert("user list : " + user_lst);
+    alert("typeof user list : " + typeof(user_lst));
+
+    //  let parsedlst = JSON.parse(user_lst);
+    //  alert("parsedlst list : " + parsedlst);
+    //  alert("typeof parsedlst list : " + typeof(parsedlst));
+
+
+
     const container = $(".ufpResults_container");
     container.empty();
 
@@ -83,20 +96,6 @@ function displayUser(user_lst){
     });
 
 
-    
-    //  const container = $(".modal-body");
-    //  container.empty();
-    //  users.forEach(function (user){
-    //      let usDiv = $("<div id=\"user_info\" class=\"d-flex mb-1 align-items-center\"></div>");
-    //      usDiv.append($("<i class=\"fa fa-user-circle fa-3x me-3\"></i>"))
-    //      let usInf = $("<div class=\"d-flex flex-column\"></div>");
-    //      usDiv.append(usInf);
-    //      usInf.append($("<h3 id=\"user_name\" style=\"font-weight: bold; margin-bottom: 0;\"></h3>").text(user.username));
-    //      usInf.append($("<p id=\"user_full_name\"></p>").text(user.name + " " + user.surname));
-    //      usDiv.click(function() {
-    //          window.location.href = '/user?username=' + user.username;
-    //      });
-    //      container.append(usDiv);
-    //  });
+
     
 }
