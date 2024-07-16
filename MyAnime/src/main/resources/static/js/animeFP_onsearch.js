@@ -63,7 +63,7 @@ $(document).ready(function () {
         $.ajax({
             url: '/api/search',
             data: {
-                term: searchTerm,
+                term: keyword,
                 category: category,
                 genreList : filters[0],
                 yearList : filters[1],

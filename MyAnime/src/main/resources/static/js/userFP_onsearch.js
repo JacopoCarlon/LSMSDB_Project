@@ -41,7 +41,7 @@ $(document).ready(function () {
 
         $.ajax({
             url: '/api/search',
-            data: { term: searchTerm, category: category },
+            data: { term: keyword, category: category },
             dataType : 'json',
             method: 'GET',
 
