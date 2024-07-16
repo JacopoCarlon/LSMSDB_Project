@@ -56,8 +56,6 @@ $(document).ready(function () {
 
         const category = "anime";
 
-        const selected_genre = $(dropdownMenuButton_genre)
-
         //  const category = $("#category_input").val();
 
         $.ajax({
