@@ -59,7 +59,7 @@
                             </div>
 
                             <div>
-                                <button id="block_btn" class="btn btn-danger w-100 mt-1" th:if="${session.role != 'admin'}"><i class="fa fa-user-plus me-1"></i>Block</button>
+                                <button id="unfollow_btn" class="btn btn-danger w-100 mt-1" th:if="${session.role != 'admin'}"><i class="fa fa-user-plus me-1"></i>Unfollow</button>
                             </div>
 
                             <!-- Section for the following user -->
@@ -162,7 +162,7 @@
 
         </div>
         
-        <!-- local script for liking, follow, block ... -->
+        <!-- local script for liking, follow, unfollow ... -->
         <script th:inline="javascript">
             $(document).ready(function (){
                 let username = /*[[${session.username}]]*/ null;
@@ -189,10 +189,11 @@
                                     const followBtn = $("#follow_btn");
                                     followBtn.css("background-color", "green");
                                     followBtn.css("border-color", "green");
+                                    alert("Now you follow this user.")
                                 }else if(response.outcome_code === 1)
                                     alert("You already follow this user.");
                                 else
-                                    alert("Error occured while following the user");
+                                    alert("Error occurred while following the user");
                             },
                             error: function(xhr, status, error){
                                 console.log("Error: " + error);
@@ -200,13 +201,13 @@
                         })
                     });
 
-                    $("#block_btn").click(function (){
+                    $("#unfollow_btn").click(function (){
                         if(username == user_target){
-                            alert("You cannot block yourself.");
+                            alert("You cannot unfollow yourself.");
                             return;
                         }
                         $.ajax({
-                            url: '/api/addBlock',
+                            url: '/api/removeFollow',
                             dataType: 'json',
                             type: 'POST',
                             data: {
@@ -215,13 +216,14 @@
                             },
                             success: function (response){
                                 if(response.outcome_code === 0){
-                                    const followBtn = $("#block_btn");
+                                    const followBtn = $("#unfollow_btn");
                                     followBtn.css("background-color", "green");
                                     followBtn.css("border-color", "green");
+                                    alert("You no longer follow this user.")
                                 }else if(response.outcome_code === 1)
-                                    alert("You already blocked this user.");
+                                    alert("You are not following this user.");
                                 else
-                                    alert("Error occured while blocking the user");
+                                    alert("Error occurred while unfollowing the user");
                             },
                             error: function(xhr, status, error){
                                 console.log("Error: " + error);
