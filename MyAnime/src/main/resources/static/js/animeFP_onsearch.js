@@ -26,9 +26,34 @@ $(document).ready(function () {
         }
     });
 
+
+    function getChosenByName(trg_name){
+        let ele = document.getElementsByName(trg_name);
+        let trg_arr = [];
+        for (i = 0; i < ele.length; i++) {
+            if (ele[i].checked){
+                //  alert("element value : " + ele[i].value);
+                //  alert("element id : " + ele[i].id);
+                //  alert("element id : " + ele[i].id.toString());
+                trg_arr.push(ele[i].id.toString());
+            }
+        }
+        alert("trg_arr for name " + trg_name + "is : " + trg_arr);
+        return trg_arr;
+    }
+
+
+
+
     function search() {
+        let trgFilterNames = ["genre_cbox", "year_cbox", "type_cbox", "status_cbox", "rating_cbox", "sort_cbox"]
+        let filters = [];
+        for (i_name in trgFilterNames) {
+            filters.push(getChosenByName(trgFilterNames[i_name]) );
+        }
         const searchTerm = $("#search_input").val();
         const keyword = $("#keyword").val();
+
         const category = "anime";
 
         const selected_genre = $(dropdownMenuButton_genre)
@@ -37,7 +62,16 @@ $(document).ready(function () {
 
         $.ajax({
             url: '/api/search',
-            data: {term: searchTerm, category: category},
+            data: {
+                term: searchTerm,
+                category: category,
+                genreList : filters[0],
+                yearList : filters[1],
+                typeList : filters[2],
+                statusList : filters[3],
+                ratingList : filters[4],
+                sortList : filters[5]
+            },
             dataType: 'json',
             method: 'GET',
 
