@@ -14,10 +14,6 @@ public class Neo4jGenericOperationsREST {
     @Autowired
     UserRepoNeo4j userRepoNeo4j;
 
-    // TODO : all the follow / unfollow stuff !!!
-    /*
-
-
     //  user1 follows user2
     @PostMapping("/api/addFollow")
     public @ResponseBody String addFollow(
@@ -34,19 +30,14 @@ public class Neo4jGenericOperationsREST {
     }
 
 
-
     //  user1 stops following user2
     @PostMapping("/api/removeFollow")
     public @ResponseBody String removeFollow(
             @RequestParam("user1") String user1,
             @RequestParam("user2") String user2) {
 
-        if(userRepoNeo4j.removeFollow(user1, user2))
-            return "{\"outcome_code\": 0}";
-        else
-            return "{\"outcome_code\": 1}";
+        String result = String.valueOf(userRepoNeo4j.removeFollow(user1, user2));
+        return "{\"outcome_code\": " + result + "}";
     }
-
-    */
 
 }
