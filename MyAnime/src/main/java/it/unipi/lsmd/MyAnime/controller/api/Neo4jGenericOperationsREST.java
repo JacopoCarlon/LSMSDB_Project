@@ -47,13 +47,6 @@ public class Neo4jGenericOperationsREST {
             return "{\"outcome_code\": 1}";
     }
 
-
-
-
-
     */
-
-
-
 
 }

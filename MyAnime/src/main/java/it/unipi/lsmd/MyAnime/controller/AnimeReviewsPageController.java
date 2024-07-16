@@ -26,8 +26,13 @@ public class AnimeReviewsPageController {
 
     @GetMapping(value={"/animeReviews.html","/animeReviewsPage.html","/animeReviews","/animeReviewsPage"})
     public String animeReviews(HttpSession session,
-                                 Model model,
-                                 @RequestParam("animeId") ObjectId animeId) {
+                               Model model,
+                               @RequestParam(required = false) ObjectId animeId,
+                               @RequestParam(required = false) String animeTitle) {
+
+        System.out.println("entered in animeRevPage with animeID : " + animeId + " or animeTitle : " + animeTitle);
+
+        //  TODO : accept String animeTitle instead of animeID
 
         if (!Utility.isLogged(session)) {
             return "error/mustBeLogged";

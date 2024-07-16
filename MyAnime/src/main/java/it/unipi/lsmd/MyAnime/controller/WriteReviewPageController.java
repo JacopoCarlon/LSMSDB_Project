@@ -19,7 +19,14 @@ public class WriteReviewPageController {
     @GetMapping(value={"/writeReview.html","/writeReviewPage.html","/writeReview","/writeReviewPage"})
     public String writeReview(HttpSession session,
                               Model model,
-                              @RequestParam("animeID") ObjectId animeID) {
+                              @RequestParam(required = false) ObjectId animeId,
+                              @RequestParam(required = false) String animeTitle) {
+
+        System.out.println("entered in animeRevPage with animeID : " + animeId + " or animeTitle : " + animeTitle);
+
+        //  TODO : accept String animeTitle instead of animeID
+
+        String username = Utility.getUsername(session);
 
         if(!Utility.isLogged(session)){
             return "error/mustBeLogged";
@@ -28,9 +35,9 @@ public class WriteReviewPageController {
             return "error/accessDenied";
         }
 
-        boolean animeFound = animeRepoMongoDB.existsById(animeID);
+        boolean animeFound = animeRepoMongoDB.existsById(animeId);
         if(animeFound)
-            model.addAttribute("animeId", animeID);
+            model.addAttribute("animeId", animeId);
         else
             return "error/animeNotFound";
 

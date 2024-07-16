@@ -882,19 +882,13 @@ li {
     background-color: rgba(55, 55, 55, 0.41);
 }
 
-.anime-cover {
-    max-width: 20%;
-    height: 20%;
-    border-radius: 10px;
-}
+
 
 #suggested_user_container:hover {
     background-color: #a412ff;
 }
 
-.anime-details h1, .anime-details p {
-    margin: 0;
-}
+
 
 .view_details_btn {
     border-radius: 10px;
@@ -1017,6 +1011,10 @@ li {
     background-color: rgba(255, 255, 255, 0.195);
 }
 
+.anime-details h1, .anime-details p {
+    margin: 0;
+}
+
 .anime-details {
     padding: 15px;
     display: flex;
@@ -1028,6 +1026,53 @@ li {
 .anime-details p{
     font-size: medium;
 }
+
+#anime_info_container{
+    border-radius: 10px;
+    background-color: #2828286e;
+    color: white;
+    text-decoration: none;
+}
+
+#anime_info_container img#anime_cover    {
+    border-radius: 10px;
+    width: 20%;
+    margin: 25px;
+    padding: 15px;
+}
+
+#anime_info_container #aniDet_container   {
+    border-radius: 10px;
+    width: 20%;
+    margin: 25px;
+    padding: 15px;
+}
+
+#aniDet_container  table#anime_table tr th{
+    padding: 3px;
+}
+
+#aniDet_container  table#anime_table tr th:nth-child(1) {
+    min-width: 225px;
+}
+
+#aniDet_container  table#anime_table tr th:nth-child(2) {
+    min-width: 225px;
+    max-width: 800px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #write_review {
     border-radius: 10px;

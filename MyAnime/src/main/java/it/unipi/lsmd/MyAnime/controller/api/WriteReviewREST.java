@@ -38,6 +38,8 @@ public class WriteReviewREST {
                                       @RequestParam("animeID") ObjectId animeID,
                                       @RequestParam("username") String username) {
 
+        //  TODO : accept String animeTitle instead of animeID
+
         try {
             if(!Utility.isLogged(session))
                 return "{\"outcome_code\": 1}";     // User not logged in

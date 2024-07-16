@@ -7,7 +7,7 @@ $(document).ready(function(){
     //  else
     //      categories = ['Anime', 'User']
     categories = ['Anime', 'User']
-    alert("loading search bar")
+    //  alert("loading search bar")
     loadSearchBar()
     for(a in categories) {
         $("#category_input").append(
@@ -56,14 +56,14 @@ function loadSearchBar(){
         //  js bad sadge
 
         if (admin == 'true'){
-            alert("doing admin only part")
+            //  alert("doing admin only part")
             $("#user_controller").empty()
             let container = $("#home_controller")
             container.empty()
             container.append($("<a class=\"nav-link active\" href=\"/adminPage\">Dashboard</a>"))
         }
         else{
-            alert("doing user only part")
+            //  alert("doing user only part")
             $("#discover_controller").append(
                 "<a class=\"nav-link scrollto\" href=\"/discoverPage\">Discover</a>"
             )
