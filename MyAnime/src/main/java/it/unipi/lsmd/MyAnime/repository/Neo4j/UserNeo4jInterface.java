@@ -13,20 +13,20 @@ public interface UserNeo4jInterface extends Neo4jRepository<UserNode, String> {
     void createUser(String username);
 
     // cancella l'utente e tutte le relazioni associate ad esso
-    @Query("MATCH (u:User {username: $username})-[r]-() " +
-            "DELETE u, r")
+    @Query("MATCH (u:User {username: $username})-[r]" +
+            "DELETE DETACH u")
     void deleteUser(String username);
 
     @Query("MATCH (u1:User {username: $user1}), (u2:User {username: $user2}) " +
-            "OPTIONAL MATCH (u1)-[f:FOLLOWS]-(u2) " +
+            "OPTIONAL MATCH (u1)-[f:FOLLOWS]->(u2) " +
             "WITH u1, u2, f, CASE WHEN f IS NULL THEN 'CREATED' ELSE 'EXISTING' END AS status " +
-            "MERGE (u1)-[:FOLLOWS]-(u2) " +
+            "MERGE (u1)-[:FOLLOWS]->(u2) " +
             "RETURN status")
-    String addFollowing(String user1, String user2);
+    String addFollow(String user1, String user2);
 
-    @Query("MATCH (u1:User {username: $user1})-[r:FOLLOWS]-(u2:User {username: $user2}) " +
+    @Query("MATCH (u1:User {username: $user1})-[r:FOLLOWS]->(u2:User {username: $user2}) " +
             "DELETE r")
-    void removeFollowing(String user1, String user2);
+    void removeFollow(String user1, String user2);
 
     @Query("MATCH (u:User {username: $username}), (a:Anime {title: $animeTitle}) " +
             "MERGE (u)-[w:WATCHES]->(a) " +
@@ -41,18 +41,18 @@ public interface UserNeo4jInterface extends Neo4jRepository<UserNode, String> {
             "DELETE r")
     void removeWatches(String username, String animeTitle);
 
-    @Query("MATCH (u:User {username: $username})-[:FOLLOWS]-(following) " +
+    @Query("MATCH (u:User {username: $username})-[:FOLLOWS]->(following) " +
             "RETURN COUNT(following)")
     int countFollowing(String username);
 
-    @Query("MATCH (followers)-[:FOLLOWS]-(u:User {username: $username}) " +
+    @Query("MATCH (followers)-[:FOLLOWS]->(u:User {username: $username}) " +
             "RETURN COUNT(followers)")
     int countFollowers(String username);
 
-    @Query("MATCH (u:User {username: $username})-[:FOLLOWS]-(following:User) " +
-            "RETURN following")
-    List<UserNode> findFollowingOfUsername(String username);
-    @Query("MATCH (follower:User)-[:FOLLOWS]-(u:User {username: $username}) " +
+    @Query("MATCH (u:User {username: $username})-[:FOLLOWS]->(followed:User) " +
+            "RETURN followed")
+    List<UserNode> findFollowedByUsername(String username);
+    @Query("MATCH (follower:User)-[:FOLLOWS]->(u:User {username: $username}) " +
             "RETURN follower")
     List<UserNode> findFollowersOfUsername(String username);
 }

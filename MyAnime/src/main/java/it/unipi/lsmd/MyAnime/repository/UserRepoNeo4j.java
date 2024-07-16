@@ -38,18 +38,18 @@ public class UserRepoNeo4j {
         }
     }
 
-    public String addFriendship(String username1, String username2){
+    public String addFollow(String follower, String target){
         try {
-            return userNeo4jInterface.addFollowing(username1, username2);
+            return userNeo4jInterface.addFollow(follower, target);
         } catch (DataAccessException dae) {
             dae.printStackTrace();
             return null;
         }
     }
 
-    public int removeFollowing(String username1, String username2){
+    public int removeFollow(String follower, String target){
         try {
-            userNeo4jInterface.removeFollowing(username1, username2);
+            userNeo4jInterface.removeFollow(follower, target);
             return 0;
         } catch (DataAccessException dae) {
             if (dae instanceof DataAccessResourceFailureException) {
@@ -114,9 +114,9 @@ public class UserRepoNeo4j {
         }
     }
 
-    public List<UserNode> findFollowingOfUsername(String username){
+    public List<UserNode> findFollowedByUsername(String username){
         try {
-            return userNeo4jInterface.findFollowingOfUsername(username);
+            return userNeo4jInterface.findFollowedByUsername(username);
         } catch (DataAccessException dae) {
             dae.printStackTrace();
             return null;

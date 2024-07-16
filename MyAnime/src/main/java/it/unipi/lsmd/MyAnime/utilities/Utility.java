@@ -83,4 +83,19 @@ public class Utility {
         Path filePath = Paths.get(subFolder.getPath() + File.separator + fileName);
         Files.write(filePath, json.getBytes(), StandardOpenOption.CREATE);
     }
+
+    public static String statusFromInt(int statusInt) {
+        switch (statusInt) {
+            case 1:
+                return "Currently Watching";
+            case 2:
+                return "Completed";
+            case 3:
+                return "On Hold";
+            case 4:
+                return "Dropped";
+            default:
+                return "Plan To Watch";
+        }
+    }
 }
