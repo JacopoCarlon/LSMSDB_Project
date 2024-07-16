@@ -4,6 +4,8 @@ import com.mongodb.ConnectionString;
 import com.mongodb.client.*;
 import it.unipi.lsmd.MyAnime.model.Anime;
 import it.unipi.lsmd.MyAnime.model.Review;
+import it.unipi.lsmd.MyAnime.model.query.AnimeOnlyAvgScore;
+import it.unipi.lsmd.MyAnime.model.query.AnimeWithWatchers;
 import it.unipi.lsmd.MyAnime.repository.MongoDB.AnimeMongoInterface;
 import it.unipi.lsmd.MyAnime.utilities.Constants;
 import org.bson.Document;
@@ -18,6 +20,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.BulkOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Update;
@@ -31,6 +35,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import static com.mongodb.client.model.Accumulators.sum;
 import static com.mongodb.client.model.Aggregates.*;
@@ -143,32 +148,6 @@ public class AnimeRepoMongoDB {
             return 4; // Altre eccezioni relative all'accesso ai dati
         }
     }
-
-    @Transactional
-    public boolean setAverageScoreForRecentReviews(List<Anime> animeList) {
-        // Prepara le operazioni in batch
-        BulkOperations bulkOps = mongoTemplate.bulkOps(BulkOperations.BulkMode.UNORDERED, Anime.class);
-
-        try {
-            // Aggiungi ogni operazione di aggiornamento al batch
-            animeList.forEach(anime -> {
-                Query query = new Query().addCriteria(Criteria.where("_id").is(anime.getId()));
-                Update update = new Update().set("averageScore", anime.getAverageScore());
-                bulkOps.updateOne(query, update);
-            });
-
-            // Esegui tutte le operazioni in batch
-            bulkOps.execute();
-            return true;
-
-        } catch (DataAccessException dae) {
-            if (dae instanceof DataAccessResourceFailureException)
-                throw dae;
-            dae.printStackTrace();
-            return false;
-        }
-    }
-
     public List<Anime> getAnimeByScoreAllTime() {
         MongoClient mongoClient = MongoClients.create(mongoConnection);
         MongoDatabase database = mongoClient.getDatabase("MyAnimeLibrary");
@@ -217,5 +196,104 @@ public class AnimeRepoMongoDB {
 
         mongoClient.close();
         return animes;
+    }
+
+    @Transactional
+    public boolean setWatchersOfAnime(AnimeWithWatchers[] animeList) {
+        try {
+            BulkOperations bulkOps = mongoTemplate.bulkOps(BulkOperations.BulkMode.ORDERED, Anime.class);
+
+            for (AnimeWithWatchers anime : animeList) {
+                Query query = new Query(Criteria.where("title").is(anime.getTitle()));
+                Update update = new Update().set("watchers", anime.getWatchers());
+                bulkOps.updateOne(query, update);
+            }
+
+            bulkOps.execute();
+            return true;
+
+        } catch (DataAccessException dae) {
+            if (dae instanceof DataAccessResourceFailureException)
+                throw dae;
+            dae.printStackTrace();
+            return false;
+        }
+    }
+
+    public List<AnimeOnlyAvgScore> getAverageScoreForRecentReviews() {
+        // Una limitazione importante è che MongoDB non supporta l'aggiornamento di documenti direttamente
+        // all'interno di una pipeline di aggregazione. Pertanto, quello che posso fare è calcolare le medie e
+        // trovare gli ID necessari in un'unica query, ma poi dovrò eseguire un'operazione di aggiornamento separata.
+        // Nello specifico, aggiornerò i documenti degli anime con le medie dei voti calcolate in questa query con
+        // il metodo setAverageScoreForRecentReviews().
+
+        try {
+            Instant twentyFourHoursAgo = Instant.now().minusSeconds(60 * 60 * 24);
+
+            // Fase 1: Trovo gli ID degli anime con recensioni recenti
+            Aggregation recentReviewsAggregation = Aggregation.newAggregation(
+                    Aggregation.match(Criteria.where("review_time").gte(twentyFourHoursAgo)),
+                    Aggregation.group("anime_id"),
+                    Aggregation.project("anime_id") // Project the anime_id
+            );
+            // Execute the aggregation
+            AggregationResults<Document> aggregationResults = mongoTemplate.aggregate(
+                    recentReviewsAggregation, "reviews", Document.class);
+
+            // Map the results to a list of strings
+            List<String> recentAnimeIds = aggregationResults.getMappedResults().stream()
+                    .map(document -> document.getString("anime_id"))
+                    .collect(Collectors.toList());
+
+            // Fase 2: Calcolo la media degli score per questi anime
+            Aggregation averageScoreAggregation = Aggregation.newAggregation(
+                    Aggregation.match(Criteria.where("anime_id").in(recentAnimeIds)),
+                    Aggregation.group("anime_id").avg("score").as("avgScore").sum("username").as("scoredBy"),
+                    Aggregation.project("anime_id").andInclude("avgScore", "scoredBy")
+            );
+            AggregationResults<AnimeOnlyAvgScore> results = mongoTemplate.aggregate(
+                    averageScoreAggregation, "reviews", AnimeOnlyAvgScore.class
+            );
+
+            List<AnimeOnlyAvgScore> animeAverages = results.getMappedResults();
+
+            // Arrotondo le medie dei voti
+            for (AnimeOnlyAvgScore animeAverage : animeAverages) {
+                animeAverage.roundAverageScore();
+            }
+
+            return animeAverages;
+
+        } catch (DataAccessException dae) {
+            if (dae instanceof DataAccessResourceFailureException)
+                throw dae;
+            dae.printStackTrace();
+            return new ArrayList<AnimeOnlyAvgScore>();
+        }
+    }
+
+    @Transactional
+    public boolean setAverageScoreForRecentReviews(List<AnimeOnlyAvgScore> animeAverages) {
+        // Prepara le operazioni in batch
+        BulkOperations bulkOps = mongoTemplate.bulkOps(BulkOperations.BulkMode.UNORDERED, Anime.class);
+
+        try {
+            // Aggiungi ogni operazione di aggiornamento al batch
+            animeAverages.forEach(animeAverage -> {
+                Query query = new Query().addCriteria(Criteria.where("_id").is(animeAverage.getAnimeId()));
+                Update update = new Update().set("score", animeAverage.getAvgScore()).set("scored_by", animeAverage.getScoredBy());
+                bulkOps.updateOne(query, update);
+            });
+
+            // Esegui tutte le operazioni in batch
+            bulkOps.execute();
+            return true;
+
+        } catch (DataAccessException dae) {
+            if (dae instanceof DataAccessResourceFailureException)
+                throw dae;
+            dae.printStackTrace();
+            return false;
+        }
     }
 }

@@ -3,9 +3,9 @@ package it.unipi.lsmd.MyAnime.controller.api;
 import com.google.common.hash.Hashing;
 import it.unipi.lsmd.MyAnime.model.Anime;
 import it.unipi.lsmd.MyAnime.model.User;
-import it.unipi.lsmd.MyAnime.repository.AnimeRepoMongoDB;
-import it.unipi.lsmd.MyAnime.repository.ReviewRepoMongoDB;
-import it.unipi.lsmd.MyAnime.repository.UserRepoMongoDB;
+import it.unipi.lsmd.MyAnime.model.query.AnimeOnlyAvgScore;
+import it.unipi.lsmd.MyAnime.model.query.AnimeWithWatchers;
+import it.unipi.lsmd.MyAnime.repository.*;
 import it.unipi.lsmd.MyAnime.utilities.Constants;
 import it.unipi.lsmd.MyAnime.utilities.Utility;
 import jakarta.servlet.http.HttpSession;
@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -34,6 +35,11 @@ public class AdminPageREST {
     private AnimeRepoMongoDB animeRepoMongoDB;
     @Autowired
     private ReviewRepoMongoDB reviewRepoMongoDB;
+    @Autowired
+    private AnimeRepoNeo4j animeRepoNeo4j;
+    @Autowired
+    private UserRepoNeo4j userRepoNeo4j;
+
     // TODO :
     // need to connect and calculate admin data for updates and rankings !!!
 
@@ -104,6 +110,7 @@ public class AdminPageREST {
             return "{\"outcome_code\": 11}"; // File writing error
         }
 
+
         // probably need operations on both mongoDB and neo4j DB.
         //  write results on some data_directory for easy access on reload of mostPopularPage !!
 
@@ -125,21 +132,44 @@ public class AdminPageREST {
 
     
     // daily upadtes :
-    @PostMapping("/api/admin/updateNewLikes")
+    @PostMapping("/api/admin/updateWatchersAndScores")
     @Transactional
-    public @ResponseBody String updateNewLikesAndAvgRatings(HttpSession session){
+    public @ResponseBody String updateNewWatchersAndAvgRatings(HttpSession session){
         if(!Utility.isAdmin(session)){
             return "{\"outcome_code\": 1}";         // User is not an admin
         }
         // try catch method on MongoDB
+        try {
+            System.out.println(">> START: Updating new watchers and average ratings...");
 
-        /*
-            needed : 
-            -   update review average   // from neo4j (?)
-            -   dailyReviews            // from neo4j (?)
-        */
-        return "TODO ...";
-        //  ...
+            // aggiorna il numero di watchers degli anime
+            ArrayList<AnimeWithWatchers> animeWithWatchers = animeRepoNeo4j.getAnimeWithWatchers();
+            if(!animeWithWatchers.isEmpty()){
+                boolean outcome1 = animeRepoMongoDB.setWatchersOfAnime(animeWithWatchers.toArray(new AnimeWithWatchers[0]));
+                if(!outcome1)
+                    return "{\"outcome_code\": 2}";     // Error while updating new likes (for albums)
+                else
+                    System.out.println(">> New watchers updated successfully");
+            }
+
+            // aggiorna gli average score degli anime che hanno ricevuto nuove recensioni
+            List<AnimeOnlyAvgScore> newAvgScore = animeRepoMongoDB.getAverageScoreForRecentReviews();
+            System.out.println("> Found " + newAvgScore.size() + " anime with recent reviews");
+            if(!newAvgScore.isEmpty()) {
+                boolean outcome3 = animeRepoMongoDB.setAverageScoreForRecentReviews(newAvgScore);
+                if (!outcome3)
+                    return "{\"outcome_code\": 4}";     // Error while updating average score
+                else
+                    System.out.println(">> Average score updated successfully");
+            }
+
+            System.out.println(">>> END: All new watchers and average scores updated successfully");
+            return "{\"outcome_code\": 0}";             // Update successful
+
+        } catch (DataAccessResourceFailureException e) {
+            e.printStackTrace();
+            return "{\"outcome_code\": 10}";            // Error while connecting to the database
+        }
     }
 
 

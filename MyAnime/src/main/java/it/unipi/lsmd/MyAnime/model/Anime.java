@@ -31,10 +31,8 @@ public class Anime {
     private Double averageScore;
     @Field("scored_by")
     private int scoredBy;
-    @Field("members")
     private int watchers;
-    @Field("background")
-    private String synopsis;
+    private String background;
     private String broadcast;
     private String producer;
     private String licensor;
@@ -46,7 +44,7 @@ public class Anime {
     private String imgURL;
     private Review[] mostRecentReviews;
 
-    public Anime (ObjectId objId, String title, String titleJapanese, String type, String source, int episodes,  boolean airing, Map aired, String rating, Double avarageScore, int scoredBy, int watchers, String synopsis, String broadcast, String producer, String licensor, String studio, String[] genre, int EpisodeDuration, String imgURL, Review[] mostRecentReviews) {
+    public Anime (ObjectId objId, String title, String titleJapanese, String type, String source, int episodes,  boolean airing, Map aired, String rating, Double avarageScore, int scoredBy, int watchers, String background, String broadcast, String producer, String licensor, String studio, String[] genre, int EpisodeDuration, String imgURL, Review[] mostRecentReviews) {
         this.id = objId;
         this.title = title;
         this.titleJapanese = titleJapanese;
@@ -59,7 +57,7 @@ public class Anime {
         this.averageScore = avarageScore;
         this.scoredBy = scoredBy;
         this.watchers = watchers;
-        this.synopsis = synopsis;
+        this.background = background;
         this.broadcast = broadcast;
         this.producer = producer;
         this.licensor = licensor;
