@@ -93,3 +93,18 @@ https://stackoverflow.com/questions/2263096/css-file-not-refreshing-in-browser
 thymeleaf url composing with thy parameters :
 https://www.thymeleaf.org/doc/articles/standardurlsyntax.html
 -- > <a th:href="@{'/order/details'(id=${order.id})}">
+
+
+
+thymeleaf in html used to split java array of String :
+https://stackoverflow.com/questions/516565/how-to-transfer-java-array-to-javascript-array-using-jsp
+                <ul>
+                    <th:block th:object="${animeDetails}">
+                        <li th:each="item : *{genre}" th:text="${item}"></li>
+                    </th:block>
+                </ul>
+
+
+thymeleaf multiple replace :
+https://stackoverflow.com/questions/75703415/thymeleaf-multi-string-replace
+

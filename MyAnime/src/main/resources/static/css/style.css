@@ -588,6 +588,9 @@ li {
 
 /* ----------------------------------------------- */
 
+.italian_background {
+    background: linear-gradient(69deg, #008000cc 0%, #ffffffcc 40% 60%, #ff0000cc 100%), url("../img/bg.jpg") center center no-repeat;
+}
 
 .main {
     min-height: 100%;

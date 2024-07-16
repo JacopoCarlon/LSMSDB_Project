@@ -50,7 +50,7 @@
                     <div id="anime_info_container" class="d-flex mb-1 align-items-center col-md-12">
                         <img id="anime_cover" class="anime-cover" th:src="${animeDetails.imgURL}" alt="Copertina Anime"/>
                         <div id="aniDet_container" class="anime-details d-flex flex-column">
-                            <h1 id="anime_title"            class="row" th:text="${animeDetails.title}"></h1>
+                            <h1 id="anime_title"  class="row" th:text="${animeDetails.title}"></h1>
                             <table id="anime_table">
                                 <tr>
                                     <th>Japanese Title : </th>
@@ -102,34 +102,40 @@
                                 </tr>
                                 <tr>
                                     <th>Genres : </th>
-                                    <th th:text="${animeDetails.genre}" ></th>
+                                    <th th:if="${animeDetails.genre != null}" >
+                                        <ul>
+                                            <th:block th:object="${animeDetails}">
+                                                <li th:each="item : *{genre}" th:text="${item}"></li>
+                                            </th:block>
+                                        </ul>
+                                    </th>
+
                                 </tr>
+
                             </table>
                             <!--
-                            <div id="anime_title_jap"        class="row" th:text="${animeDetails.titleJapanese}"></div><div class="w-100"></div>
-                            <div id="anime_type"             class="row" th:text="${animeDetails.type}"></div><div class="w-100"></div>
-                            <div id="anime_source"           class="row" th:text="${animeDetails.source}"></div><div class="w-100"></div>
-                            <div id="anime_episodes"         class="row" th:text="${animeDetails.episodes}"></div>
-                            <div id="anime_episodeDuration"  class="row" th:text="${animeDetails.episodeDuration} + 'minutes'"></div><div class="w-100"></div>
-                            <div id="anime_airingst"         class="row" th:text="${animeDetails.airing}"></div>
-                            <div id="anime_aired"            class="row" th:text="${animeDetails.aired}"></div><div class="w-100"></div>
-                            <div id="anime_watchers"         class="row" th:text="${animeDetails.watchers}"></div><div class="w-100"></div>
-                            <div id="anime_synopsis"         class="row" th:text="${animeDetails.synopsis}"></div><div class="w-100"></div>
-                            <div id="anime_broadcast"        class="row" th:text="${animeDetails.broadcast}"></div>
-                            <div id="anime_producer"         class="row" th:text="${animeDetails.producer}"></div>
-                            <div id="anime_licensor"         class="row" th:text="${animeDetails.licensor}"></div>
-                            <div id="anime_genrelist"        class="row" th:text="${animeDetails.genre}"></div><div class="w-100"></div>
+                            <div th:if="${animeDetails.genre != null}">
+                                <h1>Result</h1>
+                                <ul>
+                                    <th:block th:object="${animeDetails}">
+                                        <li th:each="item : *{genre}" th:text="${item}"></li>
+                                    </th:block>
+                                </ul>
+                            </div>
                             -->
+
                             <div class="d-flex mt-0 mb-0 gap-3 align-items-center">
                                 <p id="anime_duration_page" th:text="${animeTotalDuration}"></p>
                             </div>
                             <div class="d-flex gap-3">
+                                <!--
                                 <div id="like_anime_container" class="d-flex w-25 align-items-center">
                                     <button id="like_anime_btn" class="btn btn-danger ms-1" type="button" >
                                         <i class="fas fa-heart me-1"></i>Like
                                     </button>
                                     <div id="number_of_likes_anime" class="ms-3" th:text="${animeDetails.scoredBy}"></div>
                                 </div>
+                                -->
                                 <div id="average_rating_container" class="d-flex w-25 align-items-center">
                                     <span class="text-bg-warning p-3">
                                         Average rating
