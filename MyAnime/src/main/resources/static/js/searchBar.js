@@ -56,7 +56,7 @@ function loadSearchBar(){
         //  js bad sadge
 
         if (admin == 'true'){
-            //  alert("doing admin only part")
+            alert("doing admin only part")
             $("#user_controller").empty()
             let container = $("#home_controller")
             container.empty()

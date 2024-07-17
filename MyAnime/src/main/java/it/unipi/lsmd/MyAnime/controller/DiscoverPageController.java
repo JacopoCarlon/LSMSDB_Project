@@ -28,6 +28,9 @@ public class DiscoverPageController {
     @RequestMapping(value={"/discover.html","/discoverPage.html","/discover","/discoverPage"})
     public String discoverPage(HttpSession session, Model model) {
 
+        model.addAttribute("logged", Utility.isLogged(session));
+        model.addAttribute("is_admin", Utility.isAdmin(session));
+
         if (!Utility.isLogged(session)) {
             return "error/mustBeLogged";
         }

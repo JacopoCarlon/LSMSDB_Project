@@ -125,4 +125,9 @@ $(document).ready(function (){
         window.location.href = '/mostPopularPage?type=animes';
     });
 
+    $("#addNewAnime_btn").click(function (e){
+        e.preventDefault();
+        window.location.href = '/adminAddAnimePage';
+    });
+
 })
