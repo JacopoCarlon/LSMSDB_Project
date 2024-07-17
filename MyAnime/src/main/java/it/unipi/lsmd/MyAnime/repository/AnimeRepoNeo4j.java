@@ -11,6 +11,7 @@ import org.springframework.data.neo4j.core.Neo4jClient;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class AnimeRepoNeo4j {
@@ -95,5 +96,39 @@ public class AnimeRepoNeo4j {
                 "LIMIT 50";
 
         return AnimeNode.getAnimeNodeByUsername(neo4jClient, cypherQuery, username);
+    }
+
+    public boolean insertAnime(String titleVal, String imgURLVal) {
+        try {
+            animeNeo4jInterface.createAnime(titleVal, imgURLVal);
+            return true; // Inserimento riuscito
+        } catch (DataAccessException dae) {
+            if (dae instanceof DataAccessResourceFailureException) {
+                // Gestione specifica per errori di connessione al database
+                dae.printStackTrace();
+                return false;
+            } else {
+                // Gestione generica per altri errori di database
+                dae.printStackTrace();
+                return false;
+            }
+        }
+    }
+
+    public boolean insertAnimeRelations(String titleVal, List<String> relationsList) {
+        try {
+            for (int i = 0; i < relationsList.size(); i = i + 2) {
+                String relatedAnime = relationsList.get(i);
+                String relationType = relationsList.get(i + 1);
+                String result = animeNeo4jInterface.addRelated(titleVal, relatedAnime, relationType);
+                if (!result.equals("CREATED") && !result.equals("EXISTING")){
+                    return false; // Inserimento relazione fallito
+                }
+            }
+            return true; // Inserimento relazioni riuscito
+        }  catch (DataAccessException dae) {
+            dae.printStackTrace();
+            return false;
+        }
     }
 }

@@ -401,48 +401,48 @@ public class AnimeRepoMongoDB {
             System.out.println("anime already exists");
             return false;
         }
-        if(episodesVal<0 || episodeDurationVal<0){
+        if((episodesVal!=null && episodesVal<0) || (episodeDurationVal!=null && episodeDurationVal<0)){
             System.out.println("episodes or episodeDuration not valid");
-            return false;
-        }
-        String[] schemes = {"http","https"};
-        UrlValidator urlValidator = new UrlValidator(schemes);
-        if (!urlValidator.isValid(imgURLVal)) {
-            System.out.println("url not valid");
             return false;
         }
         try {
             Map airedInput = new HashMap<String, Instant>();
-            if (airedInputFromVal != null){
+            if (airedInputFromVal != null && !airedInputFromVal.isEmpty()){
                 airedInput.put("from", ZonedDateTime.of(Integer.parseInt(airedInputFromVal.substring(0,4)), Integer.parseInt(airedInputFromVal.substring(5,7)), Integer.parseInt(airedInputFromVal.substring(8)), 0, 0, 0, 0, ZoneOffset.UTC).toInstant());
             } else {
                 airedInput.put("from", null);
             }
-            if (airedInputFromVal != null){
+            if (airedInputToVal != null && !airedInputToVal.isEmpty()){
                 airedInput.put("to", ZonedDateTime.of(Integer.parseInt(airedInputToVal.substring(0,4)), Integer.parseInt(airedInputToVal.substring(5,7)), Integer.parseInt(airedInputToVal.substring(8)), 0, 0, 0, 0, ZoneOffset.UTC).toInstant());
             } else {
                 airedInput.put("to", null);
             }
             HashMap<String,String> typeMapper = Utility.typeMapper();
             HashMap<String, String> genreMapper = Utility.genreMapper();
-            genreList.replaceAll(genreMapper::get);
+            if(genreList!=null && !genreList.isEmpty()){
+                genreList.replaceAll(genreMapper::get);
+            }
             HashMap<String, String> ratingMapper = Utility.ratingMapper();
-            Anime anime = new Anime(titleVal,
-                    titleJapaneseVal,
-                    typeMapper.get(type),
-                    sourceVal,
-                    episodesVal,
-                    sliderAiringVal,
-                    airedInput,
-                    ratingMapper.get(rating),
-                    backgroundVal,
-                    broadcastVal,
-                    producerVal,
-                    licensorVal,
-                    studioVal,
-                    genreList.toArray(new String[0]),
-                    episodeDurationVal,
-                    imgURLVal);
+            Anime anime = new Anime();
+            anime.setTitle(titleVal);
+            anime.setTitleJapanese(titleJapaneseVal);
+            anime.setType((type == null ? null : typeMapper.get(type)));
+            anime.setSource(sourceVal);
+            if (episodesVal!=null){anime.setEpisodes(episodesVal);}
+            anime.setAiring(sliderAiringVal);
+            anime.setAired(airedInput);
+            anime.setRating((rating == null ? null : ratingMapper.get(rating)));
+            anime.setScoredBy(0);
+            anime.setWatchers(0);
+            if (backgroundVal!=null){anime.setBackground(backgroundVal);}
+            if (broadcastVal!=null){anime.setBroadcast(broadcastVal);}
+            if (producerVal!=null){anime.setProducer(producerVal);}
+            if (licensorVal!=null){anime.setLicensor(licensorVal);}
+            if (studioVal!=null){anime.setStudio(studioVal);}
+            if (genreList != null) {anime.setGenre(genreList.toArray(new String[0]));}
+            if (episodeDurationVal!=null){anime.setEpisodeDuration(episodeDurationVal);}
+            anime.setImgURL(imgURLVal);
+
             System.out.println(anime);
             animeMongoInterface.save(anime);
             return true;

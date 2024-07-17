@@ -1,10 +1,12 @@
 package it.unipi.lsmd.MyAnime.controller.api;
 
 import it.unipi.lsmd.MyAnime.repository.AnimeRepoMongoDB;
+import it.unipi.lsmd.MyAnime.repository.AnimeRepoNeo4j;
 import it.unipi.lsmd.MyAnime.repository.UserRepoMongoDB;
 import it.unipi.lsmd.MyAnime.repository.UserRepoNeo4j;
 import it.unipi.lsmd.MyAnime.utilities.Utility;
 import jakarta.servlet.http.HttpSession;
+import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,9 +26,11 @@ import java.util.List;
 public class AdminAnimeUploadREST {
 
     private final AnimeRepoMongoDB animeRepoMongoDB;
+    private final AnimeRepoNeo4j animeRepoNeo4j;
 
-    public AdminAnimeUploadREST(AnimeRepoMongoDB animeRepoMongoDB) {
+    public AdminAnimeUploadREST(AnimeRepoMongoDB animeRepoMongoDB, AnimeRepoNeo4j animeRepoNeo4j) {
         this.animeRepoMongoDB = animeRepoMongoDB;
+        this.animeRepoNeo4j = animeRepoNeo4j;
     }
 
     @PostMapping("/api/adminAnimeUpload")
@@ -85,11 +89,23 @@ public class AdminAnimeUploadREST {
                 return "{\"outcome_code\": 1}";     // User not logged in nor admin
             }
 
-            if(!animeRepoMongoDB.insertAnime(title_val,titleJapanese_val,source_val,episodes_val,slider_airing_val,aired_input_from_val,aired_input_to_val,background_val,broadcast_val,producer_val,licensor_val, studio_val, EpisodeDuration_val, imgURL_val, type_val, rating_val, genre_list)){
-                return "{\"outcome_code\": 4}";     // Anime not added
+            String[] schemes = {"http","https"};
+            UrlValidator urlValidator = new UrlValidator(schemes);
+            if (!urlValidator.isValid(imgURL_val)) {
+                return "{\"outcome_code\": 3}";
             }
 
+            if(!animeRepoMongoDB.insertAnime(title_val,titleJapanese_val,source_val,episodes_val,slider_airing_val,aired_input_from_val,aired_input_to_val,background_val,broadcast_val,producer_val,licensor_val, studio_val, EpisodeDuration_val, imgURL_val, type_val, rating_val, genre_list)){
+                return "{\"outcome_code\": 4}";     // Anime not added to mongodb
+            }
 
+            if(!animeRepoNeo4j.insertAnime(title_val,imgURL_val)){
+                return "{\"outcome_code\": 4}";     // Anime not added to Neo4j
+            }
+
+            if(relations_list!=null && !animeRepoNeo4j.insertAnimeRelations(title_val, relations_list)){
+                return "{\"outcome_code\": 4}";     // Error while adding relations to Neo4j
+            }
 
             // TODO if all good :
             return "{\"outcome_code\": 0}";
