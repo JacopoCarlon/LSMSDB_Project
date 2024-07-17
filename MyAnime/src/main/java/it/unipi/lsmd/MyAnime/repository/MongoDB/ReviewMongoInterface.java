@@ -14,7 +14,7 @@ public interface ReviewMongoInterface extends MongoRepository<Review, String> {
     // convertire l'animeID in ObjectId prima di passarlo come parametro
     boolean existsByAnimeIDAndUsername(ObjectId animeObjectID, String username);
     Optional<Review> findByAnimeIDAndUsername(ObjectId animeObjectID, String username);
-    Page<Review> findLimitedReviewsByAnimeID(String animeID, Pageable pageable);
+    Page<Review> findLimitedReviewsByAnimeID(ObjectId animeObjectID, Pageable pageable);
     Page<Review> findLimitedReviewsByAnimeTitle(String animeTitle, Pageable pageable);
     List<Review> findLimitedReviewsByUsername(String username, Pageable pageable);
 }

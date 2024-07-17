@@ -39,7 +39,7 @@ public class AnimeReviewsPageController {
         }
 
 
-        Anime anime = null;
+        Anime anime;
 
         if (animeId != null && animeRepoMongoDB.existsById(animeId)) {
             anime = animeRepoMongoDB.getAnimeById(animeId);
@@ -53,6 +53,8 @@ public class AnimeReviewsPageController {
             // TODO: return "error/animeNotFound";
         }
 
+
+        System.out.println(anime.getId());
         LinkedList<Review> reviews = new LinkedList<>(reviewRepoMongoDB.getReviewsByAnimeID(anime.getId()));
         boolean reviewsFound = (reviews != null && !reviews.isEmpty());
         if (reviewsFound){
@@ -76,7 +78,7 @@ public class AnimeReviewsPageController {
             model.addAttribute("animeDetails", anime);
         }
         else {
-            model.addAttribute("animeId", animeId);
+            System.out.println("no review(?)");
             return "error/genericError";
             // TODO: return "error/noReviewsFound";
         }

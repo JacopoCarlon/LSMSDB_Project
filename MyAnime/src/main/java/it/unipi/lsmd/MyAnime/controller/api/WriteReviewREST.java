@@ -29,7 +29,7 @@ public class WriteReviewREST {
     ReviewRepoMongoDB reviewRepoMongoDB;
 
     @PostMapping("/api/writeReview")
-    @Transactional
+    @Transactional("transactionManager")
     public @ResponseBody String writeReview(HttpSession session,
                                       @RequestParam("score") int score,
                                       @RequestParam("text") String text,
@@ -59,7 +59,7 @@ public class WriteReviewREST {
                 return "{\"outcome_code\": 3}";     // Anime doesn't exist
 
 
-            if(score < 1 || score > 5)
+            if(score < 1 || score > 10)
                 return "{\"outcome_code\": 4}";     // Score out of range
             if(reviewRepoMongoDB.existsByAnimeIDAndUsername(anime.getId(), username))
                 return "{\"outcome_code\": 5}";     // User has already written a review for this anime

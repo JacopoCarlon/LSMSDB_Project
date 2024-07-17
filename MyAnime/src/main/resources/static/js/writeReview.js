@@ -70,7 +70,7 @@ function handleOutcome(outcomeCode, animeTitle) {
     switch(outcomeCode) {
         case 0:
             alert('Review written successfully');
-            window.location.href = '/animeDetails?animeTitle=' + animeTitle;
+            window.location.href = '/animeDetails?title=' + animeTitle;
             break;
         case 1:
             window.location.href = '/youMustBeLogged';

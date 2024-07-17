@@ -84,7 +84,7 @@
                             <!-- Button to send the review (Javascript code below in this page) -->
                             <button id="sendReview_btn" type="button" class="btn btn-primary">Send review</button>
                             <!-- Return to the anime page of the anime the user want to review (with the animeId taken from the controller) -->
-                            <a th:href="@{/animeDetails(title=${animeTitle})}" class="btn btn-outline-secondary mt-1">
+                            <a th:href="@{/animeDetails(title=${animeDetails.title})}" class="btn btn-outline-secondary mt-1">
                                 Return to the anime page
                             </a>
                         </div>

@@ -214,7 +214,12 @@ public class AnimeRepoMongoDB {
                 return 1; // Anime non trovato
             }
 
-            LinkedList<Review> mostRecentReviews = new LinkedList<>(Arrays.asList(anime.getMostRecentReviews()));
+            Review[] oldReviews = anime.getMostRecentReviews();
+            LinkedList<Review> mostRecentReviews;
+            if (oldReviews != null)
+                mostRecentReviews = new LinkedList<>(Arrays.asList(oldReviews));
+            else
+                mostRecentReviews = new LinkedList<>();
             mostRecentReviews.addFirst(new Review(username, animeID, score, text, timestamp, anime.getTitle()));
             while (mostRecentReviews.size() > 5) {
                 mostRecentReviews.removeLast();
