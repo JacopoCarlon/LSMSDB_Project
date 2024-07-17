@@ -41,9 +41,14 @@ $(document).ready(function () {
             method: 'GET',
 
             success: function (arrayResults) {
-                //  alert("we got something from the search : " + arrayResults);
-                //  alert("we got something from the search : " + JSON.stringify(arrayResults));
-                //  window.location.href = "/userFilterPage";
+                alert("we got something from the search : " + JSON.stringify(arrayResults[0]));
+                let myMap = new Map(Object.entries(JSON.parse(JSON.stringify(arrayResults[0]))));
+                alert("myMap size : " + myMap.size);
+                for (const [key, value] of myMap) {
+                    console.log(`The value for key ${key} is ${value}`);
+                }
+                console.log("CIAO: "+ myMap.get('username'));
+                window.location.href = "/userFilterPage";
                 if(arrayResults==null || arrayResults.length == 0) {
                     const container = $(".modal-body");
                     container.empty();

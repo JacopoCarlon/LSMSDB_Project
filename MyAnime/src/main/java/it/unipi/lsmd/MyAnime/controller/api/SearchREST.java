@@ -2,6 +2,7 @@ package it.unipi.lsmd.MyAnime.controller.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.gson.Gson;
 import it.unipi.lsmd.MyAnime.model.Anime;
 import it.unipi.lsmd.MyAnime.model.User;
@@ -43,6 +44,10 @@ public class SearchREST {
             System.out.println(ratingList);
             System.out.println(sortList);
             List<Anime> animes = animeRepoMongoDB.findAnime(term, genreList, yearList, typeList, statusList, ratingList, sortList);
+            System.out.println("Animes");
+            for(Anime anime : animes){
+                System.out.println(anime);
+            }
             try {
                 ObjectMapper objectMapper = new ObjectMapper();
                 objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -56,10 +61,19 @@ public class SearchREST {
         else if(category.equals("user")){
             List<User> users = userRepoMongoDB.findUser(term);
             try {
+                /*for(User user : users){
+                    user.setPrintableBirthDate();
+                    user.setPrintableJoinDate();
+                }
+                System.out.println(users);
+                String js = new Gson().toJson(users);
+                System.out.println(js);
+                return js;*/
                 ObjectMapper objectMapper = new ObjectMapper();
-                objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-                //  return objectMapper.writeValueAsString(users);
-                return new Gson().toJson(users);
+                objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+                objectMapper.registerModule(new JavaTimeModule());
+                return objectMapper.writeValueAsString(users);
+                //return ;
             } catch (Exception e){
                 e.printStackTrace();
                 return "{\"error\": \"An error occurred while converting the data.\"}";

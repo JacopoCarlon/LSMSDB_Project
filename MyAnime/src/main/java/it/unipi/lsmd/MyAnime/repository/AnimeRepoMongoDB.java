@@ -135,22 +135,22 @@ public class AnimeRepoMongoDB {
         MongoCollection<Document> collection = database.getCollection("animes");
 
         List<Bson> matches = new ArrayList<>();
-        if (!term.isEmpty()){
-            matches.add(regex("title", term, "i"));
+        if (term!=null && !term.isEmpty()){
+            matches.add(match(regex("title", term, "i")));
         }
-        if (!genre.isEmpty()){
+        if (genre!= null && !genre.isEmpty()){
             HashMap<String, String> genreMapper = Utility.genreMapper();
-            rating.replaceAll(genreMapper::get);
-            matches.add(in("genre", genre));
+            genre.replaceAll(genreMapper::get);
+            matches.add(match(in("genre", genre)));
         }
-        if (!years.isEmpty()){
+        if (years!=null && !years.isEmpty()){
             List<Bson> conditions = new ArrayList<>();
             for (String year: years) {
                 String yearStr = Utility.yearMapping(year);
                 Instant startYear;
                 Instant startOfNextYear;
                 if (yearStr.endsWith("s")){
-                    String substring = yearStr.substring(0, year.length() - 1);
+                    String substring = yearStr.substring(0, yearStr.length() - 1);
                     startYear = ZonedDateTime.of(Integer.parseInt(substring), 1, 1, 0, 0, 0, 0, ZoneOffset.UTC).toInstant();
                     startOfNextYear = ZonedDateTime.of(Integer.parseInt(substring)+10, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC).toInstant();
 
@@ -160,24 +160,24 @@ public class AnimeRepoMongoDB {
                 }
                 conditions.add(and(gte("aired.from",startYear), lt("aired.from", startOfNextYear)));
             }
-            matches.add(or(conditions));
+            matches.add(match(or(conditions)));
         }
-        if (!type.isEmpty()){
+        if (type!=null && !type.isEmpty()){
             HashMap<String,String> typeMapper = Utility.typeMapper();
             type.replaceAll(typeMapper::get);
-            matches.add(in("type", type));
+            matches.add(match(in("type", type)));
         }
-        if (status.size() == 1){
+        if (status!=null && status.size() == 1){
             boolean is_airing = status.getFirst().equals("status-on_hold");
-            matches.add(in("airing", is_airing));
+            matches.add(match(in("airing", is_airing)));
         }
-        if (!rating.isEmpty()){
+        if (rating!=null && !rating.isEmpty()){
             HashMap<String, String> ratingMapper = Utility.ratingMapper();
             rating.replaceAll(ratingMapper::get);
-            matches.add(in("rating", rating));
+            matches.add(match(in("rating", rating)));
         }
         Bson sort = sort(descending("score"));
-        if (!sortBy.isEmpty()){
+        if (sortBy!=null && !sortBy.isEmpty()){
             sort = switch (sortBy) {
                 case "sort-release_date" -> sort(descending("airing.from"));
                 case "sort-title_az" -> sort(ascending("title"));
@@ -194,13 +194,14 @@ public class AnimeRepoMongoDB {
         ));
         Bson limit = limit(50);
 
-        matches.add(project);
+        //matches.add(project);
         matches.add(sort);
         matches.add(limit);
 
         AggregateIterable<Document> result = collection.aggregate(matches);
 
         List<Anime> animes = new ArrayList<>();
+        //result.forEach(System.out::println);
         result.forEach(doc ->  animes.add(Anime.mapToAnime(doc)));
 
         mongoClient.close();
