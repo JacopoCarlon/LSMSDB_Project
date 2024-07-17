@@ -3,6 +3,7 @@ package it.unipi.lsmd.MyAnime.controller;
 import java.util.LinkedList;
 import java.util.List;
 
+import it.unipi.lsmd.MyAnime.model.UserNode;
 import it.unipi.lsmd.MyAnime.repository.UserRepoNeo4j;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class UserFollowPageController {
         System.out.println("type : " + type);
         System.out.println("username : " + username);
 
-        if (type != "following" && type != "follower") {
+        if (!type.equals("following") && !type.equals("follower")) {
             return "error/userNotFound";
         }
 
@@ -46,13 +47,17 @@ public class UserFollowPageController {
         boolean userFound = userRepoMongoDB.existsByUsername(username);
         System.out.println("userFound : " + userFound + " username: " + username);
         if(userFound) {
-            //  List<User>followList = userRepoNeo4j.getFollowByUsernameType(username, type);
-            //  boolean followuFound = (followList != null && !followList.isEmpty());
-            //  if(followuFound) {
-            //      model.addAttribute("followus", followList);
-            //      model.addAttribute("username", username);
-            //      model.addAttribute("type", type);
-            //  }
+            List<UserNode>followList;
+            if (type.equals("following"))
+                followList = userRepoNeo4j.findFollowedByUsername(username);
+            else
+                followList = userRepoNeo4j.findFollowersOfUsername(username);
+
+            if(followList != null && !followList.isEmpty()) {
+                model.addAttribute("followus", followList);
+                model.addAttribute("username", username);
+                model.addAttribute("type", type);
+            }
         }
         else{
             return "error/userNotFound";

@@ -3,7 +3,9 @@ package it.unipi.lsmd.MyAnime.controller;
 import java.util.LinkedList;
 import java.util.List;
 
-import it.unipi.lsmd.MyAnime.repository.UserRepoNeo4j;
+import it.unipi.lsmd.MyAnime.model.AnimeNode;
+import it.unipi.lsmd.MyAnime.model.query.AnimeWatched;
+import it.unipi.lsmd.MyAnime.repository.*;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,9 +22,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import it.unipi.lsmd.MyAnime.model.Review;
 import it.unipi.lsmd.MyAnime.model.User;
 import it.unipi.lsmd.MyAnime.model.Anime;
-import it.unipi.lsmd.MyAnime.repository.UserRepoMongoDB;
-import it.unipi.lsmd.MyAnime.repository.ReviewRepoMongoDB;
-import it.unipi.lsmd.MyAnime.repository.AnimeRepoMongoDB;
 
 import it.unipi.lsmd.MyAnime.utilities.Utility;
 import org.springframework.ui.Model;
@@ -30,33 +29,28 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UserAnimeListController {
-
     @Autowired
     UserRepoMongoDB userRepoMongoDB;
-
     @Autowired
     UserRepoNeo4j userRepoNeo4j;
 
-    @Autowired
-    AnimeRepoMongoDB animeRepoMongoDB;
-
     @GetMapping(value={"userAnimeList","userAnimeListPage","userAnimeList.html","userAnimeListPage.html"})
-    public String userFollow(Model model,
+    public String userAnimeList(Model model,
                              HttpSession session,
-                             @RequestParam("type") String type,
+                             @RequestParam("status") String status,
                              @RequestParam("username") String username) {
 
-        System.out.println("type : " + type);
+        System.out.println("type : " + status);
         System.out.println("username : " + username);
 
-        //  0 : curWatch_btn
-        //  1 : complete_btn
-        //  2 : on_hold_btn
-        //  3 : dropped_btn
-        //  4 : planWtc_btn
+        //  1 : curWatch_btn
+        //  2 : complete_btn
+        //  3 : on_hold_btn
+        //  4 : dropped_btn
+        //  6 : planWtc_btn
 
-        if (type != "0" && type != "1" && type != "2" && type != "3" && type != "4" ) {
-            return "error/userNotFound";
+        if (!status.equals("1") && !status.equals("2") && !status.equals("3") && !status.equals("4") && !status.equals("6")) {
+            return "error/genericError";
         }
 
         if (!Utility.isLogged(session)) {
@@ -65,13 +59,12 @@ public class UserAnimeListController {
         boolean userFound = userRepoMongoDB.existsByUsername(username);
         System.out.println("userFound : " + userFound + " username: " + username);
         if(userFound) {
-            //  List<Anime>aniList = animeRepoMongoDB.getAnimeByUsernameType(username, type);
-            //  boolean aniListFound = (aniList != null && !aniList.isEmpty());
-            //  if(aniListFound) {
-            //      model.addAttribute("aniList", aniList);
-            //      model.addAttribute("username", username);
-            //      model.addAttribute("type", type);
-            //  }
+            List<AnimeWatched>aniList = userRepoNeo4j.findWatchedAnime(username, status);
+            boolean aniListFound = (aniList != null && !aniList.isEmpty());
+            if(aniListFound) {
+                model.addAttribute("aniList", aniList);
+                model.addAttribute("username", username);
+            }
         }
         else{
             return "error/userNotFound";
@@ -79,6 +72,7 @@ public class UserAnimeListController {
 
         model.addAttribute("logged", Utility.isLogged(session));
         model.addAttribute("is_admin", Utility.isAdmin(session));
+        model.addAttribute("status", Utility.statusFromInt(Integer.parseInt(status)));
 
         return "userAnimeListPage";
     }

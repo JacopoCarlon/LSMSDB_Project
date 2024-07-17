@@ -132,11 +132,12 @@ public class UserRepoNeo4j {
         }
     }
 
-    public ArrayList<AnimeWatched> findWatchedAnime(String username){
-        String cypherQuery = "MATCH (u:User {username: $username})-[w:WATCHES]->(a:Anime)" +
-                "RETURN a.title AS title, a.imgURL AS imgURL, w.status AS status, w.episodes AS episodes";
-
-        return AnimeWatched.getAnimeWatched(neo4jClient, cypherQuery, username);
+    public ArrayList<AnimeWatched> findWatchedAnime(String username, String status){
+        // If status is null, each list is loaded
+        String cypherQuery = "MATCH (a:Anime)<-[w:WATCHES]-(u:User {username: $username})\n" +
+                "WHERE ($status IS NOT NULL AND w.status = $status) XOR ($status IS NULL)\n" +
+                "RETURN a.title AS title, a.imgURL AS imgURL, w.status AS status, w.watched_episodes AS watchedEpisodes";
+        return AnimeWatched.getAnimeWatched(neo4jClient, cypherQuery, username, status);
     }
 
 }

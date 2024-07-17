@@ -28,8 +28,8 @@ $(document).ready(function() {
         gotoUserAnimeListPage(6);
     });
 
-    function gotoUserAnimeListPage(tipo) {
-        window.location.href = "/userAnimeList?type="+tipo + "&?username=" + user;
+    function gotoUserAnimeListPage(status) {
+        window.location.href = "/userAnimeList?status="+status + "&?username=" + user;
     }
 
 

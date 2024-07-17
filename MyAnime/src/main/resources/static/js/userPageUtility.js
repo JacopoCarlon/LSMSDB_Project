@@ -5,31 +5,31 @@ $(document).ready(function() {
 
     $("#curWatch_btn").click(function (e) {
         e.preventDefault();
-        gotoUserAnimeListPage(0);
+        gotoUserAnimeListPage(1);
     });
 
     $("#complete_btn").click(function (e) {
         e.preventDefault();
-        gotoUserAnimeListPage(1);
+        gotoUserAnimeListPage(2);
     });
 
     $("#on_hold_btn").click(function (e) {
         e.preventDefault();
-        gotoUserAnimeListPage(2);
+        gotoUserAnimeListPage(3);
     });
 
     $("#dropped_btn").click(function (e) {
         e.preventDefault();
-        gotoUserAnimeListPage(3);
+        gotoUserAnimeListPage(4);
     });
 
     $("#planWtc_btn").click(function (e) {
         e.preventDefault();
-        gotoUserAnimeListPage(4);
+        gotoUserAnimeListPage(6);
     });
 
-    function gotoUserAnimeListPage(tipo) {
-        window.location.href = "/userAnimeList?type="+tipo + "&username=" + user;
+    function gotoUserAnimeListPage(status) {
+        window.location.href = "/userAnimeList?status="+status + "&username=" + user;
     }
 
     // links to following and followed lists

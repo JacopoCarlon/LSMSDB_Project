@@ -36,6 +36,7 @@
     <!-- Value taken by Thymeleaf to understand if the user is logged in and if he is an admin -->
     <input type="hidden" id="is_logged" th:value="${logged}"/>
     <input type="hidden" id="is_admin" th:value="${is_admin}"/>
+
     <!-- Dynamic header -->
     <header class="header sticky-top shadow">
 
@@ -46,7 +47,7 @@
         <div id="all_anilist" class="gap-1 d-flex flex-column container-fluid justify-content-center" data-aos="zoom-in" data-aos-delay="150">
             <div class="d-flex align-items-center justify-content-between" >
                 <a th:href="@{'/userPage'(username=${param.username}) }" >
-                    <h1 class="display-3 fw-bold" id="username" th:text="${param.username} + ' \' Reviews : ' "></h1>
+                    <h1 class="display-3 fw-bold" id="username" th:text="${param.username} + ' | ' + ${status} + ' : ' "></h1>
                 </a>
             </div>
 
@@ -55,7 +56,7 @@
                     <img class="top-cover p-1" th:src="${anime_r.imgURL}" alt="anime_image">
                     <div class="d-flex flex-column">
                         <h5 class="mb-0" th:text="${anime_r.title}"></h5>
-                        <p class="mt-0 mb-0" style="color: white;"><i class="fa fa-star me-1"></i><span th:text="${anime_r.averageScore}"></span></p>
+                        <!-- <p class="mt-0 mb-0" style="color: white;"><i class="fa fa-star me-1"></i><span th:text="${anime_r.averageScore}"></span></p>-->
                     </div>
                 </div>
             </a>
