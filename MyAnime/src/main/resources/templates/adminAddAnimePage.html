@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MyAnimeLibrary</title>
+    <meta name="description" content="animeFilterPage template">
+    <meta name="keywords" content="animeFilterPage">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="img/mc_bookshelf.png">
+
+
+    <!-- CSS file -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="../static/css/style.css" rel="stylesheet">
+
+    <!-- AOS : Animation On Scroll -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- AJAX jQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../local/jquery-3.6.1.min.js">\x3C/script>')</script>
+
+    <!-- JavaScript-->
+    <script src="js/searchBar.js" type="text/javascript"></script>
+    <script src="js/logout_btn.js" type="text/javascript"></script>
+    <script src="js/search_btn.js" type="text/javascript"></script>
+    <script src="js/adminAddAnimePage.js" type="text/javascript"></script>
+
+    <!-- Include Bootstrap from CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+</head>
+<body>
+<div class="main">
+    <!-- Values taken with Thymeleaf from the controller to understand if the user is logged and is admin -->
+    <input type="hidden" id="is_logged" th:value="${logged}"/>
+    <input type="hidden" id="is_admin" th:value="${is_admin}">
+
+
+    <!-- Dynamic header -->
+    <header class="header sticky-top shadow">
+
+    </header>
+    <!-- end of dynamic header-->
+
+    <h1 id="magic-logged" th:text="${logged}" style="visibility: hidden ; width: 0px ; height: 0px"></h1>
+    <h1 id="magic-is_admin" th:text="${is_admin}" style="visibility: hidden ; width: 0px ; height: 0px"></h1>
+
+    <div id="register" class="w-50 container-fluid d-block align-items-center shadow uploadAnimeReg" data-aos="fade-up">
+        <div class="main-container" data-aos="fade-up">
+            <h1>Anime Details Insertion</h1>
+            <div class="container-fluid d-flex flex-column align-items-center justify-content-center animeUploadCont" data-aos="zoom-in" data-aos-delay="100">
+                <!-- Registration form -->
+                <form class="container-fluid w-100">
+                    <div class="container-fluid w-100 d-flex flex-column">
+                        <!-- Enter the name -->
+                        <div class="mb-3">
+                            <label for="a_title_input" class="form-label">Anime title</label>
+                            <input id="a_title_input" class="form-control" placeholder="title" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="a_titleJapanese_input" class="form-label">Anime titleJapanese</label>
+                            <input id="a_titleJapanese_input" class="form-control" placeholder="titleJapanese" >
+                        </div>
+                        <!-- FORM BELOW
+                        <div class="mb-3">
+                            <label for="a_type_input" class="form-label">Anime type</label>
+                            <input id="a_type_input" class="form-control" placeholder="type" required>
+                        </div>
+                        -->
+                        <div class="mb-3">
+                            <label for="a_source_input" class="form-label">Anime source</label>
+                            <input id="a_source_input" class="form-control" placeholder="source" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="a_episodes_input" class="form-label">Anime episodes</label>
+                            <input id="a_episodes_input" class="form-control" placeholder="episodes" >
+                        </div>
+                        <div class="mb-3">
+                            <label for="a_airing_input" class="form-label">Anime airing (bool)</label>
+                            <br style="height: 1px">
+                            <label class="switch">
+                                <input type="checkbox" id="a_airing_input">
+                                <span class="slider"></span>
+                            </label>
+                            <!--
+                            <input id="a_airing_input" class="form-control" placeholder="airing" required>
+                            -->
+                        </div>
+
+                        <div class="mb-3">
+                        </div>
+
+
+
+                        <div class="mb-3">
+                            <label for="a_aired_input" class="form-label">Anime aired</label>
+                            <input id="a_aired_input" class="form-control" placeholder="aired" >
+                        </div>
+                        <!-- FORM BELOW
+                        <div class="mb-3">
+                            <label for="a_rating_input" class="form-label">Anime rating</label>
+                            <input id="a_rating_input" class="form-control" placeholder="rating" required>
+                        </div>
+                        -->
+                        <!-- CANNOT BE SET BY ADMIN
+                        <div class="mb-3">
+                            <label for="a_averageScore_input" class="form-label">Anime averageScore</label>
+                            <input id="a_averageScore_input" class="form-control" placeholder="averageScore">
+                        </div>
+                        <div class="mb-3">
+                            <label for="a_scoredBy_input" class="form-label">Anime scoredBy</label>
+                            <input id="a_scoredBy_input" class="form-control" placeholder="scoredBy" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="a_watchers_input" class="form-label">Anime watchers</label>
+                            <input id="a_watchers_input" class="form-control" placeholder="watchers" required>
+                        </div>
+                        -->
+                        <div class="mb-3">
+                            <label for="a_background_input" class="form-label">Anime background</label>
+                            <input id="a_background_input" class="form-control" placeholder="background" >
+                        </div>
+                        <div class="mb-3">
+                            <label for="a_broadcast_input" class="form-label">Anime broadcast</label>
+                            <input id="a_broadcast_input" class="form-control" placeholder="broadcast" >
+                        </div>
+                        <div class="mb-3">
+                            <label for="a_producer_input" class="form-label">Anime producer</label>
+                            <input id="a_producer_input" class="form-control" placeholder="producer" >
+                        </div>
+                        <div class="mb-3">
+                            <label for="a_licensor_input" class="form-label">Anime licensor</label>
+                            <input id="a_licensor_input" class="form-control" placeholder="licensor" >
+                        </div>
+                        <div class="mb-3">
+                            <label for="a_studio_input" class="form-label">Anime studio</label>
+                            <input id="a_studio_input" class="form-control" placeholder="studio" >
+                        </div>
+                        <!-- FORM BELOW
+                        <div class="mb-3">
+                            <label for="a_genre_input" class="form-label">Anime genre</label>
+                            <input id="a_genre_input" class="form-control" placeholder="genre" required>
+                        </div>
+                        -->
+                        <div class="mb-3">
+                            <label for="a_EpisodeDuration_input" class="form-label">Anime EpisodeDuration</label>
+                            <input id="a_EpisodeDuration_input" class="form-control" placeholder="EpisodeDuration" >
+                        </div>
+                        <div class="mb-3">
+                            <label for="a_imgURL_input" class="form-label">Anime imgURL</label>
+                            <input id="a_imgURL_input" class="form-control" placeholder="imgURL" required>
+                        </div>
+                        <!-- MUST BE EMPTY
+                        <div class="mb-3">
+                            <label for="a_mostRecentReviews_input" class="form-label">Anime mostRecentReviews</label>
+                            <input id="a_mostRecentReviews_input" class="form-control" placeholder="mostRecentReviews" required>
+                        </div>
+                        -->
+                    </div>
+                </form>
+
+                <div id = "form_container" style="min-height: 70px;width: 100%">
+                    <form class="filters" autocomplete="off">
+                        <!-- TYPE -->
+                        <div class="filter addAnimeFilter">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton_type" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="value" data-placeholder="Select type" data-label-placement="true">Select type</span>
+                                </button>
+                                <ul class="dropdown-menu md " aria-labelledby="dropdownMenuButton_type">
+                                    <li title="Movie">
+                                        <input name="type_cbox" type="checkbox" id="type-movie" value="movie"/>
+                                        <label for="type-movie">Movie</label>
+                                    </li>
+                                    <li title="Music">
+                                        <input name="type_cbox" type="checkbox" id="type-music" value="music"/>
+                                        <label for="type-music">Music</label>
+                                    </li>
+                                    <li title="ONA">
+                                        <input name="type_cbox" type="checkbox" id="type-ona" value="ona"/>
+                                        <label for="type-ona">ONA</label>
+                                    </li>
+                                    <li title="OVA">
+                                        <input name="type_cbox" type="checkbox" id="type-ova" value="ova"/>
+                                        <label for="type-ova">OVA</label>
+                                    </li>
+                                    <li title="Special">
+                                        <input name="type_cbox" type="checkbox" id="type-special" value="special"/>
+                                        <label for="type-special">Special</label>
+                                    </li>
+                                    <li title="TV">
+                                        <input name="type_cbox" type="checkbox" id="type-tv" value="tv"/>
+                                        <label for="type-tv">TV</label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- RATING -->
+                        <div class="filter addAnimeFilter">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton_rating" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="value" data-placeholder="Select rating" data-label-placement="true">Select rating</span>
+                                </button>
+                                <ul class="dropdown-menu sm " aria-labelledby="dropdownMenuButton_rating">
+                                    <li title="g">
+                                        <input name="rating_cbox" type="checkbox" id="rating-g" value="g"/>
+                                        <label for="rating-g">G - All Ages</label>
+                                    </li>
+                                    <li title="pg">
+                                        <input name="rating_cbox" type="checkbox" id="rating-pg" value="pg"/>
+                                        <label for="rating-pg">PG - Children</label>
+                                    </li>
+                                    <li title="pg_13">
+                                        <input name="rating_cbox" type="checkbox" id="rating-pg_13" value="pg_13"/>
+                                        <label for="rating-pg_13">PG 13 - Teens 13 and Older</label>
+                                    </li>
+                                    <li title="r">
+                                        <input name="rating_cbox" type="checkbox" id="rating-r" value="r"/>
+                                        <label for="rating-r">R - 17+, Violence & Profanity</label>
+                                    </li>
+                                    <li title="r+">
+                                        <input name="rating_cbox" type="checkbox" id="rating-r+" value="r+"/>
+                                        <label for="rating-r+">R+ - Profanity & Mild Nudity</label>
+                                    </li>
+                                    <li title="rx">
+                                        <input name="rating_cbox" type="checkbox" id="rating-rx" value="rx"/>
+                                        <label for="rating-rx">Rx - Hentai</label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- GENRE -->
+                        <div class="filter addAnimeFilter">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton_genre" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="value" data-placeholder="Select genre" data-label-placement="true">Select genre</span>
+                                </button>
+                                <ul class="dropdown-menu lg" aria-labelledby="dropdownMenuButton_genre">
+                                    <li title="Action">
+                                        <input name="genre_cbox" type="checkbox" id="genre-action" value="action"/>
+                                        <label for="genre-action">Action</label>
+                                    </li>
+                                    <li title="Adventure">
+                                        <input name="genre_cbox" type="checkbox" id="genre-adventure" value="adventure"/>
+                                        <label for="genre-adventure">Adventure</label>
+                                    </li>
+                                    <li title="Cars">
+                                        <input name="genre_cbox" type="checkbox" id="genre-cars" value="cars"/>
+                                        <label for="genre-cars">Cars</label>
+                                    </li>
+                                    <li title="Comedy">
+                                        <input name="genre_cbox" type="checkbox" id="genre-comedy" value="comedy"/>
+                                        <label for="genre-comedy">Comedy</label>
+                                    </li>
+                                    <li title="Dementia">
+                                        <input name="genre_cbox" type="checkbox" id="genre-dementia" value="dementia"/>
+                                        <label for="genre-dementia">Dementia</label>
+                                    </li>
+                                    <li title="Demons">
+                                        <input name="genre_cbox" type="checkbox" id="genre-demons" value="demons"/>
+                                        <label for="genre-demons">Demons</label>
+                                    </li>
+                                    <li title="Drama">
+                                        <input name="genre_cbox" type="checkbox" id="genre-drama" value="drama"/>
+                                        <label for="genre-drama">Drama</label>
+                                    </li>
+                                    <li title="Ecchi">
+                                        <input name="genre_cbox" type="checkbox" id="genre-ecchi" value="ecchi"/>
+                                        <label for="genre-ecchi">Ecchi</label>
+                                    </li>
+                                    <li title="Fantasy">
+                                        <input name="genre_cbox" type="checkbox" id="genre-fantasy" value="fantasy"/>
+                                        <label for="genre-fantasy">Fantasy</label>
+                                    </li>
+                                    <li title="Game">
+                                        <input name="genre_cbox" type="checkbox" id="genre-game" value="game"/>
+                                        <label for="genre-game">Game</label>
+                                    </li>
+                                    <li title="Harem">
+                                        <input name="genre_cbox" type="checkbox" id="genre-harem" value="harem"/>
+                                        <label for="genre-harem">Harem</label>
+                                    </li>
+                                    <li title="Hentai">
+                                        <input name="genre_cbox" type="checkbox" id="genre-hentai" value="hentai"/>
+                                        <label for="genre-hentai">Hentai</label>
+                                    </li>
+                                    <li title="Historical">
+                                        <input name="genre_cbox" type="checkbox" id="genre-historical" value="historical"/>
+                                        <label for="genre-historical">Historical</label>
+                                    </li>
+                                    <li title="Horror">
+                                        <input name="genre_cbox" type="checkbox" id="genre-horror" value="horror"/>
+                                        <label for="genre-horror">Horror</label>
+                                    </li>
+                                    <li title="Josei">
+                                        <input name="genre_cbox" type="checkbox" id="genre-josei" value="josei"/>
+                                        <label for="genre-josei">Josei</label>
+                                    </li>
+                                    <li title="Kids">
+                                        <input name="genre_cbox" type="checkbox" id="genre-kids" value="kids"/>
+                                        <label for="genre-kids">Kids</label>
+                                    </li>
+                                    <li title="Magic">
+                                        <input name="genre_cbox" type="checkbox" id="genre-magic" value="magic"/>
+                                        <label for="genre-magic">Magic</label>
+                                    </li>
+                                    <li title="Martial_Arts">
+                                        <input name="genre_cbox" type="checkbox" id="genre-martial_arts" value="martial_arts"/>
+                                        <label for="genre-martial_arts">Martial Arts</label>
+                                    </li>
+                                    <li title="Mecha">
+                                        <input name="genre_cbox" type="checkbox" id="genre-mecha" value="mecha"/>
+                                        <label for="genre-mecha">Mecha</label>
+                                    </li>
+                                    <li title="Military">
+                                        <input name="genre_cbox" type="checkbox" id="genre-military" value="military"/>
+                                        <label for="genre-military">Military</label>
+                                    </li>
+                                    <li title="Music">
+                                        <input name="genre_cbox" type="checkbox" id="genre-music" value="music"/>
+                                        <label for="genre-music">Music</label>
+                                    </li>
+                                    <li title="Mystery">
+                                        <input name="genre_cbox" type="checkbox" id="genre-mystery" value="mystery"/>
+                                        <label for="genre-mystery">Mystery</label>
+                                    </li>
+                                    <li title="Parody">
+                                        <input name="genre_cbox" type="checkbox" id="genre-parody" value="parody"/>
+                                        <label for="genre-parody">Parody</label>
+                                    </li>
+                                    <li title="Police">
+                                        <input name="genre_cbox" type="checkbox" id="genre-police" value="police"/>
+                                        <label for="genre-police">Police</label>
+                                    </li>
+                                    <li title="Psychological">
+                                        <input name="genre_cbox" type="checkbox" id="genre-psychological" value="psychological"/>
+                                        <label for="genre-psychological">Psychological</label>
+                                    </li>
+                                    <li title="Romance">
+                                        <input name="genre_cbox" type="checkbox" id="genre-romance" value="romance"/>
+                                        <label for="genre-romance">Romance</label>
+                                    </li>
+                                    <li title="Samurai">
+                                        <input name="genre_cbox" type="checkbox" id="genre-samurai" value="samurai"/>
+                                        <label for="genre-samurai">Samurai</label>
+                                    </li>
+                                    <li title="School">
+                                        <input name="genre_cbox" type="checkbox" id="genre-school" value="school"/>
+                                        <label for="genre-school">School</label>
+                                    </li>
+                                    <li title="Sci-Fi">
+                                        <input name="genre_cbox" type="checkbox" id="genre-sci-fi" value="sci-fi"/>
+                                        <label for="genre-sci-fi">Sci-Fi</label>
+                                    </li>
+                                    <li title="Seinen">
+                                        <input name="genre_cbox" type="checkbox" id="genre-seinen" value="seinen"/>
+                                        <label for="genre-seinen">Seinen</label>
+                                    </li>
+                                    <li title="Shoujo">
+                                        <input name="genre_cbox" type="checkbox" id="genre-shoujo" value="shoujo"/>
+                                        <label for="genre-shoujo">Shoujo</label>
+                                    </li>
+                                    <li title="Shoujo_Ai">
+                                        <input name="genre_cbox" type="checkbox" id="genre-shoujo_ai" value="shoujo_ai"/>
+                                        <label for="genre-shoujo_ai">Shoujo Ai</label>
+                                    </li>
+                                    <li title="Shounen">
+                                        <input name="genre_cbox" type="checkbox" id="genre-shounen" value="shounen"/>
+                                        <label for="genre-shounen">Shounen</label>
+                                    </li>
+                                    <li title="Shounen_Ai">
+                                        <input name="genre_cbox" type="checkbox" id="genre-shounen_ai" value="shounen_ai"/>
+                                        <label for="genre-shounen_ai">Shounen Ai</label>
+                                    </li>
+                                    <li title="Slice_of_Life">
+                                        <input name="genre_cbox" type="checkbox" id="genre-slice_of_life" value="slice_of_life"/>
+                                        <label for="genre-slice_of_life">Slice of Life</label>
+                                    </li>
+                                    <li title="Space">
+                                        <input name="genre_cbox" type="checkbox" id="genre-space" value="space"/>
+                                        <label for="genre-space">Space</label>
+                                    </li>
+                                    <li title="Sports">
+                                        <input name="genre_cbox" type="checkbox" id="genre-sports" value="sports"/>
+                                        <label for="genre-sports">Sports</label>
+                                    </li>
+                                    <li title="Super_Power">
+                                        <input name="genre_cbox" type="checkbox" id="genre-super_power" value="super_power"/>
+                                        <label for="genre-super_power">Super Power</label>
+                                    </li>
+                                    <li title="Supernatural">
+                                        <input name="genre_cbox" type="checkbox" id="genre-supernatural" value="supernatural"/>
+                                        <label for="genre-supernatural">Supernatural</label>
+                                    </li>
+                                    <li title="Thriller">
+                                        <input name="genre_cbox" type="checkbox" id="genre-thriller" value="thriller"/>
+                                        <label for="genre-thriller">Thriller</label>
+                                    </li>
+                                    <li title="Vampire">
+                                        <input name="genre_cbox" type="checkbox" id="genre-vampire" value="vampire"/>
+                                        <label for="genre-vampire">Vampire</label>
+                                    </li>
+                                    <li title="Yaoi">
+                                        <input name="genre_cbox" type="checkbox" id="genre-yaoi" value="yaoi"/>
+                                        <label for="genre-yaoi">Yaoi</label>
+                                    </li>
+                                    <li title="Yuri">
+                                        <input name="genre_cbox" type="checkbox" id="genre-yuri" value="yuri"/>
+                                        <label for="genre-yuri">Yuri</label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="submit filter w-auto" id="anime_upload_btn">
+                <button class="btn btn-primary d-flex align-items-center">
+                    <span class="ml-1">Add This Anime !!! </span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <br>
+
+</div>
+
+
+<!-- AOS JavaScript -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
+
+<!-- Bootstrap JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</body>
+</html>

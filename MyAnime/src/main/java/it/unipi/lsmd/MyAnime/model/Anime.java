@@ -45,7 +45,7 @@ public class Anime {
     private String imgURL;
     private Review[] mostRecentReviews;
 
-    public Anime (ObjectId objId, String title, String titleJapanese, String type, String source, int episodes,  boolean airing, Map aired, String rating, Double avarageScore, int scoredBy, int watchers, String background, String broadcast, String producer, String licensor, String studio, String[] genre, int EpisodeDuration, String imgURL, Review[] mostRecentReviews) {
+    public Anime (ObjectId objId, String title, String titleJapanese, String type, String source, int episodes,  boolean airing, Map aired, String rating, Double averageScore, int scoredBy, int watchers, String background, String broadcast, String producer, String licensor, String studio, String[] genre, int EpisodeDuration, String imgURL, Review[] mostRecentReviews) {
         this.id = objId;
         this.title = title;
         this.titleJapanese = titleJapanese;
@@ -55,7 +55,7 @@ public class Anime {
         this.airing = airing;
         this.aired = aired;
         this.rating = rating;
-        this.averageScore = avarageScore;
+        this.averageScore = averageScore;
         this.scoredBy = scoredBy;
         this.watchers = watchers;
         this.background = background;
