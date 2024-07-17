@@ -48,7 +48,8 @@ public class AdminAnimeUploadREST {
             @RequestParam("imgURL_val")             String imgURL_val,
             @RequestParam(required = false)              String type_val,
             @RequestParam(required = false)            String rating_val,
-            @RequestParam(required = false)             List<String> genre_list
+            @RequestParam(required = false)             List<String> genre_list,
+            @RequestParam(required = false)             List<String> relations_list
     ){
         // only required are : title_val source_val  imgURL_val
         System.out.println("DBG -> inizio di animeAdd con parametri : ");

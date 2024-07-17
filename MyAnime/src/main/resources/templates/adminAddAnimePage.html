@@ -427,8 +427,8 @@
                                     <input type="text" id="rel_ani_name" class="form-control" placeholder="related anime title">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="rel_ani_type" class="form-label">Type or relation this has with the main anime</label>
-                                    <input type="text" id="rel_ani_type" class="form-control" placeholder="related anime title">
+                                    <label for="rel_ani_type" class="form-label">Type of relation this has with the main anime</label>
+                                    <input type="text" id="rel_ani_type" class="form-control" placeholder="related anime type">
                                 </div>
                                 <div class="submit filter w-auto" >
                                     <button type="submit" id="confirmRelation_btn" class="d-flex align-items-center">
@@ -473,17 +473,26 @@
                 var inputValueType = document.getElementById("rel_ani_type");
                 var li = document.createElement('li')
 
-                var div_name = document.createElement('div');
-                div_name.textContent = inputValueName.value;
-                var div_type = document.createElement('div');
-                div_type.textContent = inputValueType.value;
-                li.appendChild(div_name);
-                li.appendChild(div_type);
+                if (inputValueName.value != "" && inputValueType.value != ""){
+                    var div_name = document.createElement('div');
+                    div_name.textContent = inputValueName.value;
+                    var div_type = document.createElement('div');
+                    div_type.textContent = inputValueType.value;
+                    li.appendChild(div_name);
+                    li.appendChild(div_type);
 
-                //  li.textContent = inputValue.value
-                list.appendChild(li)
-                inputValueName.value = '';
-                inputValueType.value = '';
+                    //  li.textContent = inputValue.value
+                    list.appendChild(li)
+                    inputValueName.value = '';
+                    inputValueType.value = '';
+                }else{
+                    if(inputValueName.value == ""){
+                        inputValueName.value = '';
+                    }else if(inputValueType.value == "") {
+                        inputValueType.value = '';
+                    }
+                    alert("both relation fields must be filled")
+                }
             }, false);
 
 

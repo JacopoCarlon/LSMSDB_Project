@@ -19,7 +19,7 @@ $(document).ready(function () {
                 trg_arr.push(ele[i].id.toString());
             }
         }
-        alert("trg_arr for name " + trg_name + "is : " + trg_arr);
+        //  alert("trg_arr for name " + trg_name + "is : " + trg_arr);
         return trg_arr;
     }
 
@@ -30,8 +30,8 @@ $(document).ready(function () {
         //  //  alert("isAdmin ? : " + isAdmin);
         //  //  alert("isLogged? : " + isLogged);
 
-        alert("magic-logged ? : " + $('#magic-logged').text());
-        alert("magic-is_admin? : " + $('#magic-is_admin').text());
+        //  alert("magic-logged ? : " + $('#magic-logged').text());
+        //  alert("magic-is_admin? : " + $('#magic-is_admin').text());
 
         const title_val = $("#a_title_input").val();
         const titleJapanese_val = $("#a_titleJapanese_input").val();
@@ -76,8 +76,8 @@ $(document).ready(function () {
             return;
         }
 
-        if(!title_val || !source_val  || !imgURL_val ){
-            alert("title, source, airing and imgURL are obbligatory fields !!!");
+        if(!title_val || !source_val  ){
+            alert("title, source, airing and imgURL are obligatory fields !!!");
             return;
         }
 
@@ -86,6 +86,18 @@ $(document).ready(function () {
         for (i_name in trgFilterNames) {
             filters.push(getChosenByName(trgFilterNames[i_name]) );
         }
+
+        //  let lis = document.getElementById("addedRelationsList").getElementsByTagName("li")
+        alert("begin extracting relations")
+        const addRelList = Array.from(document.querySelectorAll('ul#addedRelationsList li div'));
+        let parity = 0;
+        let relations = [];
+        for (const this_li of addRelList){
+            //  alert("thisli : " + this_li);
+            //  alert(this_li.textContent)
+            relations.push( this_li.textContent );
+        }
+        alert("relations : " + relations);
 
         const formData = {
             title_val               : title_val,
@@ -104,7 +116,8 @@ $(document).ready(function () {
             imgURL_val              : imgURL_val,
             type_list               : filters[0],
             rating_list             : filters[1],
-            genre_list              : filters[2]
+            genre_list              : filters[2],
+            relations_list          : relations
         };
 
         alert("about to ajax request to upload anime")
