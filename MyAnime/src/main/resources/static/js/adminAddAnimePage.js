@@ -94,6 +94,7 @@ $(document).ready(function () {
             episodes_val            : episodes_val,
             slider_airing_val       : slider_airing_val,
             aired_input_from_val    : aired_input_from_val,
+            aired_input_to_val      : aired_input_to_val,
             background_val          : background_val,
             broadcast_val           : broadcast_val,
             producer_val            : producer_val,
@@ -114,7 +115,13 @@ $(document).ready(function () {
             method: 'POST',
 
             success: function(response) {
-                alert("anime successfully uploaded !")
+                switch(response.outcome_code) {
+                    case 0:
+                        alert("anime successfully uploaded !");
+                        break;
+                    default:
+                        alert("upload failed sadge");
+                }
             },
             error: function (xhr, status, error) {
                 alert("ERROR in ajax: " + error);
