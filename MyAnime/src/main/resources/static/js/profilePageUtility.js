@@ -29,7 +29,7 @@ $(document).ready(function() {
     });
 
     function gotoUserAnimeListPage(status) {
-        window.location.href = "/userAnimeList?status="+status + "&?username=" + user;
+        window.location.href = "/userAnimeList?status="+status + "&username=" + user;
     }
 
 
