@@ -67,6 +67,7 @@ $(document).ready(function () {
 function displayUser(arrayResults){
 
     let trg_container = document.getElementById("ufpResults_section");
+    trg_container.innerHTML = '';
 
     let num_res = arrayResults.length;
     //  alert("num_res : " + num_res);

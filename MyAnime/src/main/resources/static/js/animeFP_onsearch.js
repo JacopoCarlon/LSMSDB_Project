@@ -105,9 +105,12 @@ function displayAnime(arrayResults){
     //  content.innerHTML = "contenutissimoooooooo";
     //  magicdiv.appendChild(content);
 
-    //  alert("ciao")
-
+    //  alert("before emptying container")
     let trg_container = document.getElementById("afpResults_container");
+    trg_container.innerHTML = '';
+    //  alert("after emptying container")
+
+
 
     let num_res = arrayResults.length;
     //  alert("num_res : " + num_res);
@@ -115,7 +118,7 @@ function displayAnime(arrayResults){
     for (let i = 0; i < num_res ; i++) {
 
         let number_i = parseInt(i);
-        alert("got the result : " + JSON.stringify(arrayResults[number_i])  )
+        //  alert("got the result : " + JSON.stringify(arrayResults[number_i])  )
 
         let myMap = new Map(Object.entries(JSON.parse(JSON.stringify(arrayResults[number_i]))));
 
