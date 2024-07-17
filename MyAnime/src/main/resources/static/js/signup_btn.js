@@ -96,7 +96,7 @@ $(document).ready(function () {
 });
 
 function stringPurifier(baseString){
-    let outString = baseString.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>{}\[\]\\\/]/gi, '');
+    let outString = baseString.replace(/[`~!@#$%^&*()|+\-=?;:'",.<>{}\[\]\\\/]/gi, '');
     //  alert("base string : "+ baseString);
     //  alert("out string : "+ outString);
     if (outString === baseString){

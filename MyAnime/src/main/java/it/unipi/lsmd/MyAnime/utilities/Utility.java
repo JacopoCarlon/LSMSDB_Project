@@ -45,8 +45,8 @@ public class Utility {
         sr.nextBytes(saltBytes);
         char[] hexString = new char[32];
         for (int i = 0; i < 16; i++) {
-            byte v = saltBytes[i];
-            hexString[i * 2] = HEX_ARRAY[v >>> 4];
+            int v = saltBytes[i];
+            hexString[i * 2] = HEX_ARRAY[(v >>> 4) & 0x0F];
             hexString[i * 2 + 1] = HEX_ARRAY[v & 0x0F];
         }
         return new String(hexString);

@@ -35,13 +35,13 @@ public class SignupREST {
     UserRepoNeo4j userRepoNeo4j;
 
     @PostMapping("/api/signup")
-    @Transactional
+    @Transactional("transactionManager")
     public @ResponseBody String signup(
             @RequestParam("name")       String name,
             @RequestParam("surname")    String surname,
             @RequestParam("username")   String username,
             @RequestParam("password")   String password,
-            @RequestParam("birthday")   Instant birthday,
+            @RequestParam("birthday")   String birthday,
             @RequestParam("sex")        String sex,
             @RequestParam("email")      String email
     ) {
@@ -55,10 +55,10 @@ public class SignupREST {
         System.out.println(email);
 
         try{
-            // can user be inserted ?
-            Instant this_instant = Instant.now(); 
-            //  insertUser(String name, String surname, String username, String password, Instant birthDate, String email, String gender, Instant joinDate, int statsEpisodes)
-            int o_insertMDB = userRepoMongoDB.insertUser(name, surname, username, password, birthday, email, sex, this_instant, 0);
+            Instant birthday_instant = Instant.parse(birthday + "T00:00:00.00Z");
+            Instant this_instant = Instant.now();
+
+            int o_insertMDB = userRepoMongoDB.insertUser(name, surname, username, password, birthday_instant, email, sex, this_instant, 0);
             if (o_insertMDB!=0){
                 // Failed insert in MongoDB
                 return buildOutcomeResponse(o_insertMDB);
@@ -79,7 +79,6 @@ public class SignupREST {
             e.printStackTrace();
             return "{\"outcome_code\": 5}"; 
         }
-
     }
 
 

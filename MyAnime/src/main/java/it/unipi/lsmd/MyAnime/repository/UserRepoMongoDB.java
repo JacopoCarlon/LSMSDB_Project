@@ -86,7 +86,7 @@ public class UserRepoMongoDB {
                     .toString();
 
             // Creazione di un nuovo utente
-            User newUser = new User(null, username, name, surname, email, salt, hashedPassword, gender, birthDate, joinDate, statsEpisodes, new Review[0]);
+            User newUser = new User(null, username, name, surname, email, hashedPassword, salt, gender, birthDate, joinDate, statsEpisodes, new Review[0]);
 
             // Salvataggio del nuovo utente
             userMongoInterface.save(newUser);
