@@ -75,8 +75,8 @@
                             <input id="a_source_input" class="form-control" placeholder="source" required>
                         </div>
                         <div class="mb-3">
-                            <label for="a_episodes_input" class="form-label">Anime episodes</label>
-                            <input id="a_episodes_input" class="form-control" placeholder="episodes" >
+                            <label for="a_episodes_input" class="form-label">Anime number of episodes</label>
+                            <input id="a_episodes_input" class="form-control" type="number" min="0">
                         </div>
                         <div class="mb-3">
                             <label for="a_airing_input" class="form-label">Anime airing (bool)</label>
@@ -91,13 +91,12 @@
                         </div>
 
                         <div class="mb-3">
+                            <label for="a_aired_input_from" class="form-label">Anime aired (from)</label>
+                            <input id="a_aired_input_from" class="form-control" type="date" required>
                         </div>
-
-
-
                         <div class="mb-3">
-                            <label for="a_aired_input" class="form-label">Anime aired</label>
-                            <input id="a_aired_input" class="form-control" placeholder="aired" >
+                            <label for="a_aired_input_to" class="form-label">Anime aired (to)</label>
+                            <input id="a_aired_input_to" class="form-control" type="date" required>
                         </div>
                         <!-- FORM BELOW
                         <div class="mb-3">
@@ -146,12 +145,12 @@
                         </div>
                         -->
                         <div class="mb-3">
-                            <label for="a_EpisodeDuration_input" class="form-label">Anime EpisodeDuration</label>
-                            <input id="a_EpisodeDuration_input" class="form-control" placeholder="EpisodeDuration" >
+                            <label for="a_EpisodeDuration_input" class="form-label">Anime EpisodeDuration (minutes)</label>
+                            <input id="a_EpisodeDuration_input" class="form-control"  type="number" min="0" >
                         </div>
                         <div class="mb-3">
                             <label for="a_imgURL_input" class="form-label">Anime imgURL</label>
-                            <input id="a_imgURL_input" class="form-control" placeholder="imgURL" required>
+                            <input id="a_imgURL_input" class="form-control" placeholder="https://imgURLpath" required type="url">
                         </div>
                         <!-- MUST BE EMPTY
                         <div class="mb-3">
@@ -422,8 +421,8 @@
 
             </div>
 
-            <div class="submit filter w-auto" id="anime_upload_btn">
-                <button class="btn btn-primary d-flex align-items-center">
+            <div class="submit filter w-auto" id="anime_upload_btn_holder">
+                <button id="anime_upload_btn" class="btn btn-primary d-flex align-items-center">
                     <span class="ml-1">Add This Anime !!! </span>
                 </button>
             </div>

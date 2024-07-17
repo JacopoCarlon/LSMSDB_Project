@@ -227,7 +227,7 @@ div#form_container form .filter {
 }
 
 
-#anime_upload_btn{
+#anime_upload_btn_holder{
     display: flex;
     justify-content: center;
     align-items: center;
