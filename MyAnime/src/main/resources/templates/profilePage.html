@@ -111,7 +111,7 @@
                                 </div>
                                 <div id="reviews_container" class="collapse overflow-y-auto">
                                     <div th:each="review : ${userDetails.mostRecentReviews}" class="d-flex gap-1 p-1 align-items-center rev_container">
-                                        <img class="anime-cover shadow" th:src="${review.coverUrl}" style="max-width: 100px;" alt="Cover anime">
+                                        <!--<img class="anime-cover shadow" th:src="${review.coverUrl}" style="max-width: 100px;" alt="Cover anime">-->
                                         <div class="d-flex flex-column">
                                             <h5 class="fw-bold mb-0" id="anime-title" th:text="${review.animeTitle}"></h5>
 

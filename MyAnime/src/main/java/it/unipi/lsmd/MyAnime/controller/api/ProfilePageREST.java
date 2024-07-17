@@ -1,8 +1,14 @@
 package it.unipi.lsmd.MyAnime.controller.api;
 
 import it.unipi.lsmd.MyAnime.repository.UserRepoNeo4j;
+import it.unipi.lsmd.MyAnime.utilities.Utility;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 public class ProfilePageREST {
@@ -12,7 +18,7 @@ public class ProfilePageREST {
     @Autowired
     private UserRepoNeo4j userRepoNeo4j;
 
-    /*
+
     @PostMapping("/api/logout")
     public @ResponseBody String logout(HttpSession session) {
         if (!Utility.isLogged(session)) {
@@ -23,6 +29,7 @@ public class ProfilePageREST {
         return "{\"outcome_code\": 0}";
     }
 
+    /*
     //  TODO : this graph query
     @GetMapping("/api/userLikedAnime")
     public @ResponseBody String userLikedAnime( HttpSession session,
