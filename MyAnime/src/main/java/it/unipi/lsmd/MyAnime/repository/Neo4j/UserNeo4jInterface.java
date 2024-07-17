@@ -17,10 +17,10 @@ public interface UserNeo4jInterface extends Neo4jRepository<UserNode, String> {
             "DELETE DETACH u")
     void deleteUser(String username);
 
-    @Query("MATCH (u1:User {username: $user1}), (u2:User {username: $user2}) " +
-            "OPTIONAL MATCH (u1)-[f:FOLLOWS]->(u2) " +
-            "WITH u1, u2, f, CASE WHEN f IS NULL THEN 'CREATED' ELSE 'EXISTING' END AS status " +
-            "MERGE (u1)-[:FOLLOWS]->(u2) " +
+    @Query("MATCH (u1:User {username: $user1}) " +
+            "OPTIONAL MATCH (u1)-[f:FOLLOWS]->(:User {username: $user2}) " +
+            "WITH u1, f, CASE WHEN f IS NULL THEN 'CREATED' ELSE 'EXISTING' END AS status " +
+            "MERGE (u1)-[:FOLLOWS]->(:User {username: $user2}) " +
             "RETURN status")
     String addFollow(String user1, String user2);
 
