@@ -52,4 +52,38 @@ public class AnimeListAPI {
             return "{\"outcome_code\": 12}";         // Error while connecting to the database
         }
     }
+
+    @PostMapping("/api/setUserAnimeWatchedEpisodes")
+    @Transactional("transactionManager")
+    public @ResponseBody String setWatchedEpisodes(HttpSession session,
+                                               @RequestParam("animeTitle") String animeTitle,
+                                               @RequestParam("num_episodes") Integer episodesNum) {
+
+        try {
+            if (!Utility.isLogged(session))
+                return "{\"outcome_code\": 1}";     // User not logged in
+            if (Utility.isAdmin(session))
+                return "{\"outcome_code\": 2}";     // Invalid action for an admin
+
+            if (episodesNum < 0)
+                return "{\"outcome_code\": 3}";
+
+            String username = Utility.getUsername(session);
+            if (!animeRepoMongoDB.existsByTitle(animeTitle))
+                return "{\"outcome_code\": 4}";     // Anime doesn't exist
+
+            System.out.println("aaa");
+            if (userRepoNeo4j.getWatchedEpisodesOfAnime(username, animeTitle) == null) {
+                return "{\"outcome_code\": 5}";     // User has not added anime to a list
+            }
+            System.out.println("bbb");
+
+            int outcome = userRepoNeo4j.setWatchedEpisodesOfAnime(username, animeTitle, episodesNum);
+            return "{\"outcome_code\": " + outcome + "}";
+        }
+        catch (DataAccessResourceFailureException e) {
+            e.printStackTrace();
+            return "{\"outcome_code\": 12}";         // Error while connecting to the database
+        }
+    }
 }

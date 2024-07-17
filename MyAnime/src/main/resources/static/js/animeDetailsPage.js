@@ -76,14 +76,36 @@ $(document).ready(function () {
             method: 'POST',
 
             data:   {
-                targetList :    episodes_val,
-                animeToList :   forceAnimeTitle
+                num_episodes    :   episodes_val,
+                animeTitle      :   forceAnimeTitle
             },
 
             success: function(response) {
                 switch(response.outcome_code){
                     case 0:
-                        alert("episode count updated to : " + trg_arr);
+                        alert("Episode count updated to : " + episodes_val);
+                        break;
+                    case 1:
+                        alert("You must be logged to do this!");
+                        break;
+                    case 2:
+                        alert("Admins account cannot do this!");
+                        break;
+                    case 3:
+                        alert("Invalid number of episodes");
+                        break;
+                    case 4:
+                        alert("Selected anime does not exists");
+                        break;
+                    case 5:
+                        alert("Anime must be added to a list first");
+                        break;
+                    case 6:
+                    case 7:
+                        alert("Error in database access");
+                        break;
+                    case 12:
+                        alert("Error while connecting to database");
                         break;
                     default:
                         alert("Unknown (magic) error.");

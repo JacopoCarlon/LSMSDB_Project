@@ -71,6 +71,30 @@ public class UserRepoNeo4j {
         }
     }
 
+    public Integer getWatchedEpisodesOfAnime(String username, String animeTitle) {
+        try {
+            return userNeo4jInterface.getWatchedEpisodesOfAnime(username, animeTitle);
+        } catch (DataAccessException dae) {
+            dae.printStackTrace();
+            return null;
+        }
+    }
+
+    public int setWatchedEpisodesOfAnime(String username, String animeTitle, Integer watchedEpisodes){
+        try {
+            userNeo4jInterface.setWatchedEpisodesOfAnime(username, animeTitle, watchedEpisodes);
+            return 0;
+        } catch (DataAccessException dae) {
+            if (dae instanceof DataAccessResourceFailureException) {
+                dae.printStackTrace();
+                return 6;
+            } else {
+                dae.printStackTrace();
+                return 7;
+            }
+        }
+    }
+
     public int removeWatches(String username, String animeTitle){
         try {
             userNeo4jInterface.removeWatches(username, animeTitle);
