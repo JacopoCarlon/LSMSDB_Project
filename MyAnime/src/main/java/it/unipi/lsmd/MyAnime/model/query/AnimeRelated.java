@@ -26,9 +26,10 @@ public class AnimeRelated {
                 .bind(title).to("title")
                 .fetchAs(it.unipi.lsmd.MyAnime.model.query.AnimeRelated.class)
                 .mappedBy((typeSystem, record) -> {
+                    String titleRelated = record.get("titleRelated").asString();
                     String imgURL = record.get("imgURL").asString();
                     String relationship = record.get("relationship").asString();
-                    return new it.unipi.lsmd.MyAnime.model.query.AnimeRelated(title, imgURL, relationship);
+                    return new it.unipi.lsmd.MyAnime.model.query.AnimeRelated(titleRelated, imgURL, relationship);
                 }).all();
     }
 }

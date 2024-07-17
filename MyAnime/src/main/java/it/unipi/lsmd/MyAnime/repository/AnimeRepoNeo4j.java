@@ -39,8 +39,8 @@ public class AnimeRepoNeo4j {
     }
 
     public ArrayList<AnimeRelated> findRelatedAnime(String title) {
-        String cypherQuery = "MATCH (a:Anime)-[r:RELATED_TO]->(b:Anime {title: $title})" +
-                "RETURN a.title as title, a.imgURL as imgURL, r.relation_type as relationship";
+        String cypherQuery = "MATCH (a:Anime {title: $title})-[r:IS_RELATED_TO]->(b:Anime)" +
+                "RETURN b.title as titleRelated, b.imgURL as imgURL, r.relation_type as relationship";
 
         return AnimeRelated.getAnimeRelated(neo4jClient, cypherQuery, title);
     }

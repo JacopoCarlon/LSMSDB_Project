@@ -34,7 +34,7 @@ public class SearchREST {
                                        @RequestParam(required = false) String sortList){
 
         if(category.equals("anime")){
-            System.out.println("Searching in anime");
+            /*System.out.println("Searching in anime");
             System.out.println(term);
             System.out.println(category);
             System.out.println(genreList);
@@ -42,13 +42,9 @@ public class SearchREST {
             System.out.println(typeList);
             System.out.println(statusList);
             System.out.println(ratingList);
-            System.out.println(sortList);
-            List<Anime> animes = animeRepoMongoDB.findAnime(term, genreList, yearList, typeList, statusList, ratingList, sortList);
-            System.out.println("Animes");
-            for(Anime anime : animes){
-                System.out.println(anime);
-            }
+            System.out.println(sortList);*/
             try {
+                List<Anime> animes = animeRepoMongoDB.findAnime(term, genreList, yearList, typeList, statusList, ratingList, sortList);
                 ObjectMapper objectMapper = new ObjectMapper();
                 objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
                 objectMapper.registerModule(new JavaTimeModule());
@@ -60,8 +56,8 @@ public class SearchREST {
 
         }
         else if(category.equals("user")){
-            List<User> users = userRepoMongoDB.findUser(term);
             try {
+                List<User> users = userRepoMongoDB.findUser(term);
                 ObjectMapper objectMapper = new ObjectMapper();
                 objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
                 objectMapper.registerModule(new JavaTimeModule());
