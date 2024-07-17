@@ -141,6 +141,7 @@ function displayAnime(arrayResults){
 
         let this_trg_IMG = new Image();
         this_trg_IMG.src = this_imgURL;
+        this_trg_IMG.style = "max-width=120px; max-height=180px";
         trg_aniDiv.appendChild(this_trg_IMG);
 
 

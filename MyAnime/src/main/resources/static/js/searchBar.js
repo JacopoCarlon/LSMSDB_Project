@@ -30,7 +30,7 @@ function loadSearchBar(){
         "<form class=\"d-flex\">" +
         "<input class=\"form-control\" type=\"text\" id=\"search_input\" placeholder=\"What are you looking for?\">" +
         "<select name=\"category\" id=\"category_input\"></select>" +
-        "<button class=\"btn btn-success\" id=\"search_btn\" data-bs-toggle=\"modal\" data-bs-target=\"#search_results\" type=\"button\">Search</button>" +
+        "<button class=\"btn btn-success\" id=\"search_btn\"  data-bs-target=\"#search_results\" type=\"button\">Search</button>" +
         "</form>" +
         "</section>" +
         "<nav id=\"navbar\" class=\"navbar justify-content-center g-col-3\">" +

@@ -758,10 +758,11 @@ li {
     text-align: center;
 }
 
+/*
 #most_popular_container {
     border-radius: 10px;
     background-color: #ffffff42;
-}
+}*/
 
 #link_buttons{
     border-radius: 10px;
@@ -1483,6 +1484,19 @@ input:checked + .slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
+
+
+
+.img_resize{
+    height: 80px;
+    width: auto;
+}
+
+
+
+
+
+
 
 
 

@@ -8,6 +8,7 @@ $(document).ready(function () {
         search();
         return false;
     });
+
     $("#close_btn").click(function (e){
         e.preventDefault();
         e.stopPropagation();
