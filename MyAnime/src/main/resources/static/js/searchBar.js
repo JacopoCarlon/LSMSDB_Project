@@ -18,12 +18,12 @@ $(document).ready(function(){
 })
 function loadSearchBar(){
 
-    let value = $("#magic_is_logged").text();
-    let admin = $("#magic_is_admin").text();
+    //  let magic_value = $("#magic_is_logged").text();
+    //  let magic_admin = $("#magic_is_admin").text();
     //  alert("magicislogged : " + magicvalue)
     //  alert("magicisADMIN : " + magicadmin)
-    //  let old_value = $("#is_logged").val();
-    //  let old_admin = $("#is_admin").val();
+    let value = $("#is_logged").val();
+    let admin = $("#is_admin").val();
     //  alert("value : " + old_value)
     //  alert("admin : " + old_admin)
 
