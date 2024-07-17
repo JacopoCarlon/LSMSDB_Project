@@ -143,7 +143,52 @@
                                     <i class="fa fa-star me-1 ps-3"></i>
                                     <div id="average_rating" th:text="${animeDetails.averageScore}"></div>
                                 </div>
+
                             </div>
+
+
+                            <div id = "form_container" style="min-height: 70px;width: 70%">
+                                <form class="filters" autocomplete="off">
+                                    <!-- TYPE -->
+                                    <div class="filter setAnimeToListFilter" style="width: 40%">
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="setAnimeToList_btn" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <span class="value" data-placeholder="Select type" data-label-placement="true">Choose List for this anime</span>
+                                            </button>
+                                            <ul class="dropdown-menu md " aria-labelledby="setAnimeToList_btn">
+                                                <li title="Movie">
+                                                    <input name="setAnimeLstn_radio" type="radio" id="anisetF_CurW" value="movie"/>
+                                                    <label for="anisetF_CurW">Currently Watching</label>
+                                                </li>
+                                                <li title="Music">
+                                                    <input name="setAnimeLstn_radio" type="radio" id="anisetF_Comp" value="music"/>
+                                                    <label for="anisetF_Comp">Completed</label>
+                                                </li>
+                                                <li title="ONA">
+                                                    <input name="setAnimeLstn_radio" type="radio" id="anisetF_OnHo" value="ona"/>
+                                                    <label for="anisetF_OnHo">On hold</label>
+                                                </li>
+                                                <li title="OVA">
+                                                    <input name="setAnimeLstn_radio" type="radio" id="anisetF_Drpd" value="ova"/>
+                                                    <label for="anisetF_Drpd">Dropped</label>
+                                                </li>
+                                                <li title="Special">
+                                                    <input name="setAnimeLstn_radio" type="radio" id="anisetF_PlnW" value="special"/>
+                                                    <label for="anisetF_PlnW">Plan To Watch</label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div  class="submit filter w-auto" >
+                                    <button id="doSetAnimeList_btn" class="d-flex align-items-center" >
+                                        <span class="ml-1"> Set Anime To List </span>
+                                    </button>
+                                </div>
+                            </div>
+
+
+
                         </div>
                     </div>
                     <div class="d-flex gap-1">
@@ -169,7 +214,7 @@
                             </div>
                         </div>
                     </div>
-              </div>
+                </div>
             </section>
         </div>
 
