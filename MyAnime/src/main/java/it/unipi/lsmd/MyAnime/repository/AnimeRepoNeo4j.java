@@ -117,10 +117,20 @@ public class AnimeRepoNeo4j {
 
     public boolean insertAnimeRelations(String titleVal, List<String> relationsList) {
         try {
-            for (int i = 0; i < relationsList.size(); i = i + 2) {
+            for (int i = 0; i < relationsList.size(); i = i + 3) {
                 String relatedAnime = relationsList.get(i);
+                if (relatedAnime == null || relatedAnime.isEmpty()) {
+                    return false;
+                }
+                if (relatedAnime.equals(titleVal)) {
+                    return false; // Non è possibile creare una relazione con se stesso
+                }
+                if (animeNeo4jInterface.getAnimeByExactTitle(relatedAnime)==null){
+                    return false;
+                }
                 String relationType = relationsList.get(i + 1);
-                String result = animeNeo4jInterface.addRelated(titleVal, relatedAnime, relationType);
+                String relationInverse = relationsList.get(i + 2);
+                String result = animeNeo4jInterface.addRelated(titleVal, relatedAnime, relationType, relationInverse);
                 if (!result.equals("CREATED") && !result.equals("EXISTING")){
                     return false; // Inserimento relazione fallito
                 }

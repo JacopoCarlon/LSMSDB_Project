@@ -8,6 +8,9 @@ public interface AnimeNeo4jInterface extends Neo4jRepository<AnimeNode, String> 
     @Query("MATCH (a:Anime) WHERE a.title =~ $animeTitle RETURN a")
     AnimeNode getAnimeByTitle(String animeTitle);
 
+    @Query("MATCH (a:Anime) WHERE a.title = $animeTitle RETURN a")
+    AnimeNode getAnimeByExactTitle(String animeTitle);
+
     @Query("MERGE (a:Anime {title: $title, imgURL: $imgURL})")
     void createAnime(String title, String imgURL);
 
@@ -15,6 +18,7 @@ public interface AnimeNeo4jInterface extends Neo4jRepository<AnimeNode, String> 
             "OPTIONAL MATCH (a1)-[irt:IS_RELATED_TO]->(a2) " +
             "WITH a1, a2, irt, CASE WHEN irt IS NULL THEN 'CREATED' ELSE 'EXISTING' END AS status " +
             "MERGE (a1)-[:IS_RELATED_TO {relation_type: $type}]->(a2)" +
+            "MERGE (a2)-[:IS_RELATED_TO {relation_type: $typeInverse}]->(a1)" +
             "RETURN status")
-    String addRelated(String anime1, String anime2, String type);
+    String addRelated(String anime1, String anime2, String type, String typeInverse);
 }

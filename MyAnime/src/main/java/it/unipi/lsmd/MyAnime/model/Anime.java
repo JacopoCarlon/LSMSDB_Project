@@ -88,17 +88,22 @@ public class Anime {
         this.imgURL = imgURL;
     }
 
-    public Anime(String title, Double score, String picture){
-        this.title = title;
-        this.averageScore = score;
-        this.imgURL = picture;
-    }
-
     public static Anime mapToAnime(org.bson.Document doc) {
+        Anime anime = new Anime();
         String title = doc.getString("title");
-        Double score = doc.getDouble("score");
+        anime.setTitle(title);
+        if (doc.get("score") != null){
+            Double score;
+            if (doc.get("score").getClass() == java.lang.Integer.class){
+                score = doc.getInteger("score").doubleValue();
+            } else {
+                score = doc.getDouble("score");
+            }
+            anime.setAverageScore(score);
+        }
         String imgURL = doc.getString("picture");
+        anime.setImgURL(imgURL);
 
-        return new Anime(title, score, imgURL);
+        return anime;
     }
 }
