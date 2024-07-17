@@ -2,6 +2,7 @@ package it.unipi.lsmd.MyAnime.controller;
 
 import it.unipi.lsmd.MyAnime.model.Anime;
 import it.unipi.lsmd.MyAnime.repository.AnimeRepoMongoDB;
+import it.unipi.lsmd.MyAnime.repository.AnimeRepoNeo4j;
 import it.unipi.lsmd.MyAnime.utilities.Utility;
 import jakarta.servlet.http.HttpSession;
 import org.bson.types.ObjectId;
@@ -17,6 +18,8 @@ public class AnimeDetailsPageController {
 
     @Autowired
     AnimeRepoMongoDB animeRepoMongoDB;
+    @Autowired
+    AnimeRepoNeo4j animeRepoNeo4j;
 
     @RequestMapping(value={"/animeDetails.html","/animeDetailsPage.html","/animeDetails","/animeDetailsPage"})
     public String animeDetailsPage(HttpSession session,
@@ -44,6 +47,7 @@ public class AnimeDetailsPageController {
         }
 
         model.addAttribute("animeDetails", anime);
+        model.addAttribute("animeRelated", animeRepoNeo4j.findRelatedAnime(anime.getTitle()));
         model.addAttribute("logged", Utility.isLogged(session));
         model.addAttribute("is_admin", Utility.isAdmin(session));
 
