@@ -108,9 +108,8 @@ function displayAnime(arrayResults){
     //  alert("before emptying container")
     let trg_container = document.getElementById("afpResults_container");
     trg_container.innerHTML = '';
+    trg_container.classList.add("d-flex" , "flex-column" , "p-1" , "gap-1" , "w-100" , "overflow-y-auto");
     //  alert("after emptying container")
-
-
 
     let num_res = arrayResults.length;
     //  alert("num_res : " + num_res);
@@ -131,17 +130,18 @@ function displayAnime(arrayResults){
         //  alert(this_averageScore) ;
 
         let trg_aniDiv = document.createElement("div");
-
+        trg_aniDiv.classList.add("d-flex" , "top-container" , "align-items-center");
 
         //  alert("doing img")
-
         //  let trg_aniIMG = document.createElement("img");
         //  trg_aniIMG.attr("src", this_imgURL);
         //  trg_aniDiv.appendChild(trg_aniIMG);
+        //  <img class="img_resize" style="margin: 8px; padding: 4px" th:src="${anime_r.imgURL}" alt="anime_image">
 
         let this_trg_IMG = new Image();
         this_trg_IMG.src = this_imgURL;
-        this_trg_IMG.style = "max-width=120px; max-height=180px";
+        this_trg_IMG.style = "margin: 8px; padding: 4px";
+        this_trg_IMG.className = "img_resize";
         trg_aniDiv.appendChild(this_trg_IMG);
 
 
@@ -150,15 +150,15 @@ function displayAnime(arrayResults){
 
         //  alert("doing title")
 
-        let trg_atitle = document.createElement("h4");
+        let trg_atitle = document.createElement("h3");
         trg_atitle.innerText = this_animeTitle;
         trg_atitle.style= "font-weight: bold; margin-bottom: 0";
         trg_aniInfo.appendChild(trg_atitle);
 
         //  alert("doing score")
 
-        let trg_score = document.createElement("h4");
-        trg_score.innerText = this_averageScore;
+        let trg_score = document.createElement("h5");
+        trg_score.innerText = "average score : " + this_averageScore;
         trg_score.style= "font-weight: bold; margin-bottom: 0";
         trg_aniInfo.appendChild(trg_score);
 

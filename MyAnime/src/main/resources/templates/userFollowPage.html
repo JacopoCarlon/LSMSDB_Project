@@ -46,7 +46,7 @@
     <section id="hero" class="d-flex flex-column align-items-center container-fluid p-3">
         <div id="all_followus" class="gap-1 d-flex flex-column container-fluid justify-content-center" data-aos="zoom-in" data-aos-delay="150">
             <div class="d-flex align-items-center justify-content-between" >
-                <a th:href="@{'/userPage'(username=${param.username}) }" >
+                <a th:href="@{'/userPage'(username=${param.username})}" style=" background: rgba(255, 255, 247, 0.438); border-radius: 10px; padding: 10px;" >
                     <h1 class="display-3 fw-bold" id="username" th:text="${param.username} + '\'s ' + ${param.type} + ': ' "></h1>
                 </a>
             </div>

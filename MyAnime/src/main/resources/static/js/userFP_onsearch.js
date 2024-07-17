@@ -67,8 +67,9 @@ $(document).ready(function () {
 
 function displayUser(arrayResults){
 
-    let trg_container = document.getElementById("ufpResults_section");
+    let trg_container = document.getElementById("ufpResults_container");
     trg_container.innerHTML = '';
+    trg_container.classList.add("d-flex" , "flex-column" , "p-1" , "gap-1" , "w-100" , "overflow-y-auto");
 
     let num_res = arrayResults.length;
     //  alert("num_res : " + num_res);
@@ -89,21 +90,26 @@ function displayUser(arrayResults){
 
 
         let trg_usrDiv = document.createElement("div");
+        trg_usrDiv.classList.add("d-flex" , "top-container" , "align-items-center");
+        trg_usrDiv.style = "padding:5px; padding-left:10px";
+
         let trg_usrInfo = document.createElement("div");
+        trg_usrInfo.style.display = "padding-left:5px";
         trg_usrDiv.appendChild(trg_usrInfo);
 
-        let trg_uname = document.createElement("h4");
-        trg_uname.innerText = this_username;
-        trg_uname.style= "font-weight: bold; margin-bottom: 0";
+
+        let trg_uname = document.createElement("h3");
+        trg_uname.innerText = "user : " + this_username;
+        trg_uname.style= "font-weight: bold; margin-bottom: 0; margin-left: 8px";
         trg_usrInfo.appendChild(trg_uname);
 
-        let trg_stats = document.createElement("h4");
-        trg_stats.innerText = this_statsEpisodes;
+        let trg_stats = document.createElement("h5");
+        trg_stats.innerText = "n. watched episodes : " + this_statsEpisodes;
         trg_stats.style= "font-weight: bold; margin-bottom: 0";
         trg_usrInfo.appendChild(trg_stats);
 
-        let trg_date = document.createElement("h4");
-        trg_date.innerText = this_joinDate;
+        let trg_date = document.createElement("h5");
+        trg_date.innerText = "join-date : " + this_joinDate;
         trg_date.style= "font-weight: bold; margin-bottom: 0";
         trg_usrInfo.appendChild(trg_date);
 

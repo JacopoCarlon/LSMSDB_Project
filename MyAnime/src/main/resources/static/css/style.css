@@ -895,7 +895,13 @@ li {
     color: #282828;
 }
 
-
+div.auSearchFilterResults{
+    border-radius: 5px;
+    padding: 5px;
+    margin: 10px;
+    border: 1px solid;
+    min-height: 130px;
+}
 
 
 
