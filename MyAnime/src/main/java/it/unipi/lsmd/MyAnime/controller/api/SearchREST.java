@@ -50,7 +50,8 @@ public class SearchREST {
             }
             try {
                 ObjectMapper objectMapper = new ObjectMapper();
-                objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+                objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+                objectMapper.registerModule(new JavaTimeModule());
                 return objectMapper.writeValueAsString(animes);
             } catch (Exception e){
                 e.printStackTrace();
@@ -61,19 +62,10 @@ public class SearchREST {
         else if(category.equals("user")){
             List<User> users = userRepoMongoDB.findUser(term);
             try {
-                /*for(User user : users){
-                    user.setPrintableBirthDate();
-                    user.setPrintableJoinDate();
-                }
-                System.out.println(users);
-                String js = new Gson().toJson(users);
-                System.out.println(js);
-                return js;*/
                 ObjectMapper objectMapper = new ObjectMapper();
                 objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
                 objectMapper.registerModule(new JavaTimeModule());
                 return objectMapper.writeValueAsString(users);
-                //return ;
             } catch (Exception e){
                 e.printStackTrace();
                 return "{\"error\": \"An error occurred while converting the data.\"}";
