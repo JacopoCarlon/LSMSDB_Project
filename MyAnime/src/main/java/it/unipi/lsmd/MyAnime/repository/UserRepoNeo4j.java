@@ -62,9 +62,9 @@ public class UserRepoNeo4j {
         }
     }
 
-    public String addWatches(String username, String animeTitle, int status, int episodes){
+    public Integer addWatches(String username, String animeTitle, Integer status){
         try {
-            return userNeo4jInterface.addWatches(username, animeTitle, status, episodes);
+            return userNeo4jInterface.addWatches(username, animeTitle, status);
         } catch (DataAccessException dae) {
             dae.printStackTrace();
             return null;

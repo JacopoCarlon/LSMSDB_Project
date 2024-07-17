@@ -18,9 +18,10 @@ public interface UserNeo4jInterface extends Neo4jRepository<UserNode, String> {
     void deleteUser(String username);
 
     @Query("MATCH (u1:User {username: $user1}) " +
-            "OPTIONAL MATCH (u1)-[f:FOLLOWS]->(:User {username: $user2}) " +
-            "WITH u1, f, CASE WHEN f IS NULL THEN 'CREATED' ELSE 'EXISTING' END AS status " +
-            "MERGE (u1)-[:FOLLOWS]->(:User {username: $user2}) " +
+            "MATCH (u2:User {username: $user2}) " +
+            "OPTIONAL MATCH (u1)-[f:FOLLOWS]->(u2) " +
+            "WITH u1, u2, f, CASE WHEN f IS NULL THEN 'CREATED' ELSE 'EXISTING' END AS status " +
+            "MERGE (u1)-[:FOLLOWS]->(u2) " +
             "RETURN status")
     String addFollow(String user1, String user2);
 
@@ -28,14 +29,15 @@ public interface UserNeo4jInterface extends Neo4jRepository<UserNode, String> {
             "DELETE r")
     void removeFollow(String user1, String user2);
 
-    @Query("MATCH (u:User {username: $username}), (a:Anime {title: $animeTitle}) " +
-            "MERGE (u)-[w:WATCHES]->(a) " +
-            "WITH u, w, a, CASE WHEN w.status IS NULL THEN true ELSE false END AS isNew " +
-            "LIMIT(1)" +
-            "SET w.status = $status " +
-            "SET w.episodes = $episodes " +
-            "RETURN CASE WHEN isNew = true THEN 'CREATED' ELSE 'EXISTING' END")
-    String addWatches(String username, String animeTitle, int status, int episodes);
+    @Query("MATCH (u:User {username: $username}) " +
+            "MATCH (a:Anime {title: $animeTitle}) " +
+            "OPTIONAL MATCH (u)-[w:WATCHES]->(a) " +
+            "WITH a, u, w, CASE WHEN w IS NULL THEN 0 ELSE w.status END AS oldStatus " +
+            "MERGE (u)-[ww:WATCHES]->(a) " +
+            "SET ww.status = $status " +
+            "SET ww.watched_episodes = 0 " +
+            "RETURN oldStatus")
+    Integer addWatches(String username, String animeTitle, Integer status);
 
     @Query("MATCH (u:User {username: $username})-[r:WATCHES]->(a:Anime {title: $animeTitle}) " +
             "DELETE r")

@@ -112,21 +112,24 @@ $(document).ready(function () {
     })
 
     function setAnimeToList(){
-        //  alert("enter in function")
         let trg_name = "setAnimeLstn_radio"
-        //  alert("looking for name : " + trg_name)
-
         let ele = document.getElementsByName(trg_name);
-        //  alert("found elements : " + ele)
-        //  alert("number of found elements : " + ele.length)
 
-        let trg_arr = [];
+        let trg_list = null;
+        let list_name = null;
         for (i = 0; i < ele.length; i++) {
             if (ele[i].checked){
-                trg_arr.push(ele[i].id.toString());
+                trg_list = ele[i].id.toString()[4];
+                list_name = ele[i].value.toString();
+                break;
             }
         }
-        //  alert("found ; " + trg_arr);
+
+        if (trg_list == null) {
+            alert("requested list not found")
+            return;
+        }
+
 
         $.ajax({
             url: '/api/setAnimeToList',
@@ -134,17 +137,32 @@ $(document).ready(function () {
             method: 'POST',
 
             data:   {
-                targetList :    trg_arr,
-                animeToList :   forceAnimeTitle
+                animeTitle :   forceAnimeTitle,
+                targetList  :   trg_list
             },
 
             success: function(response) {
                 switch(response.outcome_code){
                     case 0:
-                        alert("anime added to the list : " + trg_arr);
+                        alert("Anime added to list \'" + list_name +"\'");
                         break;
                     case 1:
-                        alert("anime was already in the list : " + trg_arr);
+                        alert("You must be logged to do this!");
+                        break;
+                    case 2:
+                        alert("Admins account cannot do this!");
+                        break;
+                    case 3:
+                        alert("Selected list does not exists");
+                        break;
+                    case 4:
+                        alert("Selected anime does not exists");
+                        break;
+                    case 5:
+                        alert("Anime was already in list \'" + list_name + "\'");
+                        break;
+                    case 12:
+                        alert("Error while connecting to database");
                         break;
                     default:
                         alert("Unknown (magic) error.");
