@@ -37,6 +37,9 @@
             <!-- Values taken with Thymeleaf from the controller to understand if the user is logged and is admin -->
             <input type="hidden" id="is_logged" th:value="${logged}"/>
             <input type="hidden" id="is_admin" th:value="${is_admin}">
+
+            <p style="visibility: hidden; height: 0px" id="magic_is_logged" th:text="${logged}"></p>
+            <p style="visibility: hidden; height: 0px" id="magic_is_admin"  th:text="${is_admin}"></p>
             
             <!-- Dynamic header -->
             <header class="header sticky-top shadow">

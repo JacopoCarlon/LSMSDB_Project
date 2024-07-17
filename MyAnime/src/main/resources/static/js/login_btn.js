@@ -33,7 +33,8 @@ $(document).ready(function () {
         console.log("uname: " + tmp_usrn);
         console.log("upwd: " + tmp_pwd);
         console.log("as_admin: " + option_admin);
-        if (tmp_usrn == "" || tmp_usrn == "" ) {
+
+        if (tmp_usrn == "" || tmp_pwd == "" ) {
             alert("Username not found in the database. Please make sure you have typed the username correctly. (In this case the search was not executed)");
             return;
         }

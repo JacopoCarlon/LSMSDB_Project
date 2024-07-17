@@ -13,8 +13,10 @@ public class LoginPageController {
     @RequestMapping(value={"/login.html","/loginPage.html","/login","/loginPage"})
     public String loginPage(HttpSession session, Model model) {
 
-        model.addAttribute("logged", Utility.isLogged(session));
-        model.addAttribute("is_admin", Utility.isAdmin(session));
+        //  model.addAttribute("logged", Utility.isLogged(session));
+        //  model.addAttribute("is_admin", Utility.isAdmin(session));
+        //  System.out.println("in logPageController " + Utility.isLogged(session));
+        //  System.out.println("in logPageController " + Utility.isAdmin(session));
 
         if(!Utility.isLogged(session)){
             return "loginPage";

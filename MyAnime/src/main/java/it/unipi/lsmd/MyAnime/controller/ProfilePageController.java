@@ -26,7 +26,7 @@ public class ProfilePageController {
             return "error/mustBeLogged";
         }
         else if(Utility.isAdmin(session)){
-            return "admin";
+            return "adminPage";
         }
         else{
             String this_username = Utility.getUsername(session);

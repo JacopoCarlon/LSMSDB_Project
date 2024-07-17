@@ -28,6 +28,9 @@ public class MostPopularPageController {
     public String mostPopularPage(HttpSession session,
                                   Model model) {
 
+        model.addAttribute("logged", Utility.isLogged(session));
+        model.addAttribute("is_admin", Utility.isAdmin(session));
+
         if(!Utility.isLogged(session)){
             //  System.out.println("entered mostPopularPage, value of isLogged is : " + Utility.isLogged(session) + ", redirecting to login");
             return "error/mustBeLogged";

@@ -1,6 +1,6 @@
 $(document).ready(function(){
-    
-    //  TODO : setup login !!!!!!!!!!!!!!!
+    //  alert("begin on ready serachbar")
+
     //  let value = $("#is_logged").val()
     //  if(value == 'true')
     //      categories = ['Anime', 'User']
@@ -17,10 +17,16 @@ $(document).ready(function(){
     setActiveLink();
 })
 function loadSearchBar(){
-    let value = $("#is_logged").val();
-    let admin = $("#is_admin").val();
-    //  TODO : setup login !!!!!!!!!!!!!!!
-    //  TODO : unrelative all paths
+
+    let value = $("#magic_is_logged").text();
+    let admin = $("#magic_is_admin").text();
+    //  alert("magicislogged : " + magicvalue)
+    //  alert("magicisADMIN : " + magicadmin)
+    //  let old_value = $("#is_logged").val();
+    //  let old_admin = $("#is_admin").val();
+    //  alert("value : " + old_value)
+    //  alert("admin : " + old_admin)
+
     //  value = 'true'
     //  admin = 'false'
     $(".header").append(

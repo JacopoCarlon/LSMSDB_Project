@@ -5,6 +5,7 @@ import it.unipi.lsmd.MyAnime.model.Admin;
 import it.unipi.lsmd.MyAnime.model.User;
 import it.unipi.lsmd.MyAnime.repository.AdminRepoMongoDB;
 import it.unipi.lsmd.MyAnime.repository.UserRepoMongoDB;
+import it.unipi.lsmd.MyAnime.utilities.Utility;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessResourceFailureException;
@@ -67,8 +68,18 @@ public class LoginREST {
                 //  //  Login successful
                 session.setAttribute("logged", true);
                 session.setAttribute("username", username);
-                session.setAttribute("is_admin", as_admin);
-                return "{\"login_code\": 0}";     
+
+                System.out.println("REST testing admin : " + as_admin);
+
+                if(as_admin){
+                    session.setAttribute("is_admin", true);
+
+                    System.out.println("REST isAdmin : " + Utility.isAdmin(session));
+
+                }else{
+                    session.setAttribute("is_admin", false);
+                }
+                return "{\"login_code\": 0}";
             }
             else {
                 //  //  Wrong password
