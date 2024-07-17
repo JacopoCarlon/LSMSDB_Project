@@ -1,5 +1,6 @@
 package it.unipi.lsmd.MyAnime.controller.api;
 
+import it.unipi.lsmd.MyAnime.repository.AnimeRepoMongoDB;
 import it.unipi.lsmd.MyAnime.repository.UserRepoMongoDB;
 import it.unipi.lsmd.MyAnime.repository.UserRepoNeo4j;
 import it.unipi.lsmd.MyAnime.utilities.Utility;
@@ -22,35 +23,70 @@ import java.util.List;
 @RestController
 public class AdminAnimeUploadREST {
 
+    private final AnimeRepoMongoDB animeRepoMongoDB;
+
+    public AdminAnimeUploadREST(AnimeRepoMongoDB animeRepoMongoDB) {
+        this.animeRepoMongoDB = animeRepoMongoDB;
+    }
+
     @PostMapping("/api/adminAnimeUpload")
-    @Transactional
-    public @ResponseBody String signup( HttpSession session,
+    @Transactional("transactionManager")
+    public @ResponseBody String adminAnimeUpload( HttpSession session,
             @RequestParam("title_val")              String title_val,
-            @RequestParam("titleJapanese_val")      String titleJapanese_val,
+            @RequestParam(required = false)      String titleJapanese_val,
             @RequestParam("source_val")             String source_val,
-            @RequestParam("episodes_val")           Integer episodes_val,
-            @RequestParam("slider_airing_val")      Boolean slider_airing_val,
-            @RequestParam("aired_input_from_val")   Instant aired_input_from_val,
-            @RequestParam("aired_input_to_val")     Instant aired_input_to_val,
-            @RequestParam("background_val")         String background_val,
-            @RequestParam("broadcast_val")          String broadcast_val,
-            @RequestParam("producer_val")           String producer_val,
-            @RequestParam("licensor_val")           String licensor_val,
-            @RequestParam("studio_val")             String studio_val,
-            @RequestParam("EpisodeDuration_val")    Integer EpisodeDuration_val,
+            @RequestParam(required = false)           Integer episodes_val,
+            @RequestParam(required = false)      Boolean slider_airing_val,
+            @RequestParam(required = false)   String aired_input_from_val,
+            @RequestParam(required = false)     String aired_input_to_val,
+            @RequestParam(required = false)         String background_val,
+            @RequestParam(required = false)          String broadcast_val,
+            @RequestParam(required = false)           String producer_val,
+            @RequestParam(required = false)           String licensor_val,
+            @RequestParam(required = false)             String studio_val,
+            @RequestParam(required = false)    Integer EpisodeDuration_val,
             @RequestParam("imgURL_val")             String imgURL_val,
-            @RequestParam("type_list")              List<String> type_list,
-            @RequestParam("rating_list")            List<String> rating_list,
-            @RequestParam("genre_list")             List<String> genre_list
+            @RequestParam(required = false)              String type_val,
+            @RequestParam(required = false)            String rating_val,
+            @RequestParam(required = false)             List<String> genre_list
     ){
         // only required are : title_val source_val  imgURL_val
+        System.out.println("DBG -> inizio di animeAdd con parametri : ");
+        System.out.println(title_val);
+        System.out.println(titleJapanese_val);
+        System.out.println(source_val);
+        System.out.println(imgURL_val);
+        System.out.println(type_val);
+        System.out.println(rating_val);
+        System.out.println(genre_list);
+        System.out.println(episodes_val);
+        System.out.println(slider_airing_val);
+        System.out.println(aired_input_from_val);
+        System.out.println(aired_input_to_val);
+        System.out.println(background_val);
+        System.out.println(broadcast_val);
+        System.out.println(producer_val);
+        System.out.println(licensor_val);
+        System.out.println(studio_val);
+        System.out.println(EpisodeDuration_val);
 
+        if(title_val==null || title_val.isEmpty()){
+            return "{\"outcome_code\": 3}";
+        }
+        if(imgURL_val==null || imgURL_val.isEmpty()){
+            return "{\"outcome_code\": 3}";
+        }
+        if(source_val==null || source_val.isEmpty()){
+            return "{\"outcome_code\": 3}";
+        }
         try {
-            if(!Utility.isLogged(session)){
-                return "{\"outcome_code\": 1}";     // User not logged in
+            if(!Utility.isLogged(session) || !Utility.isAdmin(session)){
+                return "{\"outcome_code\": 1}";     // User not logged in nor admin
             }
 
-            // stuff
+            if(!animeRepoMongoDB.insertAnime(title_val,titleJapanese_val,source_val,episodes_val,slider_airing_val,aired_input_from_val,aired_input_to_val,background_val,broadcast_val,producer_val,licensor_val, studio_val, EpisodeDuration_val, imgURL_val, type_val, rating_val, genre_list)){
+                return "{\"outcome_code\": 4}";     // Anime not added
+            }
 
 
 

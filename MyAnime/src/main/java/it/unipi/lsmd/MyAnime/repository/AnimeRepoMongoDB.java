@@ -9,6 +9,7 @@ import it.unipi.lsmd.MyAnime.model.query.AnimeWithWatchers;
 import it.unipi.lsmd.MyAnime.repository.MongoDB.AnimeMongoInterface;
 import it.unipi.lsmd.MyAnime.utilities.Constants;
 import it.unipi.lsmd.MyAnime.utilities.Utility;
+import org.apache.commons.validator.routines.UrlValidator;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
@@ -23,6 +24,7 @@ import org.springframework.data.mongodb.core.BulkOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.ArrayOperators;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Update;
@@ -386,6 +388,64 @@ public class AnimeRepoMongoDB {
             bulkOps.execute();
             return true;
 
+        } catch (DataAccessException dae) {
+            if (dae instanceof DataAccessResourceFailureException)
+                throw dae;
+            dae.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean insertAnime(String titleVal, String titleJapaneseVal, String sourceVal, Integer episodesVal, Boolean sliderAiringVal, String airedInputFromVal, String airedInputToVal, String backgroundVal,String broadcastVal, String producerVal, String licensorVal, String studioVal, Integer episodeDurationVal, String imgURLVal, String type, String rating, List<String> genreList) {
+        if(existsByTitle(titleVal)){
+            System.out.println("anime already exists");
+            return false;
+        }
+        if(episodesVal<0 || episodeDurationVal<0){
+            System.out.println("episodes or episodeDuration not valid");
+            return false;
+        }
+        String[] schemes = {"http","https"};
+        UrlValidator urlValidator = new UrlValidator(schemes);
+        if (!urlValidator.isValid(imgURLVal)) {
+            System.out.println("url not valid");
+            return false;
+        }
+        try {
+            Map airedInput = new HashMap<String, Instant>();
+            if (airedInputFromVal != null){
+                airedInput.put("from", ZonedDateTime.of(Integer.parseInt(airedInputFromVal.substring(0,4)), Integer.parseInt(airedInputFromVal.substring(5,7)), Integer.parseInt(airedInputFromVal.substring(8)), 0, 0, 0, 0, ZoneOffset.UTC).toInstant());
+            } else {
+                airedInput.put("from", null);
+            }
+            if (airedInputFromVal != null){
+                airedInput.put("to", ZonedDateTime.of(Integer.parseInt(airedInputToVal.substring(0,4)), Integer.parseInt(airedInputToVal.substring(5,7)), Integer.parseInt(airedInputToVal.substring(8)), 0, 0, 0, 0, ZoneOffset.UTC).toInstant());
+            } else {
+                airedInput.put("to", null);
+            }
+            HashMap<String,String> typeMapper = Utility.typeMapper();
+            HashMap<String, String> genreMapper = Utility.genreMapper();
+            genreList.replaceAll(genreMapper::get);
+            HashMap<String, String> ratingMapper = Utility.ratingMapper();
+            Anime anime = new Anime(titleVal,
+                    titleJapaneseVal,
+                    typeMapper.get(type),
+                    sourceVal,
+                    episodesVal,
+                    sliderAiringVal,
+                    airedInput,
+                    ratingMapper.get(rating),
+                    backgroundVal,
+                    broadcastVal,
+                    producerVal,
+                    licensorVal,
+                    studioVal,
+                    genreList.toArray(new String[0]),
+                    episodeDurationVal,
+                    imgURLVal);
+            System.out.println(anime);
+            animeMongoInterface.save(anime);
+            return true;
         } catch (DataAccessException dae) {
             if (dae instanceof DataAccessResourceFailureException)
                 throw dae;

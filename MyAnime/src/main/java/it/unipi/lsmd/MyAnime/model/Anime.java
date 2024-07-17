@@ -69,6 +69,25 @@ public class Anime {
         this.mostRecentReviews = mostRecentReviews;
     }
 
+    public Anime (String title, String titleJapanese, String type, String source, int episodes,  boolean airing, Map aired, String rating, String background, String broadcast, String producer, String licensor, String studio, String[] genre, int EpisodeDuration, String imgURL) {
+        this.title = title;
+        this.titleJapanese = titleJapanese;
+        this.type = type;
+        this.source = source;
+        this.episodes = episodes;
+        this.airing = airing;
+        this.aired = aired;
+        this.rating = rating;
+        this.background = background;
+        this.broadcast = broadcast;
+        this.producer = producer;
+        this.licensor = licensor;
+        this.studio = studio;
+        this.genre = genre;
+        this.episodeDuration = EpisodeDuration;
+        this.imgURL = imgURL;
+    }
+
     public Anime(String title, Double score, String picture){
         this.title = title;
         this.averageScore = score;
