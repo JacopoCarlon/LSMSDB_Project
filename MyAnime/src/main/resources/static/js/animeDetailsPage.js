@@ -29,6 +29,9 @@ $(document).ready(function () {
     }
 
 
+
+
+
     //  alert("doing writeReview_btn")
     let writeReviewBtn = $("#writeReview_btn");
 
@@ -40,6 +43,65 @@ $(document).ready(function () {
     } else{
         alert("writeReviewBtn not found");
     }
+
+
+
+
+    //  alert("magic-logged ? : " + $('#magic-logged').text());
+    //  alert("magic-is_admin? : " + $('#magic-is_admin').text());
+
+    $("#setAnimeWatchedEp_btn").click(function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const episodes_val = parseInt( $("#userNumWatchedEpisodes_input").val() ) ;
+
+        const maxEp_valtext = parseInt( $("#numEpMaxThisAnime").text() ) ;
+        //  const maxEp_valval = $("#numEpMaxThisAnime").val();
+
+        //  alert("declared number : " + episodes_val);
+        //  alert("declared number type: " + typeof(episodes_val) );
+        //  alert("max00 number : " + maxEp_valtext);
+        //  alert("max00 number type:" + typeof(maxEp_valtext) );
+
+        if(episodes_val > maxEp_valtext){
+            alert("you cannot possibly have watched these many episodes of this anime.")
+            return false;
+        }
+
+
+        $.ajax({
+            url: '/api/setUserAnimeWatchedEpisodes',
+            dataType: 'json',
+            method: 'POST',
+
+            data:   {
+                targetList :    episodes_val,
+                animeToList :   forceAnimeTitle
+            },
+
+            success: function(response) {
+                switch(response.outcome_code){
+                    case 0:
+                        alert("episode count updated to : " + trg_arr);
+                        break;
+                    default:
+                        alert("Unknown (magic) error.");
+                }
+            },
+            error: function (xhr, status, error) {
+                alert("ERROR in ajax: " + error);
+            }
+        });
+
+        return false;
+    })
+
+
+
+
+
+
 
 
     $("#doSetAnimeList_btn").click(function (e) {
@@ -72,15 +134,18 @@ $(document).ready(function () {
             method: 'POST',
 
             data:   {
-                targetList :    trg_arr
+                targetList :    trg_arr,
+                animeToList :   forceAnimeTitle
             },
 
             success: function(response) {
                 switch(response.outcome_code){
                     case 0:
                         alert("anime added to the list : " + trg_arr);
+                        break;
                     case 1:
                         alert("anime was already in the list : " + trg_arr);
+                        break;
                     default:
                         alert("Unknown (magic) error.");
                 }
@@ -88,6 +153,6 @@ $(document).ready(function () {
             error: function (xhr, status, error) {
                 alert("ERROR in ajax: " + error);
             }
-        } ) ;
+        });
     }
 });

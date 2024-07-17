@@ -66,7 +66,7 @@
                                 </tr>
                                 <tr>
                                     <th>Number of episodes : </th>
-                                    <th th:text="${animeDetails.episodes}" ></th>
+                                    <th id="numEpMaxThisAnime" th:text="${animeDetails.episodes}" ></th>
                                 </tr>
                                 <tr>
                                     <th>Episode Duration : </th>
@@ -147,10 +147,10 @@
                             </div>
 
 
-                            <div id = "form_container" style="min-height: 70px;width: 70%">
+                            <div id = "form_container" style="min-height: 70px;width: 40%">
                                 <form class="filters" autocomplete="off">
                                     <!-- TYPE -->
-                                    <div class="filter setAnimeToListFilter" style="width: 40%">
+                                    <div class="filter setAnimeToListFilter" style="width: 80%">
                                         <div class="dropdown">
                                             <button class="btn btn-secondary dropdown-toggle" type="button" id="setAnimeToList_btn" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <span class="value" data-placeholder="Select type" data-label-placement="true">Choose List for this anime</span>
@@ -185,12 +185,27 @@
                                         <span class="ml-1"> Set Anime To List </span>
                                     </button>
                                 </div>
+
                             </div>
 
 
 
+                            <div id = "watchedEP_container" style=" width: 40%; border-radius: 5px; padding: 5px; margin: 10px; border: 1px solid; min-height: 130px;">
+                                <div class="mb-3">
+                                    <label for="userNumWatchedEpisodes_input" class="form-label">Number of watched episodes </label>
+                                    <input id="userNumWatchedEpisodes_input" class="form-control" type="number" min="0">
+                                </div>
+                                <div  class="submit filter " style="width: 400px" >
+                                    <button id="setAnimeWatchedEp_btn" class="d-flex align-items-center" >
+                                        <span class="ml-1"> Set Anime To List </span>
+                                    </button>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
+
+
                     <div class="d-flex gap-1">
                         <div class="d-flex flex-column col-md-12">
                             <div id="anime_reviews" class="d-flex flex-column">
