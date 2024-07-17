@@ -78,20 +78,7 @@ function loadSearchBar(){
         )
     }
 
-    $("body").append(
-        "<div class=\"modal fade\" id=\"search_results\" data-bs-backdrop=\"static\" tabindex=\"-1\" aria-hidden=\"true\">\n" +
-        "  <div class=\"modal-dialog modal-lg modal-dialog-centered\">\n" +
-        "    <div class=\"modal-content\">\n" +
-        "      <div class=\"modal-header\">\n" +
-        "        <h5 class=\"modal-title\" id=\"search_results_title\">Search results</h5>\n" +
-        "        <button style=\"color: white;\" id=\"close_btn\" type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>\n" +
-        "      </div>\n" +
-        "      <div class=\"modal-body\">\n" +
-        "      </div>\n" +
-        "    </div>\n" +
-        "  </div>\n" +
-        "</div>"
-    )
+
 }
 function setActiveLink() {
     // Get the current URL

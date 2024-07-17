@@ -1,13 +1,16 @@
 // used for loginPage
-//  TODO : unrelativize paths
-//  needs : controllers/api/...rest.java che abbia @PostMapping("/api/login") e mi ritorni outcome_code : 0
 $(document).ready(function () {
     $("#filterdo_btn").click(function (e) {
         e.preventDefault();
+        e.stopPropagation();
         search();
+        return false;
     });
+
     $("#close_btn").click(function (e) {
         e.preventDefault();
+        e.stopPropagation();
+        return false;
     })
 
     $("#search_input").on("keydown", function (e) {
@@ -15,6 +18,7 @@ $(document).ready(function () {
             e.preventDefault();
             e.stopPropagation();
             search();
+            return false;
         }
     });
 
@@ -23,6 +27,7 @@ $(document).ready(function () {
             e.preventDefault();
             e.stopPropagation();
             search();
+            return false;
         }
     });
 
@@ -38,7 +43,7 @@ $(document).ready(function () {
                 trg_arr.push(ele[i].id.toString());
             }
         }
-        alert("trg_arr for name " + trg_name + "is : " + trg_arr);
+        //  alert("trg_arr for name " + trg_name + "is : " + trg_arr);
         return trg_arr;
     }
 
@@ -51,7 +56,7 @@ $(document).ready(function () {
         for (i_name in trgFilterNames) {
             filters.push(getChosenByName(trgFilterNames[i_name]) );
         }
-        const searchTerm = $("#search_input").val();
+        //  const searchTerm = $("#search_input").val();
         const keyword = $("#keyword").val();
 
         const category = "anime";
@@ -76,13 +81,10 @@ $(document).ready(function () {
             success: function (arrayResults) {
                 //  //  window.location.href = "/animeFilterPage";
                 if (arrayResults == null || arrayResults.length == 0) {
-                    const container = $(".modal-body");
-                    container.empty();
-                    container.append($("<p>No results found</p>"));
+                    alert("no results found")
                 } else {
                     displayAnime(arrayResults);
                 }
-
             },
             error: function (xhr, status, error) {
                 console.error("Error: " + error);
@@ -91,28 +93,105 @@ $(document).ready(function () {
     }
 });
 
-function displayAnime(anime_lst) {
-    const container = $(".afpResults_container");
-    container.empty();
 
-    anime_lst.forEach(function (anime) {
 
-        let animeDiv = $("<div id=\"anime_info\" class=\"d-flex flex-column top-container gap-1\"></div>");
-        //  animeDiv.append(  $("<div class=\"d-flex top-container align-items-center\"></div>") );
-        animeDiv.append(  $("<img id=\"anime_cover\" class=\"top-cover p-1\"/>").attr("src", anime.imgURL)  );
-        let animeInf = $("<div id=\"anime_details\" class=\"anime-details-sm d-flex flex-column mt-1\"></div>");
-        animeDiv.append(animeInf);
-        animeInf.append($("<h4 id=\"anime_title\" style=\"font-weight: bold; margin-bottom: 0;\"></h4>").text(anime.title));
-        let div1 = $("<div class=\"d-flex m-0\"></div>");
-        animeInf.append(div1);
-        div1.append($("<p style=\"font-size: medium;\" id=\"anime_score\"></p>").text(anime.averageScore ));
-        animeDiv.click(function () {
-            window.location.href = '/animeDetailsPage?title=' + anime.title;
-        });
-        container.append(animeDiv);
 
-    });
+function displayAnime(arrayResults){
+
+    //  alert("begin displayAnime")
+
+    //  let magicdiv = document.getElementById("magicalDiv");
+    //  let content = document.createElement("p");
+    //  content.innerHTML = "contenutissimoooooooo";
+    //  magicdiv.appendChild(content);
+
+    //  alert("ciao")
+
+    let trg_container = document.getElementById("afpResults_container");
+
+    let num_res = arrayResults.length;
+    //  alert("num_res : " + num_res);
+
+    for (let i = 0; i < num_res ; i++) {
+
+        let number_i = parseInt(i);
+        alert("got the result : " + JSON.stringify(arrayResults[number_i])  )
+
+        let myMap = new Map(Object.entries(JSON.parse(JSON.stringify(arrayResults[number_i]))));
+
+        let this_imgURL = myMap.get('imgURL') ;
+        let this_animeTitle =  myMap.get('title') ;
+        let this_averageScore =  myMap.get('averageScore') ;
+
+        //  alert(this_imgURL) ;
+        //  alert(this_animeTitle) ;
+        //  alert(this_averageScore) ;
+
+        let trg_aniDiv = document.createElement("div");
+
+
+        //  alert("doing img")
+
+        //  let trg_aniIMG = document.createElement("img");
+        //  trg_aniIMG.attr("src", this_imgURL);
+        //  trg_aniDiv.appendChild(trg_aniIMG);
+
+        let this_trg_IMG = new Image();
+        this_trg_IMG.src = this_imgURL;
+        trg_aniDiv.appendChild(this_trg_IMG);
+
+
+        let trg_aniInfo = document.createElement("div");
+        trg_aniDiv.appendChild(trg_aniInfo);
+
+        //  alert("doing title")
+
+        let trg_atitle = document.createElement("h4");
+        trg_atitle.innerText = this_animeTitle;
+        trg_atitle.style= "font-weight: bold; margin-bottom: 0";
+        trg_aniInfo.appendChild(trg_atitle);
+
+        //  alert("doing score")
+
+        let trg_score = document.createElement("h4");
+        trg_score.innerText = this_averageScore;
+        trg_score.style= "font-weight: bold; margin-bottom: 0";
+        trg_aniInfo.appendChild(trg_score);
+
+        //  alert("making url link ")
+
+        trg_aniDiv.onclick = function () {
+            window.location.href = '/animeDetailsPage?title=' + this_animeTitle;
+        }
+
+        trg_container.appendChild(trg_aniDiv);
+    }
 }
+
+
+
+//  function displayAnime(anime_lst) {
+//      const container = $(".afpResults_container");
+//      container.empty();
+//
+//      anime_lst.forEach(function (anime) {
+//
+//          let animeDiv = $("<div id=\"anime_info\" class=\"d-flex flex-column top-container gap-1\"></div>");
+//          //  animeDiv.append(  $("<div class=\"d-flex top-container align-items-center\"></div>") );
+//          animeDiv.append(  $("<img id=\"anime_cover\" class=\"top-cover p-1\"/>").attr("src", anime.imgURL)  );
+//          let animeInf = $("<div id=\"anime_details\" class=\"anime-details-sm d-flex flex-column mt-1\"></div>");
+//          animeDiv.append(animeInf);
+//          animeInf.append($("<h4 id=\"anime_title\" style=\"font-weight: bold; margin-bottom: 0;\"></h4>").text(anime.title));
+//          let div1 = $("<div class=\"d-flex m-0\"></div>");
+//          animeInf.append(div1);
+//          div1.append($("<p style=\"font-size: medium;\" id=\"anime_score\"></p>").text(anime.averageScore ));
+//          animeDiv.click(function () {
+//              window.location.href = '/animeDetailsPage?title=' + anime.title;
+//          });
+//          container.append(animeDiv);
+//
+//      });
+//  }
 
 
 //  //  //  OLD SOLUTION :
@@ -149,5 +228,3 @@ function displayAnime(anime_lst) {
 //  //  //              </div>
 //  //  //      </div>
 //  //  //  </a>
-
-

@@ -4,10 +4,14 @@
 $(document).ready(function () {
     $("#filterdo_btn").click(function (e) {
         e.preventDefault();
+        e.stopPropagation();
         search();
+        return false;
     });
     $("#close_btn").click(function (e){
         e.preventDefault();
+        e.stopPropagation();
+        return false;
     })
 
     $("#search_input").on("keydown", function (e) {
@@ -15,6 +19,7 @@ $(document).ready(function () {
             e.preventDefault();
             e.stopPropagation();
             search();
+            return false;
         }
     });
 
@@ -23,11 +28,12 @@ $(document).ready(function () {
             e.preventDefault();
             e.stopPropagation();
             search();
+            return false;
         }
     });
 
     function search() {
-        const searchTerm = $("#search_input").val();
+        //  const searchTerm = $("#search_input").val();
         const keyword = $("#keyword").val();
         const category = "user";
 
@@ -41,23 +47,13 @@ $(document).ready(function () {
             method: 'GET',
 
             success: function (arrayResults) {
-                alert("we got something from the search : " + JSON.stringify(arrayResults[0]));
-                let myMap = new Map(Object.entries(JSON.parse(JSON.stringify(arrayResults[0]))));
-                alert("myMap size : " + myMap.size);
-                for (const [key, value] of myMap) {
-                    console.log(`The value for key ${key} is ${value}`);
-                }
-                console.log("CIAO: "+ myMap.get('username'));
-                window.location.href = "/userFilterPage";
+                //  window.location.href = "/userFilterPage";
                 if(arrayResults==null || arrayResults.length == 0) {
-                    const container = $(".modal-body");
-                    container.empty();
-                    container.append($("<p>No results found</p>"));
+                    alert("no results found")
                 }
                 else {
                     displayUser(arrayResults);
                 }
-                
             },
             error: function (xhr, status, error) {
                 console.error("Error: " + error);
@@ -68,39 +64,84 @@ $(document).ready(function () {
 
 
 
-function displayUser(user_lst){
-    alert("begin displaying user");
-    alert("user list : " + user_lst);
-    alert("typeof user list : " + typeof(user_lst));
+function displayUser(arrayResults){
 
-    //  let parsedlst = JSON.parse(user_lst);
-    //  alert("parsedlst list : " + parsedlst);
-    //  alert("typeof parsedlst list : " + typeof(parsedlst));
+    let trg_container = document.getElementById("ufpResults_section");
 
+    let num_res = arrayResults.length;
+    //  alert("num_res : " + num_res);
 
+    for (let i = 0; i < num_res; i++) {
 
-    const container = $(".ufpResults_container");
-    container.empty();
+        let number_i = parseInt(i);
 
-    user_lst.forEach(function (tsuser) {
+        let myMap = new Map(Object.entries(JSON.parse(JSON.stringify(arrayResults[number_i]))));
 
-        let userDiv = $("<div id=\"user_info\" class=\"d-flex flex-column top-container gap-1\"></div>");
-        let userInf = $("<div id=\"user_details\" class=\"user-details-sm d-flex flex-column mt-1\"></div>");
-        userDiv.append(userInf);
-        userInf.append($("<h4 id=\"user_title\" style=\"font-weight: bold; margin-bottom: 0;\"></h4>").text(tsuser.username));
-        let div1 = $("<div class=\"d-flex m-0\"></div>");
-        userInf.append(div1);
-        div1.append($("<p style=\"font-size: medium;\" id=\"user_stats\"></p>").text(tsuser.statsEpisodes ));
-        let div2 = $("<div class=\"d-flex m-0\"></div>");
-        userInf.append(div2);
-        div2.append($("<p style=\"font-size: medium;\" id=\"user_joined\"></p>").text(tsuser.joinDate ));
-        userDiv.click(function () {
-            window.location.href = '/userDetailsPage?title=' + tsuser.username;
-        });
-        container.append(userDiv);
-    });
+        let this_username = myMap.get('username') ;
+        //  alert("this_username : " + this_username);
+        //  alert("this_username type: " + typeof(this_username) );
+        let this_statsEpisodes =  myMap.get('statsEpisodes') ;
+        //  alert("this_statsEpisodes : " + this_statsEpisodes);
+        let this_joinDate =  myMap.get('joinDate') ;
+        //  alert("this_joinDate : " + this_joinDate);
 
 
+        let trg_usrDiv = document.createElement("div");
+        let trg_usrInfo = document.createElement("div");
+        trg_usrDiv.appendChild(trg_usrInfo);
 
-    
+        let trg_uname = document.createElement("h4");
+        trg_uname.innerText = this_username;
+        trg_uname.style= "font-weight: bold; margin-bottom: 0";
+        trg_usrInfo.appendChild(trg_uname);
+
+        let trg_stats = document.createElement("h4");
+        trg_stats.innerText = this_statsEpisodes;
+        trg_stats.style= "font-weight: bold; margin-bottom: 0";
+        trg_usrInfo.appendChild(trg_stats);
+
+        let trg_date = document.createElement("h4");
+        trg_date.innerText = this_joinDate;
+        trg_date.style= "font-weight: bold; margin-bottom: 0";
+        trg_usrInfo.appendChild(trg_date);
+
+        trg_usrDiv.onclick = function () {
+            window.location.href = '/userPage?username=' + this_username;
+        }
+
+        trg_container.appendChild(trg_usrDiv);
+    }
 }
+
+
+
+//  let userDiv = $("<div id=\"user_info\" class=\"d-flex flex-column top-container gap-1\"></div>");
+//  let userInf = $("<div id=\"user_details\" class=\"user-details-sm d-flex flex-column mt-1\"></div>");
+//  userDiv.append(userInf);
+//  userInf.append($("<h4 id=\"user_title\" style=\"font-weight: bold; margin-bottom: 0;\"></h4>").text(this_username));
+//  let div1 = $("<div class=\"d-flex m-0\"></div>");
+//  userInf.append(div1);
+//  div1.append($("<p style=\"font-size: medium;\" id=\"user_stats\"></p>").text(this_statsEpisodes));
+//  let div2 = $("<div class=\"d-flex m-0\"></div>");
+//  userInf.append(div2);
+//  div2.append($("<p style=\"font-size: medium;\" id=\"user_joined\"></p>").text(joinDate));
+//  userDiv.click(function () {
+//      window.location.href = '/userDetailsPage?title=' + this_username;
+//  });
+//  container.append(userDiv);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

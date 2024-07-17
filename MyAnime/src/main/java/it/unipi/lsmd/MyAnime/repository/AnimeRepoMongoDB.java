@@ -168,7 +168,8 @@ public class AnimeRepoMongoDB {
             matches.add(match(in("type", type)));
         }
         if (status!=null && status.size() == 1){
-            boolean is_airing = status.getFirst().equals("status-on_hold");
+            //  boolean is_airing = status.getFirst().equals("status-on_hold");
+            boolean is_airing = status.get(0).equals("status-on_hold");
             matches.add(match(in("airing", is_airing)));
         }
         if (rating!=null && !rating.isEmpty()){
