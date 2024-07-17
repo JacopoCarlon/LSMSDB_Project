@@ -430,6 +430,10 @@
                                     <label for="rel_ani_type" class="form-label">Type of relation this has with the main anime</label>
                                     <input type="text" id="rel_ani_type" class="form-control" placeholder="related anime type">
                                 </div>
+                                <div class="mb-3">
+                                    <label for="rel_ani_type_reverse" class="form-label">Type of relation that the main anime has with this anime</label>
+                                    <input type="text" id="rel_ani_type_reverse" class="form-control" placeholder="main anime relation anime type">
+                                </div>
                                 <div class="submit filter w-auto" >
                                     <button type="submit" id="confirmRelation_btn" class="d-flex align-items-center">
                                         <span class="ml-1"> Confirm Relation </span>
@@ -471,30 +475,36 @@
                 e.preventDefault()
                 var inputValueName = document.getElementById("rel_ani_name");
                 var inputValueType = document.getElementById("rel_ani_type");
+                var inputVOrigType = document.getElementById("rel_ani_type_reverse");
                 var li = document.createElement('li')
 
-                if (inputValueName.value != "" && inputValueType.value != ""){
+                if (inputValueName.value != "" && inputValueType.value != "" && inputVOrigType.value != ""){
                     var div_name = document.createElement('div');
                     div_name.textContent = inputValueName.value;
                     var div_type = document.createElement('div');
                     div_type.textContent = inputValueType.value;
+                    var div_ortype = document.createElement('div');
+                    div_ortype.textContent = inputVOrigType.value;
                     li.appendChild(div_name);
                     li.appendChild(div_type);
+                    li.appendChild(div_ortype);
 
                     //  li.textContent = inputValue.value
                     list.appendChild(li)
                     inputValueName.value = '';
                     inputValueType.value = '';
+                    inputVOrigType.value = '';
                 }else{
                     if(inputValueName.value == ""){
                         inputValueName.value = '';
                     }else if(inputValueType.value == "") {
                         inputValueType.value = '';
+                    }else if(inputValueType.value == ""){
+                        inputVOrigType.value = '';
                     }
                     alert("both relation fields must be filled")
                 }
             }, false);
-
 
             //Clear all
             document.getElementById("clearAllRelations").addEventListener('click', function(e) {
