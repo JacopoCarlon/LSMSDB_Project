@@ -37,7 +37,57 @@ $(document).ready(function () {
         $(writeReviewBtn).click(function (){
             window.location.href = '/writeReviewPage?animeTitle=' + forceAnimeTitle;
         });
-    } else
+    } else{
         alert("writeReviewBtn not found");
+    }
 
+
+    $("#doSetAnimeList_btn").click(function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        setAnimeToList();
+        return false;
+    })
+
+    function setAnimeToList(){
+        //  alert("enter in function")
+        let trg_name = "setAnimeLstn_radio"
+        //  alert("looking for name : " + trg_name)
+
+        let ele = document.getElementsByName(trg_name);
+        //  alert("found elements : " + ele)
+        //  alert("number of found elements : " + ele.length)
+
+        let trg_arr = [];
+        for (i = 0; i < ele.length; i++) {
+            if (ele[i].checked){
+                trg_arr.push(ele[i].id.toString());
+            }
+        }
+        //  alert("found ; " + trg_arr);
+
+        $.ajax({
+            url: '/api/setAnimeToList',
+            dataType: 'json',
+            method: 'POST',
+
+            data:   {
+                targetList :    trg_arr
+            },
+
+            success: function(response) {
+                switch(response.outcome_code){
+                    case 0:
+                        alert("anime added to the list : " + trg_arr);
+                    case 1:
+                        alert("anime was already in the list : " + trg_arr);
+                    default:
+                        alert("Unknown (magic) error.");
+                }
+            },
+            error: function (xhr, status, error) {
+                alert("ERROR in ajax: " + error);
+            }
+        } ) ;
+    }
 });
