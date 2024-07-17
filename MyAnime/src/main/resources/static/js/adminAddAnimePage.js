@@ -60,10 +60,10 @@ $(document).ready(function () {
         //  alert(aired_input_to_val)
         //  alert(!aired_input_from_val)
         //  alert(!aired_input_to_val)
-        if(!aired_input_from_val !== !aired_input_to_val){
-            alert("if you put one date, you must put both !!!!!!!!!!!!!!!")
-            return;
-        }
+        // if(!aired_input_from_val !== !aired_input_to_val){
+        //    alert("if you put one date, you must put both !!!!!!!!!!!!!!!")
+        //    return;
+        //}
         if(aired_input_from_val > aired_input_to_val){
             alert("anime cannot time travel, check order of airing(from-to) dates")
             return;
