@@ -46,15 +46,17 @@
         <div id="all_followus" class="gap-1 d-flex flex-column container-fluid justify-content-center" data-aos="zoom-in" data-aos-delay="150">
             <div class="d-flex align-items-center justify-content-between" >
                 <a th:href="@{'/userPage'(username=${param.username}) }" >
-                    <h1 class="display-3 fw-bold" id="username" th:text="${param.username} + ' \' Reviews : ' "></h1>
+                    <h1 class="display-3 fw-bold" id="username" th:text="${param.username} + '\'s ' + ${param.type} + ': ' "></h1>
                 </a>
             </div>
 
             <div th:each="followu : ${followus}" class="anime-review d-flex flex-column p-3">
                 <div class="d-flex align-items-center gap-3">
-                    <h4 class="user_followu" th:href="@{/userPage?username=${followu.username}}">
-                        <span style="color: #a412ff;" th:text="'User: '${followu.username}"></span>
-                    </h4>
+                    <a th:href="@{'/userPage'(username=${followu.username}) }">
+                        <h4 class="user_followu">
+                            <span style="color: #a412ff;" th:text="'User: ' + ${followu.username}"></span>
+                        </h4>
+                    </a>
                 </div>
             </div>
         </div>
