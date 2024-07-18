@@ -208,16 +208,18 @@
 
 
                     <div class="d-flex gap-1">
+                        <script type="text/javascript">alert("loading recent review section, wait for all to be loaded (press esc many times)")</script>
                         <div class="d-flex flex-column col-md-12">
                             <div id="anime_reviews" class="d-flex flex-column">
                                 <div id="latest_reviews" class="d-flex flex-column row-gap-1 p-1">
                                     <h1 style="text-align: center ; background-color: #ffffff4e ; ">Last 5 reviews</h1>
-                                    <div th:each="review : ${animeDetails.mostRecentReviews}" class="anime-review d-flex flex-column p-3">
+                                    <script type="text/javascript">alert("loading a recent review")</script>
+                                    <div th:each="rec_review : ${animeDetails.mostRecentReviews}" class="anime-review d-flex flex-column p-3">
                                         <div class="d-flex align-items-center gap-1">
-                                            <h4 th:text="${review.username}" class="user_review"></h4>
+                                            <h4 th:text="${rec_review.username}" class="user_review"></h4>
                                             <h5 class="rating_review text-bg-dark p-1 ps-3 pe-3">
                                                 <i class="fas fa-star me-1"></i>
-                                                <span th:text="${review.score}"></span>
+                                                <span th:text="${rec_review.score}"></span>
                                             </h5>
                                         </div>
                                     </div>

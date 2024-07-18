@@ -47,6 +47,8 @@ public class AnimeDetailsPageController {
         }
 
         model.addAttribute("animeDetails", anime);
+        System.out.println("Anime: " + anime);
+
         model.addAttribute("animeRelated", animeRepoNeo4j.findRelatedAnime(anime.getTitle()));
         model.addAttribute("logged", Utility.isLogged(session));
         model.addAttribute("is_admin", Utility.isAdmin(session));

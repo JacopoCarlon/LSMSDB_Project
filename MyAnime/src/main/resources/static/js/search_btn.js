@@ -27,7 +27,7 @@ $(document).ready(function () {
     });
 
     function search() {
-        alert("search button was pressed");
+        //  alert("search button was pressed");
 
         const category = $("#category_input").val();    //  anime / user
         if(category=="anime" && window.location.href.indexOf("animeFilterPage") > -1 ){
