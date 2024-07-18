@@ -3,13 +3,14 @@
 //  TODO : do API corresponding
 $(document).ready(function () {
 
+    //  alert("loading anime page")
+
     // TODO : it would be much better to get id or title from here instead of from url ...
     //  if done, please also change the href... in this page
 
     //  //  TODO : like any one of these would be saner, but none work, they just return "... : [object Object]"
 
 
-    //  TODO : this is not exactly the most safe way to do this, but it works enough
     let forceAnimeTitle = new URLSearchParams(window.location.search).get("title");
     //  alert("found forceAnimeTitle : " + forceAnimeTitle);
     if(forceAnimeTitle == null ){
@@ -28,7 +29,7 @@ $(document).ready(function () {
     //      alert("viewAnimeReviews_btn not found");
     //  }
 
-    $("#viewAllReviewBtn").click(function(e){
+    $("#viewAnimeReviews_btn").click(function(e){
         e.preventDefault();
         window.location.href = '/animeReviewsPage?animeTitle=' + forceAnimeTitle;
     });
