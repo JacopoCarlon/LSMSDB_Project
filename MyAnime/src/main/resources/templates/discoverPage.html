@@ -54,7 +54,7 @@
                             <a th:each="anime : ${suggestedAnimes_ByTaste}" id="friend_animes_container" class="d-flex flex-column gap-1">
                                 <div th:if="${suggestedAnimes_ByTaste.isEmpty()}">No suggestions.</div>
                                 <a th:href="@{/animeDetails(title=${anime.title})}" class="top-container d-flex align-items-center">
-                                    <img class="img_resize" th:src="${anime.imgURL}" alt="anime_image" >
+                                    <img class="img_resize" th:src="${anime.imgURL}" onerror="this.onerror=null;this.src='img/img-not-found.jpg'" >
                                     <div class="anime-details d-flex flex-column">
                                         <h5 style="margin-bottom: 0; font-size: 30px;" th:text="${anime.title}"></h5>
                                     </div>
@@ -68,7 +68,7 @@
                             <a th:each="anime_f : ${suggestedAnimes_ByFollow}" id="common_animes_container" class="d-flex flex-column gap-1">
                                 <div th:if="${suggestedAnimes_ByFollow.isEmpty()}">No suggestions.</div>
                                 <a th:href="@{/animeDetails(title=${anime_f.title})}" class="top-container d-flex align-items-center">
-                                    <img class="img_resize" th:src="${anime_f.imgURL}" alt="anime_image" >
+                                    <img class="img_resize" th:src="${anime_f.imgURL}" onerror="this.onerror=null;this.src='img/img-not-found.jpg'" >
                                     <div class="anime-details d-flex flex-column">
                                         <h5 style="margin-bottom: 0; font-size: 30px;" th:text="${anime_f.title}"></h5>
                                     </div>

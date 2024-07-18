@@ -49,7 +49,7 @@
             <section id="hero" class="d-flex flex-column align-items-center container-fluid p-3">
                 <div class="gap-1 d-flex flex-column container-fluid justify-content-center" data-aos="zoom-in" data-aos-delay="150">
                     <div id="anime_info_container" class="d-flex mb-1 align-items-center col-md-12">
-                        <img id="anime_cover" class="anime-cover" th:src="${animeDetails.imgURL}" alt="Copertina Anime"/>
+                        <img id="anime_cover" class="anime-cover" th:src="${animeDetails.imgURL}" onerror="this.onerror=null;this.src='img/img-not-found.jpg'"/>
                         <div id="aniDet_container" class="anime-details d-flex flex-column">
                             <h1 id="anime_title"  class="row" th:text="${animeDetails.title}"></h1>
                             <table id="anime_table">
@@ -251,7 +251,7 @@
                                             <h5 class="related_anime_type text-bg-dark p-1 ps-3 pe-3" style="margin-bottom: 0px ; margin-right: 30px" >
                                                 <span th:text="${aniRel.relationship}" ></span>
                                             </h5>
-                                            <img class="img_resize" style="margin: 8px; padding: 4px" th:src="${aniRel.imgURL}" alt="anime_image">
+                                            <img class="img_resize" style="margin: 8px; padding: 4px" th:src="${aniRel.imgURL}" onerror="this.onerror=null;this.src='img/img-not-found.jpg'">
                                             <a  th:href="@{'/animeDetails'(title=${aniRel.title})}" >
                                                 <h4 th:text="${aniRel.title}" class="user_review"></h4>
                                             </a>
