@@ -43,13 +43,11 @@ public class UserReviewsPageController {
                     review.setPrintableDate();
                 }
                 model.addAttribute("reviews", reviews);
-
-                // TODO : make sure this works
-                model.addAttribute("username", "pippo");
+                model.addAttribute("username", username);
             }
         }
         else{
-            return "error/animeNotFound";
+            return "error/userNotFound";
         }
 
         model.addAttribute("logged", Utility.isLogged(session));

@@ -46,18 +46,25 @@
 
             <section id="hero" class="d-flex flex-column align-items-center container-fluid p-3">
                 <div id="all_reviews" class="gap-1 d-flex flex-column container-fluid justify-content-center" data-aos="zoom-in" data-aos-delay="150">
+                    <div class="d-flex align-items-center justify-content-between" >
+                        <a id="uanimelink" th:href="@{'/animeDetailsPage'(title=${animeDetails.title}) }" >
+                            <h1 class="display-3 fw-bold" id="username" th:text="'Reviews about : ' + ${animeDetails.title} "></h1>
+                        </a>
+                    </div>
                     <div th:each="review : ${reviews}" class="anime-review d-flex flex-column p-3">
-                        <div class="d-flex align-items-center gap-3">
-                            <h4 class="user_review"><span style="color: #a412ff;">User: </span><span th:text="${review.username}"></span></h4>
+                        <div class="d-flex align-items-center gap-3" >
+                            <a  th:href="@{'/userPage'(username=${review.username})}" >
+                                <h4 class="user_review"><span style="color: #a412ff;">User: </span><span th:text="${review.username}"></span></h4>
+                            </a>
                             <h5 class="score_review text-bg-dark p-1 ps-3 pe-3">
                                 <i class="fas fa-star me-1"></i>
-                                <span th:text="${review.score}"></span>
+                                <span th:text="'ReviewScore : ' + ${review.score}"></span>
                             </h5>
-                            <h6 class="timestamp" style="font-style: italic;" th:text="${review.printableDate}"></h6>
+                            <h6 class="timestamp" style="font-style: italic;" th:text="'ReviewTime : ' + ${review.printableDate}"></h6>
                         </div>
                         <div class="text_review" th:text="${review.text}"></div>
                     </div>
-                    <button onClick="history.go(-1);return true;" class="btn btn-primary w-100">Return to the anime page</button>
+                    <button onClick="history.go(-1);return true;" class="btn btn-primary w-100">Return to previous page</button>
                 </div>
             </section><!-- End Hero -->
         </div>

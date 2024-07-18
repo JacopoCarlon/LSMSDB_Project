@@ -32,6 +32,8 @@ public class AnimeReviewsPageController {
                                @RequestParam(required = false) ObjectId animeId,
                                @RequestParam(required = false) String animeTitle) {
 
+
+
         System.out.println("entered in animeRevPage with animeID : " + animeId + " or animeTitle : " + animeTitle);
 
          if (!Utility.isLogged(session)) {
@@ -49,16 +51,17 @@ public class AnimeReviewsPageController {
         }
         else {
             // anime not found
-            return "error/genericError";
-            // TODO: return "error/animeNotFound";
+            //  return "error/genericError";
+            return "error/animeNotFound";
         }
 
+        model.addAttribute("logged", Utility.isLogged(session));
+        model.addAttribute("animeDetails", anime);
 
         System.out.println(anime.getId());
         LinkedList<Review> reviews = new LinkedList<>(reviewRepoMongoDB.getReviewsByAnimeID(anime.getId()));
         boolean reviewsFound = (reviews != null && !reviews.isEmpty());
         if (reviewsFound){
-
             // if the user has already reviewed the anime, put his review as first in the list
             if(Utility.isLogged(session) && !Utility.isAdmin(session)){
                 String username = (String) session.getAttribute("username");
@@ -75,13 +78,12 @@ public class AnimeReviewsPageController {
                 review.setPrintableDate();
             }
             model.addAttribute("reviews", reviews);
-            model.addAttribute("animeDetails", anime);
         }
-        else {
-            System.out.println("no review(?)");
-            return "error/genericError";
-            // TODO: return "error/noReviewsFound";
-        }
+        //  else {
+        //      System.out.println("no review(?)");
+        //      return "error/genericError";
+        //      // TODO: return "error/noReviewsFound";
+        //  }
 
 
         model.addAttribute("logged", Utility.isLogged(session));

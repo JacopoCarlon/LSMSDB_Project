@@ -17,16 +17,21 @@ $(document).ready(function () {
         return;
     }
 
-    //  alert("doing viewAnimeReviews_btn")
-    let viewAllReviewBtn = $("#viewAnimeReviews_btn");
-    if (viewAllReviewBtn != null) {
-        //  alert("done viewAnimeReviews_btn")
-        $(viewAllReviewBtn).click(function (){
-            window.location.href = '/animeReviewsPage?animeTitle=' + forceAnimeTitle;
-        });
-    } else{
-        alert("viewAnimeReviews_btn not found");
-    }
+    //  //  alert("doing viewAnimeReviews_btn")
+    //  let viewAllReviewBtn = $("#viewAnimeReviews_btn");
+    //  if (viewAllReviewBtn != null) {
+    //      //  alert("done viewAnimeReviews_btn")
+    //      $(viewAllReviewBtn).click(function (){
+    //          window.location.href = '/animeReviewsPage?animeTitle=' + forceAnimeTitle;
+    //      });
+    //  } else{
+    //      alert("viewAnimeReviews_btn not found");
+    //  }
+
+    $("#viewAllReviewBtn").click(function(e){
+        e.preventDefault();
+        window.location.href = '/animeReviewsPage?animeTitle=' + forceAnimeTitle;
+    });
 
 
 
