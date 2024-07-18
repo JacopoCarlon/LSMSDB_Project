@@ -32,6 +32,8 @@ $(document).ready(function (){
         });
     });
 
+
+    // update files for mostPopularPage
     $("#calculateRankingsButton").click(function () {
         alert("Start calculating rankings...");
         $.ajax({
@@ -82,10 +84,12 @@ $(document).ready(function (){
         });
     });
 
-    $("#updateLikesButton").click(function () {
+
+
+    $("#updateAvgScores").click(function () {
         alert("Start updating likes...");
         $.ajax({
-            url: '/api/admin/updateRatings',
+            url: '/api/admin/updateWatchersAndScores',
             method: 'POST',
             dataType: 'json',
             success: function (data) {
@@ -119,6 +123,9 @@ $(document).ready(function (){
             }
         });
     });
+
+
+
 
     $("#most_popular_animes").click(function (e){
         e.preventDefault();
