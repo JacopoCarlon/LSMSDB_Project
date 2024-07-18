@@ -48,7 +48,7 @@ public class ReviewRepoMongoDB {
     public List<Review> getReviewsByAnimeID(ObjectId animeObjectId) {
         try {
             PageRequest pageable = PageRequest.of(0, 500);
-            return reviewMongoInterface.findLimitedReviewsByAnimeID(animeObjectId, pageable).getContent();
+            return reviewMongoInterface.findLimitedReviewsByAnimeIDOrderByTimestampDesc(animeObjectId, pageable).getContent();
         } catch (DataAccessException dae) {
             if (dae instanceof DataAccessResourceFailureException)
                 throw dae;
@@ -86,7 +86,7 @@ public class ReviewRepoMongoDB {
     public List<Review> getReviewsByUsername( String username) {
         try {
             PageRequest pageable = PageRequest.of(0, 500);
-            return reviewMongoInterface.findLimitedReviewsByUsername(username, pageable) ;
+            return reviewMongoInterface.findLimitedReviewsByUsernameOrderByTimestampDesc(username, pageable) ;
         } catch (DataAccessException dae) {
             if (dae instanceof DataAccessResourceFailureException)
                 throw dae;
