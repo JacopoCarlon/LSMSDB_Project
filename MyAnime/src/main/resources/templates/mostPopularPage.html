@@ -55,13 +55,13 @@
                     
                     <!-- Top-rated anime -->
                     <div class="d-flex flex-column p-1 gap-1 w-100 overflow-y-auto">
-                        <h1><i class="fa fa-medal me-3"></i>Top-rated</h1>
+                        <h1><i class="fa fa-medal most_popular_cols_headers" > Top-rated </i></h1>
                         <a th:each="anime_r : ${rankingAnimeByRating_AllTime}" th:href="'/animeDetails?title=' + ${anime_r.title}" class="d-flex flex-column top-container gap-1">
                             <div class="d-flex top-container align-items-center">
                                 <img class="img_resize" style="margin: 8px; padding: 4px" th:src="${anime_r.imgURL}" alt="anime_image">
                                 <div class="d-flex flex-column">
-                                    <h5 class="mb-0" th:text="${anime_r.title}"></h5>
-                                    <p class="mt-0 mb-0" style="color: white;"><i class="fa fa-star me-1"></i><span th:text="${anime_r.averageScore}"></span></p>
+                                    <h5 class="mb-0" style="font-size: 30px;" th:text="${anime_r.title}"></h5>
+                                    <p class="mt-0 mb-0" style="font-size: 20px;" ><i class="fa fa-star me-1"></i><span th:text="'Average Score : ' + ${anime_r.averageScore}"></span></p>
                                 </div>
                             </div>
                         </a>
@@ -69,13 +69,13 @@
 
                     <!-- Top-whatched anime -->
                     <div class="d-flex flex-column p-1 gap-1 w-100 overflow-y-auto">
-                        <h1><i class="fa fa-medal me-3"></i>Top-watched</h1>
+                        <h1><i class="fa fa-medal most_popular_cols_headers" > Top-watched </i></h1>
                         <a th:each="anime_r : ${rankingAnimeByWatchers_AllTime}" th:href="'/animeDetails?title=' + ${anime_r.title}" class="d-flex flex-column top-container gap-1">
                             <div class="d-flex top-container align-items-center" >
-                                <img class="img_resize" style="margin: 8px; padding: 4px"   th:src="${anime_r.imgURL}" alt="anime_image">
+                                <img class="img_resize" style="margin: 8px; padding: 4px" th:src="${anime_r.imgURL}" alt="anime_image">
                                 <div class="d-flex flex-column">
-                                    <h5 class="mb-0" th:text="${anime_r.title}"></h5>
-                                    <p class="mt-0 mb-0" style="color: white;"><i class="fa fa-star me-1"></i><span th:text="${anime_r.averageScore}"></span></p>
+                                    <h5 class="mb-0" style="font-size: 30px;" th:text="${anime_r.title}"></h5>
+                                    <p class="mt-0 mb-0" style="font-size: 20px;" ><i class="fa fa-star me-1"></i><span th:text="'Average Score : ' + ${anime_r.averageScore}"></span></p>
                                 </div>
                             </div>
                         </a>

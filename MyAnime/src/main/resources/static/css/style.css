@@ -63,6 +63,17 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
 }
 
+
+.most_popular_cols_headers {
+    background-color: #ffffff4e;
+    border: 1px solid;
+    border-radius: 5px;
+    margin : 10px;
+    padding: 5px;
+    padding-right: 10px;
+}
+
+
 #most-popular-carousel {
     overflow: hidden;
     flex: 1;
@@ -1052,7 +1063,7 @@ div.auSearchFilterResults{
     border-radius: 10px;
 }
 
-.rating_review {
+.rating_review .related_anime_type{
     border-radius: 10px;
 }
 
@@ -1494,7 +1505,7 @@ input:checked + .slider:before {
 
 
 .img_resize{
-    height: 80px;
+    height: 100px;
     width: auto;
 }
 
