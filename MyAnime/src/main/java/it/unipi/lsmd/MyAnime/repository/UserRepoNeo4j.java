@@ -180,7 +180,7 @@ public class UserRepoNeo4j {
         String cypherQuery = "MATCH (user:User {username: $username})-[w1:WATCHES]->(anime:Anime) " +
                 "WHERE w1.status <> 4 " +    // se status == 4, l'anime è stato abbandonato, quindi non va considerato tra i gusti dell'utente
                 "MATCH (otherUser:User)-[w2:WATCHES]->(anime) " +
-                "WHERE user <> otherUser AND w2.status <> 4 " +
+                "WHERE NOT (user)-[:FOLLOWS]->(otherUser) AND user <> otherUser AND w2.status <> 4 " +
                 "WITH otherUser, COUNT(*) AS recommendationSimilarity " +
                 "RETURN otherUser.username AS username " +
                 "ORDER BY recommendationSimilarity DESC " +
