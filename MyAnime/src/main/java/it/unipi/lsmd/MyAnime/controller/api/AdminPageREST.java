@@ -1,8 +1,6 @@
 package it.unipi.lsmd.MyAnime.controller.api;
 
-import com.google.common.hash.Hashing;
 import it.unipi.lsmd.MyAnime.model.Anime;
-import it.unipi.lsmd.MyAnime.model.User;
 import it.unipi.lsmd.MyAnime.model.query.AnimeOnlyAvgScore;
 import it.unipi.lsmd.MyAnime.model.query.AnimeWithWatchers;
 import it.unipi.lsmd.MyAnime.repository.*;
@@ -13,13 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -152,11 +148,11 @@ public class AdminPageREST {
                     System.out.println(">> New watchers updated successfully");
             }
 
-            // aggiorna gli average score degli anime che hanno ricevuto nuove recensioni
-            List<AnimeOnlyAvgScore> newAvgScore = animeRepoMongoDB.getAverageScoreForRecentReviews();
+            // aggiorna gli average score degli anime che hanno ricevuto recensioni
+            List<AnimeOnlyAvgScore> newAvgScore = animeRepoMongoDB.getAverageScoreFromReviews();
             System.out.println("> Found " + newAvgScore.size() + " anime with recent reviews");
             if(!newAvgScore.isEmpty()) {
-                boolean outcome3 = animeRepoMongoDB.setAverageScoreForRecentReviews(newAvgScore);
+                boolean outcome3 = animeRepoMongoDB.setAverageScoreFromReviews(newAvgScore);
                 if (!outcome3)
                     return "{\"outcome_code\": 4}";     // Error while updating average score
                 else

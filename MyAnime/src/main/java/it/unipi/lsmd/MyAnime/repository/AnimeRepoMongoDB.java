@@ -319,7 +319,7 @@ public class AnimeRepoMongoDB {
         }
     }
 
-    public List<AnimeOnlyAvgScore> getAverageScoreForRecentReviews() {
+    public List<AnimeOnlyAvgScore> getAverageScoreFromReviews() {
         // Una limitazione importante è che MongoDB non supporta l'aggiornamento di documenti direttamente
         // all'interno di una pipeline di aggregazione. Pertanto, quello che posso fare è calcolare le medie e
         // trovare gli ID necessari in un'unica query, ma poi dovrò eseguire un'operazione di aggiornamento separata.
@@ -327,11 +327,8 @@ public class AnimeRepoMongoDB {
         // il metodo setAverageScoreForRecentReviews().
 
         try {
-            Instant twentyFourHoursAgo = Instant.now().minusSeconds(60 * 60 * 24);
-
-            // Fase 1: Trovo gli ID degli anime con recensioni recenti
+            // Fase 1: Trovo gli ID degli anime con recensioni
             Aggregation recentReviewsAggregation = Aggregation.newAggregation(
-                    Aggregation.match(Criteria.where("review_time").gte(twentyFourHoursAgo)),
                     Aggregation.group("anime_id"),
                     Aggregation.project("anime_id") // Project the anime_id
             );
@@ -340,13 +337,13 @@ public class AnimeRepoMongoDB {
                     recentReviewsAggregation, "reviews", Document.class);
 
             // Map the results to a list of strings
-            List<String> recentAnimeIds = aggregationResults.getMappedResults().stream()
+            List<String> animeIds = aggregationResults.getMappedResults().stream()
                     .map(document -> document.getString("anime_id"))
                     .collect(Collectors.toList());
 
             // Fase 2: Calcolo la media degli score per questi anime
             Aggregation averageScoreAggregation = Aggregation.newAggregation(
-                    Aggregation.match(Criteria.where("anime_id").in(recentAnimeIds)),
+                    Aggregation.match(Criteria.where("anime_id").in(animeIds)),
                     Aggregation.group("anime_id").avg("score").as("avgScore").sum("username").as("scoredBy"),
                     Aggregation.project("anime_id").andInclude("avgScore", "scoredBy")
             );
@@ -367,12 +364,12 @@ public class AnimeRepoMongoDB {
             if (dae instanceof DataAccessResourceFailureException)
                 throw dae;
             dae.printStackTrace();
-            return new ArrayList<AnimeOnlyAvgScore>();
+            return new ArrayList<>();
         }
     }
 
     @Transactional
-    public boolean setAverageScoreForRecentReviews(List<AnimeOnlyAvgScore> animeAverages) {
+    public boolean setAverageScoreFromReviews(List<AnimeOnlyAvgScore> animeAverages) {
         // Prepara le operazioni in batch
         BulkOperations bulkOps = mongoTemplate.bulkOps(BulkOperations.BulkMode.UNORDERED, Anime.class);
 
