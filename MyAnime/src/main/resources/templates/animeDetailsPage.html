@@ -214,10 +214,20 @@
                                     <h1 style="text-align: center ; background-color: #ffffff4e ; ">Last 5 reviews</h1>
                                     <div th:each="rec_review : ${animeDetails.mostRecentReviews}" class="anime-review d-flex flex-column p-3">
                                         <div class="d-flex align-items-center gap-1">
-                                            <h4 th:text="${rec_review.username}" class="user_review"></h4>
-                                            <h5 class="rating_review text-bg-dark p-1 ps-3 pe-3">
-                                                <i class="fas fa-star me-1"></i>
-                                                <span th:text="${rec_review.score}"></span>
+                                            <h5 class="rating_review text-bg-dark p-1 ps-3 pe-3" style="width: 130px ; margin-right: 20px; padding-right: 10px;">
+                                                <i class="fas fa-star me-1"  >
+                                                    <span th:text="'Score : ' + ${rec_review.score}"></span>
+                                                </i>
+                                            </h5>
+                                            <a  th:href="@{'/userPage'(username=${rec_review.username})}" style="width: 250px">
+                                                <h4 th:text="' by : ' + ${rec_review.username}" class="user_review"></h4>
+                                            </a>
+                                            <h5 class="rating_review p-1 ps-3 pe-3">
+                                                <!--
+                                                <span th:text="' ... in date : ' + ${rec_review.timestamp}"></span>
+                                                -->
+                                                <span th:text="' ... in date : ' + ${{#dates.format( rec_review.timestamp , 'yyyy-MM-dd HH:mm')}} "></span>
+
                                             </h5>
                                         </div>
                                     </div>
@@ -238,10 +248,10 @@
                                     <h1 style="text-align: center ; background-color: #ffffff4e ; ">Related Anime : </h1>
                                     <div th:each="aniRel : ${animeRelated}" class="anime-review d-flex flex-column p-3">
                                         <div class="d-flex top-container align-items-center" >
-                                            <img class="img_resize" style="margin: 8px; padding: 4px" th:src="${aniRel.imgURL}" alt="anime_image">
                                             <h5 class="related_anime_type text-bg-dark p-1 ps-3 pe-3" style="margin-bottom: 0px ; margin-right: 30px" >
                                                 <span th:text="${aniRel.relationship}" ></span>
                                             </h5>
+                                            <img class="img_resize" style="margin: 8px; padding: 4px" th:src="${aniRel.imgURL}" alt="anime_image">
                                             <a  th:href="@{'/animeDetails'(title=${aniRel.title})}" >
                                                 <h4 th:text="${aniRel.title}" class="user_review"></h4>
                                             </a>
