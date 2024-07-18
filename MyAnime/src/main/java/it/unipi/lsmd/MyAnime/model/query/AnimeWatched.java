@@ -18,7 +18,7 @@ public class AnimeWatched {
     private Integer statusNumber;
     private Integer watchedEpisodes;
 
-    public static ArrayList<it.unipi.lsmd.MyAnime.model.query.AnimeWatched> getAnimeWatched(Neo4jClient neo4jClient, String cypherQuery, String username, String status) {
+    public static ArrayList<it.unipi.lsmd.MyAnime.model.query.AnimeWatched> getAnimeWatched(Neo4jClient neo4jClient, String cypherQuery, String username, Integer status) {
         return (ArrayList<AnimeWatched>) neo4jClient
                 .query(cypherQuery)
                 .bind(username).to("username")
@@ -27,8 +27,8 @@ public class AnimeWatched {
                 .mappedBy((typeSystem, record) -> {
                     String title = record.get("title").asString();
                     String imgURL = record.get("imgURL").asString();
-                    int statusNumber = Integer.parseInt(record.get("status").asString());
-                    int watchedEpisodes = Integer.parseInt(record.get("watchedEpisodes").asString());
+                    int statusNumber = record.get("status").asInt();
+                    int watchedEpisodes = record.get("watchedEpisodes").asInt();
                     return new it.unipi.lsmd.MyAnime.model.query.AnimeWatched(title, imgURL, statusNumber, watchedEpisodes);
                 }).all();
     }
