@@ -22,7 +22,7 @@ public class AnimeRepoNeo4j {
 
     public ArrayList<AnimeWithWatchers> findAnimeWithWatchers() {
         String cypherQuery = "MATCH (a:Anime)<-[r:WATCHES]-(:User) " +
-                "WHERE r.status <> 4 " +
+                "WHERE r.status <> $status1 " +
                 "RETURN a.title AS title, a.imgURL AS imgURL, COUNT(r) AS watchers";
         return AnimeWithWatchers.getAnimeWithWatchers(cypherQuery, neo4jClient);
     }

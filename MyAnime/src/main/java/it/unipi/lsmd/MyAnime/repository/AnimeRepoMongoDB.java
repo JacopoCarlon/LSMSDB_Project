@@ -298,7 +298,7 @@ public class AnimeRepoMongoDB {
         return animes;
     }
 
-    @Transactional
+    @Transactional("transactionManager")
     public boolean setWatchersOfAnime(AnimeWithWatchers[] animeList) {
         try {
             BulkOperations bulkOps = mongoTemplate.bulkOps(BulkOperations.BulkMode.ORDERED, Anime.class);
@@ -337,20 +337,34 @@ public class AnimeRepoMongoDB {
             AggregationResults<Document> aggregationResults = mongoTemplate.aggregate(
                     recentReviewsAggregation, "reviews", Document.class);
 
+            System.out.println("Guarda aggregation reviews: " + aggregationResults.getMappedResults().get(0));
+            System.out.println("Guarda aggregation reviews: " + aggregationResults.getMappedResults().get(0).get("_id"));
+
             // Map the results to a list of strings
-            List<String> animeIds = aggregationResults.getMappedResults().stream()
-                    .map(document -> document.getString("anime_id"))
+            List<ObjectId> animeIds = aggregationResults.getMappedResults().stream()
+                    .map(document -> document.get("_id", ObjectId.class))
                     .collect(Collectors.toList());
+
+            System.out.println("Guarda list ObjectId: " + animeIds.get(0));
 
             // Fase 2: Calcolo la media degli score per questi anime
             Aggregation averageScoreAggregation = Aggregation.newAggregation(
                     Aggregation.match(Criteria.where("anime_id").in(animeIds)),
-                    Aggregation.group("anime_id").avg("score").as("avgScore").sum("username").as("scoredBy"),
+                    Aggregation.group("anime_id").avg("score").as("avgScore").count().as("scoredBy"),
                     Aggregation.project("anime_id").andInclude("avgScore", "scoredBy")
             );
+
+            //System.out.println("Guarda aggregation score: " + averageScoreAggregation);
+
             AggregationResults<AnimeOnlyAvgScore> results = mongoTemplate.aggregate(
                     averageScoreAggregation, "reviews", AnimeOnlyAvgScore.class
             );
+
+            /*AggregationResults<Document> results = mongoTemplate.aggregate(
+                    averageScoreAggregation, "reviews", Document.class
+            );*/
+
+            System.out.println("Guarda aggregation result: " + results.getMappedResults().get(0));
 
             List<AnimeOnlyAvgScore> animeAverages = results.getMappedResults();
 
@@ -369,7 +383,7 @@ public class AnimeRepoMongoDB {
         }
     }
 
-    @Transactional
+    @Transactional("transactionManager")
     public boolean setAverageScoreFromReviews(List<AnimeOnlyAvgScore> animeAverages) {
         // Prepara le operazioni in batch
         BulkOperations bulkOps = mongoTemplate.bulkOps(BulkOperations.BulkMode.UNORDERED, Anime.class);
@@ -377,7 +391,7 @@ public class AnimeRepoMongoDB {
         try {
             // Aggiungi ogni operazione di aggiornamento al batch
             animeAverages.forEach(animeAverage -> {
-                Query query = new Query().addCriteria(Criteria.where("_id").is(animeAverage.getAnimeId()));
+                Query query = new Query().addCriteria(Criteria.where("_id").is(animeAverage.get_id()));
                 Update update = new Update().set("score", animeAverage.getAvgScore()).set("scored_by", animeAverage.getScoredBy());
                 bulkOps.updateOne(query, update);
             });

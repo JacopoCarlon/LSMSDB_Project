@@ -3,12 +3,13 @@ package it.unipi.lsmd.MyAnime.model.query;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.bson.types.ObjectId;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class AnimeOnlyAvgScore {
-    private String animeId;
+    private ObjectId _id;
     private Double avgScore;
     private Integer scoredBy;
 

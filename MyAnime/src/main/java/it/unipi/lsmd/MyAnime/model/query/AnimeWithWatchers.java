@@ -18,6 +18,7 @@ public class AnimeWithWatchers {
     public static ArrayList<AnimeWithWatchers> getAnimeWithWatchers(String cypherQuery, Neo4jClient neo4jClient) {
         return (ArrayList<AnimeWithWatchers>) neo4jClient
                 .query(cypherQuery)
+                .bind("6").to("status1")
                 .fetchAs(AnimeWithWatchers.class)
                 .mappedBy((typeSystem, record) -> {
                     String title = record.get("title").asString();
