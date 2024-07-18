@@ -46,17 +46,20 @@
 
     <section id="hero" class="d-flex flex-column align-items-center container-fluid p-3">
         <div id="all_anilist" class="gap-1 d-flex flex-column container-fluid justify-content-center" data-aos="zoom-in" data-aos-delay="150">
-            <div class="d-flex align-items-center justify-content-between" >
-                <a th:href="@{'/userPage'(username=${param.username}) }" style=" background: rgba(255, 255, 247, 0.438); border-radius: 10px; padding: 10px;">
-                    <h1 class="display-3 fw-bold" id="username" th:text="${param.username} + ' | ' + ${status} + ' : ' "  ></h1>
+            <div class="d-flex align-items-center" >
+                <a th:href="@{'/userPage'(username=${param.username})}" >
+                    <h1 class="display-3 fw-bold usAnLisTitl" id="username" th:text="${param.username}"  ></h1>
                 </a>
+                <div>
+                    <h1 class="display-3 fw-bold usAnLisTitl" id="username_title" th:text="${status} + ' : ' "  ></h1>
+                </div>
             </div>
 
             <a th:each="anime_r : ${aniList}" th:href="'/animeDetails?title=' + ${anime_r.title}" class="d-flex flex-column top-container gap-1">
                 <div class="d-flex top-container align-items-center">
-                    <img class="top-cover p-1" th:src="${anime_r.imgURL}" alt="anime_image">
+                    <img class="img_resize" th:src="${anime_r.imgURL}" alt="anime_image">
                     <div class="d-flex flex-column">
-                        <h5 class="mb-0" th:text="${anime_r.title}"></h5>
+                        <h5 class="mb-0" style="font-size: 30px;"  th:text="${anime_r.title}"></h5>
                         <!-- <p class="mt-0 mb-0" style="color: white;"><i class="fa fa-star me-1"></i><span th:text="${anime_r.averageScore}"></span></p>-->
                     </div>
                 </div>

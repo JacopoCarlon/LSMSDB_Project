@@ -678,41 +678,33 @@ li {
     box-shadow: 0px 0px 20px 3px #2828286b;
 }
 
+
+/* secret home page stuff _begin ---------------------------------------------------*/
 #discover {
     background: linear-gradient(45deg, #282828d1 0%, #282828d1 100%), url('../img/discovery-bg.jpg') center center no-repeat;
     transition: all 1s;
 }
-
 #discover a{
     text-align: center;
 }
-
-/*
-#discover h1 {
-    font-weight:400;
-}
-*/
-
 #discover span{
     color: #057f6a;
     text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px  1px 0 #ffffff, 1px  1px 0 #ffffff;
 }
-
 #discover p{
     font-size: large;
     display: inline;
 }
-
 #discover .text-container {
     text-decoration: none; /* Rimuove la sottolineatura del link */
     color: white; /* Mantiene il colore del testo ereditato dal parent */
     padding: 15%;
     transition: all 1s;
 }
-
 #discover .text-container .fa-arrow-right {
     margin-left: 10px; /* Aggiunge spazio a sinistra dell'icona */
 }
+/* secret home page stuff ^^^^end -------------------------------------------------------------*/
 
 
 
@@ -1347,37 +1339,8 @@ div.auSearchFilterResults{
     border-radius: 10px;
 }
 
-#most-popular-anime {
-    padding: 40px;
-    border: none;
-    color: #ffffff;
-    font-size: xx-large;
-    transition: all 0.5s;
-    margin: 0;
-    font-weight: bolder;
-    background: linear-gradient(45deg, #282828cc 0%, #282828cc 100%), url("../img/best-anime.jpg") center center no-repeat;
-}
 
-#most-popular-anime:hover {
-    border: solid 3px #057f6a;
-    color: #282828;
-    background: linear-gradient(45deg, #07c9a9cc 0%, #07c9a9cc 100%), url("../img/best-anime.jpg") center center no-repeat;
-}
 
-#most-popular-anime {
-    padding: 40px;
-    border: none;
-    color: #ffffff;
-    font-size: xx-large;
-    transition: all 0.5s;
-    margin: 0;
-    background: linear-gradient(45deg, #282828cc 0%, #282828cc 100%), url("../img/best-anime.jpg") center center no-repeat;
-}
-
-#most-popular-anime:hover {
-    border: solid 3px #057f6a;
-    background: linear-gradient(45deg, #07c9a9cc 0%, #07c9a9cc 100%), url("../img/best-anime.jpg") center center no-repeat;
-}
 
 /*
 #most-popular-anime {
@@ -1399,6 +1362,7 @@ div.auSearchFilterResults{
     background: linear-gradient(45deg, #07c9a9cc 0%, #07c9a9cc 100%), url("../img/best-anime.jpg") center center no-repeat;
 }
 */
+
 
 
 /*--------------------------------------------------------------
@@ -1510,6 +1474,16 @@ input:checked + .slider:before {
     padding: 4px;
 }
 
+
+
+
+.usAnLisTitl{
+    background: rgba(255, 255, 247, 0.438);
+    border-radius: 10px;
+    padding: 10px;
+    margin: 0px;
+
+}
 
 
 
