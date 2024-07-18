@@ -14,7 +14,7 @@ $(document).ready(function() {
         var sides = parlist[it].split("=");
         if (sides[0]=="keyword"){
             let t_srvword = sides[1];
-            let search_val = t_srvword.replace("%20", " ");
+            let search_val = t_srvword.replaceAll("%20", " ");
             $("#keyword").val(search_val);
             break;
         }

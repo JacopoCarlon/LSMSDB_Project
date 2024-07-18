@@ -20,6 +20,11 @@ $(document).ready(function () {
             return;
         }
 
+        if(username.includes(" ")) {
+            alert("Username cannot contain spaces");
+            return;
+        }
+
         if (!stringPurifier(name) || !stringPurifier(surname) || !stringPurifier(username)
             || !stringPurifier(password) || !stringPurifier(repeatPassword)  ) {
             alert("Input uses bad characters.");
