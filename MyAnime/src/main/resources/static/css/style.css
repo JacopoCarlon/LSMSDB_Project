@@ -1379,6 +1379,7 @@ div.auSearchFilterResults{
     background: linear-gradient(45deg, #07c9a9cc 0%, #07c9a9cc 100%), url("../img/best-anime.jpg") center center no-repeat;
 }
 
+/*
 #most-popular-anime {
     padding: 40px;
     border: none;
@@ -1389,11 +1390,16 @@ div.auSearchFilterResults{
     margin: 0;
     background: linear-gradient(45deg, #282828cc 0%, #282828cc 100%), url("../img/best-anime.jpg") center center no-repeat;
 }
+*/
 
+
+/*
 #most-popular-anime:hover {
     border: solid 3px #057f6a;
     background: linear-gradient(45deg, #07c9a9cc 0%, #07c9a9cc 100%), url("../img/best-anime.jpg") center center no-repeat;
 }
+*/
+
 
 /*--------------------------------------------------------------
 # Back to top button
