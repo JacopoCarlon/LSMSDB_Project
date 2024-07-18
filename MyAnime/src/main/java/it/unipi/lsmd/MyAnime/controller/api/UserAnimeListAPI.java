@@ -83,8 +83,8 @@ public class UserAnimeListAPI {
 
             if (oldEpNum != episodesNum) {
                 Integer oldStats = userRepoMongoDB.getUserByUsername(username).getStatsEpisodes();
-                if (!userRepoMongoDB.updateStatsEpisodes(username, oldStats + episodesNum - oldEpNum));
-                return "{\"outcome_code\": 6}";
+                if (!userRepoMongoDB.updateStatsEpisodes(username, oldStats + episodesNum - oldEpNum))
+                    return "{\"outcome_code\": 6}";
             }
 
             int outcome = userRepoNeo4j.setWatchedEpisodesOfAnime(username, animeTitle, episodesNum);
