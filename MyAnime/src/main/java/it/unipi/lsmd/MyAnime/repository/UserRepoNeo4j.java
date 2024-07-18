@@ -156,12 +156,36 @@ public class UserRepoNeo4j {
         }
     }
 
-    public ArrayList<AnimeWatched> findWatchedAnime(String username, String status){
+    public ArrayList<AnimeWatched> findWatchedAnime(String username, Integer status){
         // If status is null, each list is loaded
-        String cypherQuery = "MATCH (a:Anime)<-[w:WATCHES]-(u:User {username: $username})\n" +
-                "WHERE ($status IS NOT NULL AND w.status = $status) XOR ($status IS NULL)\n" +
-                "RETURN a.title AS title, a.imgURL AS imgURL, w.status AS status, w.watched_episodes AS watchedEpisodes";
+        String cypherQuery = "MATCH (a:Anime)<-[w:WATCHES]-(u:User {username: $username}) " +
+                "WHERE ($status IS NOT NULL AND w.status = $status) XOR ($status IS NULL) " +
+                "RETURN a.title AS title, a.imgURL AS imgURL, toInteger(w.status) AS status, toInteger(w.watched_episodes) AS watchedEpisodes";
         return AnimeWatched.getAnimeWatched(neo4jClient, cypherQuery, username, status);
     }
 
+    public ArrayList<UserNode> getSuggestedUsersToFollow(String username){
+        try {
+            return findSuggestedUsersToFollow(username);
+        } catch (DataAccessException dae) {
+            if (dae instanceof DataAccessResourceFailureException)
+                throw dae;
+            dae.printStackTrace();
+            return null;
+        }
+    }
+
+    // dato un utente, restituisce gli utenti consigliati da seguire in base a anime visti in comune
+    private ArrayList<UserNode> findSuggestedUsersToFollow(String username) {
+        String cypherQuery = "MATCH (user:User {username: $username})-[w1:WATCHES]->(anime:Anime) " +
+                "WHERE w1.status <> 4 " +    // se status == 4, l'anime è stato abbandonato, quindi non va considerato tra i gusti dell'utente
+                "MATCH (otherUser:User)-[w2:WATCHES]->(anime) " +
+                "WHERE user <> otherUser AND w2.status <> 4 " +
+                "WITH otherUser, COUNT(*) AS recommendationSimilarity " +
+                "RETURN otherUser.username AS username " +
+                "ORDER BY recommendationSimilarity DESC " +
+                "LIMIT 10";
+
+        return UserNode.getUserNode(neo4jClient, username, cypherQuery);
+    }
 }

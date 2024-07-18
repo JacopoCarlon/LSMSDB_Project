@@ -59,7 +59,7 @@ public class UserAnimeListController {
         boolean userFound = userRepoMongoDB.existsByUsername(username);
         System.out.println("userFound : " + userFound + " username: " + username);
         if(userFound) {
-            List<AnimeWatched>aniList = userRepoNeo4j.findWatchedAnime(username, status);
+            List<AnimeWatched>aniList = userRepoNeo4j.findWatchedAnime(username, Integer.parseInt(status));
             boolean aniListFound = (aniList != null && !aniList.isEmpty());
             if(aniListFound) {
                 model.addAttribute("aniList", aniList);
