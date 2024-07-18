@@ -413,7 +413,7 @@ public class AnimeRepoMongoDB {
             System.out.println("anime already exists");
             return false;
         }
-        if((episodesVal!=null && episodesVal<0) || (episodeDurationVal!=null && episodeDurationVal<0)){
+        if((episodesVal!=null && episodesVal<=0) || (episodeDurationVal!=null && episodeDurationVal<=0)){
             System.out.println("episodes or episodeDuration not valid");
             return false;
         }
@@ -435,25 +435,39 @@ public class AnimeRepoMongoDB {
                 genreList.replaceAll(genreMapper::get);
             }
             HashMap<String, String> ratingMapper = Utility.ratingMapper();
+
             Anime anime = new Anime();
+            // Set mandatory fields for anime
             anime.setTitle(titleVal);
-            anime.setTitleJapanese(titleJapaneseVal);
-            anime.setType((type == null ? null : typeMapper.get(type)));
             anime.setSource(sourceVal);
-            if (episodesVal!=null){anime.setEpisodes(episodesVal);}
-            anime.setAiring(sliderAiringVal);
-            anime.setAired(airedInput);
-            anime.setRating((rating == null ? null : ratingMapper.get(rating)));
-            anime.setScoredBy(0);
-            anime.setWatchers(0);
-            if (backgroundVal!=null){anime.setBackground(backgroundVal);}
-            if (broadcastVal!=null){anime.setBroadcast(broadcastVal);}
-            if (producerVal!=null){anime.setProducer(producerVal);}
-            if (licensorVal!=null){anime.setLicensor(licensorVal);}
-            if (studioVal!=null){anime.setStudio(studioVal);}
-            if (genreList != null) {anime.setGenre(genreList.toArray(new String[0]));}
-            if (episodeDurationVal!=null){anime.setEpisodeDuration(episodeDurationVal);}
             anime.setImgURL(imgURLVal);
+
+            // Set optional fields for anime
+            if(titleJapaneseVal!=null && !titleJapaneseVal.isEmpty()){
+                anime.setTitleJapanese(titleJapaneseVal);
+            }
+            if (type!=null && !type.isEmpty()){
+                anime.setType(typeMapper.get(type));
+            }
+            if (episodesVal!=null){
+                anime.setEpisodes(episodesVal);
+            }
+            if (sliderAiringVal!=null){
+                anime.setAiring(sliderAiringVal);
+            }
+            if (airedInput.get("from")!=null || airedInput.get("to")!=null){
+                anime.setAired(airedInput);
+            }
+            if (rating!=null && !rating.isEmpty()){
+                anime.setRating(ratingMapper.get(rating));
+            }
+            if (backgroundVal!=null && !backgroundVal.isEmpty()){anime.setBackground(backgroundVal);}
+            if (broadcastVal!=null && !broadcastVal.isEmpty()){anime.setBroadcast(broadcastVal);}
+            if (producerVal!=null && !producerVal.isEmpty()){anime.setProducer(producerVal);}
+            if (licensorVal!=null && !licensorVal.isEmpty()){anime.setLicensor(licensorVal);}
+            if (studioVal!=null && !studioVal.isEmpty()){anime.setStudio(studioVal);}
+            if (genreList != null && !genreList.isEmpty()) {anime.setGenre(genreList.toArray(new String[0]));}
+            if (episodeDurationVal!=null){anime.setEpisodeDuration(episodeDurationVal);}
 
             System.out.println(anime);
             animeMongoInterface.save(anime);
