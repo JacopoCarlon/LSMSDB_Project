@@ -32,7 +32,7 @@ public interface UserNeo4jInterface extends Neo4jRepository<UserNode, String> {
     @Query("MATCH (u:User {username: $username}) " +
             "MATCH (a:Anime {title: $animeTitle}) " +
             "OPTIONAL MATCH (u)-[w:WATCHES]->(a) " +
-            "WITH a, u, w, CASE WHEN w IS NULL THEN 0 ELSE w.status END AS oldStatus " +
+            "WITH a, u, w, CASE WHEN w IS NULL THEN 0 ELSE toInteger(w.status) END AS oldStatus " +
             "MERGE (u)-[ww:WATCHES]->(a) " +
             "SET ww.status = $status " +
             "SET ww.watched_episodes = 0 " +
@@ -42,7 +42,7 @@ public interface UserNeo4jInterface extends Neo4jRepository<UserNode, String> {
     @Query("MATCH (u:User {username: $username}) " +
             "MATCH (a:Anime {title: $animeTitle}) " +
             "OPTIONAL MATCH (u)-[w:WATCHES]->(a) " +
-            "RETURN CASE WHEN w IS NULL THEN NULL ELSE w.watched_episodes END AS watched_episodes")
+            "RETURN CASE WHEN w IS NULL THEN NULL ELSE toInteger(w.watched_episodes) END AS watched_episodes")
     Integer getWatchedEpisodesOfAnime(String username, String animeTitle);
 
     @Query("MATCH (u:User {username: $username})-[w:WATCHES]->(a:Anime {title: $animeTitle})" +
