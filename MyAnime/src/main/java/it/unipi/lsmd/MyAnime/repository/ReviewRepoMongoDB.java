@@ -1,16 +1,21 @@
 package it.unipi.lsmd.MyAnime.repository;
 
 import it.unipi.lsmd.MyAnime.model.Review;
+import it.unipi.lsmd.MyAnime.model.query.ReviewsPerDate;
 import it.unipi.lsmd.MyAnime.repository.MongoDB.ReviewMongoInterface;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.stereotype.Repository;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -92,6 +97,38 @@ public class ReviewRepoMongoDB {
                 throw dae;
             dae.printStackTrace();
             return null;
+        }
+    }
+
+    public List<ReviewsPerDate> getReviewsPerDates() {
+        try {
+            Aggregation usersPerDateAggregation = Aggregation.newAggregation(
+                    Aggregation.project()
+                            .and("review_time").extractYear().as("year")
+                            .and("review_time").extractMonth().as("month"),
+                    Aggregation.group("year", "month").count().as("reviews"),
+                    Aggregation.project()
+                            .and("_id.year").as("year")
+                            .and("_id.month").as("month")
+                            .and("reviews").as("reviews")
+                            .andExclude("_id"),
+                    Aggregation.sort(Sort.Direction.ASC, "year", "month")
+            );
+            AggregationResults<ReviewsPerDate> results = mongoTemplate.aggregate(
+                    usersPerDateAggregation, "reviews", ReviewsPerDate.class
+            );
+
+            System.out.println("Guarda aggregation result: " + results.getMappedResults().get(0));
+
+            List<ReviewsPerDate> reviewsPerDates = results.getMappedResults();
+
+            return reviewsPerDates;
+
+        } catch (DataAccessException dae) {
+            if (dae instanceof DataAccessResourceFailureException)
+                throw dae;
+            dae.printStackTrace();
+            return new ArrayList<>();
         }
     }
 }

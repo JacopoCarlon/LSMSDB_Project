@@ -6,6 +6,7 @@ import it.unipi.lsmd.MyAnime.model.Anime;
 import it.unipi.lsmd.MyAnime.model.Review;
 import it.unipi.lsmd.MyAnime.model.query.AnimeOnlyAvgScore;
 import it.unipi.lsmd.MyAnime.model.query.AnimeWithWatchers;
+import it.unipi.lsmd.MyAnime.model.query.GenreScored;
 import it.unipi.lsmd.MyAnime.model.query.ReviewLite;
 import it.unipi.lsmd.MyAnime.repository.MongoDB.AnimeMongoInterface;
 import it.unipi.lsmd.MyAnime.utilities.Constants;
@@ -21,6 +22,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.BulkOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
@@ -187,7 +189,7 @@ public class AnimeRepoMongoDB {
                 case "sort-title_az" -> sort(ascending("title"));
                 case "sort-scores" -> sort(descending("score"));
                 case "sort-most_watched" -> sort(descending("members"));
-                case "sort-number_of_episodes" -> sort(ascending("episodes"));
+                case "sort-number_of_episodes" -> sort(descending("episodes"));
                 default -> sort;
             };
         }
@@ -328,28 +330,7 @@ public class AnimeRepoMongoDB {
         // il metodo setAverageScoreForRecentReviews().
 
         try {
-            // Fase 1: Trovo gli ID degli anime con recensioni
-            Aggregation recentReviewsAggregation = Aggregation.newAggregation(
-                    Aggregation.group("anime_id"),
-                    Aggregation.project("anime_id") // Project the anime_id
-            );
-            // Execute the aggregation
-            AggregationResults<Document> aggregationResults = mongoTemplate.aggregate(
-                    recentReviewsAggregation, "reviews", Document.class);
-
-            System.out.println("Guarda aggregation reviews: " + aggregationResults.getMappedResults().get(0));
-            System.out.println("Guarda aggregation reviews: " + aggregationResults.getMappedResults().get(0).get("_id"));
-
-            // Map the results to a list of strings
-            List<ObjectId> animeIds = aggregationResults.getMappedResults().stream()
-                    .map(document -> document.get("_id", ObjectId.class))
-                    .collect(Collectors.toList());
-
-            System.out.println("Guarda list ObjectId: " + animeIds.get(0));
-
-            // Fase 2: Calcolo la media degli score per questi anime
             Aggregation averageScoreAggregation = Aggregation.newAggregation(
-                    Aggregation.match(Criteria.where("anime_id").in(animeIds)),
                     Aggregation.group("anime_id").avg("score").as("avgScore").count().as("scoredBy"),
                     Aggregation.project("anime_id").andInclude("avgScore", "scoredBy")
             );
@@ -477,6 +458,40 @@ public class AnimeRepoMongoDB {
                 throw dae;
             dae.printStackTrace();
             return false;
+        }
+    }
+
+    public List<GenreScored> getGenreScored() {
+        try {
+            Aggregation genreScoreAggregation = Aggregation.newAggregation(
+                    Aggregation.project("genre").andInclude("score"),
+                    Aggregation.unwind("genre"),
+                    Aggregation.group("genre")
+                            .avg("score").as("avgScore")
+                            .max("score").as("maxScore")
+                            .min("score").as("minScore"),
+                    Aggregation.project()
+                            .and("_id").as("genre")
+                            .andInclude("avgScore", "maxScore", "minScore")
+                            .andExclude("_id"),
+                    Aggregation.sort(Sort.by(Sort.Direction.DESC, "avgScore"))
+            );
+            AggregationResults<GenreScored> results = mongoTemplate.aggregate(
+                    genreScoreAggregation, "animes", GenreScored.class
+            );
+
+
+            System.out.println("Guarda aggregation result: " + results.getMappedResults().get(0));
+
+            List<GenreScored> genreScoreds = results.getMappedResults();
+
+            return genreScoreds;
+
+        } catch (DataAccessException dae) {
+            if (dae instanceof DataAccessResourceFailureException)
+                throw dae;
+            dae.printStackTrace();
+            return new ArrayList<>();
         }
     }
 }

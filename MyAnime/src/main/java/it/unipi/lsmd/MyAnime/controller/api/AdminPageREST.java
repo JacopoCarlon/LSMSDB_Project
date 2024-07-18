@@ -1,8 +1,7 @@
 package it.unipi.lsmd.MyAnime.controller.api;
 
 import it.unipi.lsmd.MyAnime.model.Anime;
-import it.unipi.lsmd.MyAnime.model.query.AnimeOnlyAvgScore;
-import it.unipi.lsmd.MyAnime.model.query.AnimeWithWatchers;
+import it.unipi.lsmd.MyAnime.model.query.*;
 import it.unipi.lsmd.MyAnime.repository.*;
 import it.unipi.lsmd.MyAnime.utilities.Constants;
 import it.unipi.lsmd.MyAnime.utilities.Utility;
@@ -40,20 +39,38 @@ public class AdminPageREST {
     // need to connect and calculate admin data for updates and rankings !!!
 
     @PostMapping("/api/admin/calculateAdminStats")
+    @Transactional("transactionManager")
     public @ResponseBody String calculateAdminStats(HttpSession session){
         if(!Utility.isAdmin(session)){
             return "{\"outcome_code\": 1}";     // User is not an admin
         }
-        
-        // try catch method on (neo4j?)DB
-        
-        /*
-            needed : 
-            -   dailyLikesOnAnime   // from neo4j (?)
-            -   dailyReviews        // from neo4j (?)
-        */
-        return "TODO ...";
-        //  ...
+        try {
+            System.out.println(">> START: calculating admin stats");
+
+            List<GenreScored> genreScoreds = animeRepoMongoDB.getGenreScored();
+
+            for(GenreScored genreScored : genreScoreds){
+                System.out.println(genreScored);
+            }
+
+            List<UsersPerDate> usersPerDates = userRepoMongoDB.getUsersPerDates();
+
+            for(UsersPerDate usersPerDate : usersPerDates){
+                System.out.println(usersPerDate);
+            }
+
+            List<ReviewsPerDate> reviewsPerDates = reviewRepoMongoDB.getReviewsPerDates();
+
+            for(ReviewsPerDate reviewsPerDate : reviewsPerDates){
+                System.out.println(reviewsPerDate);
+            }
+            System.out.println(">>> END: All new watchers and average scores updated successfully");
+            return "{\"outcome_code\": 0}";             // Update successful
+
+        } catch (DataAccessResourceFailureException e) {
+            e.printStackTrace();
+            return "{\"outcome_code\": 10}";            // Error while connecting to the database
+        }
     }
 
 

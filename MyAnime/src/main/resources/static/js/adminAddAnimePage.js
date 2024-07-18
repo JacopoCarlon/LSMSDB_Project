@@ -97,7 +97,10 @@ $(document).ready(function () {
             //  alert(this_li.textContent)
             relations.push( this_li.textContent );
         }
-        alert("relations : " + relations);
+        if (filters[2].length <1){
+            alert("you shall not push an anime with no genre !!!");
+            return;
+        }
 
         const formData = {
             title_val               : title_val,

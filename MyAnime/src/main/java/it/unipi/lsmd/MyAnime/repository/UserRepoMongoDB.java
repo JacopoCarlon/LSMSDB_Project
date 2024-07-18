@@ -7,6 +7,7 @@ import java.nio.charset.StandardCharsets;
 import it.unipi.lsmd.MyAnime.model.Review;
 import it.unipi.lsmd.MyAnime.model.User;
 import it.unipi.lsmd.MyAnime.model.query.ReviewLite;
+import it.unipi.lsmd.MyAnime.model.query.UsersPerDate;
 import it.unipi.lsmd.MyAnime.repository.MongoDB.UserMongoInterface;
 import it.unipi.lsmd.MyAnime.utilities.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +15,17 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -136,5 +141,37 @@ public class UserRepoMongoDB {
         Query query = new Query(Criteria.where("username").is(username));
         Update update = new Update().push("mostRecentReviews").atPosition(0).each(review);
         mongoTemplate.updateFirst(query, update, User.class);
+    }
+
+    public List<UsersPerDate> getUsersPerDates() {
+        try {
+            Aggregation usersPerDateAggregation = Aggregation.newAggregation(
+                    Aggregation.project()
+                            .and("join_date").extractYear().as("year")
+                            .and("join_date").extractMonth().as("month"),
+                    Aggregation.group("year", "month").count().as("users"),
+                    Aggregation.project()
+                            .and("_id.year").as("year")
+                            .and("_id.month").as("month")
+                            .and("users").as("users")
+                            .andExclude("_id"),
+                    Aggregation.sort(Sort.Direction.ASC, "year", "month")
+            );
+            AggregationResults<UsersPerDate> results = mongoTemplate.aggregate(
+                    usersPerDateAggregation, "users", UsersPerDate.class
+            );
+
+            System.out.println("Guarda aggregation result: " + results.getMappedResults().get(0));
+
+            List<UsersPerDate> usersPerDates = results.getMappedResults();
+
+            return usersPerDates;
+
+        } catch (DataAccessException dae) {
+            if (dae instanceof DataAccessResourceFailureException)
+                throw dae;
+            dae.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 }
