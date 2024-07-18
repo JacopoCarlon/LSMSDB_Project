@@ -1,6 +1,5 @@
 package it.unipi.lsmd.MyAnime.controller.api;
 
-import it.unipi.lsmd.MyAnime.model.User;
 import it.unipi.lsmd.MyAnime.repository.AnimeRepoMongoDB;
 import it.unipi.lsmd.MyAnime.repository.UserRepoMongoDB;
 import it.unipi.lsmd.MyAnime.repository.UserRepoNeo4j;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class UserAnimeListAPI {
+public class UserAnimeListREST {
     @Autowired
     UserRepoMongoDB userRepoMongoDB;
     @Autowired
@@ -38,7 +37,7 @@ public class UserAnimeListAPI {
             if (!targetList.equals("1") && !targetList.equals("2") && !targetList.equals("3") && !targetList.equals("4") && !targetList.equals("6")) {
                 return "{\"outcome_code\": 3}";
             }
-            Integer targetListNumber = Integer.parseInt(targetList);
+            Integer targetListNumber = Integer.valueOf(targetList);
 
             String username = Utility.getUsername(session);
             if(!animeRepoMongoDB.existsByTitle(animeTitle))
