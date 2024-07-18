@@ -64,8 +64,8 @@ public class AnimeRepoNeo4j {
                 "WHERE NOT (user)-[:WATCHES]->(recommendedAnime) AND w1.status <> 4 " +     // se status == 4, l'anime è stato abbandonato, quindi non va considerato tra i gusti dell'utente
                 "WITH recommendedAnime, COUNT(*) AS recommendationSimilarity " +
                 "RETURN recommendedAnime.title AS title, recommendedAnime.imgURL AS imgURL " +
-                "ORDER BY recommendationSimilarity " +
-                "LIMIT 50";
+                "ORDER BY recommendationSimilarity DESC " +
+                "LIMIT 10";
 
         return AnimeNode.getAnimeNodeByUsername(neo4jClient, cypherQuery, username);
     }
@@ -92,8 +92,8 @@ public class AnimeRepoNeo4j {
                 "WHERE NOT (user)-[:WATCHES]->(recommendedAnime) AND w3.status <> 4 " +
                 "WITH recommendedAnime, COUNT(*) AS recommendationSimilarity " +
                 "RETURN recommendedAnime.title AS title, recommendedAnime.imgURL AS imgURL " +
-                "ORDER BY recommendationSimilarity " +
-                "LIMIT 50";
+                "ORDER BY recommendationSimilarity DESC " +
+                "LIMIT 10";
 
         return AnimeNode.getAnimeNodeByUsername(neo4jClient, cypherQuery, username);
     }

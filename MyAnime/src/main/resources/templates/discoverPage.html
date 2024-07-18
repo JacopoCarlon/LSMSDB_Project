@@ -52,12 +52,11 @@
                         <div th:if="${no_s_1}">No suggestion yet.</div>
                         <a th:each="anime : ${suggestedAnimes_ByTaste}" id="friend_animes_container" class="d-flex flex-column gap-1">
                             <div th:if="${suggestedAnimes_ByTaste.isEmpty()}">No suggestions.</div>
-                            <a th:href="@{/albumDetails(title=${anime.albumName},artist=${anime.artistName})}" class="top-container d-flex align-items-center">
-                                <img class="top-cover p-1" th:src="${anime.coverUrl}">
+                            <a th:href="@{/animeDetails(title=${anime.title})}" class="top-container d-flex align-items-center">
+                                <img class="top-cover p-1" th:src="${anime.imgURL}">
                                 <div class="anime-details d-flex flex-column">
-                                    <h5 style="margin-bottom: 0;" th:text="${anime.animeName}"></h5>
-                                    <p style="margin-top:0; margin-bottom: 0;" class="mb-0" th:text="${anime.albumName}"></p>
-                                    <p style="margin-top:0; margin-bottom: 0;" class="mb-0" th:text="${#strings.arrayJoin(anime.artistName, ', ')}"></p>
+                                    <h5 style="margin-bottom: 0;" th:text="${anime.title}"></h5>
+                                    <p style="margin-top:0; margin-bottom: 0;" class="mb-0" th:text="${anime.title}"></p>
                                 </div>
                             </a>
                         </a>
@@ -67,12 +66,11 @@
                         <div th:if="${no_s_2}">No suggestions yet.</div>
                         <div th:if="${suggestedAnimes_ByFollow.isEmpty()}">No suggestions.</div>
                         <div th:each="anime_f : ${suggestedAnimes_ByFollow}" id="common_animes_container" class="d-flex flex-column gap-1">
-                            <a th:href="'/albumDetails?title=' + ${anime_f.albumName} + '&artist=' + ${anime_f.artistName}" class="top-container d-flex align-items-center">
-                                <img class="top-cover p-1" th:src="${anime_f.coverUrl}">
+                            <a th:href="@{/animeDetails(title=${anime_f.title})}" class="top-container d-flex align-items-center">
+                                <img class="top-cover p-1" th:src="${anime_f.imgURL}">
                                 <div class="anime-details d-flex flex-column">
-                                    <h5 style="margin-bottom: 0;" th:text="${anime_f.animeName}"></h5>
-                                    <p style="margin-top:0; margin-bottom: 0;" class="mb-0" th:text="${anime_f.albumName}"></p>
-                                    <p style="margin-top:0; margin-bottom: 0;" class="mb-0" th:text="${#strings.arrayJoin(anime_f.artistName, ', ')}"></p>
+                                    <h5 style="margin-bottom: 0;" th:text="${anime_f.title}"></h5>
+                                    <p style="margin-top:0; margin-bottom: 0;" class="mb-0" th:text="${anime_f.title}"></p>
                                 </div>
                             </a>
                         </div>
@@ -82,7 +80,7 @@
                         <div th:if="${no_s_3}" style="color: white;">No suggestion yet.</div>
                         <div th:if="${suggestedUsersToFollow.isEmpty()}">No suggestions.</div>
                         <div th:each="user : ${suggestedUsersToFollow}" id="suggested_user_container" class="d-flex flex-column gap-1 p-3">
-                            <a th:href="'user?username=' + ${#uris.escapeQueryParam(user.username)}" class="d-flex align-items-center" style="text-decoration: none; color: #282828;">
+                            <a th:href="@{/userPage(username=${user.username})}" class="d-flex align-items-center" style="text-decoration: none; color: #282828;">
                                 <div class="d-flex flex-column">
                                     <h5 style="margin-bottom: 0;"><i class="fa fa-user me-1"></i><span th:text="${user.username}"></span></h5>
                                 </div>
