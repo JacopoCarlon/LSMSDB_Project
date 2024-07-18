@@ -1,5 +1,6 @@
 package it.unipi.lsmd.MyAnime.model;
 
+import it.unipi.lsmd.MyAnime.model.query.ReviewLite;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,5 +35,5 @@ public class User {
     @Field("stats_episodes")
     private int statsEpisodes;
     @Field("most_recent_reviews")
-    private Review[] mostRecentReviews;
+    private ReviewLite[] mostRecentReviews;
 }

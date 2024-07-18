@@ -1,6 +1,8 @@
 package it.unipi.lsmd.MyAnime.controller.api;
 
+import it.unipi.lsmd.MyAnime.model.User;
 import it.unipi.lsmd.MyAnime.repository.AnimeRepoMongoDB;
+import it.unipi.lsmd.MyAnime.repository.UserRepoMongoDB;
 import it.unipi.lsmd.MyAnime.repository.UserRepoNeo4j;
 import it.unipi.lsmd.MyAnime.utilities.Utility;
 import jakarta.servlet.http.HttpSession;
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class AnimeListAPI {
+public class UserAnimeListAPI {
+    @Autowired
+    UserRepoMongoDB userRepoMongoDB;
     @Autowired
     UserRepoNeo4j userRepoNeo4j;
     @Autowired
@@ -72,11 +76,16 @@ public class AnimeListAPI {
             if (!animeRepoMongoDB.existsByTitle(animeTitle))
                 return "{\"outcome_code\": 4}";     // Anime doesn't exist
 
-            System.out.println("aaa");
-            if (userRepoNeo4j.getWatchedEpisodesOfAnime(username, animeTitle) == null) {
+            Integer oldEpNum = userRepoNeo4j.getWatchedEpisodesOfAnime(username, animeTitle);
+            if (oldEpNum == null) {
                 return "{\"outcome_code\": 5}";     // User has not added anime to a list
             }
-            System.out.println("bbb");
+
+            if (oldEpNum != episodesNum) {
+                Integer oldStats = userRepoMongoDB.getUserByUsername(username).getStatsEpisodes();
+                if (!userRepoMongoDB.updateStatsEpisodes(username, oldStats + episodesNum - oldEpNum));
+                return "{\"outcome_code\": 6}";
+            }
 
             int outcome = userRepoNeo4j.setWatchedEpisodesOfAnime(username, animeTitle, episodesNum);
             return "{\"outcome_code\": " + outcome + "}";

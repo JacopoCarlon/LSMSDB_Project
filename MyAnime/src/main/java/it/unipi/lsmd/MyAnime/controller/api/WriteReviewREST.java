@@ -1,6 +1,7 @@
 package it.unipi.lsmd.MyAnime.controller.api;
 
 
+import it.unipi.lsmd.MyAnime.model.query.ReviewLite;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.web.bind.annotation.RestController;
@@ -73,8 +74,8 @@ public class WriteReviewREST {
             if(!outcomeInsertIntoReview)
                 return "{\"outcome_code\": 6}";     // Error while writing the review into the collection reviews
 
-            // insert della review nella collection users (aggiornamento reviewedAnimes)
-            Review reviewedAnime = new Review(username, anime.getId(), score, text, timestamp, anime.getTitle());
+            // insert della light review nella collection users (aggiornamento reviewedAnimes)
+            ReviewLite reviewedAnime = new ReviewLite(username, anime.getTitle(), score, timestamp);
 
             // public boolean insertReviewIntoUser(String username, Review review)
             boolean outcomeInsertIntoUser = userRepoMongoDB.insertReviewIntoUser(username, reviewedAnime);

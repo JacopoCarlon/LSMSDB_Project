@@ -6,6 +6,7 @@ import it.unipi.lsmd.MyAnime.model.Anime;
 import it.unipi.lsmd.MyAnime.model.Review;
 import it.unipi.lsmd.MyAnime.model.query.AnimeOnlyAvgScore;
 import it.unipi.lsmd.MyAnime.model.query.AnimeWithWatchers;
+import it.unipi.lsmd.MyAnime.model.query.ReviewLite;
 import it.unipi.lsmd.MyAnime.repository.MongoDB.AnimeMongoInterface;
 import it.unipi.lsmd.MyAnime.utilities.Constants;
 import it.unipi.lsmd.MyAnime.utilities.Utility;
@@ -218,18 +219,18 @@ public class AnimeRepoMongoDB {
                 return 1; // Anime non trovato
             }
 
-            Review[] oldReviews = anime.getMostRecentReviews();
-            LinkedList<Review> mostRecentReviews;
+            ReviewLite[] oldReviews = anime.getMostRecentReviews();
+            LinkedList<ReviewLite> mostRecentReviews;
             if (oldReviews != null)
                 mostRecentReviews = new LinkedList<>(Arrays.asList(oldReviews));
             else
                 mostRecentReviews = new LinkedList<>();
-            mostRecentReviews.addFirst(new Review(username, animeID, score, text, timestamp, anime.getTitle()));
+            mostRecentReviews.addFirst(new ReviewLite(username, anime.getTitle(), score, timestamp));
             while (mostRecentReviews.size() > 5) {
                 mostRecentReviews.removeLast();
             }
 
-            anime.setMostRecentReviews(mostRecentReviews.toArray(new Review[0]));
+            anime.setMostRecentReviews(mostRecentReviews.toArray(new ReviewLite[0]));
             animeMongoInterface.save(anime);
             return 0; // Successo
 

@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 
 import it.unipi.lsmd.MyAnime.model.Review;
 import it.unipi.lsmd.MyAnime.model.User;
+import it.unipi.lsmd.MyAnime.model.query.ReviewLite;
 import it.unipi.lsmd.MyAnime.repository.MongoDB.UserMongoInterface;
 import it.unipi.lsmd.MyAnime.utilities.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,7 +87,7 @@ public class UserRepoMongoDB {
                     .toString();
 
             // Creazione di un nuovo utente
-            User newUser = new User(null, username, name, surname, email, hashedPassword, salt, gender, birthDate, joinDate, statsEpisodes, new Review[0]);
+            User newUser = new User(null, username, name, surname, email, hashedPassword, salt, gender, birthDate, joinDate, statsEpisodes, new ReviewLite[0]);
 
             // Salvataggio del nuovo utente
             userMongoInterface.save(newUser);
@@ -105,7 +106,21 @@ public class UserRepoMongoDB {
         }
     }
 
-    public boolean insertReviewIntoUser(String username, Review review) {
+    public boolean updateStatsEpisodes(String username, Integer newStat) {
+        try {
+            Query query = new Query(Criteria.where("username").is(username));
+            Update update = new Update().set("stats_episodes", newStat);
+            mongoTemplate.updateFirst(query, update, User.class);
+            return true;
+        } catch (DataAccessException dae) {
+            if (dae instanceof DataAccessResourceFailureException)
+                throw dae;
+            dae.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean insertReviewIntoUser(String username, ReviewLite review) {
         try {
             addReviewIntoUser(username, review);
             return true;
@@ -117,7 +132,7 @@ public class UserRepoMongoDB {
         }
     }
 
-    public void addReviewIntoUser(String username, Review review) {
+    private void addReviewIntoUser(String username, ReviewLite review) {
         Query query = new Query(Criteria.where("username").is(username));
         Update update = new Update().push("mostRecentReviews").atPosition(0).each(review);
         mongoTemplate.updateFirst(query, update, User.class);

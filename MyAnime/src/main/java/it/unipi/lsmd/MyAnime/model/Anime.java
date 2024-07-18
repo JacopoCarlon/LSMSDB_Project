@@ -1,6 +1,7 @@
 package it.unipi.lsmd.MyAnime.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import it.unipi.lsmd.MyAnime.model.query.ReviewLite;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -43,9 +44,9 @@ public class Anime {
     private int episodeDuration;
     @Field("picture")
     private String imgURL;
-    private Review[] mostRecentReviews;
+    private ReviewLite[] mostRecentReviews;
 
-    public Anime (ObjectId objId, String title, String titleJapanese, String type, String source, int episodes,  boolean airing, Map aired, String rating, Double averageScore, int scoredBy, int watchers, String background, String broadcast, String producer, String licensor, String studio, String[] genre, int EpisodeDuration, String imgURL, Review[] mostRecentReviews) {
+    public Anime (ObjectId objId, String title, String titleJapanese, String type, String source, int episodes,  boolean airing, Map aired, String rating, Double averageScore, int scoredBy, int watchers, String background, String broadcast, String producer, String licensor, String studio, String[] genre, int EpisodeDuration, String imgURL, ReviewLite[] mostRecentReviews) {
         this.id = objId;
         this.title = title;
         this.titleJapanese = titleJapanese;
