@@ -129,7 +129,7 @@ public class AdminPageREST {
     
     // daily upadtes :
     @PostMapping("/api/admin/updateWatchersAndScores")
-    @Transactional
+    @Transactional("transactionManager")
     public @ResponseBody String updateNewWatchersAndAvgRatings(HttpSession session){
         if(!Utility.isAdmin(session)){
             return "{\"outcome_code\": 1}";         // User is not an admin
