@@ -47,46 +47,48 @@
             <section id="hero" class="d-flex flex-column container-fluid">
                 <div class="justify-content-center" data-aos="zoom-in" data-aos-delay="150">
                     <div class="container-fluid p-3 d-flex gap-1 col-12">
-                    <div id="friend_animes" class="d-flex flex-column recom-container p-1 gap-1 w-100 overflow-y-auto" style="max-height: 550px;">
-                        <h1>Suggested animes by taste</h1>
-                        <div th:if="${no_s_1}">No suggestion yet.</div>
-                        <a th:each="anime : ${suggestedAnimes_ByTaste}" id="friend_animes_container" class="d-flex flex-column gap-1">
-                            <div th:if="${suggestedAnimes_ByTaste.isEmpty()}">No suggestions.</div>
-                            <a th:href="@{/animeDetails(title=${anime.title})}" class="top-container d-flex align-items-center">
-                                <img class="top-cover p-1" th:src="${anime.imgURL}">
-                                <div class="anime-details d-flex flex-column">
-                                    <h5 style="margin-bottom: 0;" th:text="${anime.title}"></h5>
-                                    <p style="margin-top:0; margin-bottom: 0;" class="mb-0" th:text="${anime.title}"></p>
-                                </div>
-                            </a>
-                        </a>
-                    </div>
-                    <div id="common_animes" class="d-flex flex-column recom-container p-1 gap-1 w-100 overflow-y-auto" style="max-height: 550px;">
-                        <h1>Suggested animes by follow</h1>
-                        <div th:if="${no_s_2}">No suggestions yet.</div>
-                        <div th:if="${suggestedAnimes_ByFollow.isEmpty()}">No suggestions.</div>
-                        <div th:each="anime_f : ${suggestedAnimes_ByFollow}" id="common_animes_container" class="d-flex flex-column gap-1">
-                            <a th:href="@{/animeDetails(title=${anime_f.title})}" class="top-container d-flex align-items-center">
-                                <img class="top-cover p-1" th:src="${anime_f.imgURL}">
-                                <div class="anime-details d-flex flex-column">
-                                    <h5 style="margin-bottom: 0;" th:text="${anime_f.title}"></h5>
-                                    <p style="margin-top:0; margin-bottom: 0;" class="mb-0" th:text="${anime_f.title}"></p>
-                                </div>
+
+                        <div id="friend_animes" class="discovery_animes_col d-flex flex-column p-1 gap-1 w-100 overflow-y-auto" >
+                            <h1>Suggested animes by taste</h1>
+                            <div th:if="${no_s_1}">No suggestion yet.</div>
+                            <a th:each="anime : ${suggestedAnimes_ByTaste}" id="friend_animes_container" class="d-flex flex-column gap-1">
+                                <div th:if="${suggestedAnimes_ByTaste.isEmpty()}">No suggestions.</div>
+                                <a th:href="@{/animeDetails(title=${anime.title})}" class="top-container d-flex align-items-center">
+                                    <img class="img_resize" th:src="${anime.imgURL}" alt="anime_image" >
+                                    <div class="anime-details d-flex flex-column">
+                                        <h5 style="margin-bottom: 0; font-size: 30px;" th:text="${anime.title}"></h5>
+                                    </div>
+                                </a>
                             </a>
                         </div>
-                    </div>
-                    <div id="suggested_users" class="d-flex flex-column recom-container p-1 gap-1 w-100 overflow-y-auto" style="max-height: 550px;">
-                        <h1>Suggested users to follow</h1>
-                        <div th:if="${no_s_3}" style="color: white;">No suggestion yet.</div>
-                        <div th:if="${suggestedUsersToFollow.isEmpty()}">No suggestions.</div>
-                        <div th:each="user : ${suggestedUsersToFollow}" id="suggested_user_container" class="d-flex flex-column gap-1 p-3">
-                            <a th:href="@{/userPage(username=${user.username})}" class="d-flex align-items-center" style="text-decoration: none; color: #282828;">
-                                <div class="d-flex flex-column">
-                                    <h5 style="margin-bottom: 0;"><i class="fa fa-user me-1"></i><span th:text="${user.username}"></span></h5>
-                                </div>
+
+                        <div id="common_animes" class="discovery_animes_col d-flex flex-column p-1 gap-1 w-100 overflow-y-auto" >
+                            <h1>Suggested animes by follow</h1>
+                            <div th:if="${no_s_2}">No suggestion yet.</div>
+                            <a th:each="anime_f : ${suggestedAnimes_ByFollow}" id="common_animes_container" class="d-flex flex-column gap-1">
+                                <div th:if="${suggestedAnimes_ByFollow.isEmpty()}">No suggestions.</div>
+                                <a th:href="@{/animeDetails(title=${anime_f.title})}" class="top-container d-flex align-items-center">
+                                    <img class="img_resize" th:src="${anime_f.imgURL}" alt="anime_image" >
+                                    <div class="anime-details d-flex flex-column">
+                                        <h5 style="margin-bottom: 0; font-size: 30px;" th:text="${anime_f.title}"></h5>
+                                    </div>
+                                </a>
                             </a>
                         </div>
-                    </div>
+
+                        <div id="suggested_users" class="d-flex flex-column recom-container p-1 gap-1 w-100 overflow-y-auto" >
+                            <h1>Suggested users to follow</h1>
+                            <div th:if="${no_s_3}" style="color: white;">No suggestion yet.</div>
+                            <div th:if="${suggestedUsersToFollow.isEmpty()}">No suggestions.</div>
+                            <div th:each="user : ${suggestedUsersToFollow}" id="suggested_user_container" class="d-flex flex-column gap-1 p-3">
+                                <a th:href="@{/userPage(username=${user.username})}" class="d-flex align-items-center" style="text-decoration: none; color: #282828;">
+                                    <div class="d-flex flex-column">
+                                        <h5 style="margin-bottom: 0; font-size: 30px;"><i class="fa fa-user me-1"></i><span th:text="${user.username}"></span></h5>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </section>
