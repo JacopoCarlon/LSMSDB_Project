@@ -924,22 +924,15 @@ div.auSearchFilterResults{
 /*--------------------------------------------------------------
 # Suggested
 --------------------------------------------------------------*/
-#friend_animes {
+.discovery_animes_col {
     background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 10px 0px 0px 10px;
-    box-shadow: 0px 0px 15px 2px #28282847;
-    color: #282828;
-}
-
-#common_animes {
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 0px 10px 10px 0px;
+    border-radius: 10px;
     box-shadow: 0px 0px 15px 2px #28282847;
     color: #282828;
 }
 
 #suggested_users {
-    border-radius: 0px 10px 10px 0px;
+    border-radius: 10px;
     box-shadow: 0px 0px 15px 2px #28282847;
 }
 
@@ -1386,6 +1379,7 @@ div.auSearchFilterResults{
     background: linear-gradient(45deg, #07c9a9cc 0%, #07c9a9cc 100%), url("../img/best-anime.jpg") center center no-repeat;
 }
 
+/*
 #most-popular-anime {
     padding: 40px;
     border: none;
@@ -1396,11 +1390,16 @@ div.auSearchFilterResults{
     margin: 0;
     background: linear-gradient(45deg, #282828cc 0%, #282828cc 100%), url("../img/best-anime.jpg") center center no-repeat;
 }
+*/
 
+
+/*
 #most-popular-anime:hover {
     border: solid 3px #057f6a;
     background: linear-gradient(45deg, #07c9a9cc 0%, #07c9a9cc 100%), url("../img/best-anime.jpg") center center no-repeat;
 }
+*/
+
 
 /*--------------------------------------------------------------
 # Back to top button
@@ -1507,6 +1506,8 @@ input:checked + .slider:before {
 .img_resize{
     height: 100px;
     width: auto;
+    margin: 8px;
+    padding: 4px;
 }
 
 
