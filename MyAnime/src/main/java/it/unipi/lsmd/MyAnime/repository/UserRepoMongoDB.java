@@ -4,6 +4,7 @@ import com.google.common.hash.Hashing;
 
 import java.nio.charset.StandardCharsets;
 
+import it.unipi.lsmd.MyAnime.model.Anime;
 import it.unipi.lsmd.MyAnime.model.Review;
 import it.unipi.lsmd.MyAnime.model.User;
 import it.unipi.lsmd.MyAnime.model.query.ReviewLite;
@@ -13,6 +14,8 @@ import it.unipi.lsmd.MyAnime.utilities.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataAccessResourceFailureException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -25,9 +28,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Repository
 public class UserRepoMongoDB {
@@ -125,15 +126,52 @@ public class UserRepoMongoDB {
         }
     }
 
-    public boolean insertReviewIntoUser(String username, ReviewLite review) {
+    public int insertReviewIntoUser(String username, ReviewLite review) {
         try {
-            addReviewIntoUser(username, review);
-            return true;
+            User user = getUserByUsername(username);
+            if (user == null) {
+                return 1; // User non trovato
+            }
+
+            ReviewLite[] oldReviews = user.getMostRecentReviews();
+            LinkedList<ReviewLite> mostRecentReviews;
+            if (oldReviews != null)
+                mostRecentReviews = new LinkedList<>(Arrays.asList(oldReviews));
+            else
+                mostRecentReviews = new LinkedList<>();
+
+            // remove eventual old review
+            String animeTitle = review.getAnimeTitle();
+            for (int i = 0; i < mostRecentReviews.size(); i++) {
+                if (mostRecentReviews.get(i).getUsername().equals(username) &&
+                        mostRecentReviews.get(i).getAnimeTitle().equals(animeTitle))
+                {
+                    mostRecentReviews.remove(i);
+                    break;
+                }
+            }
+
+            mostRecentReviews.addFirst(review);
+            while (mostRecentReviews.size() > 5) {
+                mostRecentReviews.removeLast();
+            }
+
+            user.setMostRecentReviews(mostRecentReviews.toArray(new ReviewLite[0]));
+            userMongoInterface.save(user);
+            return 0; // Successo
+
+        } catch (DuplicateKeyException e) {
+            e.printStackTrace();
+            return 2; // Violazione del vincolo di unicità
+        } catch (DataIntegrityViolationException e) {
+            e.printStackTrace();
+            return 3; // Violazione dell'integrità dei dati
         } catch (DataAccessException dae) {
-            if (dae instanceof DataAccessResourceFailureException)
+            if (dae instanceof DataAccessResourceFailureException) {
                 throw dae;
+            }
             dae.printStackTrace();
-            return false;
+            return 4; // Altre eccezioni relative all'accesso ai dati
         }
     }
 

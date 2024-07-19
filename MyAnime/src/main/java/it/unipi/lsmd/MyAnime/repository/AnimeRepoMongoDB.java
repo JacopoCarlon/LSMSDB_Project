@@ -214,7 +214,7 @@ public class AnimeRepoMongoDB {
         return animes;
     }
 
-    public int insertReviewIntoAnime(ObjectId animeID, String username, int score, String text, Instant timestamp) {
+    public int insertReviewIntoAnime(ObjectId animeID, ReviewLite review) {
         try {
             Anime anime = getAnimeById(animeID);
             if (anime == null) {
@@ -227,7 +227,20 @@ public class AnimeRepoMongoDB {
                 mostRecentReviews = new LinkedList<>(Arrays.asList(oldReviews));
             else
                 mostRecentReviews = new LinkedList<>();
-            mostRecentReviews.addFirst(new ReviewLite(username, anime.getTitle(), score, timestamp));
+
+            // remove eventual old review
+            String animeTitle = anime.getTitle();
+            String username = review.getUsername();
+            for (int i = 0; i < mostRecentReviews.size(); i++) {
+                if (mostRecentReviews.get(i).getUsername().equals(username) &&
+                        mostRecentReviews.get(i).getAnimeTitle().equals(animeTitle))
+                {
+                    mostRecentReviews.remove(i);
+                    break;
+                }
+            }
+
+            mostRecentReviews.addFirst(review);
             while (mostRecentReviews.size() > 5) {
                 mostRecentReviews.removeLast();
             }

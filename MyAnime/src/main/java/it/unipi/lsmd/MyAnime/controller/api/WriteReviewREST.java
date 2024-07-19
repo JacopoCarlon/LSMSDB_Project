@@ -62,28 +62,34 @@ public class WriteReviewREST {
 
             if(score < 1 || score > 10)
                 return "{\"outcome_code\": 4}";     // Score out of range
-            if(reviewRepoMongoDB.existsByAnimeIDAndUsername(anime.getId(), username))
-                return "{\"outcome_code\": 5}";     // User has already written a review for this anime
 
+            // remove eventual old review
+            if (!reviewRepoMongoDB.removeByAnimeIDAndUsername(anime.getId(), username)) {
+                return "{\"outcome_code\": 6}";
+            }
 
-
-            //  TODO : verify consinstency inserts !!!
             Instant timestamp = Instant.now();
-
             boolean outcomeInsertIntoReview = reviewRepoMongoDB.insertReview(score, text, anime.getId(), username, timestamp, anime.getTitle());
             if(!outcomeInsertIntoReview)
                 return "{\"outcome_code\": 6}";     // Error while writing the review into the collection reviews
 
             // insert della light review nella collection users (aggiornamento reviewedAnimes)
-            ReviewLite reviewedAnime = new ReviewLite(username, anime.getTitle(), score, timestamp);
+            ReviewLite reviewLite = new ReviewLite(username, anime.getTitle(), score, timestamp);
 
             // public boolean insertReviewIntoUser(String username, Review review)
-            boolean outcomeInsertIntoUser = userRepoMongoDB.insertReviewIntoUser(username, reviewedAnime);
-            if(!outcomeInsertIntoUser)
-                return "{\"outcome_code\": 7}";     // Error while writing the review into the collection users
+            int outcomeInsertIntoUser = userRepoMongoDB.insertReviewIntoUser(username, reviewLite);
+            if(outcomeInsertIntoUser == 1) {
+                return "{\"outcome_code\": 7}";     // User not found
+            } else if (outcomeInsertIntoUser == 2) {
+                return "{\"outcome_code\": 9}";     // Violation of uniqueness constraint
+            } else if (outcomeInsertIntoUser == 3) {
+                return "{\"outcome_code\": 10}";     // Violation of data integrity
+            } else if (outcomeInsertIntoUser == 4) {
+                return "{\"outcome_code\": 11}";     // Other exceptions related to data access
+            }
 
             // insert della review nella collection animes (aggiornamento lastReviews)
-            int outcomeInsertIntoAnime = animeRepoMongoDB.insertReviewIntoAnime(anime.getId(), username, score, text, timestamp);
+            int outcomeInsertIntoAnime = animeRepoMongoDB.insertReviewIntoAnime(anime.getId(), reviewLite);
             if (outcomeInsertIntoAnime == 1) {
                 return "{\"outcome_code\": 8}";     // Anime not found
             } else if (outcomeInsertIntoAnime == 2) {

@@ -26,9 +26,10 @@ public class ReviewRepoMongoDB {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public boolean existsByAnimeIDAndUsername(ObjectId animeID, String username) {
+    public boolean removeByAnimeIDAndUsername(ObjectId animeID, String username) {
         try {
-            return reviewMongoInterface.existsByAnimeIDAndUsername(animeID , username);
+            reviewMongoInterface.removeByAnimeIDAndUsername(animeID , username);
+            return true;
         } catch (DataAccessException dae) {
             if (dae instanceof DataAccessResourceFailureException)
                 throw dae;
