@@ -1,6 +1,5 @@
 package it.unipi.lsmd.MyAnime.model.query;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Transient;

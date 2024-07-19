@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.neo4j.core.Neo4jClient;
 
 import java.util.ArrayList;
-import static it.unipi.lsmd.MyAnime.utilities.Utility.*;
 
 @Data
 @NoArgsConstructor

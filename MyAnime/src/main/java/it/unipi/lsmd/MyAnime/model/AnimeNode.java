@@ -38,15 +38,4 @@ public class AnimeNode {
                     return new AnimeNode(title, imgURL);
                 }).all();
     }
-
-    public static ArrayList<AnimeNode> getAnimeNodeByTitle(Neo4jClient neo4jClient, String cypherQuery, String title) {
-        return (ArrayList<AnimeNode>) neo4jClient
-                .query(cypherQuery)
-                .bind(title).to("title")
-                .fetchAs(AnimeNode.class)
-                .mappedBy((typeSystem, record) -> {
-                    String imgURL = record.get("imgURL").asString();
-                    return new AnimeNode(title, imgURL);
-                }).all();
-    }
 }
