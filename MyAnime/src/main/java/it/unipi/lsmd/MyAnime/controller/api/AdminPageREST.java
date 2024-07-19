@@ -38,43 +38,6 @@ public class AdminPageREST {
     // TODO :
     // need to connect and calculate admin data for updates and rankings !!!
 
-    @PostMapping("/api/admin/calculateAdminStats")
-    @Transactional("transactionManager")
-    public @ResponseBody String calculateAdminStats(HttpSession session){
-        if(!Utility.isAdmin(session)){
-            return "{\"outcome_code\": 1}";     // User is not an admin
-        }
-        try {
-            System.out.println(">> START: calculating admin stats");
-
-            List<GenreScored> genreScoreds = animeRepoMongoDB.getGenreScored();
-
-            for(GenreScored genreScored : genreScoreds){
-                System.out.println(genreScored);
-            }
-
-            List<UsersPerDate> usersPerDates = userRepoMongoDB.getUsersPerDates();
-
-            for(UsersPerDate usersPerDate : usersPerDates){
-                System.out.println(usersPerDate);
-            }
-
-            List<ReviewsPerDate> reviewsPerDates = reviewRepoMongoDB.getReviewsPerDates();
-
-            for(ReviewsPerDate reviewsPerDate : reviewsPerDates){
-                System.out.println(reviewsPerDate);
-            }
-            System.out.println(">>> END: All new watchers and average scores updated successfully");
-            return "{\"outcome_code\": 0}";             // Update successful
-
-        } catch (DataAccessResourceFailureException e) {
-            e.printStackTrace();
-            return "{\"outcome_code\": 10}";            // Error while connecting to the database
-        }
-    }
-
-
-
 
 
     @PostMapping("/api/admin/calculateRankings")
@@ -122,21 +85,6 @@ public class AdminPageREST {
             e.printStackTrace();
             return "{\"outcome_code\": 11}"; // File writing error
         }
-
-
-        // probably need operations on both mongoDB and neo4j DB.
-        //  write results on some data_directory for easy access on reload of mostPopularPage !!
-
-        /*
-            needed : 
-            -   clear rankings dir
-            -   generate rankings by : (see mostPopularPage btw)
-                --  top-rated (all time)    : weighted of average all time, with a give number of minimun votes (avoid ^sandbagging)
-                -   average rating all time     == most liked all time
-                -   average rating this week    == most liked this week
-
-        return "TODO ...";
-        */
 
     }
 

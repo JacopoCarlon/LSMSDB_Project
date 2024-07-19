@@ -39,11 +39,10 @@ public class AdminStatsController {
         }
         else if(!Utility.isAdmin(session))
             return "error/accessDenied";
-
         try {
             System.out.println(">> START: calculating admin stats");
 
-            List<GenreScored> genreScored = animeRepoMongoDB.getGenreScored();
+                List<GenreScored> genreScored = animeRepoMongoDB.getGenreScored();
             for(GenreScored genreScoredElem:genreScored){
                 genreScoredElem.roundAverageScore();
             }
@@ -61,6 +60,7 @@ public class AdminStatsController {
 
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("adminStatController error!");
             return "error/genericError";
         }
     }

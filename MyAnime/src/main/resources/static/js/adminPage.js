@@ -15,6 +15,7 @@ $(document).ready(function (){
             method: 'POST',
             dataType: 'json',
             success: function (data) {
+                alert("we were given the outcome : " + data.outcome_code);
                 switch (data.outcome_code) {
                     case 0:
                         alert('Ranking update successful!');
@@ -62,12 +63,16 @@ $(document).ready(function (){
 
     $("#updateAvgScores").click(function () {
         alert("Start updating likes...");
+        var popup = document.getElementById("myPopup");
+        popup.classList.toggle("show");
         $.ajax({
             url: '/api/admin/updateWatchersAndScores',
             method: 'POST',
             dataType: 'json',
             success: function (data) {
-                alert(data.outcome_code);
+                //  alert(data.outcome_code);
+                popup.classList.toggle("show");
+
                 switch (data.outcome_code) {
                     case 0:
                         alert('Update successful!');
