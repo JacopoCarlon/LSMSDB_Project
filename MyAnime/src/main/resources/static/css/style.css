@@ -651,6 +651,21 @@ li {
 
 .main {
     min-height: 100%;
+    background: linear-gradient(45deg, #FFFF33d1 0%, #228B22d1 100%), url("../img/bg.jpg") center center no-repeat;
+    background-size: cover;
+}
+
+/*
+colors
+{
+    Light yellow4  #FFFF33  rgb(255,255,51) ;
+    lime  #00FF00  rgb(0,255,0) ;
+    forestgreen #228B22 rgb(34, 139, 34) ;
+}
+*/
+
+.dark_main {
+    min-height: 100%;
     background: linear-gradient(45deg, #282828d1 0%, #282828d1 100%), url("../img/bg.jpg") center center no-repeat;
     background-size: cover;
 }
