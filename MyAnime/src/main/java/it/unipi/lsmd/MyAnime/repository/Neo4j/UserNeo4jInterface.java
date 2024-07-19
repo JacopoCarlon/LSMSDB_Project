@@ -13,9 +13,9 @@ public interface UserNeo4jInterface extends Neo4jRepository<UserNode, String> {
     void createUser(String username);
 
     // cancella l'utente e tutte le relazioni associate ad esso
-    @Query("MATCH (u:User {username: $username})-[r]" +
-            "DELETE DETACH u")
-    void deleteUser(String username);
+    //@Query("MATCH (u:User {username: $username})-[r]" +
+    //        "DELETE DETACH u")
+    //void deleteUser(String username);
 
     @Query("MATCH (u1:User {username: $user1}) " +
             "MATCH (u2:User {username: $user2}) " +
@@ -53,14 +53,6 @@ public interface UserNeo4jInterface extends Neo4jRepository<UserNode, String> {
     @Query("MATCH (u:User {username: $username})-[r:WATCHES]->(a:Anime {title: $animeTitle}) " +
             "DELETE r")
     void removeWatches(String username, String animeTitle);
-
-    @Query("MATCH (u:User {username: $username})-[:FOLLOWS]->(following) " +
-            "RETURN COUNT(following)")
-    int countFollowing(String username);
-
-    @Query("MATCH (followers)-[:FOLLOWS]->(u:User {username: $username}) " +
-            "RETURN COUNT(followers)")
-    int countFollowers(String username);
 
     @Query("MATCH (u:User {username: $username})-[:FOLLOWS]->(followed:User) " +
             "RETURN followed")

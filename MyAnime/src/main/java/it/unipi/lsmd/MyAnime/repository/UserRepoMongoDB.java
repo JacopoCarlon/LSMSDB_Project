@@ -4,8 +4,6 @@ import com.google.common.hash.Hashing;
 
 import java.nio.charset.StandardCharsets;
 
-import it.unipi.lsmd.MyAnime.model.Anime;
-import it.unipi.lsmd.MyAnime.model.Review;
 import it.unipi.lsmd.MyAnime.model.User;
 import it.unipi.lsmd.MyAnime.model.query.ReviewLite;
 import it.unipi.lsmd.MyAnime.model.query.UsersPerDate;
@@ -28,7 +26,12 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
 import java.time.Instant;
-import java.util.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+
 
 @Repository
 public class UserRepoMongoDB {
@@ -173,12 +176,6 @@ public class UserRepoMongoDB {
             dae.printStackTrace();
             return 4; // Altre eccezioni relative all'accesso ai dati
         }
-    }
-
-    private void addReviewIntoUser(String username, ReviewLite review) {
-        Query query = new Query(Criteria.where("username").is(username));
-        Update update = new Update().push("mostRecentReviews").atPosition(0).each(review);
-        mongoTemplate.updateFirst(query, update, User.class);
     }
 
     public List<UsersPerDate> getUsersPerDates() {

@@ -11,8 +11,8 @@ import java.util.Optional;
 
 public interface ReviewMongoInterface extends MongoRepository<Review, String> {
     void removeByAnimeIDAndUsername(ObjectId animeObjectID, String username);
-    Optional<Review> findByAnimeIDAndUsername(ObjectId animeObjectID, String username);
+    //Optional<Review> findByAnimeIDAndUsername(ObjectId animeObjectID, String username);
     Page<Review> findLimitedReviewsByAnimeIDOrderByTimestampDesc(ObjectId animeObjectID, Pageable pageable);
-    Page<Review> findLimitedReviewsByAnimeTitle(String animeTitle, Pageable pageable);
+    //Page<Review> findLimitedReviewsByAnimeTitle(String animeTitle, Pageable pageable);
     List<Review> findLimitedReviewsByUsernameOrderByTimestampDesc(String username, Pageable pageable);
 }

@@ -31,7 +31,7 @@ public class AnimeRepoNeo4j {
         }
     }
 
-    public ArrayList<AnimeWithWatchers> findAnimeWithWatchers() {
+    private ArrayList<AnimeWithWatchers> findAnimeWithWatchers() {
         String cypherQuery = "MATCH (a:Anime)<-[r:WATCHES]-(:User) " +
                 "WHERE r.status <> 4 AND r.status <> 6 " +
                 "RETURN a.title AS title, a.imgURL AS imgURL, COUNT(r) AS watchers";

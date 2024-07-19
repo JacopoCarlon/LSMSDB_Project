@@ -63,6 +63,7 @@ public class ReviewRepoMongoDB {
         }
     }
 
+    /*
     public List<Review> getReviewsByAnimeTitle(String animeTitle) {
         try {
             PageRequest pageable = PageRequest.of(0, 500);
@@ -74,6 +75,7 @@ public class ReviewRepoMongoDB {
             return null;
         }
     }
+
 
     public Review getReviewByAnimeIDAndUsername(String animeID, String username) {
         try {
@@ -87,6 +89,7 @@ public class ReviewRepoMongoDB {
             return null;
         }
     }
+    */
 
     public List<Review> getReviewsByUsername( String username) {
         try {

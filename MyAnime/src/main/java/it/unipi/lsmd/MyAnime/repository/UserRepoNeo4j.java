@@ -1,6 +1,5 @@
 package it.unipi.lsmd.MyAnime.repository;
 
-import it.unipi.lsmd.MyAnime.model.AnimeNode;
 import it.unipi.lsmd.MyAnime.model.UserNode;
 import it.unipi.lsmd.MyAnime.model.query.AnimeWatched;
 import it.unipi.lsmd.MyAnime.repository.Neo4j.UserNeo4jInterface;
@@ -99,34 +98,6 @@ public class UserRepoNeo4j {
         try {
             userNeo4jInterface.removeWatches(username, animeTitle);
             return 0;
-        } catch (DataAccessException dae) {
-            if (dae instanceof DataAccessResourceFailureException) {
-                dae.printStackTrace();
-                return 1;
-            } else {
-                dae.printStackTrace();
-                return 2;
-            }
-        }
-    }
-
-    public int countFollowers(String username){
-        try {
-            return userNeo4jInterface.countFollowers(username);
-        } catch (DataAccessException dae) {
-            if (dae instanceof DataAccessResourceFailureException) {
-                dae.printStackTrace();
-                return 1;
-            } else {
-                dae.printStackTrace();
-                return 2;
-            }
-        }
-    }
-
-    public int countFollowing(String username){
-        try {
-            return userNeo4jInterface.countFollowing(username);
         } catch (DataAccessException dae) {
             if (dae instanceof DataAccessResourceFailureException) {
                 dae.printStackTrace();

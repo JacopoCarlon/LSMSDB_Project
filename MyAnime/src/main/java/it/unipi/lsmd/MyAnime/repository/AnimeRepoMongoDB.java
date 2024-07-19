@@ -3,7 +3,6 @@ package it.unipi.lsmd.MyAnime.repository;
 import com.mongodb.ConnectionString;
 import com.mongodb.client.*;
 import it.unipi.lsmd.MyAnime.model.Anime;
-import it.unipi.lsmd.MyAnime.model.Review;
 import it.unipi.lsmd.MyAnime.model.query.AnimeOnlyAvgScore;
 import it.unipi.lsmd.MyAnime.model.query.AnimeWithWatchers;
 import it.unipi.lsmd.MyAnime.model.query.GenreScored;
@@ -11,7 +10,6 @@ import it.unipi.lsmd.MyAnime.model.query.ReviewLite;
 import it.unipi.lsmd.MyAnime.repository.MongoDB.AnimeMongoInterface;
 import it.unipi.lsmd.MyAnime.utilities.Constants;
 import it.unipi.lsmd.MyAnime.utilities.Utility;
-import org.apache.commons.validator.routines.UrlValidator;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
@@ -27,26 +25,21 @@ import org.springframework.data.mongodb.core.BulkOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
-import org.springframework.data.mongodb.core.aggregation.ArrayOperators;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Type;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
-import static com.mongodb.client.model.Accumulators.sum;
 import static com.mongodb.client.model.Aggregates.*;
 import static com.mongodb.client.model.Aggregates.limit;
 import static com.mongodb.client.model.Filters.*;
 import static com.mongodb.client.model.Projections.*;
-import static com.mongodb.client.model.Projections.computed;
 import static com.mongodb.client.model.Sorts.ascending;
 import static com.mongodb.client.model.Sorts.descending;
 
@@ -98,13 +91,8 @@ public class AnimeRepoMongoDB {
 
     public Anime getAnimeByTitle(String title){
         try {
-            //  System.out.println("animeByTitle: "+title);
-            //  String aaa = title;
-            //  System.out.println(title.getClass());
-            //  System.out.println(aaa.getClass());
-            //  System.out.println("aaa".getClass());
             List<Anime> result = animeMongoInterface.findByTitle(title);
-            //  System.out.println(result);
+
             if (result.isEmpty())
                 return null;
             else if (result.size() < 1){
@@ -123,9 +111,7 @@ public class AnimeRepoMongoDB {
 
     public List<Anime> findAnime(String term, List<String> genre, List<String> year, List<String> type, List<String> status, List<String> rating, String sortBy) {
         try {
-            Pageable topTen = PageRequest.of(0, 10);
             return filterAnime(term, genre, year, type, status, rating, sortBy);
-            // return animeMongoInterface.findAnimeByTitleContaining(term, topTen);
         } catch (DataAccessException dae) {
             if (dae instanceof DataAccessResourceFailureException)
                 throw dae;
@@ -193,14 +179,8 @@ public class AnimeRepoMongoDB {
                 default -> sort;
             };
         }
-        Bson project = project(fields(
-                include("title",
-                        "score",
-                        "picture")
-        ));
         Bson limit = limit(50);
 
-        //matches.add(project);
         matches.add(sort);
         matches.add(limit);
 
@@ -342,17 +322,9 @@ public class AnimeRepoMongoDB {
                     Aggregation.project("anime_id").andInclude("avgScore", "scoredBy")
             );
 
-            //System.out.println("Guarda aggregation score: " + averageScoreAggregation);
-
             AggregationResults<AnimeOnlyAvgScore> results = mongoTemplate.aggregate(
                     averageScoreAggregation, "reviews", AnimeOnlyAvgScore.class
             );
-
-            /*AggregationResults<Document> results = mongoTemplate.aggregate(
-                    averageScoreAggregation, "reviews", Document.class
-            );*/
-
-            System.out.println("Guarda aggregation result: " + results.getMappedResults().get(0));
 
             List<AnimeOnlyAvgScore> animeAverages = results.getMappedResults();
 
@@ -457,7 +429,7 @@ public class AnimeRepoMongoDB {
             if (genreList != null && !genreList.isEmpty()) {anime.setGenre(genreList.toArray(new String[0]));}
             if (episodeDurationVal!=null){anime.setEpisodeDuration(episodeDurationVal);}
 
-            System.out.println(anime);
+            // System.out.println(anime);
             animeMongoInterface.save(anime);
             return true;
         } catch (DataAccessException dae) {
@@ -489,7 +461,7 @@ public class AnimeRepoMongoDB {
             );
 
 
-            System.out.println("Guarda aggregation result: " + results.getMappedResults().get(0));
+            //System.out.println("Guarda aggregation result: " + results.getMappedResults().get(0));
 
             List<GenreScored> genreScoreds = results.getMappedResults();
 
