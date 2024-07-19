@@ -15,9 +15,7 @@ public final class Constants {
     // File names for the query results - Anime
     public static final String fileName_RankingAnimeByScoreAllTime = "rankingAnimeWithMinReviewsByAvgScoreAllTime.json";
     public static final String fileName_RankingAnimeByWatchersAllTime = "rankingAnimeByWatchersAllTime.json";
-    public static final String fileName_RankingAnimeByLikes_AllTime = "rankingAnimeByLikes_AllTime.json";
-    public static final String fileName_RankingAnimeByRating_LastWeek = "rankingAnimeByRating_LastWeek.json";
-    public static final String fileName_RankingAnimeByLikes_LastWeek = "rankingAnimeByLikes_LastWeek.json";
+
 
     // String for MongoDB connection
     //public static final String mongoDBConnectionUri = "mongodb://localhost:27017";

@@ -3,20 +3,16 @@ package it.unipi.lsmd.MyAnime.utilities;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import it.unipi.lsmd.MyAnime.model.Anime;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.security.SecureRandom;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 public class Utility {
