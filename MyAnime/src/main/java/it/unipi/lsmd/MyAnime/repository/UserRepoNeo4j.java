@@ -159,7 +159,7 @@ public class UserRepoNeo4j {
     public ArrayList<AnimeWatched> findWatchedAnime(String username, Integer status){
         // If status is null, each list is loaded
         String cypherQuery = "MATCH (a:Anime)<-[w:WATCHES]-(u:User {username: $username}) " +
-                "WHERE ($status IS NOT NULL AND w.status = $status) XOR ($status IS NULL) " +
+                "WHERE ($status IS NULL) OR (w.status = $status)" +
                 "RETURN a.title AS title, a.imgURL AS imgURL, toInteger(w.status) AS status, toInteger(w.watched_episodes) AS watchedEpisodes";
         return AnimeWatched.getAnimeWatched(neo4jClient, cypherQuery, username, status);
     }
