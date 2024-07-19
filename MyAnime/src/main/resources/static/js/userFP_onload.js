@@ -12,9 +12,9 @@ $(document).ready(function() {
     let parlist = urlParams.replace(/^\?/, '').split('&');
     for (it in parlist){
         let sides = parlist[it].split("=");
-        let search_val = t_srvword.replaceAll("%20", " ").trim();
         if (sides[0]=="keyword"){
             let t_srvword = sides[1];
+            let search_val = t_srvword.replaceAll("%20", " ");
             $("#keyword").val(search_val);
             break;
         }

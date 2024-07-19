@@ -99,8 +99,8 @@
                                 </div>
                             </div>
                             <div id="reviews_container" class="overflow-y-auto gap-1">
-                                <div th:each="review : ${userDetails.mostRecentReviews}" class="d-flex gap-1 p-1 align-items-center rev_container" style="margin-bottom: 5px" >
-                                   <div class="d-flex flex-column">
+                                <div th:each="review : ${userDetails.mostRecentReviews}"  class="d-flex gap-1 p-1 align-items-center rev_container" style="margin-bottom: 5px" >
+                                   <div class="d-flex flex-column"  th:href="@{'/animeDetails'(title=${review.animeTitle})}"   >
                                         <h5 class="fw-bold mb-0" id="anime-title" th:text="${review.animeTitle}"></h5>
                                         <div id="rating-review">
                                             <i class="fa fa-star"></i>
