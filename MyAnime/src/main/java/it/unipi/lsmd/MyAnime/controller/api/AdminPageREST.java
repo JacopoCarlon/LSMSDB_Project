@@ -94,7 +94,7 @@ public class AdminPageREST {
             if(!animeWithWatchers.isEmpty()){
                 boolean outcome1 = animeRepoMongoDB.setWatchersOfAnime(animeWithWatchers.toArray(new AnimeWithWatchers[0]));
                 if(!outcome1)
-                    return "{\"outcome_code\": 2}";     // Error while updating new likes (for albums)
+                    return "{\"outcome_code\": 2}";
                 else
                     System.out.println(">> New watchers updated successfully");
             }

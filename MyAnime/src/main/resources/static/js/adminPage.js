@@ -62,7 +62,7 @@ $(document).ready(function (){
 
 
     $("#updateAvgScores").click(function () {
-        alert("Start updating likes...");
+        alert("Start updating scores...");
         var popup = document.getElementById("myPopup");
         popup.classList.toggle("show");
         $.ajax({
@@ -81,13 +81,13 @@ $(document).ready(function (){
                         alert('User not found or unauthorized.');
                         break;
                     case 2:
-                        alert('Error while updating new likes (for animes).');
+                        alert('Error while updating new scores (for animes).');
                         break;
                     case 3:
                         alert('Generic updating error).');
                         break;
                     case 4:
-                        alert('Error while updating average rating.');
+                        alert('Error while updating average score.');
                         break;
                     case 10:
                         alert('Database connection error.');

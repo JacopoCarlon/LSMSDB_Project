@@ -103,29 +103,6 @@ $(document).ready(function() {
 
 
 
-    // Button for view the complete list of animes liked
-    $("#liked_animes_btn").click(function(){
-        $.ajax({
-            url: "/api/userLikedAnimes",
-            data: {username: user},
-            dataType: 'json',
-            method: "GET",
-            success: function(result_a) {
-                if(result_a.length === 0){
-                    const container = $("#liked_animes_container");
-                    container.empty();
-                    container.append("<p>No anime liked.</p>");
-                }
-                displayLikedAnimes(result_a);
-            },
-            error: function() {
-                alert("Error on the AJAX request.");
-            }
-        });
-    });
-
-
-
 
 function displayFollowing(follower) {
     let increment = 0;
@@ -238,73 +215,4 @@ function displayFollower(follower) {
     })
 }
 
-
-
-
-function displayLikedAnimes(liked){
-    let increment = 0;
-    const container = $("#liked_animes_container");
-    container.empty();
-
-    // For each anime find with the ajax request, create his container with all his information and append it in the main container
-    // for the liked animes
-    liked.forEach(function (anime_tmp){
-        let animeDiv = $("<div class=\"d-flex anime_liked gap-1 p-1 align-items-center mb-1\"></div>");
-        animeDiv.append($("<img class=\"anime-cover shadow\" style=\"max-width: 100px;\">").attr("src", anime_tmp.coverURL));
-        let animeInf = $("<div class=\"d-flex flex-column anime_inf\"></div>");
-        animeDiv.append(animeInf);
-        animeInf.append($("<h3 style=\"margin-bottom:0; font-weight: bold\"></h3>").text(anime_tmp.animeName));
-        animeInf.append($("<p style=\"font-size: large; margin-top:0; margin-bottom: 0;\"></p>").text(anime_tmp.artistName));
-
-        // If we are in our profile page, for each anime we like we have the button to dislike it
-        if(window.location.href.includes("profilePage")){
-            animeDiv.append("<button id=\"dislike_A_btn_" + increment + "\" class=\"btn btn-danger ms-auto\">Dislike</button>");
-        }
-        $(animeInf).click(function (){
-            // Before go to the page with the details of the selected anime, we have to encode the special characters
-            let send_string_artist;
-            if(anime_tmp.artistName.includes(",")){
-                let artist_parts = anime_tmp.artistName.split(",");
-                let substring = artist_parts[0];
-                send_string_artist = encodeURIComponent(substring)
-            } else {
-                send_string_artist = encodeURIComponent(anime_tmp.artistName);
-            }
-            window.location.href = "/animeDetails?title=" + encodeURIComponent(anime_tmp.animeName) + "&artist=" + send_string_artist;
-        })
-        container.append(animeDiv);
-        let id="dislike_A_btn_" + increment;
-        $("#" + id).click(function () {
-            // AJAX call to dislike an anime, for each anime liked
-            let username = $("#username").text();
-            let animeTitle = anime_tmp.animeName
-            let artistsAsString = anime_tmp.artistName;
-
-            $.ajax({
-                url: '/api/animeDetails/removeLikesAnime',
-                dataType: 'json',
-                type: 'POST',
-                data: {
-                    username: username,
-                    animeTitle: animeTitle,
-                    artists: artistsAsString
-                },
-                success: function (response) {
-                    console.log(response);
-                    if(response.outcome_code === 0){
-                        alert("Anime disliked");
-                    }
-                    else if(response.outcome_code === 1)
-                        alert("Dislike addition unsuccessful");
-                    else
-                        alert("Error occurred while removing like to anime");
-                },
-                error: function (xhr, status, error) {
-                    console.log("Error: " + error);
-                }
-            });
-        });
-        increment++;
-    })
-}
 */
