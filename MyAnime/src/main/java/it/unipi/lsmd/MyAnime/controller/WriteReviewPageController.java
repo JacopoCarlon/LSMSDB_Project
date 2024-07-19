@@ -1,12 +1,10 @@
 package it.unipi.lsmd.MyAnime.controller;
 
 import it.unipi.lsmd.MyAnime.model.Anime;
-import it.unipi.lsmd.MyAnime.model.User;
 import it.unipi.lsmd.MyAnime.repository.AnimeRepoMongoDB;
 import it.unipi.lsmd.MyAnime.repository.UserRepoMongoDB;
 import it.unipi.lsmd.MyAnime.utilities.Utility;
 import jakarta.servlet.http.HttpSession;
-import jdk.jshell.execution.Util;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,9 +50,6 @@ public class WriteReviewPageController {
             return "error/animeNotFound";
         }
 
-        // anime found
-        //  User user = userRepoMongoDB.getUserByUsername(username);
-        //  model.addAttribute("userDetails", user);
         model.addAttribute("username", Utility.getUsername(session));
         model.addAttribute("animeDetails", animeDetails);
         model.addAttribute("logged", Utility.isLogged(session));

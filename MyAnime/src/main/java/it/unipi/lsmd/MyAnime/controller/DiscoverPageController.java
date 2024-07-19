@@ -1,7 +1,6 @@
 package it.unipi.lsmd.MyAnime.controller;
 
 import it.unipi.lsmd.MyAnime.model.AnimeNode;
-//  import it.unipi.lsmd.MyAnime.model.UserNode;
 import it.unipi.lsmd.MyAnime.model.UserNode;
 import it.unipi.lsmd.MyAnime.repository.AnimeRepoNeo4j;
 import it.unipi.lsmd.MyAnime.repository.UserRepoNeo4j;

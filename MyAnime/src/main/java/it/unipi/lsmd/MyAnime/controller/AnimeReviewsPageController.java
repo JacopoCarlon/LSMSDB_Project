@@ -1,8 +1,6 @@
 package it.unipi.lsmd.MyAnime.controller;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 import it.unipi.lsmd.MyAnime.model.Anime;
 import org.bson.types.ObjectId;

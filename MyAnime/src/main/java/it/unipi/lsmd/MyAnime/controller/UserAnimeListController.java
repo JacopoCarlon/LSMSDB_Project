@@ -1,27 +1,13 @@
 package it.unipi.lsmd.MyAnime.controller;
 
-import java.util.LinkedList;
 import java.util.List;
 
-import it.unipi.lsmd.MyAnime.model.AnimeNode;
 import it.unipi.lsmd.MyAnime.model.query.AnimeWatched;
 import it.unipi.lsmd.MyAnime.repository.*;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import it.unipi.lsmd.MyAnime.model.Review;
-import it.unipi.lsmd.MyAnime.model.User;
-import it.unipi.lsmd.MyAnime.model.Anime;
 
 import it.unipi.lsmd.MyAnime.utilities.Utility;
 import org.springframework.ui.Model;
@@ -76,7 +62,4 @@ public class UserAnimeListController {
 
         return "userAnimeListPage";
     }
-
-
-
 }
