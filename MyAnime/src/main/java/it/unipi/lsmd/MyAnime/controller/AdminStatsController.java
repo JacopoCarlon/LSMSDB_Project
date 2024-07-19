@@ -44,6 +44,9 @@ public class AdminStatsController {
             System.out.println(">> START: calculating admin stats");
 
             List<GenreScored> genreScored = animeRepoMongoDB.getGenreScored();
+            for(GenreScored genreScoredElem:genreScored){
+                genreScoredElem.roundAverageScore();
+            }
 
             List<UsersPerDate> usersPerDates = userRepoMongoDB.getUsersPerDates();
 

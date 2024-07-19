@@ -12,4 +12,8 @@ public class GenreScored {
     private Double avgScore;
     private Double maxScore;
     private Double minScore;
+
+    public void roundAverageScore() {
+        this.avgScore = Math.round(this.avgScore * 1000.0) / 1000.0;
+    }
 }
