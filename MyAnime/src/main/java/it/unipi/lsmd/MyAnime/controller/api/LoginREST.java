@@ -96,8 +96,6 @@ public class LoginREST {
 }
 
 
-
-
 //  Info for password salting and hashing (above),
 //      from 000_data-polishers/users_converter.ipynb
 

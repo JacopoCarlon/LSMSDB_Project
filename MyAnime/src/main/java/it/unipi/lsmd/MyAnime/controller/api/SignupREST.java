@@ -10,21 +10,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import java.time.Instant;
 
-/* 
-Handle sinup using informations required at the signupPage:
--   name
--   surname
--   username
--   password (pwd double insert consistency is managed in signupPage.js)
--   birthday
--   email
-
-
-
-*/
-
-
-
 @RestController
 public class SignupREST {
 

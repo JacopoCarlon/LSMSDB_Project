@@ -18,7 +18,6 @@ import jakarta.servlet.http.HttpSession;
 import java.time.Instant;
 
 import it.unipi.lsmd.MyAnime.model.Anime;
-import it.unipi.lsmd.MyAnime.model.Review;
 
 @RestController
 public class WriteReviewREST {

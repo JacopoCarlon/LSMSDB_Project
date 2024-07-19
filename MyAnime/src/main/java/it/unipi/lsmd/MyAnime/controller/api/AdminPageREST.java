@@ -19,27 +19,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-// !!!!!!!!!! see what is required by adminPage.js in resources static js .
-
 @RestController
 public class AdminPageREST {
 
     @Autowired
-    private UserRepoMongoDB userRepoMongoDB;
-    @Autowired
     private AnimeRepoMongoDB animeRepoMongoDB;
     @Autowired
-    private ReviewRepoMongoDB reviewRepoMongoDB;
-    @Autowired
     private AnimeRepoNeo4j animeRepoNeo4j;
-    @Autowired
-    private UserRepoNeo4j userRepoNeo4j;
 
 
     @PostMapping("/api/admin/calculateRankings")
     public @ResponseBody String calculateRankings(HttpSession session){
-        // chiamata una volta a settimana
-
         if(!Utility.isAdmin(session)) {
             return "{\"outcome_code\": 1}"; // User is not an admin
         }

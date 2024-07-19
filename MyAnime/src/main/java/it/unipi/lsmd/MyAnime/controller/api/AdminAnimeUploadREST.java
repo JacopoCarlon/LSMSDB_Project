@@ -2,22 +2,15 @@ package it.unipi.lsmd.MyAnime.controller.api;
 
 import it.unipi.lsmd.MyAnime.repository.AnimeRepoMongoDB;
 import it.unipi.lsmd.MyAnime.repository.AnimeRepoNeo4j;
-import it.unipi.lsmd.MyAnime.repository.UserRepoMongoDB;
-import it.unipi.lsmd.MyAnime.repository.UserRepoNeo4j;
 import it.unipi.lsmd.MyAnime.utilities.Utility;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.validator.routines.UrlValidator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import java.time.Instant;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 
@@ -37,23 +30,23 @@ public class AdminAnimeUploadREST {
     @Transactional("transactionManager")
     public @ResponseBody String adminAnimeUpload( HttpSession session,
             @RequestParam("title_val")              String title_val,
-            @RequestParam(required = false)      String titleJapanese_val,
+            @RequestParam(required = false)         String titleJapanese_val,
             @RequestParam("source_val")             String source_val,
-            @RequestParam(required = false)           Integer episodes_val,
-            @RequestParam(required = false)      Boolean slider_airing_val,
-            @RequestParam(required = false)   String aired_input_from_val,
-            @RequestParam(required = false)     String aired_input_to_val,
+            @RequestParam(required = false)         Integer episodes_val,
+            @RequestParam(required = false)         Boolean slider_airing_val,
+            @RequestParam(required = false)         String aired_input_from_val,
+            @RequestParam(required = false)         String aired_input_to_val,
             @RequestParam(required = false)         String background_val,
-            @RequestParam(required = false)          String broadcast_val,
-            @RequestParam(required = false)           String producer_val,
-            @RequestParam(required = false)           String licensor_val,
-            @RequestParam(required = false)             String studio_val,
-            @RequestParam(required = false)    Integer EpisodeDuration_val,
+            @RequestParam(required = false)         String broadcast_val,
+            @RequestParam(required = false)         String producer_val,
+            @RequestParam(required = false)         String licensor_val,
+            @RequestParam(required = false)         String studio_val,
+            @RequestParam(required = false)         Integer EpisodeDuration_val,
             @RequestParam("imgURL_val")             String imgURL_val,
-            @RequestParam(required = false)              String type_val,
-            @RequestParam(required = false)            String rating_val,
-            @RequestParam(required = false)             List<String> genre_list,
-            @RequestParam(required = false)             List<String> relations_list
+            @RequestParam(required = false)         String type_val,
+            @RequestParam(required = false)         String rating_val,
+            @RequestParam(required = false)         List<String> genre_list,
+            @RequestParam(required = false)         List<String> relations_list
     ){
 
         if(title_val==null || title_val.isEmpty()){
