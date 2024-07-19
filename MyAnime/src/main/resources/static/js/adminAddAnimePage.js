@@ -1,6 +1,3 @@
-// used for loginPage
-//  TODO : unrelativize paths
-//  needs : controllers/api/...rest.java che abbia @PostMapping("/api/login") e mi ritorni outcome_code : 0
 $(document).ready(function () {
 
     $("#anime_upload_btn").click(function (e) {
@@ -147,4 +144,7 @@ $(document).ready(function () {
         return;
     }
 });
+
+
+
 
