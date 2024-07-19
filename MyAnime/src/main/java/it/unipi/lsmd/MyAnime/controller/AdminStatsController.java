@@ -31,6 +31,9 @@ public class AdminStatsController {
         System.out.println("AdminPageController, is logged : " + Utility.isLogged(session));
         System.out.println("AdminPageController, is admin : " + Utility.isAdmin(session));
 
+        model.addAttribute("logged", Utility.isLogged(session));
+        model.addAttribute("is_admin", Utility.isAdmin(session));
+
         if(!Utility.isLogged(session)){
             return "error/mustBeLogged";
         }
@@ -38,9 +41,6 @@ public class AdminStatsController {
             return "error/accessDenied";
 
         try {
-            model.addAttribute("logged", Utility.isLogged(session));
-            model.addAttribute("is_admin", Utility.isAdmin(session));
-
             System.out.println(">> START: calculating admin stats");
 
             List<GenreScored> genreScored = animeRepoMongoDB.getGenreScored();

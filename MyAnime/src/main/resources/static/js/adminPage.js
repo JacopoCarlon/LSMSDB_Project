@@ -1,9 +1,11 @@
 $(document).ready(function (){
+    /*
     $("#calculateStatsButton").click(function () {
-        e.preventDefault();
+        //  e.preventDefault();
+        alert("linking to adminStats")
         window.location.href = '/adminStats';
     });
-
+    */
 
     // update files for mostPopularPage
     $("#calculateRankingsButton").click(function () {
