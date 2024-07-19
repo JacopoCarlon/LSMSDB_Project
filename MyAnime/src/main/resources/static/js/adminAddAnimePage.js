@@ -85,7 +85,7 @@ $(document).ready(function () {
         }
 
         //  let lis = document.getElementById("addedRelationsList").getElementsByTagName("li")
-        alert("begin extracting relations")
+        // alert("begin extracting relations")
         const addRelList = Array.from(document.querySelectorAll('ul#addedRelationsList li div'));
         let parity = 0;
         let relations = [];
@@ -120,7 +120,7 @@ $(document).ready(function () {
             relations_list          : relations
         };
 
-        alert("about to ajax request to upload anime")
+        // alert("about to ajax request to upload anime")
         $.ajax({
             url: '/api/adminAnimeUpload',
             data: formData,

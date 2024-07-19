@@ -9,11 +9,11 @@ $(document).ready(function () {
         //  const username = /*[[${username}]]*/ null;  // Username of the logged user insert by HttpSession
         const isAdmin = /*[[${is_admin}]]*/ false;   // Value insert by HttpSession to understand if the logged user is admin
 
-        alert($('#this_username').text())
+        //alert($('#this_username').text())
 
         let username = $('#this_username').text()
         let magictitle = $("#anime_title").text();
-        alert("magictitle : " + magictitle);
+        //alert("magictitle : " + magictitle);
 
         // Check if all fields have been filled in
         if (!score || !text) {
@@ -41,7 +41,7 @@ $(document).ready(function () {
             username: username
         };
 
-        alert("before ajax in writerev")
+        //alert("before ajax in writerev")
         // Send the request to the server
         $.ajax({
             url: '/api/writeReview',
@@ -66,7 +66,7 @@ $(document).ready(function () {
 });
 
 function handleOutcome(outcomeCode, animeTitle) {
-    alert("enter handleoutcome")
+    //alert("enter handleoutcome")
     switch(outcomeCode) {
         case 0:
             alert('Review written successfully');

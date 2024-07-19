@@ -43,8 +43,8 @@ public class AdminAnimeUploadREST {
             @RequestParam(required = false)         String studio_val,
             @RequestParam(required = false)         Integer EpisodeDuration_val,
             @RequestParam("imgURL_val")             String imgURL_val,
-            @RequestParam(required = false)         String type_val,
-            @RequestParam(required = false)         String rating_val,
+            @RequestParam(required = false)         List<String> type_list,
+            @RequestParam(required = false)         List<String> rating_list,
             @RequestParam(required = false)         List<String> genre_list,
             @RequestParam(required = false)         List<String> relations_list
     ){
@@ -61,6 +61,8 @@ public class AdminAnimeUploadREST {
         if(genre_list==null || genre_list.isEmpty()){
             return "{\"outcome_code\": 1}";
         }
+        String type_val = (type_list!=null && !type_list.isEmpty()) ? type_list.get(0) : null;
+        String rating_val = (rating_list!=null && !rating_list.isEmpty()) ? rating_list.get(0) : null;
         try {
             if(!Utility.isLogged(session) || !Utility.isAdmin(session)){
                 return "{\"outcome_code\": 2}";     // User not logged in nor admin
