@@ -1,6 +1,4 @@
 // used for signupPage
-//  TODO : unrelativize paths
-//  needs : controllers/api/...rest.java che abbia @PostMapping("/api/signup") e mi ritorni outcome_code : 0
 $(document).ready(function () {
     $('#signup_btn').click(function (e) {
         e.preventDefault();

@@ -82,8 +82,6 @@ public class SignupREST {
     }
 
 
-
-    //  TODO : make this function less stupid wow, it is almost not needed (called only once)
     private String buildOutcomeResponse(int outcomeCode) {
         // Failed insert in MongoDB cases : 
         switch (outcomeCode) {

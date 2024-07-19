@@ -336,12 +336,6 @@ public class AnimeRepoMongoDB {
     }
 
     public List<AnimeOnlyAvgScore> getAverageScoreFromReviews() {
-        // Una limitazione importante è che MongoDB non supporta l'aggiornamento di documenti direttamente
-        // all'interno di una pipeline di aggregazione. Pertanto, quello che posso fare è calcolare le medie e
-        // trovare gli ID necessari in un'unica query, ma poi dovrò eseguire un'operazione di aggiornamento separata.
-        // Nello specifico, aggiornerò i documenti degli anime con le medie dei voti calcolate in questa query con
-        // il metodo setAverageScoreForRecentReviews().
-
         try {
             Aggregation averageScoreAggregation = Aggregation.newAggregation(
                     Aggregation.group("anime_id").avg("score").as("avgScore").count().as("scoredBy"),

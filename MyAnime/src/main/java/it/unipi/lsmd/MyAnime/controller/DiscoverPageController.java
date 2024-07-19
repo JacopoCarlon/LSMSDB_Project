@@ -16,7 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
-// TODO : fix suggestedAnimes_ByTaste and make it work
 
 @Controller
 public class DiscoverPageController {

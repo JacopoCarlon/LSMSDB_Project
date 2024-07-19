@@ -79,12 +79,6 @@ public class AnimeReviewsPageController {
             }
             model.addAttribute("reviews", reviews);
         }
-        //  else {
-        //      System.out.println("no review(?)");
-        //      return "error/genericError";
-        //      // TODO: return "error/noReviewsFound";
-        //  }
-
 
         model.addAttribute("logged", Utility.isLogged(session));
         model.addAttribute("is_admin", Utility.isAdmin(session));

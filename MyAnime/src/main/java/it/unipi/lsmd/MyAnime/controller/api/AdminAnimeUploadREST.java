@@ -107,15 +107,12 @@ public class AdminAnimeUploadREST {
                 return "{\"outcome_code\": 4}";     // Error while adding relations to Neo4j
             }
 
-            // TODO if all good :
             return "{\"outcome_code\": 0}";
 
         } catch (DataAccessResourceFailureException e) {
             e.printStackTrace();
             return "{\"outcome_code\": 2}";         // Error while connecting to the database
         }
-        // TODO : all the anime upload stuff
-
     }
 }
 

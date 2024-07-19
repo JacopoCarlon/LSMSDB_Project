@@ -49,8 +49,7 @@ public class WriteReviewPageController {
         }
         else {
             // anime not found
-            return "error/genericError";
-            // TODO: return "error/animeNotFound";
+            return "error/animeNotFound";
         }
 
         // anime found

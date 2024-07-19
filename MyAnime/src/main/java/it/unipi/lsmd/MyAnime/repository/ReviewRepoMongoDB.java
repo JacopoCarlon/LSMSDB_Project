@@ -88,7 +88,6 @@ public class ReviewRepoMongoDB {
         }
     }
 
-    //  TODO : make sure this works
     public List<Review> getReviewsByUsername( String username) {
         try {
             PageRequest pageable = PageRequest.of(0, 500);

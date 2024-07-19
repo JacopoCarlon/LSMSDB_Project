@@ -35,10 +35,6 @@ public class AdminPageREST {
     @Autowired
     private UserRepoNeo4j userRepoNeo4j;
 
-    // TODO :
-    // need to connect and calculate admin data for updates and rankings !!!
-
-
 
     @PostMapping("/api/admin/calculateRankings")
     public @ResponseBody String calculateRankings(HttpSession session){

@@ -1,15 +1,5 @@
-
-//  TODO : fix this buttons please, need to interact proprly con DB for details review and animeID
-//  TODO : do API corresponding
 $(document).ready(function () {
-
     //  alert("loading anime page")
-
-    // TODO : it would be much better to get id or title from here instead of from url ...
-    //  if done, please also change the href... in this page
-
-    //  //  TODO : like any one of these would be saner, but none work, they just return "... : [object Object]"
-
 
     let forceAnimeTitle = new URLSearchParams(window.location.search).get("title");
     //  alert("found forceAnimeTitle : " + forceAnimeTitle);

@@ -1,6 +1,4 @@
-//  used in all headers for logout-button 
-//  TODO : unrelativize paths
-//  needs : controllers/api/...rest.java che abbia @PostMapping("/api/logout") e mi ritorni outcome_code : 0
+//  used in all headers for logout-button
 
 $(document).ready(function () {
     $('#logout_btn').click(function (e) {

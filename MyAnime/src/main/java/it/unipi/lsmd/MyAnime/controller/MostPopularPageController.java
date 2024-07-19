@@ -23,7 +23,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Controller
 public class MostPopularPageController {
 
-    //  TODO : verify consistency with structure in constants + model + repo + controller
     @RequestMapping(value={"/mostPopular.html","/mostPopularPage.html","/mostPopular","/mostPopularPage"})
     public String mostPopularPage(HttpSession session,
                                   Model model) {

@@ -26,15 +26,6 @@ public class AdminPageController {
         try {
             model.addAttribute("logged", Utility.isLogged(session));
             model.addAttribute("is_admin", Utility.isAdmin(session));
-            //  TODO : 
-            //   need access to admin data, like :
-            //  AdminData adminData = Utility.readAdminData();
-            //  if(adminData != null){
-            //      model.addAttribute("adminDataFound", true);
-            //      model.addAttribute("dailyReviews", adminData.getDailyReviews());
-            //  }
-            //  else
-            //      model.addAttribute("adminDataFound", false);
 
             return "adminPage";
 
