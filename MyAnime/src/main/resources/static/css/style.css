@@ -651,7 +651,7 @@ li {
 
 .main {
     min-height: 100%;
-    background: linear-gradient(45deg, #fad0c4cc 0%, #ffd1ff 100%), url("../img/bg.jpg") center center no-repeat;
+    background: linear-gradient(45deg, #282828d1 0%, #282828d1 100%), url("../img/bg.jpg") center center no-repeat;
     background-size: cover;
 }
 
@@ -1487,9 +1487,37 @@ input:checked + .slider:before {
 
 
 
+#genre_blocchetto , #users_blocchetto , #review_blocchetto{
+    width: 33%;
+}
 
 
+.adStatGenreCell , .adStatUsrYMCell , .adStatRevYMCell{
+    min_width:180px;
+    text-align: center;
+    /*
+    background: #add8e6cc;
+    border: 1px solid;
+    border-radius: 5px;
+    margin : 10px;
+    padding: 5px;
+    */
+}
+
+.genre_name{
+    width: 30%;
+}
+
+.genre_numbers{
+    width: 20%;
+}
 
 
+.usr_year , .usr_month , .rev_year , .rev_month {
+    width: 20%;
+}
 
+.usr_usrs , .rev_revs {
+    width: 60%;
+}
 

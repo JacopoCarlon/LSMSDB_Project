@@ -1,35 +1,7 @@
 $(document).ready(function (){
     $("#calculateStatsButton").click(function () {
-        alert("Start calculating statistics...");
-        $.ajax({
-            url: '/api/admin/calculateAdminStats',
-            method: 'POST',
-            dataType: 'json',
-            success: function (data) {
-                switch (data.outcome_code) {
-                    case 0:
-                        $("#dailyLikesOnAnimes").text("Daily Likes on Animes: " + data.admin_stats.dailyLikesOnAnimes);
-                        $("#dailyReviews").text("Daily Reviews: " + data.admin_stats.dailyReviews);
-                        alert('Admin stats updated successfully!');
-                        break;
-                    case 1:
-                        alert('User not found or unauthorized.');
-                        break;
-                    case 10:
-                        alert('Database connection error.');
-                        break;
-                    case 11:
-                        alert('Error while writing to file.');
-                        break;
-                    default:
-                        alert('Unknown error occurred.');
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error('Error:', error);
-                alert('An error occurred during the request.');
-            }
-        });
+        e.preventDefault();
+        window.location.href = '/adminStats';
     });
 
 
