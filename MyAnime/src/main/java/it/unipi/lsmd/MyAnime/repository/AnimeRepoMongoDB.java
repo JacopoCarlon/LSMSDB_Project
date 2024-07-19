@@ -267,7 +267,7 @@ public class AnimeRepoMongoDB {
         MongoClient mongoClient = MongoClients.create(mongoConnection);
         MongoDatabase database = mongoClient.getDatabase("MyAnimeLibrary");
         MongoCollection<Document> collection = database.getCollection("animes");
-        int minReviews = 100;
+        int minReviews = 10;
 
         Bson match = match(gte("scored_by", minReviews));
         Bson project = project(fields(
@@ -477,6 +477,7 @@ public class AnimeRepoMongoDB {
     public List<GenreScored> getGenreScored() {
         try {
             Aggregation genreScoreAggregation = Aggregation.newAggregation(
+                    Aggregation.match(Criteria.where("score").exists(true)),
                     Aggregation.project("genre").andInclude("score"),
                     Aggregation.unwind("genre"),
                     Aggregation.group("genre")

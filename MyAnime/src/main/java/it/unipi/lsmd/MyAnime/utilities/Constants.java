@@ -20,8 +20,8 @@ public final class Constants {
     public static final String fileName_RankingAnimeByLikes_LastWeek = "rankingAnimeByLikes_LastWeek.json";
 
     // String for MongoDB connection
-    public static final String mongoDBConnectionUri = "mongodb://localhost:27017";
-    //public static final String mongoDBConnectionUri = "mongodb://localhost:27018,localhost:27019,localhost:27020/?replicaSet=rs0&w=1&readPreference=nearest&retryWrites=true";
+    //public static final String mongoDBConnectionUri = "mongodb://localhost:27017";
+    public static final String mongoDBConnectionUri = "mongodb://localhost:27027,localhost:27028,localhost:27029/?replicaSet=MAL&w=1&readPreference=nearest&retryWrites=true";
 
     // Evita la creazione di istanze di questa classe
     private Constants() {
