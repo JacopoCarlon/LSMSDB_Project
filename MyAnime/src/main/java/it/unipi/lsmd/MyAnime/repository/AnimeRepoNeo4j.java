@@ -20,6 +20,17 @@ public class AnimeRepoNeo4j {
     @Autowired
     private Neo4jClient neo4jClient;
 
+    public boolean existsByTitle(String animeTitle) {
+        try {
+            return animeNeo4jInterface.existsByTitle(animeTitle);
+        } catch (DataAccessException dae) {
+            if (dae instanceof DataAccessResourceFailureException)
+                throw dae;
+            dae.printStackTrace();
+            return false;
+        }
+    }
+
     public ArrayList<AnimeWithWatchers> findAnimeWithWatchers() {
         String cypherQuery = "MATCH (a:Anime)<-[r:WATCHES]-(:User) " +
                 "WHERE r.status <> 4 AND r.status <> 6 " +
@@ -125,9 +136,7 @@ public class AnimeRepoNeo4j {
                 if (relatedAnime.equals(titleVal)) {
                     return false; // Non è possibile creare una relazione con se stesso
                 }
-                if (animeNeo4jInterface.getAnimeByExactTitle(relatedAnime)==null){
-                    return false;
-                }
+
                 String relationType = relationsList.get(i + 1);
                 String relationInverse = relationsList.get(i + 2);
                 String result = animeNeo4jInterface.addRelated(titleVal, relatedAnime, relationType, relationInverse);

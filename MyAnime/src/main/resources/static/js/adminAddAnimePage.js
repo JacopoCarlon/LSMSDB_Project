@@ -73,8 +73,8 @@ $(document).ready(function () {
             return;
         }
 
-        if(!title_val || !source_val  ){
-            alert("title, source, airing and imgURL are obligatory fields !!!");
+        if(!title_val || !source_val || !imgURL_val ){
+            alert("title, source and imgURL are obligatory fields !!!");
             return;
         }
 
@@ -130,10 +130,31 @@ $(document).ready(function () {
             success: function(response) {
                 switch(response.outcome_code) {
                     case 0:
-                        alert("anime successfully uploaded !");
+                        alert("Anime successfully uploaded !");
+                        break;
+                    case 1:
+                        alert("Missing information");
+                        break;
+                    case 2:
+                        alert("Not logged as Admin");
+                        break;
+                    case 3:
+                        alert("Image URL not valid");
+                        break;
+                    case 4:
+                        alert("Related Anime does not exists");
+                        break;
+                    case 5:
+                        alert("MongoDB failure");
+                        break;
+                    case 6:
+                        alert("Neo4j Failure");
+                        break;
+                    case 7:
+                        alert("Error connecting to database");
                         break;
                     default:
-                        alert("upload failed sadge");
+                        alert("Unexpected error");
                 }
             },
             error: function (xhr, status, error) {

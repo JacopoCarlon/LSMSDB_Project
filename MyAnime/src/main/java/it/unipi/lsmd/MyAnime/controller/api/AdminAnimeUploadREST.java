@@ -55,38 +55,22 @@ public class AdminAnimeUploadREST {
             @RequestParam(required = false)             List<String> genre_list,
             @RequestParam(required = false)             List<String> relations_list
     ){
-        // only required are : title_val source_val  imgURL_val
-        System.out.println("DBG -> inizio di animeAdd con parametri : ");
-        System.out.println(title_val);
-        System.out.println(titleJapanese_val);
-        System.out.println(source_val);
-        System.out.println(imgURL_val);
-        System.out.println(type_val);
-        System.out.println(rating_val);
-        System.out.println(genre_list);
-        System.out.println(episodes_val);
-        System.out.println(slider_airing_val);
-        System.out.println(aired_input_from_val);
-        System.out.println(aired_input_to_val);
-        System.out.println(background_val);
-        System.out.println(broadcast_val);
-        System.out.println(producer_val);
-        System.out.println(licensor_val);
-        System.out.println(studio_val);
-        System.out.println(EpisodeDuration_val);
 
         if(title_val==null || title_val.isEmpty()){
-            return "{\"outcome_code\": 3}";
+            return "{\"outcome_code\": 1}";
         }
         if(imgURL_val==null || imgURL_val.isEmpty()){
-            return "{\"outcome_code\": 3}";
+            return "{\"outcome_code\": 1}";
         }
         if(source_val==null || source_val.isEmpty()){
-            return "{\"outcome_code\": 3}";
+            return "{\"outcome_code\": 1}";
+        }
+        if(genre_list==null || genre_list.isEmpty()){
+            return "{\"outcome_code\": 1}";
         }
         try {
             if(!Utility.isLogged(session) || !Utility.isAdmin(session)){
-                return "{\"outcome_code\": 1}";     // User not logged in nor admin
+                return "{\"outcome_code\": 2}";     // User not logged in nor admin
             }
 
             String[] schemes = {"http","https"};
@@ -95,23 +79,30 @@ public class AdminAnimeUploadREST {
                 return "{\"outcome_code\": 3}";
             }
 
+            if (relations_list != null) {
+                for (int i = 0; i < relations_list.size(); i += 3) {
+                    if (!animeRepoNeo4j.existsByTitle(relations_list.get(i)) || title_val.equals(relations_list.get(i))) {
+                        return "{\"outcome_code\": 4}";    // Invalid relation title
+                    }
+                }
+            }
             if(!animeRepoMongoDB.insertAnime(title_val,titleJapanese_val,source_val,episodes_val,slider_airing_val,aired_input_from_val,aired_input_to_val,background_val,broadcast_val,producer_val,licensor_val, studio_val, EpisodeDuration_val, imgURL_val, type_val, rating_val, genre_list)){
-                return "{\"outcome_code\": 4}";     // Anime not added to mongodb
+                return "{\"outcome_code\": 5}";     // Anime not added to mongodb
             }
 
             if(!animeRepoNeo4j.insertAnime(title_val,imgURL_val)){
-                return "{\"outcome_code\": 4}";     // Anime not added to Neo4j
+                return "{\"outcome_code\": 6}";     // Anime not added to Neo4j
             }
 
             if(relations_list!=null && !animeRepoNeo4j.insertAnimeRelations(title_val, relations_list)){
-                return "{\"outcome_code\": 4}";     // Error while adding relations to Neo4j
+                return "{\"outcome_code\": 6}";     // Error while adding relations to Neo4j
             }
 
             return "{\"outcome_code\": 0}";
 
         } catch (DataAccessResourceFailureException e) {
             e.printStackTrace();
-            return "{\"outcome_code\": 2}";         // Error while connecting to the database
+            return "{\"outcome_code\": 7}";         // Error while connecting to the database
         }
     }
 }
